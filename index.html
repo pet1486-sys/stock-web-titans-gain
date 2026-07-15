@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📦 ระบบสินค้าคงเหลือ Real-time</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Grid.js -->
+    <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
+    <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
+    <!-- SheetJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <style>
+        body { font-family: 'Sarabun', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen text-gray-800">
+
+    <!-- Header / Navigation -->
+    <nav class="bg-blue-600 text-white shadow-md py-4 px-6 mb-6">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold flex items-center gap-2">
+                📦 ระบบสินค้าคงเหลือ Real-time (อัปเดตรายชั่วโมง)
+            </h1>
+            <span id="update-status" class="text-xs bg-blue-700 px-3 py-1 rounded-full">กำลังโหลดข้อมูล...</span>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- ส่วนอัปโหลดสำรอง (แสดงเมื่อไม่พบไฟล์อัตโนมัติในโฟลเดอร์ stock_data) -->
+        <div id="upload-backup-card" class="bg-white p-4 rounded-xl shadow-xs border border-gray-100 mb-6 hidden">
+            <p class="text-xs text-orange-600 font-medium mb-2">💡 ไม่พบไฟล์อัตโนมัติในโฟลเดอร์ stock_data/ หรือเปิดแบบไม่ได้รันผ่านเซิร์ฟเวอร์จำลอง คุณสามารถทดสอบโดยกดเลือกไฟล์ที่นี่:</p>
+            <input type="file" id="excel-file" accept=".xlsx, .xls" class="text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
+        </div>
+
+        <!-- แผงเลือกหลายหมวดหมู่สินค้า (Multi-select Checkboxes) -->
+        <div id="category-filter-card" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 mb-6 hidden">
+            <h3 class="text-md font-bold text-gray-900 mb-2">📁 เลือกหมวดหมู่ที่ต้องการนำเข้าแสดงผล</h3>
+            <p class="text-xs text-gray-400 mb-4">สามารถเลือกได้หลายหมวดหมู่พร้อมกัน ระบบจะจำค่าที่คุณติ๊กไว้ให้อัตโนมัติเมื่อรีเฟรชหน้าเว็บ</p>
+            
+            <!-- โซนกล่องติ๊กเลือกหมวดหมู่ -->
+            <div id="checkbox-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 max-h-48 overflow-y-auto p-2 bg-gray-50 rounded-lg border border-gray-200">
+                <!-- เจนกล่องติ๊กถูกด้วย JavaScript -->
+            </div>
+
+            <div class="mt-4 flex justify-end gap-3">
+                <button id="select-all-btn" class="text-xs bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-1.5 px-3 rounded transition-colors">เลือกทั้งหมด</button>
+                <button id="clear-all-btn" class="text-xs bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-1.5 px-3 rounded transition-colors">ล้างทั้งหมด</button>
+                <button id="import-btn" class="bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg text-sm px-5 py-1.5 shadow-sm transition-colors">
+                    📥 นำเข้าข้อมูลคลังสินค้า
+                </button>
+            </div>
+        </div>
+
+        <!-- Dashboard Summary -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div class="bg-white p-6 rounded-xl shadow-xs border border-gray-100 flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-gray-500 font-medium">รายการสินค้าที่นำเข้า</p>
+                    <h3 id="total-items" class="text-2xl font-bold mt-1 text-gray-900">-</h3>
+                </div>
+                <div class="p-3 bg-blue-50 text-blue-600 rounded-lg text-xl">📋</div>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-xs border border-gray-100 flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-gray-500 font-medium">สินค้าที่หมด (0 หรือติดลบ)</p>
+                    <h3 id="out-of-stock" class="text-2xl font-bold mt-1 text-red-600">-</h3>
+                </div>
+                <div class="p-3 bg-red-50 text-red-600 rounded-lg text-xl">⚠️</div>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-xs border border-gray-100 flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-gray-500 font-medium">จำนวนหมวดหมู่ที่เลือก</p>
+                    <h3 id="displayed-category" class="text-2xl font-bold mt-1 text-green-600">-</h3>
+                </div>
+                <div class="p-3 bg-green-50 text-green-600 rounded-lg text-xl">📁</div>
+            </div>
+        </div>
+
+        <!-- Table Card -->
+        <div id="table-card" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hidden">
+            <div class="mb-4">
+                <h2 class="text-lg font-bold text-gray-900">ตารางแสดงสินค้าคงคลังเรียลไทม์</h2>
+                <p class="text-xs text-gray-400">ระบบอัปเดตข้อมูลอัตโนมัติจากไฟล์หลังบ้าน ค้นหาข้อมูลสินค้าได้ทันที</p>
+            </div>
+            <div id="table-wrapper"></div>
+        </div>
+    </main>
+
+    <script>
+        // 👈 กำหนดพาธไฟล์ไปที่โฟลเดอร์ย่อย stock_data ตามที่คุณต้องการเรียบร้อยครับ
+        const FILE_NAME = "stock_data/รายงานสินค้าคงเหลือตามSKU.xlsx"; 
+        let allCleanData = [];
+        let gridInstance = null;
+
+        // ฟังก์ชันอ่านไฟล์และประมวลผลข้อมูล Excel
+        function processExcelData(arrayBuffer) {
+            const workbook = XLSX.read(new Uint8Array(arrayBuffer), { type: 'array' });
+            const firstSheetName = workbook.SheetNames[0];
+            const worksheet = workbook.Sheets[firstSheetName];
+            const rawData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+            
+            let startIndex = -1;
+            for (let i = 0; i < rawData.length; i++) {
+                if (rawData[i] && rawData[i].some(cell => cell && cell.toString().toLowerCase().replace(/\s+/g, '') === 'plucode')) {
+                    startIndex = i + 1;
+                    break;
+                }
+            }
+            if (startIndex === -1) startIndex = 7; 
+
+            allCleanData = rawData.slice(startIndex)
+                .filter(row => row[1] && row[2])
+                .map(row => {
+                    let onHand = parseInt(row[7]) || 0;
+                    return [
+                        row[1] ? row[1].toString().trim() : "", 
+                        row[2] ? row[2].toString().trim() : "", 
+                        row[6] ? row[6].toString().trim() : "Uncategory", 
+                        row[3] ? row[3].toString().trim() : "0", 
+                        row[5] ? row[5].toString().trim() : "", 
+                        onHand
+                    ];
+                });
+
+            // สร้างกล่องเช็คบ็อกซ์หมวดหมู่สินค้า
+            renderCategoryCheckboxes();
+            
+            // หากเคยมีการกดเลือกและบันทึกตารางไว้ก่อนหน้า ให้โหลดวาดตารางต่อทันทีเมื่ออัปเดตไฟล์
+            if (localStorage.getItem('selected_categories')) {
+                renderTable();
+            }
+            
+            const now = new Date();
+            document.getElementById('update-status').innerText = `🔄 อัปเดตล่าสุด: ${now.toLocaleTimeString('th-TH')}`;
+            document.getElementById('update-status').className = "text-xs bg-green-700 px-3 py-1 rounded-full";
+        }
+
+        // ฟังก์ชันดึงไฟล์ Excel อัตโนมัติจากโฟลเดอร์ stock_data/
+        function loadExcelFromServer() {
+            fetch(FILE_NAME)
+                .then(response => {
+                    if (!response.ok) throw new Error('ไม่พบไฟล์บนเซิร์ฟเวอร์');
+                    return response.arrayBuffer();
+                })
+                .then(arrayBuffer => {
+                    document.getElementById('upload-backup-card').classList.add('hidden');
+                    processExcelData(arrayBuffer);
+                })
+                .catch(err => {
+                    console.log("ไม่พบไฟล์ในโฟลเดอร์ย่อยหรือไม่ได้รันผ่านเซิร์ฟเวอร์จำลอง ระบบเปิดปุ่มสำรองให้ใช้งาน");
+                    document.getElementById('upload-backup-card').classList.remove('hidden');
+                    document.getElementById('update-status').innerText = `⚠️ รอไฟล์ใน stock_data/`;
+                    document.getElementById('update-status').className = "text-xs bg-orange-700 px-3 py-1 rounded-full";
+                });
+        }
+
+        // สร้างกล่องเช็คบ็อกซ์เลือกหมวดหมู่ย่อย
+        function renderCategoryCheckboxes() {
+            const categories = [...new Set(allCleanData.map(item => item[2]))].filter(Boolean).sort();
+            const container = document.getElementById('checkbox-container');
+            container.innerHTML = "";
+
+            const savedCats = JSON.parse(localStorage.getItem('selected_categories')) || [];
+
+            categories.forEach(cat => {
+                const label = document.createElement('label');
+                label.className = "flex items-center gap-2 bg-white p-2 rounded border border-gray-200 cursor-pointer text-xs font-medium hover:bg-blue-50 transition-colors";
+                
+                const checkbox = document.createElement('input');
+                checkbox.type = "checkbox";
+                checkbox.value = cat;
+                checkbox.className = "rounded text-blue-600 focus:ring-blue-500 category-checkbox";
+                
+                // ติ๊กถูกให้อัตโนมัติในกรณีเพิ่งเปิดครั้งแรก หรือเป็นค่าเดิมที่ผู้ใช้เคยเลือกไว้
+                if (savedCats.length === 0 || savedCats.includes(cat)) {
+                    checkbox.checked = true;
+                }
+
+                label.appendChild(checkbox);
+                label.appendChild(document.createTextNode(` ${cat}`));
+                container.appendChild(label);
+            });
+
+            document.getElementById('category-filter-card').classList.remove('hidden');
+        }
+
+        // กรองข้อมูลและแสดงลงในตารางหลัก
+        function renderTable() {
+            if (allCleanData.length === 0) return;
+
+            const checkedBoxes = document.querySelectorAll('.category-checkbox:checked');
+            const selectedCats = Array.from(checkedBoxes).map(cb => cb.value);
+
+            // บันทึกสถานะการเลือกหมวดหมู่เก็บไว้ในเครื่องของผู้ใช้
+            localStorage.setItem('selected_categories', JSON.stringify(selectedCats));
+
+            // กรองข้อมูลเฉพาะหมวดหมู่ที่เลือก
+            const filteredData = allCleanData.filter(item => selectedCats.includes(item[2]));
+
+            // อัปเดตข้อมูลแดชบอร์ด
+            document.getElementById('total-items').innerText = filteredData.length + " รายการ";
+            document.getElementById('out-of-stock').innerText = filteredData.filter(row => row[5] <= 0).length + " รายการ";
+            document.getElementById('displayed-category').innerText = selectedCats.length + " หมวดหมู่";
+
+            document.getElementById('table-card').classList.remove('hidden');
+
+            const wrapper = document.getElementById("table-wrapper");
+            wrapper.innerHTML = "";
+
+            // วาดตารางข้อมูลสินค้าคงคลัง
+            gridInstance = new gridjs.Grid({
+                columns: [
+                    { name: "รหัสสินค้า (PLU)", width: "160px" },
+                    { name: "ชื่อสินค้า", width: "280px" },
+                    { name: "หมวดหมู่", width: "140px" },
+                    { name: "ราคา", width: "120px", formatter: (cell) => `${cell} บาท` },
+                    { name: "หน่วย", width: "100px" },
+                    { 
+                        name: "คงเหลือ (On Hand)", 
+                        width: "160px",
+                        formatter: (cell) => {
+                            if (cell <= 0) {
+                                return gridjs.html(`<span class="inline-block text-red-600 font-bold bg-red-50 px-2 py-0.5 rounded">${cell} (สินค้าหมด)</span>`);
+                            } else if (cell < 10) {
+                                return gridjs.html(`<span class="inline-block text-orange-500 font-medium bg-orange-50 px-2 py-0.5 rounded">${cell} (ใกล้หมด)</span>`);
+                            }
+                            return gridjs.html(`<span class="inline-block text-green-600 font-medium bg-green-50 px-2 py-0.5 rounded">${cell}</span>`);
+                        }
+                    }
+                ],
+                data: filteredData,
+                search: true,
+                sort: true,
+                pagination: { limit: 10 },
+                language: {
+                    'search': { 'placeholder': '🔍 พิมพ์ค้นหาจากข้อมูลที่นำเข้า...' },
+                    'pagination': { 'previous': 'ก่อนหน้า', 'next': 'ถัดไป', 'showing': 'กำลังแสดง', 'results': () => 'รายการทั้งหมด' }
+                },
+                style: {
+                    table: { 'font-size': '14px' },
+                    th: { 'background-color': '#f3f4f6', 'color': '#1f2937', 'font-weight': '600' }
+                }
+            }).render(wrapper);
+        }
+
+        // อีเวนต์ต่างๆ ของระบบปุ่มกด
+        document.getElementById('import-btn').addEventListener('click', renderTable);
+
+        document.getElementById('select-all-btn').addEventListener('click', () => {
+            document.querySelectorAll('.category-checkbox').forEach(cb => cb.checked = true);
+        });
+        document.getElementById('clear-all-btn').addEventListener('click', () => {
+            document.querySelectorAll('.category-checkbox').forEach(cb => cb.checked = false);
+        });
+
+        // เปิดปุ่มรองรับการโยนไฟล์ด้วยมือแบบแมนนวลกรณีฉุกเฉิน
+        document.getElementById('excel-file').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) { processExcelData(e.target.result); };
+            reader.readAsArrayBuffer(file);
+        });
+
+        // เริ่มต้นการทำงาน: โหลดข้อมูลจากโฟลเดอร์ย่อยโดยอัตโนมัติเมื่อเปิดหน้าเว็บ
+        loadExcelFromServer();
+
+        // สั่งให้ดึงไฟล์ใหม่ทุกๆ 5 นาที (300,000 มิลลิวินาที) เพื่อให้ตารางเป็นแบบเรียลไทม์เสมอ
+        setInterval(loadExcelFromServer, 300000);
+    </script>
+</body>
+</html>
