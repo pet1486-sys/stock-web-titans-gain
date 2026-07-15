@@ -28,11 +28,7 @@ jobs:
     - name: Move File to Stock Data Folder
       run: |
         mkdir -p stock_data
-        
-        # แสดงรายชื่อไฟล์ในโฟลเดอร์ดาวน์โหลดเพื่อตรวจสอบ
         ls -la /home/runner/Downloads
-        
-        # ย้ายไฟล์ Excel ไปที่โฟลเดอร์ stock_data
         mv /home/runner/Downloads/*.xlsx stock_data/SKU.xlsx
 
     - name: Commit and Push to GitHub
@@ -41,3 +37,11 @@ jobs:
         git config --global user.email "actions@github.com"
         git add stock_data/SKU.xlsx
         git diff --quiet && git diff --staged --quiet || (git commit -m "Hourly Auto-update stock data: SKU.xlsx" && git push)
+
+    # 🛠️ เพิ่มใหม่: สั่งให้ส่งรูปภาพหน้าจอออกมาแสดงให้เราเปิดดู ไม่ว่าจะรันผ่านหรือล้มเหลวก็ตาม
+    - name: Upload Screenshots for Debugging
+      if: always() # สั่งให้รันขั้นตอนนี้เสมอแม้บอทจะเออเร่อ
+      uses: actions/upload-artifact@v4
+      with:
+        name: bot-screenshots
+        path: /home/runner/work_screenshots/
