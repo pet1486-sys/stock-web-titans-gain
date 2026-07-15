@@ -15,26 +15,22 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         body { font-family: 'Sarabun', sans-serif; }
-        /* สไตล์สำหรับซ่อน scrollbar ของเมนูข้าง */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body class="bg-slate-50 min-h-screen text-gray-800 flex overflow-x-hidden">
 
-    <!-- ─── SIDEBAR NAVIGATION (เพิ่มสถานะเปิด-ปิดได้ด้วยคลาสและควบคุมผ่าน JS) ─── -->
+    <!-- ─── SIDEBAR NAVIGATION ─── -->
     <aside id="sidebar" class="w-64 bg-[#0f172a] text-gray-300 flex flex-col fixed inset-y-0 left-0 z-50 shadow-xl border-r border-slate-800 transition-transform duration-300 ease-in-out transform md:translate-x-0 -translate-x-full">
-        <!-- เปลี่ยนโลโก้จาก StockPro เป็นไฟล์รูปภาพตามที่ต้องการใน image -->
         <div class="p-5 flex items-center justify-between border-b border-slate-800">
             <a href="#" class="flex items-center gap-3">
                 <div class="bg-slate-800 p-1.5 rounded-lg shadow-md flex items-center justify-center">
-                    <!-- 💡 เปลี่ยนชื่อไฟล์ your-logo-name.png เป็นชื่อโลโก้จริงของคุณในโฟลเดอร์ image -->
                     <img src="image/logo ti-Photoroom.png" alt="StockPro Logo" class="w-8 h-8 object-contain onerror-fallback" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                     <i data-lucide="boxes" class="w-6 h-6 text-blue-500 hidden"></i>
                 </div>
                 <span class="text-base font-bold text-white tracking-wide">StockPro</span>
             </a>
-            <!-- ปุ่มปิด Sidebar บนหน้าจอมือถือ -->
             <button onclick="toggleSidebar()" class="md:hidden text-slate-400 hover:text-white cursor-pointer">
                 <i data-lucide="x" class="w-5 h-5"></i>
             </button>
@@ -58,20 +54,18 @@
         </nav>
         
         <div class="p-4 text-xs text-slate-600 border-t border-slate-800 text-center">
-            v1.7.0 Dashboard Category Showcase
+            v1.8.0 Stock Control Engine
         </div>
     </aside>
 
-    <!-- ฉากหลังสีดำจางๆ เมื่อเปิด Sidebar บนหน้าจอมือถือ -->
     <div id="sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/50 z-40 hidden md:hidden transition-opacity duration-300 opacity-0"></div>
 
-    <!-- ─── MAIN CONTENT AREA (ปรับการทำ pl-64 ให้ยืดหยุ่นตามการสลับแถบเมนูข้าง) ─── -->
+    <!-- ─── MAIN CONTENT AREA ─── -->
     <div id="main-content" class="flex-1 md:pl-64 min-h-screen flex flex-col transition-all duration-300 w-full">
         
         <header class="bg-white border-b border-gray-200 py-4 px-6 sticky top-0 z-40 flex justify-between items-center shadow-xs">
             <div class="flex items-center gap-3">
-                <!-- เพิ่มปุ่มสำหรับคลิกเปิด-ปิด/หด แถบเมนูข้าง -->
-                <button onclick="toggleSidebar()" class="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors cursor-pointer focus:outline-none" title="เปิด/ปิด เมนูข้าง">
+                <button onclick="toggleSidebar()" class="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors cursor-pointer focus:outline-none">
                     <i data-lucide="menu" class="w-5 h-5"></i>
                 </button>
                 <h2 id="page-title" class="text-lg font-bold text-gray-800 flex items-center gap-2">📦 ระบบสินค้าคงเหลือ Real-time</h2>
@@ -89,52 +83,72 @@
             <!-- ================= หน้าที่ 1: สินค้าคงคลังทั้งหมด ================= -->
             <div id="stock-page" class="page-content block">
                 
-                <!-- 🌟 [โซนใหม่] แสดงหมวดหมู่สินค้าแบบสวยงาม ดูง่าย ด้านบนสุดของหน้าแรก 🌟 -->
-                <div id="dashboard-category-showcase" class="mb-8 space-y-6">
-                    <!-- ข้อมูลการ์ดหมวดหมู่แยกสีสันสวยงามจะมาเรนเดอร์ตรงนี้อัตโนมัติ -->
-                </div>
+                <div id="dashboard-category-showcase" class="mb-8 space-y-6"></div>
 
                 <div id="upload-backup-card" class="bg-white p-4 rounded-xl shadow-xs border border-gray-100 mb-6 hidden">
                     <input type="file" id="excel-file" accept=".xlsx, .xls" class="text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                    <div class="bg-white p-6 rounded-xl shadow-xs border border-gray-100 flex items-center justify-between">
+                <!-- สรุปผลด้านบน เพิ่มสถิติประวัติการขาย -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-white p-5 rounded-xl shadow-xs border border-gray-100 flex items-center justify-between">
                         <div>
-                            <p class="text-sm text-gray-500 font-medium">รายการสินค้าทั้งหมด</p>
-                            <h3 id="total-items" class="text-2xl font-bold mt-1 text-gray-900">-</h3>
+                            <p class="text-xs text-gray-500 font-medium">รายการสินค้าทั้งหมด</p>
+                            <h3 id="total-items" class="text-xl font-bold mt-1 text-gray-900">-</h3>
                         </div>
-                        <div class="p-3 bg-blue-50 text-blue-600 rounded-lg text-xl">📋</div>
+                        <div class="p-2.5 bg-blue-50 text-blue-600 rounded-lg text-lg">📋</div>
                     </div>
-                    <div class="bg-white p-6 rounded-xl shadow-xs border border-gray-100 flex items-center justify-between">
+                    <div class="bg-white p-5 rounded-xl shadow-xs border border-gray-100 flex items-center justify-between">
                         <div>
-                            <p class="text-sm text-gray-500 font-medium">สินค้าที่หมด (0 หรือติดลบ)</p>
-                            <h3 id="out-of-stock" class="text-2xl font-bold mt-1 text-red-600">-</h3>
+                            <p class="text-xs text-gray-500 font-medium">สินค้าที่หมด</p>
+                            <h3 id="out-of-stock" class="text-xl font-bold mt-1 text-red-600">-</h3>
                         </div>
-                        <div class="p-3 bg-red-50 text-red-600 rounded-lg text-xl">⚠️</div>
+                        <div class="p-2.5 bg-red-50 text-red-600 rounded-lg text-lg">⚠️</div>
                     </div>
-                    <div class="bg-white p-6 rounded-xl shadow-xs border border-gray-100 flex items-center justify-between">
+                    <div class="bg-white p-5 rounded-xl shadow-xs border border-gray-100 flex items-center justify-between">
                         <div>
-                            <p class="text-sm text-gray-500 font-medium">บันทึกการซื้อเพิ่ม/เติมสินค้า</p>
-                            <h3 id="total-logs" class="text-2xl font-bold mt-1 text-emerald-600">0 รายการ</h3>
+                            <p class="text-xs text-gray-500 font-medium">ประวัติการเติมสินค้า</p>
+                            <h3 id="total-logs" class="text-xl font-bold mt-1 text-emerald-600">0 รายการ</h3>
                         </div>
-                        <div class="p-3 bg-emerald-50 text-emerald-600 rounded-lg text-xl">📈</div>
+                        <div class="p-2.5 bg-emerald-50 text-emerald-600 rounded-lg text-lg">📈</div>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl shadow-xs border border-gray-100 flex items-center justify-between">
+                        <div>
+                            <p class="text-xs text-gray-500 font-medium">ประวัติการขายสินค้า</p>
+                            <h3 id="total-sales-logs" class="text-xl font-bold mt-1 text-amber-600">0 รายการ</h3>
+                        </div>
+                        <div class="p-2.5 bg-amber-50 text-amber-600 rounded-lg text-lg">📉</div>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div id="table-card" class="bg-white p-6 rounded-2xl shadow-xs border border-gray-100 lg:col-span-2 overflow-hidden hidden">
+                <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+                    <!-- ตารางหลักคลังสินค้าใหญ่ -->
+                    <div id="table-card" class="bg-white p-6 rounded-2xl shadow-xs border border-gray-100 xl:col-span-2 overflow-hidden hidden">
                         <div class="mb-3">
                             <h3 class="text-sm font-bold text-gray-900">📑 รายการสินค้าทั้งหมดในระบบ (คลังใหญ่)</h3>
                         </div>
                         <div id="table-wrapper" class="w-full"></div>
                     </div>
-                    <div id="log-card" class="bg-white p-6 rounded-2xl shadow-xs border border-gray-100 lg:col-span-1 overflow-hidden hidden">
-                        <div class="mb-4 flex justify-between items-center">
-                            <h2 class="text-sm font-bold text-gray-900">🕒 ประวัติการเติมสินค้า (ซื้อเพิ่ม)</h2>
-                            <button id="clear-log-btn" class="text-xs text-red-500 hover:underline cursor-pointer">ล้างประวัติ</button>
+
+                    <!-- คอลัมน์ขวา: รวมประวัติการเติมและประวัติการขาย -->
+                    <div class="xl:col-span-1 space-y-6 flex flex-col">
+                        <!-- 1. ตารางประวัติการเติมสินค้า -->
+                        <div id="log-card" class="bg-white p-5 rounded-2xl shadow-xs border border-gray-100 overflow-hidden hidden">
+                            <div class="mb-3 flex justify-between items-center">
+                                <h2 class="text-xs font-bold text-gray-900 flex items-center gap-1.5"><i data-lucide="plus-circle" class="w-4 h-4 text-emerald-600"></i> 🕒 ประวัติการเติมสินค้า (ซื้อเพิ่ม)</h2>
+                                <button id="clear-log-btn" class="text-[11px] text-red-500 hover:underline cursor-pointer">ล้างประวัติ</button>
+                            </div>
+                            <div id="log-wrapper" class="w-full"></div>
                         </div>
-                        <div id="log-wrapper" class="w-full overflow-y-auto max-h-[500px]"></div>
+
+                        <!-- 2. ตารางประวัติการขายสินค้า (ที่เพิ่มขึ้นมาใหม่) -->
+                        <div id="sales-log-card" class="bg-white p-5 rounded-2xl shadow-xs border border-gray-100 overflow-hidden hidden">
+                            <div class="mb-3 flex justify-between items-center">
+                                <h2 class="text-xs font-bold text-gray-900 flex items-center gap-1.5"><i data-lucide="minus-circle" class="w-4 h-4 text-amber-600"></i> 🛍️ ประวัติการขายสินค้า (ยอดลดลง)</h2>
+                                <button id="clear-sales-log-btn" class="text-[11px] text-red-500 hover:underline cursor-pointer">ล้างประวัติ</button>
+                            </div>
+                            <div id="sales-log-wrapper" class="w-full"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -171,8 +185,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- แสดงผลตารางย่อยสำหรับแอดมินแก้ไขจัดการ -->
                 <div id="dynamic-categories-container" class="space-y-8"></div>
             </div>
 
@@ -231,6 +243,7 @@
         let allCleanData = [];
         let gridInstance = null;
         let logGridInstance = null;
+        let salesLogGridInstance = null;
         let tempBase64Image = "";
 
         let categoryDatabase = JSON.parse(localStorage.getItem('custom_categories_db')) || {
@@ -239,14 +252,12 @@
         };
         let productImagesDatabase = JSON.parse(localStorage.getItem('product_images_db')) || {};
 
-        // ฟังก์ชันสำหรับสลับเปิด-ปิด/ยืดหด Sidebar และเมนูด้านซ้าย
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebar-overlay');
             const mainContent = document.getElementById('main-content');
             
             if (window.innerWidth >= 768) {
-                // สำหรับหน้าจอ Desktop: ทำการยุบเมนูเข้า-ออกด้านข้าง
                 if (sidebar.classList.contains('md:translate-x-0')) {
                     sidebar.classList.replace('md:translate-x-0', '-translate-x-full');
                     mainContent.classList.replace('md:pl-64', 'md:pl-0');
@@ -255,7 +266,6 @@
                     mainContent.classList.replace('md:pl-0', 'md:pl-64');
                 }
             } else {
-                // สำหรับหน้าจอมือถือ Mobile: เปิดแบบ Sidebar Overlay เลื่อนเข้ามาบังหน้าจอ
                 if (sidebar.classList.contains('-translate-x-full')) {
                     sidebar.classList.remove('-translate-x-full');
                     overlay.classList.remove('hidden');
@@ -277,7 +287,6 @@
             });
             element.className = "tab-item w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-all cursor-pointer bg-blue-600 text-white shadow-sm";
             
-            // เมื่อกดเลือกแท็บบนหน้าจอมือถือ ให้หดแถบ Sidebar กลับไปซ่อนอัตโนมัติ
             if (window.innerWidth < 768) {
                 const sidebar = document.getElementById('sidebar');
                 const overlay = document.getElementById('sidebar-overlay');
@@ -326,6 +335,90 @@
             fetchFileLastCommitTime();
         }
 
+        // ─── ฟังก์ชันตรวจสอบและบันทึกประวัติเติมสินค้า & ประวัติการขายสินค้า ───
+        function checkStockChanges(newData) {
+            let previousStock = JSON.parse(localStorage.getItem('cached_stock_balances')) || {};
+            let fillLogs = JSON.parse(localStorage.getItem('stock_fill_logs')) || [];
+            let salesLogs = JSON.parse(localStorage.getItem('stock_sales_logs')) || [];
+            
+            let hasNewFill = false;
+            let hasNewSales = false;
+            const currentTimestamp = new Date().toLocaleString('th-TH', { hour12: false });
+
+            newData.forEach(item => {
+                const plu = item[0]; 
+                const name = item[1]; 
+                const currentQty = item[4]; 
+
+                if (previousStock[plu] !== undefined) {
+                    const diff = currentQty - previousStock[plu];
+                    
+                    if (diff > 0) {
+                        // จำนวนเพิ่มขึ้น = บันทึกการเติมสินค้า
+                        fillLogs.unshift([currentTimestamp, plu, name, `+${diff} ชิ้น`]);
+                        hasNewFill = true;
+                    } else if (diff < 0) {
+                        // จำนวนลดลง = บันทึกการขายสินค้า
+                        salesLogs.unshift([currentTimestamp, plu, name, `${Math.abs(diff)} ชิ้น`]);
+                        hasNewSales = true;
+                    }
+                }
+                previousStock[plu] = currentQty;
+            });
+
+            localStorage.setItem('cached_stock_balances', JSON.stringify(previousStock));
+            
+            if (hasNewFill || fillLogs.length > 0) localStorage.setItem('stock_fill_logs', JSON.stringify(fillLogs));
+            if (hasNewSales || salesLogs.length > 0) localStorage.setItem('stock_sales_logs', JSON.stringify(salesLogs));
+            
+            renderLogTable(fillLogs);
+            renderSalesLogTable(salesLogs);
+        }
+
+        // เรนเดอร์ตารางประวัติการเติมสินค้า
+        function renderLogTable(logs) {
+            const logCard = document.getElementById('log-card');
+            if(!logCard) return;
+            logCard.classList.remove('hidden');
+            document.getElementById('total-logs').innerText = logs.length + " รายการ";
+            const wrapper = document.getElementById("log-wrapper"); wrapper.innerHTML = "";
+            if (logs.length === 0) { wrapper.innerHTML = "<p class='text-xs text-gray-400 text-center py-6'>ยังไม่มีประวัติการเติมสินค้า</p>"; return; }
+            if (logGridInstance) logGridInstance.destroy();
+            logGridInstance = new gridjs.Grid({
+                columns: [
+                    { name: "วันที่และเวลา", width: "130px" }, 
+                    { name: "สินค้า", formatter: (cell, row) => gridjs.html(`<div class="text-xs font-medium text-gray-800 break-words">${cell} <span class="text-[10px] text-gray-400 block">(PLU: ${row.cells[1].data})</span></div>`) },
+                    { name: "รหัส", hidden: true },
+                    { name: "รับเข้า", width: "85px", formatter: (cell) => gridjs.html(`<span class="text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded">${cell}</span>`) }
+                ],
+                data: logs.map(l => [l[0], l[2], l[1], l[3]]), 
+                pagination: { limit: 5 }, 
+                style: { table: { 'font-size': '12px' }, th: { 'background-color': '#f9fafb', 'padding': '6px' }, td: { 'padding': '8px 6px' } }
+            }).render(wrapper);
+        }
+
+        // เรนเดอร์ตารางประวัติการขายสินค้า (โครงสร้างข้อมูลเหมือนกัน)
+        function renderSalesLogTable(logs) {
+            const salesLogCard = document.getElementById('sales-log-card');
+            if(!salesLogCard) return;
+            salesLogCard.classList.remove('hidden');
+            document.getElementById('total-sales-logs').innerText = logs.length + " รายการ";
+            const wrapper = document.getElementById("sales-log-wrapper"); wrapper.innerHTML = "";
+            if (logs.length === 0) { wrapper.innerHTML = "<p class='text-xs text-gray-400 text-center py-6'>ยังไม่มีประวัติการขายสินค้า</p>"; return; }
+            if (salesLogGridInstance) salesLogGridInstance.destroy();
+            salesLogGridInstance = new gridjs.Grid({
+                columns: [
+                    { name: "วันที่และเวลา", width: "130px" }, 
+                    { name: "สินค้า", formatter: (cell, row) => gridjs.html(`<div class="text-xs font-medium text-gray-800 break-words">${cell} <span class="text-[10px] text-gray-400 block">(PLU: ${row.cells[1].data})</span></div>`) },
+                    { name: "รหัส", hidden: true },
+                    { name: "ขายได้", width: "85px", formatter: (cell) => gridjs.html(`<span class="text-amber-600 font-bold bg-amber-50 px-2 py-0.5 rounded">${cell}</span>`) }
+                ],
+                data: logs.map(l => [l[0], l[2], l[1], l[3]]), 
+                pagination: { limit: 5 }, 
+                style: { table: { 'font-size': '12px' }, th: { 'background-color': '#f9fafb', 'padding': '6px' }, td: { 'padding': '8px 6px' } }
+            }).render(wrapper);
+        }
+
         function renderDashboardCategoryShowcase() {
             const container = document.getElementById('dashboard-category-showcase');
             if(!container) return;
@@ -351,7 +444,7 @@
                 if(matchedProducts.length === 0) return; 
 
                 const catBlock = document.createElement('div');
-                catBlock.className = "bg-white p-5 rounded-2xl shadow-xs border-l-4 border-l-blue-600 border border-gray-100 animate-fade-in";
+                catBlock.className = "bg-white p-5 rounded-2xl shadow-xs border-l-4 border-l-blue-600 border border-gray-100";
                 
                 let cardsHtml = "";
                 matchedProducts.forEach(prod => {
@@ -528,7 +621,7 @@
                             }
                         },
                         { 
-                            name: "จำนวนคงเหลือแค่นั้นเลยอยู่ในกรอบ", 
+                            name: "จำนวนคงเหลือ", 
                             formatter: (cell) => cell <= 0 ? 
                                 gridjs.html(`<div class="inline-block text-red-600 font-bold bg-red-50 border border-red-200 px-4 py-2 rounded-xl text-sm">${cell} ชิ้น (สินค้าหมด)</div>`) : 
                                 gridjs.html(`<div class="inline-block text-emerald-600 font-bold bg-emerald-50 border border-emerald-200 px-4 py-2 rounded-xl text-md">${cell} ชิ้น</div>`)
@@ -674,37 +767,6 @@
             loadProductImage();
         }
 
-        function checkStockChanges(newData) {
-            let previousStock = JSON.parse(localStorage.getItem('cached_stock_balances')) || {};
-            let changeLogs = JSON.parse(localStorage.getItem('stock_fill_logs')) || [];
-            let hasNewChanges = false;
-            newData.forEach(item => {
-                const plu = item[0]; const name = item[1]; const currentQty = item[4]; 
-                if (previousStock[plu] !== undefined && currentQty > previousStock[plu]) {
-                    changeLogs.unshift([new Date().toLocaleString('th-TH', { hour12: false }), plu, name, `+${currentQty - previousStock[plu]}`]);
-                    hasNewChanges = true;
-                }
-                previousStock[plu] = currentQty;
-            });
-            localStorage.setItem('cached_stock_balances', JSON.stringify(previousStock));
-            if (hasNewChanges || changeLogs.length > 0) localStorage.setItem('stock_fill_logs', JSON.stringify(changeLogs));
-            renderLogTable(changeLogs);
-        }
-
-        function renderLogTable(logs) {
-            const logCard = document.getElementById('log-card');
-            if(!logCard) return;
-            logCard.classList.remove('hidden');
-            document.getElementById('total-logs').innerText = logs.length + " รายการ";
-            const wrapper = document.getElementById("log-wrapper"); wrapper.innerHTML = "";
-            if (logs.length === 0) { wrapper.innerHTML = "<p class='text-xs text-gray-400 text-center py-8'>ยังไม่มีประวัติการเติมสินค้าในระบบ</p>"; return; }
-            if (logGridInstance) logGridInstance.destroy();
-            logGridInstance = new gridjs.Grid({
-                columns: [{ name: "วันที่เติม", width: "120px" }, { name: "รหัส (PLU)", width: "90px" }, { name: "ชื่อสินค้า", formatter: (cell) => gridjs.html(`<div class="whitespace-normal break-words">${cell}</div>`) }, { name: "จำนวน", width: "75px", formatter: (cell) => gridjs.html(`<span class="text-emerald-600 font-bold">${cell}</span>`) }],
-                data: logs, pagination: { limit: 5 }, style: { table: { 'font-size': '12px' }, th: { 'background-color': '#f9fafb', 'padding': '8px' } }
-            }).render(wrapper);
-        }
-
         function renderAutomaticTable() {
             if (allCleanData.length === 0) return;
             document.getElementById('total-items').innerText = allCleanData.length + " รายการ";
@@ -734,7 +796,10 @@
                 }).catch(() => { document.getElementById('update-status').innerText = `🔄 ดึงข้อมูลล่าสุดเรียบร้อย`; });
         }
 
-        document.getElementById('clear-log-btn').addEventListener('click', () => { if(confirm("ล้างประวัติ?")) { localStorage.removeItem('stock_fill_logs'); renderLogTable([]); } });
+        // ปุ่มเคลียร์ประวัติ
+        document.getElementById('clear-log-btn').addEventListener('click', () => { if(confirm("คุณต้องการล้างประวัติการเติมสินค้าทั้งหมดใช่หรือไม่?")) { localStorage.removeItem('stock_fill_logs'); renderLogTable([]); } });
+        document.getElementById('clear-sales-log-btn').addEventListener('click', () => { if(confirm("คุณต้องการล้างประวัติการขายสินค้าทั้งหมดใช่หรือไม่?")) { localStorage.removeItem('stock_sales_logs'); renderSalesLogTable([]); } });
+        
         document.getElementById('excel-file').addEventListener('change', function(e) { const reader = new FileReader(); reader.onload = function(e) { processExcelData(e.target.result); }; reader.readAsArrayBuffer(e.target.files[0]); });
 
         loadExcelFromServer();
