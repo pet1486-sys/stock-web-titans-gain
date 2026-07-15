@@ -11,8 +11,11 @@ from selenium.webdriver.support import expected_conditions as EC
 USERNAME = "pet1486@gmail.com"
 PASSWORD = "htz32151"
 
-# บังคับเซฟไฟล์ไว้ในโฟลเดอร์เดียวกับโค้ดเพื่อให้ GitHub Actions ดึงไฟล์ไปบันทึกต่อได้ง่าย
-DOWNLOAD_DIR = os.path.dirname(os.path.abspath(__file__))
+# บังคับระบุโฟลเดอร์ดาวน์โหลดสำหรับ Ubuntu บน GitHub Actions ตรง ๆ
+DOWNLOAD_DIR = "/home/runner/Downloads"
+
+if not os.path.exists(DOWNLOAD_DIR):
+    os.makedirs(DOWNLOAD_DIR)
 
 chrome_options = webdriver.ChromeOptions()
 prefs = {
@@ -26,7 +29,6 @@ prefs = {
 }
 chrome_options.add_experimental_option("prefs", prefs)
 
-# บังคับรันแบบ Headless (ซ่อนหน้าต่าง) และตั้งค่าสำหรับทำงานบน Linux Server ของ GitHub
 chrome_options.add_argument("--headless")
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
@@ -86,9 +88,9 @@ try:
     print("กำลังส่งคำสั่งดาวน์โหลดไฟล์ Excel...")
     driver.execute_script("arguments[0].click();", export_button)
     
-    # หน่วงเวลารอให้ดาวน์โหลดไฟล์เสร็จสมบูรณ์บนคลาวด์ก่อนปิดระบบ
+    # หน่วงเวลารอให้ดาวน์โหลดไฟล์เสร็จสมบูรณ์บนคลาวด์
     time.sleep(8)
-    print("🎉 ดาวน์โหลดไฟล์ลงบนเซิร์ฟเวอร์เสร็จเรียบร้อยแล้ว!")
+    print("🎉 ดาวน์โหลดไฟล์ลงบนเซิร์ฟเวอร์สำเร็จ!")
 
 except Exception as e:
     print(f"เกิดข้อผิดพลาดในการทำงาน: {str(e)}")

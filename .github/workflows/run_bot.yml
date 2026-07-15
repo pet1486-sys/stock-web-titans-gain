@@ -2,44 +2,39 @@ name: Silom POS Auto Download Hourly
 
 on:
   schedule:
-    # ⏱️ สั่งให้บอทรันอัตโนมัติทุก ๆ 1 ชั่วโมง
     - cron: '0 * * * *'
-  workflow_dispatch: # เปิดให้กดปุ่มสั่งรันเองแบบ Manual ได้
+  workflow_dispatch: 
 
 jobs:
   download-and-commit:
     runs-on: ubuntu-latest
 
     steps:
-    # 1. ดึงโค้ดเวอร์ชันล่าสุดจาก Repository
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    # 2. ติดตั้ง Python
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
         python-version: '3.11'
 
-    # 3. ติดตั้งคลังคำสั่ง Selenium
     - name: Install dependencies
       run: |
         pip install selenium
 
-    # 4. สั่งรันโค้ด Python เพื่อดาวน์โหลดไฟล์ Excel
     - name: Run Silom POS Bot
       run: python silom_download.py
 
-    # 5. 🛠️ แก้ไขจุดนี้: ดึงไฟล์ Excel จากโฟลเดอร์ดาวน์โหลดของระบบ Linux มาเข้าโฟลเดอร์ stock_data
     - name: Move File to Stock Data Folder
       run: |
-        # สร้างโฟลเดอร์ stock_data หากยังไม่มีในระบบ
         mkdir -p stock_data
         
-        # ย้ายไฟล์จากโฟลเดอร์ดาวน์โหลดเริ่มต้นของบอท Linux มาที่นี่และเขียนทับเป็น SKU.xlsx
-        mv ~/Downloads/*.xlsx stock_data/SKU.xlsx
+        # แสดงรายชื่อไฟล์ในโฟลเดอร์ดาวน์โหลดเพื่อตรวจสอบ
+        ls -la /home/runner/Downloads
+        
+        # ย้ายไฟล์ Excel ไปที่โฟลเดอร์ stock_data
+        mv /home/runner/Downloads/*.xlsx stock_data/SKU.xlsx
 
-    # 6. บันทึกและอัปเดตไฟล์กลับขึ้น GitHub Repository
     - name: Commit and Push to GitHub
       run: |
         git config --global user.name "GitHub Actions Bot"
