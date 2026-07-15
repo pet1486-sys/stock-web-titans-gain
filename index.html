@@ -23,15 +23,14 @@
 
     <!-- ─── SIDEBAR NAVIGATION ─── -->
     <aside id="sidebar" class="w-64 bg-[#0f172a] text-gray-300 flex flex-col fixed inset-y-0 left-0 z-50 shadow-xl border-r border-slate-800 transition-transform duration-300 ease-in-out transform md:translate-x-0 -translate-x-full">
-        <div class="p-5 flex items-center justify-between border-b border-slate-800">
-            <a href="#" class="flex items-center gap-3">
-                <div class="bg-slate-800 p-1.5 rounded-lg shadow-md flex items-center justify-center">
-                    <img src="image/logo ti-Photoroom.png" alt="StockPro Logo" class="w-8 h-8 object-contain onerror-fallback" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                    <i data-lucide="boxes" class="w-6 h-6 text-blue-500 hidden"></i>
+        <div class="p-4 flex items-center justify-between border-b border-slate-800">
+            <!-- ขยายรูปภาพโลโก้เต็มกรอบ และนำข้อความ StockPro ออก -->
+            <a href="#" class="w-full flex justify-center items-center">
+                <div class="bg-slate-800 w-full h-16 rounded-xl shadow-md flex items-center justify-center overflow-hidden border border-slate-700">
+                    <img src="image/ti-Photoroom.png" alt="Logo" class="w-full h-full object-cover">
                 </div>
-                <span class="text-base font-bold text-white tracking-wide">StockPro</span>
             </a>
-            <button onclick="toggleSidebar()" class="md:hidden text-slate-400 hover:text-white cursor-pointer">
+            <button onclick="toggleSidebar()" class="md:hidden text-slate-400 hover:text-white cursor-pointer ml-2">
                 <i data-lucide="x" class="w-5 h-5"></i>
             </button>
         </div>
@@ -63,22 +62,23 @@
     <!-- ─── MAIN CONTENT AREA ─── -->
     <div id="main-content" class="flex-1 md:pl-64 min-h-screen flex flex-col transition-all duration-300 w-full">
         
-        <header class="bg-white border-b border-gray-200 py-4 px-6 sticky top-0 z-40 flex justify-between items-center shadow-xs">
-            <div class="flex items-center gap-3">
-                <button onclick="toggleSidebar()" class="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors cursor-pointer focus:outline-none">
+        <!-- ปรับแต่งส่วน Header ให้ยืดหยุ่น ย่อตัวหนังสือและปุ่มในหน้าจอมือถือไม่ให้เพี้ยน -->
+        <header class="bg-white border-b border-gray-200 py-3 px-4 sm:px-6 sticky top-0 z-40 flex flex-wrap gap-2 justify-between items-center shadow-xs">
+            <div class="flex items-center gap-2 max-w-[50%]">
+                <button onclick="toggleSidebar()" class="p-1.5 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors cursor-pointer focus:outline-none">
                     <i data-lucide="menu" class="w-5 h-5"></i>
                 </button>
-                <h2 id="page-title" class="text-lg font-bold text-gray-800 flex items-center gap-2">📦 ระบบสินค้าคงเหลือ Real-time</h2>
+                <h2 id="page-title" class="text-xs sm:text-sm md:text-lg font-bold text-gray-800 truncate flex items-center gap-1.5">📦 ระบบสินค้าคงเหลือ Real-time</h2>
             </div>
-            <div class="flex items-center gap-3">
-                <span id="update-status" class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full font-medium border border-gray-200">กำลังตรวจสอบเวลาไฟล์...</span>
-                <button id="trigger-bot-btn" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-1.5 px-3 rounded-full shadow-xs transition-all flex items-center gap-1 cursor-pointer">
-                    ⚡ สั่งบอทดึงข้อมูลใหม่
+            <div class="flex items-center gap-2">
+                <span id="update-status" class="text-[10px] sm:text-xs bg-gray-100 text-gray-600 px-2 sm:px-3 py-1 rounded-full font-medium border border-gray-200 whitespace-nowrap">กำลังตรวจสอบเวลาไฟล์...</span>
+                <button id="trigger-bot-btn" class="text-[10px] sm:text-xs bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-1 px-2.5 sm:px-3 rounded-full shadow-xs transition-all flex items-center gap-1 cursor-pointer whitespace-nowrap">
+                    ⚡ ดึงข้อมูลใหม่
                 </button>
             </div>
         </header>
 
-        <div class="p-6 sm:p-8 flex-1">
+        <div class="p-4 sm:p-6 md:p-8 flex-1">
 
             <!-- ================= หน้าที่ 1: สินค้าคงคลังทั้งหมด ================= -->
             <div id="stock-page" class="page-content block">
@@ -89,43 +89,43 @@
                     <input type="file" id="excel-file" accept=".xlsx, .xls" class="text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
                 </div>
 
-                <!-- สรุปผลด้านบน เพิ่มสถิติประวัติการขาย -->
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-                    <div class="bg-white p-5 rounded-xl shadow-xs border border-gray-100 flex items-center justify-between">
+                <!-- ปรับสัดส่วนกล่องสถิติให้เหมาะสมกับมือถือ -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6">
+                    <div class="bg-white p-4 rounded-xl shadow-xs border border-gray-100 flex items-center justify-between">
                         <div>
-                            <p class="text-xs text-gray-500 font-medium">รายการสินค้าทั้งหมด</p>
-                            <h3 id="total-items" class="text-xl font-bold mt-1 text-gray-900">-</h3>
+                            <p class="text-[10px] sm:text-xs text-gray-500 font-medium">รายการสินค้า</p>
+                            <h3 id="total-items" class="text-sm sm:text-xl font-bold mt-0.5 text-gray-900">-</h3>
                         </div>
-                        <div class="p-2.5 bg-blue-50 text-blue-600 rounded-lg text-lg">📋</div>
+                        <div class="p-2 bg-blue-50 text-blue-600 rounded-lg text-sm sm:text-lg">📋</div>
                     </div>
-                    <div class="bg-white p-5 rounded-xl shadow-xs border border-gray-100 flex items-center justify-between">
+                    <div class="bg-white p-4 rounded-xl shadow-xs border border-gray-100 flex items-center justify-between">
                         <div>
-                            <p class="text-xs text-gray-500 font-medium">สินค้าที่หมด</p>
-                            <h3 id="out-of-stock" class="text-xl font-bold mt-1 text-red-600">-</h3>
+                            <p class="text-[10px] sm:text-xs text-gray-500 font-medium">สินค้าที่หมด</p>
+                            <h3 id="out-of-stock" class="text-sm sm:text-xl font-bold mt-0.5 text-red-600">-</h3>
                         </div>
-                        <div class="p-2.5 bg-red-50 text-red-600 rounded-lg text-lg">⚠️</div>
+                        <div class="p-2 bg-red-50 text-red-600 rounded-lg text-sm sm:text-lg">⚠️</div>
                     </div>
-                    <div class="bg-white p-5 rounded-xl shadow-xs border border-gray-100 flex items-center justify-between">
+                    <div class="bg-white p-4 rounded-xl shadow-xs border border-gray-100 flex items-center justify-between">
                         <div>
-                            <p class="text-xs text-gray-500 font-medium">ประวัติการเติมสินค้า</p>
-                            <h3 id="total-logs" class="text-xl font-bold mt-1 text-emerald-600">0 รายการ</h3>
+                            <p class="text-[10px] sm:text-xs text-gray-500 font-medium">ประวัติการเติม</p>
+                            <h3 id="total-logs" class="text-sm sm:text-xl font-bold mt-0.5 text-emerald-600">0</h3>
                         </div>
-                        <div class="p-2.5 bg-emerald-50 text-emerald-600 rounded-lg text-lg">📈</div>
+                        <div class="p-2 bg-emerald-50 text-emerald-600 rounded-lg text-sm sm:text-lg">📈</div>
                     </div>
-                    <div class="bg-white p-5 rounded-xl shadow-xs border border-gray-100 flex items-center justify-between">
+                    <div class="bg-white p-4 rounded-xl shadow-xs border border-gray-100 flex items-center justify-between">
                         <div>
-                            <p class="text-xs text-gray-500 font-medium">ประวัติการขายสินค้า</p>
-                            <h3 id="total-sales-logs" class="text-xl font-bold mt-1 text-amber-600">0 รายการ</h3>
+                            <p class="text-[10px] sm:text-xs text-gray-500 font-medium">ประวัติการขาย</p>
+                            <h3 id="total-sales-logs" class="text-sm sm:text-xl font-bold mt-0.5 text-amber-600">0</h3>
                         </div>
-                        <div class="p-2.5 bg-amber-50 text-amber-600 rounded-lg text-lg">📉</div>
+                        <div class="p-2 bg-amber-50 text-amber-600 rounded-lg text-sm sm:text-lg">📉</div>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
                     <!-- ตารางหลักคลังสินค้าใหญ่ -->
-                    <div id="table-card" class="bg-white p-6 rounded-2xl shadow-xs border border-gray-100 xl:col-span-2 overflow-hidden hidden">
+                    <div id="table-card" class="bg-white p-4 sm:p-6 rounded-2xl shadow-xs border border-gray-100 xl:col-span-2 overflow-hidden hidden">
                         <div class="mb-3">
-                            <h3 class="text-sm font-bold text-gray-900">📑 รายการสินค้าทั้งหมดในระบบ (คลังใหญ่)</h3>
+                            <h3 class="text-xs sm:text-sm font-bold text-gray-900">📑 รายการสินค้าทั้งหมดในระบบ (คลังใหญ่)</h3>
                         </div>
                         <div id="table-wrapper" class="w-full"></div>
                     </div>
@@ -133,19 +133,19 @@
                     <!-- คอลัมน์ขวา: รวมประวัติการเติมและประวัติการขาย -->
                     <div class="xl:col-span-1 space-y-6 flex flex-col">
                         <!-- 1. ตารางประวัติการเติมสินค้า -->
-                        <div id="log-card" class="bg-white p-5 rounded-2xl shadow-xs border border-gray-100 overflow-hidden hidden">
+                        <div id="log-card" class="bg-white p-4 sm:p-5 rounded-2xl shadow-xs border border-gray-100 overflow-hidden hidden">
                             <div class="mb-3 flex justify-between items-center">
-                                <h2 class="text-xs font-bold text-gray-900 flex items-center gap-1.5"><i data-lucide="plus-circle" class="w-4 h-4 text-emerald-600"></i> 🕒 ประวัติการเติมสินค้า (ซื้อเพิ่ม)</h2>
-                                <button id="clear-log-btn" class="text-[11px] text-red-500 hover:underline cursor-pointer">ล้างประวัติ</button>
+                                <h2 class="text-[11px] sm:text-xs font-bold text-gray-900 flex items-center gap-1.5"><i data-lucide="plus-circle" class="w-4 h-4 text-emerald-600"></i> 🕒 ประวัติการเติมสินค้า</h2>
+                                <button id="clear-log-btn" class="text-[10px] sm:text-[11px] text-red-500 hover:underline cursor-pointer">ล้างประวัติ</button>
                             </div>
                             <div id="log-wrapper" class="w-full"></div>
                         </div>
 
-                        <!-- 2. ตารางประวัติการขายสินค้า (ที่เพิ่มขึ้นมาใหม่) -->
-                        <div id="sales-log-card" class="bg-white p-5 rounded-2xl shadow-xs border border-gray-100 overflow-hidden hidden">
+                        <!-- 2. ตารางประวัติการขายสินค้า -->
+                        <div id="sales-log-card" class="bg-white p-4 sm:p-5 rounded-2xl shadow-xs border border-gray-100 overflow-hidden hidden">
                             <div class="mb-3 flex justify-between items-center">
-                                <h2 class="text-xs font-bold text-gray-900 flex items-center gap-1.5"><i data-lucide="minus-circle" class="w-4 h-4 text-amber-600"></i> 🛍️ ประวัติการขายสินค้า (ยอดลดลง)</h2>
-                                <button id="clear-sales-log-btn" class="text-[11px] text-red-500 hover:underline cursor-pointer">ล้างประวัติ</button>
+                                <h2 class="text-[11px] sm:text-xs font-bold text-gray-900 flex items-center gap-1.5"><i data-lucide="minus-circle" class="w-4 h-4 text-amber-600"></i> 🛍️ ประวัติการขายสินค้า</h2>
+                                <button id="clear-sales-log-btn" class="text-[10px] sm:text-[11px] text-red-500 hover:underline cursor-pointer">ล้างประวัติ</button>
                             </div>
                             <div id="sales-log-wrapper" class="w-full"></div>
                         </div>
@@ -156,18 +156,18 @@
             <!-- ================= หน้าที่ 2: จัดหมวดหมู่สินค้าแยกตาราง ================= -->
             <div id="category-page" class="page-content hidden">
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-                    <div class="bg-white p-5 rounded-2xl shadow-xs border border-gray-100">
-                        <h3 class="text-sm font-bold text-gray-900 mb-2 flex items-center gap-1.5"><i data-lucide="folder-plus" class="w-4 h-4 text-blue-600"></i> 1. เพิ่มหมวดหมู่ใหม่</h3>
-                        <p class="text-xs text-gray-400 mb-3">สร้างกลุ่มตารางเพื่อแยกประเภทสินค้าด้วยตัวเอง</p>
+                    <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-xs border border-gray-100">
+                        <h3 class="text-xs sm:text-sm font-bold text-gray-900 mb-2 flex items-center gap-1.5"><i data-lucide="folder-plus" class="w-4 h-4 text-blue-600"></i> 1. เพิ่มหมวดหมู่ใหม่</h3>
+                        <p class="text-[11px] text-gray-400 mb-3">สร้างกลุ่มตารางเพื่อแยกประเภทสินค้าด้วยตัวเอง</p>
                         <div class="flex gap-2">
-                            <input type="text" id="new-category-name" placeholder="เช่น อุปกรณ์แนะนำ, ชิ้นส่วนด่วน" class="flex-1 text-xs px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" />
+                            <input type="text" id="new-category-name" placeholder="เช่น อุปกรณ์แนะนำ" class="flex-1 text-xs px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" />
                             <button onclick="createNewCategory()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-2 px-3 rounded-lg transition-all cursor-pointer">เพิ่มหมวด</button>
                         </div>
                     </div>
 
-                    <div class="bg-white p-5 rounded-2xl shadow-xs border border-gray-100 lg:col-span-2">
-                        <h3 class="text-sm font-bold text-gray-900 mb-2 flex items-center gap-1.5"><i data-lucide="arrow-left-right" class="w-4 h-4 text-emerald-600"></i> 2. จัดสินค้าเข้าหมวดหมู่</h3>
-                        <p class="text-xs text-gray-400 mb-3">เลือกชื่อสินค้าจาก Excel เพื่อดึงข้อมูลคงเหลือมาใส่ลงตารางแยก</p>
+                    <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-xs border border-gray-100 lg:col-span-2">
+                        <h3 class="text-xs sm:text-sm font-bold text-gray-900 mb-2 flex items-center gap-1.5"><i data-lucide="arrow-left-right" class="w-4 h-4 text-emerald-600"></i> 2. จัดสินค้าเข้าหมวดหมู่</h3>
+                        <p class="text-[11px] text-gray-400 mb-3">เลือกชื่อสินค้าจาก Excel เพื่อดึงข้อมูลคงเหลือมาใส่ลงตารางแยก</p>
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                             <div>
                                 <input type="text" id="search-cat-prod" oninput="filterCatProdDropdown()" placeholder="🔍 พิมพ์ค้นชื่อสินค้า..." class="w-full text-xs px-2.5 py-1.5 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" />
@@ -191,20 +191,20 @@
             <!-- ================= หน้าที่ 3: จัดการรูปภาพสินค้า ================= -->
             <div id="image-management-page" class="page-content hidden">
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div class="bg-white p-6 rounded-2xl shadow-xs border border-gray-100 lg:col-span-1">
-                        <h3 class="text-md font-bold text-gray-900 mb-2 flex items-center gap-2"><i data-lucide="search" class="w-4 h-4 text-blue-600"></i> 1. เลือกชื่อสินค้า</h3>
+                    <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-xs border border-gray-100 lg:col-span-1">
+                        <h3 class="text-sm sm:text-md font-bold text-gray-900 mb-2 flex items-center gap-2"><i data-lucide="search" class="w-4 h-4 text-blue-600"></i> 1. เลือกชื่อสินค้า</h3>
                         <div class="space-y-4">
                             <div>
-                                <input type="text" id="search-product-name" oninput="filterProductDropdown()" placeholder="พิมพ์ค้นหาชื่อสินค้าที่นี่..." class="w-full text-sm px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" />
+                                <input type="text" id="search-product-name" oninput="filterProductDropdown()" placeholder="พิมพ์ค้นหาชื่อสินค้าที่นี่..." class="w-full text-xs sm:text-sm px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" />
                             </div>
                             <div>
-                                <select id="product-select" onchange="loadProductImage()" class="w-full text-sm px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"></select>
+                                <select id="product-select" onchange="loadProductImage()" class="w-full text-xs sm:text-sm px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"></select>
                             </div>
                             
                             <div class="pt-4 border-t border-gray-100">
-                                <h3 class="text-sm font-bold text-gray-900 mb-2 flex items-center gap-2"><i data-lucide="upload-cloud" class="w-4 h-4 text-emerald-600"></i> 2. อัปโหลดภาพจากคอม/มือถือ</h3>
+                                <h3 class="text-xs sm:text-sm font-bold text-gray-900 mb-2 flex items-center gap-2"><i data-lucide="upload-cloud" class="w-4 h-4 text-emerald-600"></i> 2. อัปโหลดภาพจากคอม/มือถือ</h3>
                                 <label class="block w-full text-center border border-dashed border-gray-300 hover:border-emerald-500 rounded-lg p-3 bg-gray-50 hover:bg-emerald-50/20 cursor-pointer transition-all">
-                                    <span class="text-xs text-gray-600 font-medium block">📂 เลือกรูปภาพสินค้าในเครื่อง</span>
+                                    <span class="text-[11px] sm:text-xs text-gray-600 font-medium block">📂 เลือกรูปภาพสินค้าในเครื่อง</span>
                                     <span class="text-[10px] text-gray-400 block mt-0.5">(รองรับ .jpg, .png, .webp)</span>
                                     <input type="file" id="local-image-input" accept="image/*" class="hidden" onchange="handleLocalImageUpload(this)" />
                                 </label>
@@ -221,10 +221,10 @@
                         </div>
                     </div>
                     
-                    <div class="bg-white p-6 rounded-2xl shadow-xs border border-gray-100 lg:col-span-2 flex flex-col items-center justify-center min-h-[350px]">
-                        <div id="image-preview-container" class="w-full flex flex-col items-center justify-center border-2 border-dashed border-gray-200 rounded-xl p-8 flex-1 bg-gray-50">
+                    <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-xs border border-gray-100 lg:col-span-2 flex flex-col items-center justify-center min-h-[300px]">
+                        <div id="image-preview-container" class="w-full flex flex-col items-center justify-center border-2 border-dashed border-gray-200 rounded-xl p-4 sm:p-8 flex-1 bg-gray-50">
                             <i data-lucide="image" id="preview-icon" class="w-12 h-12 text-gray-300 mb-2"></i>
-                            <p id="preview-placeholder-text" class="text-sm text-gray-400 text-center">กรุณาเลือกชื่อสินค้าจากเมนูด้านซ้ายเพื่อดูรูปภาพ</p>
+                            <p id="preview-placeholder-text" class="text-xs sm:text-sm text-gray-400 text-center">กรุณาเลือกชื่อสินค้าจากเมนูด้านซ้ายเพื่อดูรูปภาพ</p>
                             <img id="product-preview-img" src="" class="max-h-72 object-contain rounded-lg shadow-md hidden" />
                         </div>
                     </div>
@@ -335,7 +335,6 @@
             fetchFileLastCommitTime();
         }
 
-        // ─── ฟังก์ชันตรวจสอบและบันทึกประวัติเติมสินค้า & ประวัติการขายสินค้า ───
         function checkStockChanges(newData) {
             let previousStock = JSON.parse(localStorage.getItem('cached_stock_balances')) || {};
             let fillLogs = JSON.parse(localStorage.getItem('stock_fill_logs')) || [];
@@ -354,11 +353,9 @@
                     const diff = currentQty - previousStock[plu];
                     
                     if (diff > 0) {
-                        // จำนวนเพิ่มขึ้น = บันทึกการเติมสินค้า
                         fillLogs.unshift([currentTimestamp, plu, name, `+${diff} ชิ้น`]);
                         hasNewFill = true;
                     } else if (diff < 0) {
-                        // จำนวนลดลง = บันทึกการขายสินค้า
                         salesLogs.unshift([currentTimestamp, plu, name, `${Math.abs(diff)} ชิ้น`]);
                         hasNewSales = true;
                     }
@@ -375,12 +372,11 @@
             renderSalesLogTable(salesLogs);
         }
 
-        // เรนเดอร์ตารางประวัติการเติมสินค้า
         function renderLogTable(logs) {
             const logCard = document.getElementById('log-card');
             if(!logCard) return;
             logCard.classList.remove('hidden');
-            document.getElementById('total-logs').innerText = logs.length + " รายการ";
+            document.getElementById('total-logs').innerText = logs.length;
             const wrapper = document.getElementById("log-wrapper"); wrapper.innerHTML = "";
             if (logs.length === 0) { wrapper.innerHTML = "<p class='text-xs text-gray-400 text-center py-6'>ยังไม่มีประวัติการเติมสินค้า</p>"; return; }
             if (logGridInstance) logGridInstance.destroy();
@@ -393,16 +389,15 @@
                 ],
                 data: logs.map(l => [l[0], l[2], l[1], l[3]]), 
                 pagination: { limit: 5 }, 
-                style: { table: { 'font-size': '12px' }, th: { 'background-color': '#f9fafb', 'padding': '6px' }, td: { 'padding': '8px 6px' } }
+                style: { table: { 'font-size': '11px' }, th: { 'background-color': '#f9fafb', 'padding': '6px' }, td: { 'padding': '8px 6px' } }
             }).render(wrapper);
         }
 
-        // เรนเดอร์ตารางประวัติการขายสินค้า (โครงสร้างข้อมูลเหมือนกัน)
         function renderSalesLogTable(logs) {
             const salesLogCard = document.getElementById('sales-log-card');
             if(!salesLogCard) return;
             salesLogCard.classList.remove('hidden');
-            document.getElementById('total-sales-logs').innerText = logs.length + " รายการ";
+            document.getElementById('total-sales-logs').innerText = logs.length;
             const wrapper = document.getElementById("sales-log-wrapper"); wrapper.innerHTML = "";
             if (logs.length === 0) { wrapper.innerHTML = "<p class='text-xs text-gray-400 text-center py-6'>ยังไม่มีประวัติการขายสินค้า</p>"; return; }
             if (salesLogGridInstance) salesLogGridInstance.destroy();
@@ -415,7 +410,7 @@
                 ],
                 data: logs.map(l => [l[0], l[2], l[1], l[3]]), 
                 pagination: { limit: 5 }, 
-                style: { table: { 'font-size': '12px' }, th: { 'background-color': '#f9fafb', 'padding': '6px' }, td: { 'padding': '8px 6px' } }
+                style: { table: { 'font-size': '11px' }, th: { 'background-color': '#f9fafb', 'padding': '6px' }, td: { 'padding': '8px 6px' } }
             }).render(wrapper);
         }
 
@@ -444,26 +439,26 @@
                 if(matchedProducts.length === 0) return; 
 
                 const catBlock = document.createElement('div');
-                catBlock.className = "bg-white p-5 rounded-2xl shadow-xs border-l-4 border-l-blue-600 border border-gray-100";
+                catBlock.className = "bg-white p-4 sm:p-5 rounded-2xl shadow-xs border-l-4 border-l-blue-600 border border-gray-100";
                 
                 let cardsHtml = "";
                 matchedProducts.forEach(prod => {
                     const badgeClass = prod.qty <= 0 
-                        ? "bg-red-50 text-red-600 border border-red-200 text-center font-bold text-xs" 
-                        : "bg-emerald-50 text-emerald-600 border border-emerald-100 text-center font-bold text-sm";
+                        ? "bg-red-50 text-red-600 border border-red-200 text-center font-bold text-[11px]" 
+                        : "bg-emerald-50 text-emerald-600 border border-emerald-100 text-center font-bold text-xs";
                     
                     const imgHtml = prod.img 
                         ? `<img src="${prod.img}" class="w-full h-full object-contain transform hover:scale-105 transition-transform duration-300" />`
-                        : `<span class="text-3xl">📦</span>`;
+                        : `<span class="text-2xl">📦</span>`;
 
                     cardsHtml += `
-                        <div class="bg-slate-50 border border-gray-200 rounded-xl p-3 flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow bg-linear-to-b from-white to-slate-50/50">
-                            <div class="w-full h-28 bg-white border border-gray-100 rounded-lg flex items-center justify-center overflow-hidden p-2 mb-2">
+                        <div class="bg-slate-50 border border-gray-200 rounded-xl p-2.5 flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow bg-linear-to-b from-white to-slate-50/50">
+                            <div class="w-full h-24 sm:h-28 bg-white border border-gray-100 rounded-lg flex items-center justify-center overflow-hidden p-2 mb-2">
                                 ${imgHtml}
                             </div>
                             <div class="flex-1 flex flex-col justify-between">
-                                <p class="text-[12px] font-bold text-gray-800 line-clamp-2 mb-2 text-center h-8" title="${prod.name}">${prod.name}</p>
-                                <div class="py-1.5 px-2 rounded-lg ${badgeClass}">
+                                <p class="text-[11px] sm:text-[12px] font-bold text-gray-800 line-clamp-2 mb-2 text-center h-8" title="${prod.name}">${prod.name}</p>
+                                <div class="py-1 px-1.5 rounded-lg ${badgeClass}">
                                     คงเหลือ ${prod.qty} ชิ้น
                                 </div>
                             </div>
@@ -474,10 +469,10 @@
                 catBlock.innerHTML = `
                     <div class="flex items-center gap-2 mb-4">
                         <span class="p-1.5 bg-blue-50 text-blue-600 rounded-lg"><i data-lucide="star" class="w-4 h-4"></i></span>
-                        <h3 class="text-sm font-bold text-slate-800">${catName}</h3>
-                        <span class="text-[11px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full font-medium">${matchedProducts.length} รายการ</span>
+                        <h3 class="text-xs sm:text-sm font-bold text-slate-800">${catName}</h3>
+                        <span class="text-[10px] sm:text-[11px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full font-medium">${matchedProducts.length} รายการ</span>
                     </div>
-                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
                         ${cardsHtml}
                     </div>
                 `;
@@ -487,7 +482,7 @@
             if(hasAnyData) {
                 const titleDiv = document.createElement('div');
                 titleDiv.className = "flex items-center gap-2 mb-2";
-                titleDiv.innerHTML = `<h2 class="text-xs font-bold text-slate-400 tracking-wider uppercase">⭐ รายการแนะนำ & แยกหมวดหมู่พิเศษ</h2>`;
+                titleDiv.innerHTML = `<h2 class="text-[10px] sm:text-xs font-bold text-slate-400 tracking-wider uppercase">⭐ รายการแนะนำ & แยกหมวดหมู่พิเศษ</h2>`;
                 container.insertBefore(titleDiv, container.firstChild);
             }
             lucide.createIcons();
@@ -573,13 +568,13 @@
                 });
 
                 const cardDiv = document.createElement('div');
-                cardDiv.className = "bg-white p-6 rounded-2xl shadow-xs border border-gray-100 overflow-hidden";
+                cardDiv.className = "bg-white p-4 sm:p-6 rounded-2xl shadow-xs border border-gray-100 overflow-hidden";
                 const headerId = `header-info-${catName.replace(/\s+/g, '-')}`;
                 cardDiv.innerHTML = `
                     <div class="flex justify-between items-center mb-4 pb-3 border-b border-gray-100">
                         <div>
-                            <h2 class="text-md font-bold text-gray-900 flex items-center gap-2">📂 ตารางหมวดหมู่: ${catName}</h2>
-                            <p class="text-xs text-gray-400 mt-0.5" id="${headerId}">แก้ไขและจัดการรายการสินค้าในกลุ่มนี้ (${mappedTableData.length} รายการ)</p>
+                            <h2 class="text-xs sm:text-md font-bold text-gray-900 flex items-center gap-2">📂 ตารางหมวดหมู่: ${catName}</h2>
+                            <p class="text-[11px] text-gray-400 mt-0.5" id="${headerId}">แก้ไขและจัดการรายการสินค้าในกลุ่มนี้ (${mappedTableData.length} รายการ)</p>
                         </div>
                         <button onclick="deleteWholeCategory('${catName}')" class="text-xs bg-red-50 hover:bg-red-100 text-red-600 px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer">🗑️ ลบหมวดหมู่นี้</button>
                     </div>
@@ -602,19 +597,19 @@
                                 if (cell) {
                                     return gridjs.html(`
                                         <div class="flex flex-col gap-1 items-start">
-                                            <div class="w-16 h-16 bg-gray-50 border border-gray-200 rounded-lg flex items-center justify-center p-1 overflow-hidden shadow-xs">
+                                            <div class="w-14 h-14 bg-gray-50 border border-gray-200 rounded-lg flex items-center justify-center p-1 overflow-hidden shadow-xs">
                                                 <img src="${cell}" class="w-full h-full object-contain" alt="product" />
                                             </div>
-                                            <span class="text-[11px] font-medium text-gray-500 max-w-[150px] truncate block" title="${row.cells[2].data}">${row.cells[2].data}</span>
+                                            <span class="text-[10px] sm:text-[11px] font-medium text-gray-500 max-w-[140px] truncate block" title="${row.cells[2].data}">${row.cells[2].data}</span>
                                         </div>
                                     `);
                                 } else {
                                     return gridjs.html(`
                                         <div class="flex flex-col gap-1 items-start">
-                                            <div class="w-16 h-16 bg-gray-100 border border-gray-200 rounded-lg flex items-center justify-center text-gray-400">
+                                            <div class="w-14 h-14 bg-gray-100 border border-gray-200 rounded-lg flex items-center justify-center text-gray-400">
                                                 📦
                                             </div>
-                                            <span class="text-[11px] font-medium text-gray-400 max-w-[150px] truncate block" title="${row.cells[2].data}">${row.cells[2].data}</span>
+                                            <span class="text-[10px] sm:text-[11px] font-medium text-gray-400 max-w-[140px] truncate block" title="${row.cells[2].data}">${row.cells[2].data}</span>
                                         </div>
                                     `);
                                 }
@@ -623,12 +618,12 @@
                         { 
                             name: "จำนวนคงเหลือ", 
                             formatter: (cell) => cell <= 0 ? 
-                                gridjs.html(`<div class="inline-block text-red-600 font-bold bg-red-50 border border-red-200 px-4 py-2 rounded-xl text-sm">${cell} ชิ้น (สินค้าหมด)</div>`) : 
-                                gridjs.html(`<div class="inline-block text-emerald-600 font-bold bg-emerald-50 border border-emerald-200 px-4 py-2 rounded-xl text-md">${cell} ชิ้น</div>`)
+                                gridjs.html(`<div class="inline-block text-red-600 font-bold bg-red-50 border border-red-200 px-3 py-1.5 rounded-xl text-xs">${cell} ชิ้น (หมด)</div>`) : 
+                                gridjs.html(`<div class="inline-block text-emerald-600 font-bold bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-xl text-xs sm:text-sm">${cell} ชิ้น</div>`)
                         },
                         {
                             name: "การจัดการกลุ่ม",
-                            width: "100px",
+                            width: "90px",
                             formatter: (cell, row) => {
                                 const prodName = row.cells[2].data;
                                 return gridjs.html(`<button onclick="removeProductFromCategory('${catName}', '${prodName}')" class="text-xs bg-slate-50 hover:bg-red-50 text-slate-500 hover:text-red-500 border border-slate-200 hover:border-red-200 px-2 py-1 rounded-md transition-all cursor-pointer">นำออก</button>`);
@@ -640,9 +635,9 @@
                     pagination: { limit: 5 },
                     language: { 'pagination': { 'previous': '‹', 'next': '›', 'showing': 'แสดง', 'results': () => 'รายการสินค้า' } },
                     style: { 
-                        table: { 'font-size': '13px' }, 
-                        th: { 'background-color': '#f9fafb', 'padding': '10px', 'color': '#4b5563' }, 
-                        td: { 'padding': '12px 10px', 'vertical-align': 'middle' } 
+                        table: { 'font-size': '12px' }, 
+                        th: { 'background-color': '#f9fafb', 'padding': '8px', 'color': '#4b5563' }, 
+                        td: { 'padding': '10px 8px', 'vertical-align': 'middle' } 
                     }
                 }).render(targetWrapper);
             });
@@ -769,14 +764,14 @@
 
         function renderAutomaticTable() {
             if (allCleanData.length === 0) return;
-            document.getElementById('total-items').innerText = allCleanData.length + " รายการ";
-            document.getElementById('out-of-stock').innerText = allCleanData.filter(row => row[4] <= 0).length + " รายการ";
+            document.getElementById('total-items').innerText = allCleanData.length;
+            document.getElementById('out-of-stock').innerText = allCleanData.filter(row => row[4] <= 0).length;
             document.getElementById('table-card').classList.remove('hidden');
             const wrapper = document.getElementById("table-wrapper"); wrapper.innerHTML = "";
             if (gridInstance) gridInstance.destroy();
             gridInstance = new gridjs.Grid({
-                columns: [{ name: "รหัสสินค้า (PLU)", width: "120px" }, { name: "ชื่อสินค้า", formatter: (cell) => gridjs.html(`<div class="whitespace-normal break-words font-medium text-gray-900">${cell}</div>`) }, { name: "ราคา", width: "95px", formatter: (cell) => `${cell} บ.` }, { name: "หน่วย", width: "70px" }, { name: "คงเหลือ (On Hand)", width: "140px", formatter: (cell) => cell <= 0 ? gridjs.html(`<span class="text-red-600 font-bold bg-red-50 px-2 py-0.5 rounded text-xs">${cell} (หมด)</span>`) : gridjs.html(`<span class="text-emerald-600 font-medium bg-emerald-50 px-2 py-0.5 rounded text-xs">${cell}</span>`) }],
-                data: allCleanData, search: true, sort: true, pagination: { limit: 10 }, style: { table: { 'font-size': '13px' }, th: { 'background-color': '#f3f4f6', 'padding': '10px' } }
+                columns: [{ name: "รหัสสินค้า (PLU)", width: "110px" }, { name: "ชื่อสินค้า", formatter: (cell) => gridjs.html(`<div class="whitespace-normal break-words font-medium text-gray-900">${cell}</div>`) }, { name: "ราคา", width: "85px", formatter: (cell) => `${cell} บ.` }, { name: "หน่วย", width: "65px" }, { name: "คงเหลือ (On Hand)", width: "130px", formatter: (cell) => cell <= 0 ? gridjs.html(`<span class="text-red-600 font-bold bg-red-50 px-2 py-0.5 rounded text-xs">${cell} (หมด)</span>`) : gridjs.html(`<span class="text-emerald-600 font-medium bg-emerald-50 px-2 py-0.5 rounded text-xs">${cell}</span>`) }],
+                data: allCleanData, search: true, sort: true, pagination: { limit: 10 }, style: { table: { 'font-size': '12px' }, th: { 'background-color': '#f3f4f6', 'padding': '8px' } }
             }).render(wrapper);
         }
 
@@ -791,12 +786,11 @@
             fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/commits?path=${FILE_NAME}&per_page=1`)
                 .then(res => res.json()).then(data => {
                     if(data && data.length > 0) {
-                        document.getElementById('update-status').innerText = `📅 ไฟล์อัปเดตล่าสุด: ${new Date(data[0].commit.committer.date).toLocaleString('th-TH')}`;
+                        document.getElementById('update-status').innerText = `📅 อัปเดตล่าสุด: ${new Date(data[0].commit.committer.date).toLocaleString('th-TH')}`;
                     }
                 }).catch(() => { document.getElementById('update-status').innerText = `🔄 ดึงข้อมูลล่าสุดเรียบร้อย`; });
         }
 
-        // ปุ่มเคลียร์ประวัติ
         document.getElementById('clear-log-btn').addEventListener('click', () => { if(confirm("คุณต้องการล้างประวัติการเติมสินค้าทั้งหมดใช่หรือไม่?")) { localStorage.removeItem('stock_fill_logs'); renderLogTable([]); } });
         document.getElementById('clear-sales-log-btn').addEventListener('click', () => { if(confirm("คุณต้องการล้างประวัติการขายสินค้าทั้งหมดใช่หรือไม่?")) { localStorage.removeItem('stock_sales_logs'); renderSalesLogTable([]); } });
         
