@@ -19,32 +19,37 @@
 
     <!-- Header / Navigation -->
     <nav class="bg-blue-600 text-white shadow-md py-4 px-6 mb-6">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <h1 class="text-xl font-bold flex items-center gap-2">
-                📦 ระบบสินค้าคงเหลือ Real-time (อัปเดตรายชั่วโมง)
+                📦 ระบบสินค้าคงเหลือ Real-time
             </h1>
-            <span id="update-status" class="text-xs bg-blue-700 px-3 py-1 rounded-full">กำลังโหลดข้อมูล...</span>
+            <div class="flex flex-wrap items-center gap-3">
+                <!-- ⏱️ แสดงเวลาที่ไฟล์ SKU.xlsx ถูกบันทึกจริงบน GitHub -->
+                <span id="update-status" class="text-xs bg-blue-700 px-3 py-1.5 rounded-full font-medium">กำลังตรวจสอบเวลาไฟล์...</span>
+                
+                <!-- 🚀 ปุ่มสั่ง Trigger GitHub Actions ให้รันบอทดึงข้อมูลทันที -->
+                <button id="trigger-bot-btn" class="text-xs bg-green-500 hover:bg-green-600 text-white font-bold py-1.5 px-3 rounded-full shadow-sm transition-all flex items-center gap-1 cursor-pointer">
+                    ⚡ สั่งบอทดึงข้อมูลใหม่
+                </button>
+            </div>
         </div>
     </nav>
 
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <!-- ส่วนอัปโหลดสำรอง (แสดงเมื่อไม่พบไฟล์อัตโนมัติในโฟลเดอร์ stock_data) -->
+        <!-- ส่วนอัปโหลดสำรอง -->
         <div id="upload-backup-card" class="bg-white p-4 rounded-xl shadow-xs border border-gray-100 mb-6 hidden">
             <p class="text-xs text-orange-600 font-medium mb-2">💡 ไม่พบไฟล์อัตโนมัติในโฟลเดอร์ stock_data/ หรือเปิดแบบไม่ได้รันผ่านเซิร์ฟเวอร์จำลอง คุณสามารถทดสอบโดยกดเลือกไฟล์ที่นี่:</p>
             <input type="file" id="excel-file" accept=".xlsx, .xls" class="text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
         </div>
 
-        <!-- แผงเลือกหลายหมวดหมู่สินค้า (Multi-select Checkboxes) -->
+        <!-- แผงเลือกหลายหมวดหมู่สินค้า -->
         <div id="category-filter-card" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 mb-6 hidden">
             <h3 class="text-md font-bold text-gray-900 mb-2">📁 เลือกหมวดหมู่ที่ต้องการนำเข้าแสดงผล</h3>
             <p class="text-xs text-gray-400 mb-4">สามารถเลือกได้หลายหมวดหมู่พร้อมกัน ระบบจะจำค่าที่คุณติ๊กไว้ให้อัตโนมัติเมื่อรีเฟรชหน้าเว็บ</p>
             
-            <!-- โซนกล่องติ๊กเลือกหมวดหมู่ -->
-            <div id="checkbox-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 max-h-48 overflow-y-auto p-2 bg-gray-50 rounded-lg border border-gray-200">
-                <!-- เจนกล่องติ๊กถูกด้วย JavaScript -->
-            </div>
+            <div id="checkbox-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 max-h-48 overflow-y-auto p-2 bg-gray-50 rounded-lg border border-gray-200"></div>
 
             <div class="mt-4 flex justify-end gap-3">
                 <button id="select-all-btn" class="text-xs bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-1.5 px-3 rounded transition-colors">เลือกทั้งหมด</button>
@@ -91,10 +96,72 @@
     </main>
 
     <script>
-        // 🛠️ แก้ไขพิกัดชื่อไฟล์ใหม่ ให้ดึงตรงจากไฟล์หลักที่บอทเขียนทับทุกชั่วโมง
+        // CONFIG: กำหนดข้อมูลผู้ใช้ของคุณเพื่อให้ระบบ API ค้นหาพิกัดไฟล์เจอ
+        const GITHUB_USER = "pet1486-sys";
+        const GITHUB_REPO = "stock-web-titans-gain";
         const FILE_NAME = "stock_data/SKU.xlsx"; 
+
         let allCleanData = [];
         let gridInstance = null;
+
+        // 1. ฟังก์ชันดึงเวลาจริงที่ไฟล์ Excel ถูกกดเซฟล่าสุดบนคลัง GitHub
+        function fetchFileLastCommitTime() {
+            const apiURL = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/commits?path=${FILE_NAME}&page=1&per_page=1`;
+            
+            fetch(apiURL)
+                .then(res => res.json())
+                .then(data => {
+                    if(data && data.length > 0) {
+                        const commitDate = new Date(data[0].commit.committer.date);
+                        document.getElementById('update-status').innerText = `📅 ไฟล์อัปเดตล่าสุด: ${commitDate.toLocaleString('th-TH')}`;
+                        document.getElementById('update-status').className = "text-xs bg-green-700 text-white px-3 py-1.5 rounded-full font-medium";
+                    } else {
+                        document.getElementById('update-status').innerText = `🔄 ดึงข้อมูลสำเร็จ`;
+                    }
+                })
+                .catch(() => {
+                    document.getElementById('update-status').innerText = `🔄 อ่านไฟล์สำเร็จ`;
+                });
+        }
+
+        // 2. ฟังก์ชันเมื่อกดปุ่ม "สั่งบอทดึงข้อมูลใหม่"
+        document.getElementById('trigger-bot-btn').addEventListener('click', () => {
+            // เช็กว่าเคยเซฟ Token ไว้ในบราวเซอร์หรือยัง ถ้ายังให้ป๊อปอัปถาม
+            let token = localStorage.getItem('gh_token');
+            if(!token) {
+                token = prompt("กรุณาใส่ GitHub Personal Access Token (Classic) ที่มีสิทธิ์ 'workflow' เพื่อสั่งงานระบบคลาวด์:");
+                if(!token) return;
+                localStorage.setItem('gh_token', token);
+            }
+
+            const btn = document.getElementById('trigger-bot-btn');
+            btn.innerText = "⏳ กำลังส่งคำสั่ง...";
+            btn.disabled = true;
+
+            // ส่งคำสั่งยิงไปที่ GitHub Actions workflow_dispatch ให้คลาวด์ตื่นทันที
+            fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/actions/workflows/run_bot.yml/dispatches`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `token ${token}`,
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ ref: 'main' }) // สั่งให้รันที่กิ่งหลัก
+            })
+            .then(res => {
+                if(res.status === 204) {
+                    alert("⚡ สั่งงานสำเร็จ! บอทกำลังตื่นขึ้นมาดาวน์โหลดข้อมูลใน GitHub Actions (ใช้เวลาประมาณ 1-2 นาที แนะนำให้รีเฟรชหน้าเว็บนี้อีกครั้งในภายหลังครับ)");
+                } else {
+                    alert("❌ เกิดข้อผิดพลาด: รหัส Token ไม่ถูกต้อง หรือไม่มีสิทธิ์เข้าถึงระบบ Workflow ครับ");
+                    localStorage.removeItem('gh_token'); // ล้าง Token เผื่อกรอกผิด
+                }
+            })
+            .catch(err => alert("เกิดข้อผิดพลาดในการเชื่อมต่อ: " + err))
+            .finally(() => {
+                btn.innerText = "⚡ สั่งบอทดึงข้อมูลใหม่";
+                btn.disabled = false;
+            });
+        });
 
         // ฟังก์ชันอ่านไฟล์และประมวลผลข้อมูล Excel
         function processExcelData(arrayBuffer) {
@@ -126,22 +193,19 @@
                     ];
                 });
 
-            // สร้างกล่องเช็คบ็อกซ์หมวดหมู่สินค้า
             renderCategoryCheckboxes();
             
-            // หากเคยมีการกดเลือกและบันทึกตารางไว้ก่อนหน้า ให้โหลดวาดตารางต่อทันทีเมื่ออัปเดตไฟล์
             if (localStorage.getItem('selected_categories')) {
                 renderTable();
             }
             
-            const now = new Date();
-            document.getElementById('update-status').innerText = `🔄 อัปเดตล่าสุด: ${now.toLocaleTimeString('th-TH')}`;
-            document.getElementById('update-status').className = "text-xs bg-green-700 px-3 py-1 rounded-full";
+            // เรียกตรวจสอบเวลาการ commit ไฟล์จริงบน GitHub
+            fetchFileLastCommitTime();
         }
 
         // ฟังก์ชันดึงไฟล์ Excel อัตโนมัติจากโฟลเดอร์ stock_data/
         function loadExcelFromServer() {
-            fetch(FILE_NAME)
+            fetch(FILE_NAME + "?t=" + new Date().getTime()) // ป้องกันบราวเซอร์จำไฟล์เก่า (Anti-cache)
                 .then(response => {
                     if (!response.ok) throw new Error('ไม่พบไฟล์บนเซิร์ฟเวอร์');
                     return response.arrayBuffer();
@@ -151,10 +215,9 @@
                     processExcelData(arrayBuffer);
                 })
                 .catch(err => {
-                    console.log("ไม่พบไฟล์ในโฟลเดอร์ย่อยหรือไม่ได้รันผ่านเซิร์ฟเวอร์จำลอง ระบบเปิดปุ่มสำรองให้ใช้งาน");
                     document.getElementById('upload-backup-card').classList.remove('hidden');
                     document.getElementById('update-status').innerText = `⚠️ รอไฟล์ใน stock_data/`;
-                    document.getElementById('update-status').className = "text-xs bg-orange-700 px-3 py-1 rounded-full";
+                    document.getElementById('update-status').className = "text-xs bg-orange-700 px-3 py-1.5 rounded-full font-medium";
                 });
         }
 
@@ -175,7 +238,6 @@
                 checkbox.value = cat;
                 checkbox.className = "rounded text-blue-600 focus:ring-blue-500 category-checkbox";
                 
-                // ติ๊กถูกให้อัตโนมัติในกรณีเพิ่งเปิดครั้งแรก หรือเป็นค่าเดิมที่ผู้ใช้เคยเลือกไว้
                 if (savedCats.length === 0 || savedCats.includes(cat)) {
                     checkbox.checked = true;
                 }
@@ -195,13 +257,10 @@
             const checkedBoxes = document.querySelectorAll('.category-checkbox:checked');
             const selectedCats = Array.from(checkedBoxes).map(cb => cb.value);
 
-            // บันทึกสถานะการเลือกหมวดหมู่เก็บไว้ในเครื่องของผู้ใช้
             localStorage.setItem('selected_categories', JSON.stringify(selectedCats));
 
-            // กรองข้อมูลเฉพาะหมวดหมู่ที่เลือก
             const filteredData = allCleanData.filter(item => selectedCats.includes(item[2]));
 
-            // อัปเดตข้อมูลแดชบอร์ด
             document.getElementById('total-items').innerText = filteredData.length + " รายการ";
             document.getElementById('out-of-stock').innerText = filteredData.filter(row => row[5] <= 0).length + " รายการ";
             document.getElementById('displayed-category').innerText = selectedCats.length + " หมวดหมู่";
@@ -211,7 +270,6 @@
             const wrapper = document.getElementById("table-wrapper");
             wrapper.innerHTML = "";
 
-            // วาดตารางข้อมูลสินค้าคงคลัง
             gridInstance = new gridjs.Grid({
                 columns: [
                     { name: "รหัสสินค้า (PLU)", width: "160px" },
@@ -247,7 +305,6 @@
             }).render(wrapper);
         }
 
-        // อีเวนต์ต่างๆ ของระบบปุ่มกด
         document.getElementById('import-btn').addEventListener('click', renderTable);
 
         document.getElementById('select-all-btn').addEventListener('click', () => {
@@ -257,7 +314,6 @@
             document.querySelectorAll('.category-checkbox').forEach(cb => cb.checked = false);
         });
 
-        // เปิดปุ่มรองรับการโยนไฟล์ด้วยมือแบบแมนนวลกรณีฉุกเฉิน
         document.getElementById('excel-file').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (!file) return;
@@ -266,10 +322,7 @@
             reader.readAsArrayBuffer(file);
         });
 
-        // เริ่มต้นการทำงาน: โหลดข้อมูลจากโฟลเดอร์ย่อยโดยอัตโนมัติเมื่อเปิดหน้าเว็บ
         loadExcelFromServer();
-
-        // สั่งให้ดึงไฟล์ใหม่ทุกๆ 5 นาที (300,000 มิลลิวินาที) เพื่อให้ตารางเป็นแบบเรียลไทม์เสมอ
         setInterval(loadExcelFromServer, 300000);
     </script>
 </body>
