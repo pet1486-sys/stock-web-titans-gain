@@ -2,9 +2,9 @@ name: Silom POS Auto Download Hourly
 
 on:
   schedule:
-    # ⏱️ สั่งให้บอทรันอัตโนมัติทุก ๆ 1 ชั่วโมง (นาทีที่ 0 ของทุกชั่วโมง)
+    # ⏱️ สั่งให้บอทรันอัตโนมัติทุก ๆ 1 ชั่วโมง
     - cron: '0 * * * *'
-  workflow_dispatch: # เปิดให้กดปุ่มสั่งรันเองแบบ Manual ได้ตลอดเวลา
+  workflow_dispatch: # เปิดให้กดปุ่มสั่งรันเองแบบ Manual ได้
 
 jobs:
   download-and-commit:
@@ -30,15 +30,14 @@ jobs:
     - name: Run Silom POS Bot
       run: python silom_download.py
 
-    # 5. จัดระเบียบย้ายไฟล์ Excel เข้าโฟลเดอร์ stock_data และเขียนทับไฟล์เดิม
+    # 5. 🛠️ แก้ไขจุดนี้: ดึงไฟล์ Excel จากโฟลเดอร์ดาวน์โหลดของระบบ Linux มาเข้าโฟลเดอร์ stock_data
     - name: Move File to Stock Data Folder
       run: |
         # สร้างโฟลเดอร์ stock_data หากยังไม่มีในระบบ
         mkdir -p stock_data
         
-        # ค้นหาไฟล์ Excel ที่เพิ่งโหลดมา แล้วย้ายไปชื่อ SKU.xlsx ในโฟลเดอร์ stock_data ทันที
-        # (ฟังก์ชันนี้จะทำการเขียนทับไฟล์เก่าที่เป็นชื่อเดียวกันโดยอัตโนมัติ)
-        mv *.xlsx stock_data/SKU.xlsx
+        # ย้ายไฟล์จากโฟลเดอร์ดาวน์โหลดเริ่มต้นของบอท Linux มาที่นี่และเขียนทับเป็น SKU.xlsx
+        mv ~/Downloads/*.xlsx stock_data/SKU.xlsx
 
     # 6. บันทึกและอัปเดตไฟล์กลับขึ้น GitHub Repository
     - name: Commit and Push to GitHub
