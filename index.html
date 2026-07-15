@@ -38,33 +38,17 @@
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <!-- ส่วนอัปโหลดสำรอง -->
+        <!-- ส่วนอัปโหลดสำรอง (แสดงเมื่อไม่พบไฟล์) -->
         <div id="upload-backup-card" class="bg-white p-4 rounded-xl shadow-xs border border-gray-100 mb-6 hidden">
             <p class="text-xs text-orange-600 font-medium mb-2">💡 ไม่พบไฟล์อัตโนมัติในโฟลเดอร์ stock_data/ หรือเปิดแบบไม่ได้รันผ่านเซิร์ฟเวอร์จำลอง คุณสามารถทดสอบโดยกดเลือกไฟล์ที่นี่:</p>
             <input type="file" id="excel-file" accept=".xlsx, .xls" class="text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
-        </div>
-
-        <!-- แผงเลือกหลายหมวดหมู่สินค้า -->
-        <div id="category-filter-card" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 mb-6 hidden">
-            <h3 class="text-md font-bold text-gray-900 mb-2">📁 เลือกหมวดหมู่ที่ต้องการนำเข้าแสดงผล</h3>
-            <p class="text-xs text-gray-400 mb-4">สามารถเลือกได้หลายหมวดหมู่พร้อมกัน ระบบจะจำค่าที่คุณติ๊กไว้ให้อัตโนมัติเมื่อรีเฟรชหน้าเว็บ</p>
-            
-            <div id="checkbox-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 max-h-48 overflow-y-auto p-2 bg-gray-50 rounded-lg border border-gray-200"></div>
-
-            <div class="mt-4 flex justify-end gap-3">
-                <button id="select-all-btn" class="text-xs bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-1.5 px-3 rounded transition-colors">เลือกทั้งหมด</button>
-                <button id="clear-all-btn" class="text-xs bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-1.5 px-3 rounded transition-colors">ล้างทั้งหมด</button>
-                <button id="import-btn" class="bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg text-sm px-5 py-1.5 shadow-sm transition-colors">
-                    📥 นำเข้าข้อมูลคลังสินค้า
-                </button>
-            </div>
         </div>
 
         <!-- Dashboard Summary -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
             <div class="bg-white p-6 rounded-xl shadow-xs border border-gray-100 flex items-center justify-between">
                 <div>
-                    <p class="text-sm text-gray-500 font-medium">รายการสินค้าที่นำเข้า</p>
+                    <p class="text-sm text-gray-500 font-medium">รายการสินค้าปะยางทั้งหมด</p>
                     <h3 id="total-items" class="text-2xl font-bold mt-1 text-gray-900">-</h3>
                 </div>
                 <div class="p-3 bg-blue-50 text-blue-600 rounded-lg text-xl">📋</div>
@@ -78,8 +62,8 @@
             </div>
             <div class="bg-white p-6 rounded-xl shadow-xs border border-gray-100 flex items-center justify-between">
                 <div>
-                    <p class="text-sm text-gray-500 font-medium">จำนวนหมวดหมู่ที่เลือก</p>
-                    <h3 id="displayed-category" class="text-2xl font-bold mt-1 text-green-600">-</h3>
+                    <p class="text-sm text-gray-500 font-medium">หมวดหมู่ที่กำลังแสดงผล</p>
+                    <h3 id="displayed-category" class="text-md font-bold mt-1 text-green-600">อุปกรณ์ปะยาง & MR</h3>
                 </div>
                 <div class="p-3 bg-green-50 text-green-600 rounded-lg text-xl">📁</div>
             </div>
@@ -88,15 +72,14 @@
         <!-- Table Card -->
         <div id="table-card" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hidden">
             <div class="mb-4">
-                <h2 class="text-lg font-bold text-gray-900">ตารางแสดงสินค้าคงคลังเรียลไทม์</h2>
-                <p class="text-xs text-gray-400">ระบบอัปเดตข้อมูลอัตโนมัติจากไฟล์หลังบ้าน ค้นหาข้อมูลสินค้าได้ทันที</p>
+                <h2 class="text-lg font-bold text-gray-900">ตารางแสดงสินค้าคงคลังเรียลไทม์ (คัดเฉพาะกลุ่มอุปกรณ์ปะยาง)</h2>
+                <p class="text-xs text-gray-400">ระบบกรองข้อมูลและอัปเดตให้อัตโนมัติจากเซิร์ฟเวอร์หลังบ้าน ค้นหารหัสหรือชื่อได้ทันที</p>
             </div>
             <div id="table-wrapper"></div>
         </div>
     </main>
 
     <script>
-        // CONFIG: กำหนดข้อมูลผู้ใช้ของคุณเพื่อให้ระบบ API ค้นหาพิกัดไฟล์เจอ
         const GITHUB_USER = "pet1486-sys";
         const GITHUB_REPO = "stock-web-titans-gain";
         const FILE_NAME = "stock_data/SKU.xlsx"; 
@@ -116,17 +99,22 @@
                         document.getElementById('update-status').innerText = `📅 ไฟล์อัปเดตล่าสุด: ${commitDate.toLocaleString('th-TH')}`;
                         document.getElementById('update-status').className = "text-xs bg-green-700 text-white px-3 py-1.5 rounded-full font-medium";
                     } else {
-                        document.getElementById('update-status').innerText = `🔄 ดึงข้อมูลสำเร็จ`;
+                        updateTimeToNow();
                     }
                 })
                 .catch(() => {
-                    document.getElementById('update-status').innerText = `🔄 อ่านไฟล์สำเร็จ`;
+                    updateTimeToNow();
                 });
         }
 
-        // 2. ฟังก์ชันเมื่อกดปุ่ม "สั่งบอทดึงข้อมูลใหม่"
+        function updateTimeToNow() {
+            const now = new Date();
+            document.getElementById('update-status').innerText = `🔄 ดึงข้อมูลล่าสุด: ${now.toLocaleTimeString('th-TH')}`;
+            document.getElementById('update-status').className = "text-xs bg-green-700 text-white px-3 py-1.5 rounded-full font-medium";
+        }
+
+        // 2. ปุ่มสั่ง Trigger GitHub Actions
         document.getElementById('trigger-bot-btn').addEventListener('click', () => {
-            // เช็กว่าเคยเซฟ Token ไว้ในบราวเซอร์หรือยัง ถ้ายังให้ป๊อปอัปถาม
             let token = localStorage.getItem('gh_token');
             if(!token) {
                 token = prompt("กรุณาใส่ GitHub Personal Access Token (Classic) ที่มีสิทธิ์ 'workflow' เพื่อสั่งงานระบบคลาวด์:");
@@ -138,7 +126,6 @@
             btn.innerText = "⏳ กำลังส่งคำสั่ง...";
             btn.disabled = true;
 
-            // ส่งคำสั่งยิงไปที่ GitHub Actions workflow_dispatch ให้คลาวด์ตื่นทันที
             fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/actions/workflows/run_bot.yml/dispatches`, {
                 method: 'POST',
                 headers: {
@@ -146,14 +133,14 @@
                     'Accept': 'application/vnd.github.v3+json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ ref: 'main' }) // สั่งให้รันที่กิ่งหลัก
+                body: JSON.stringify({ ref: 'main' })
             })
             .then(res => {
                 if(res.status === 204) {
                     alert("⚡ สั่งงานสำเร็จ! บอทกำลังตื่นขึ้นมาดาวน์โหลดข้อมูลใน GitHub Actions (ใช้เวลาประมาณ 1-2 นาที แนะนำให้รีเฟรชหน้าเว็บนี้อีกครั้งในภายหลังครับ)");
                 } else {
                     alert("❌ เกิดข้อผิดพลาด: รหัส Token ไม่ถูกต้อง หรือไม่มีสิทธิ์เข้าถึงระบบ Workflow ครับ");
-                    localStorage.removeItem('gh_token'); // ล้าง Token เผื่อกรอกผิด
+                    localStorage.removeItem('gh_token');
                 }
             })
             .catch(err => alert("เกิดข้อผิดพลาดในการเชื่อมต่อ: " + err))
@@ -193,19 +180,14 @@
                     ];
                 });
 
-            renderCategoryCheckboxes();
-            
-            if (localStorage.getItem('selected_categories')) {
-                renderTable();
-            }
-            
-            // เรียกตรวจสอบเวลาการ commit ไฟล์จริงบน GitHub
+            // 🎯 เจาะจงแสดงตารางอัตโนมัติทันทีที่อ่านข้อมูลสำเร็จ โดยไม่ต้องมีปุ่มกดเลือกแล้ว
+            renderAutomaticTable();
             fetchFileLastCommitTime();
         }
 
         // ฟังก์ชันดึงไฟล์ Excel อัตโนมัติจากโฟลเดอร์ stock_data/
         function loadExcelFromServer() {
-            fetch(FILE_NAME + "?t=" + new Date().getTime()) // ป้องกันบราวเซอร์จำไฟล์เก่า (Anti-cache)
+            fetch(FILE_NAME + "?t=" + new Date().getTime()) 
                 .then(response => {
                     if (!response.ok) throw new Error('ไม่พบไฟล์บนเซิร์ฟเวอร์');
                     return response.arrayBuffer();
@@ -221,49 +203,17 @@
                 });
         }
 
-        // สร้างกล่องเช็คบ็อกซ์เลือกหมวดหมู่ย่อย
-        function renderCategoryCheckboxes() {
-            const categories = [...new Set(allCleanData.map(item => item[2]))].filter(Boolean).sort();
-            const container = document.getElementById('checkbox-container');
-            container.innerHTML = "";
-
-            const savedCats = JSON.parse(localStorage.getItem('selected_categories')) || [];
-
-            categories.forEach(cat => {
-                const label = document.createElement('label');
-                label.className = "flex items-center gap-2 bg-white p-2 rounded border border-gray-200 cursor-pointer text-xs font-medium hover:bg-blue-50 transition-colors";
-                
-                const checkbox = document.createElement('input');
-                checkbox.type = "checkbox";
-                checkbox.value = cat;
-                checkbox.className = "rounded text-blue-600 focus:ring-blue-500 category-checkbox";
-                
-                if (savedCats.length === 0 || savedCats.includes(cat)) {
-                    checkbox.checked = true;
-                }
-
-                label.appendChild(checkbox);
-                label.appendChild(document.createTextNode(` ${cat}`));
-                container.appendChild(label);
-            });
-
-            document.getElementById('category-filter-card').classList.remove('hidden');
-        }
-
-        // กรองข้อมูลและแสดงลงในตารางหลัก
-        function renderTable() {
+        // 🎯 ฟังก์ชันกรองและสร้างตารางอัตโนมัติเฉพาะ 2 กลุ่มสินค้าที่กำหนด
+        function renderAutomaticTable() {
             if (allCleanData.length === 0) return;
 
-            const checkedBoxes = document.querySelectorAll('.category-checkbox:checked');
-            const selectedCats = Array.from(checkedBoxes).map(cb => cb.value);
+            // 🔒 บังคับล็อกเป้าหมายเฉพาะ "อุปกรณ์ปะยาง" และ "อุปกรณ์ปะยาง MR" เท่านั้น
+            const targetCategories = ["อุปกรณ์ปะยาง", "อุปกรณ์ปะยาง MR"];
+            const filteredData = allCleanData.filter(item => targetCategories.includes(item[2]));
 
-            localStorage.setItem('selected_categories', JSON.stringify(selectedCats));
-
-            const filteredData = allCleanData.filter(item => selectedCats.includes(item[2]));
-
+            // อัปเดตข้อมูลตัวเลขแดชบอร์ดสรุปผล
             document.getElementById('total-items').innerText = filteredData.length + " รายการ";
             document.getElementById('out-of-stock').innerText = filteredData.filter(row => row[5] <= 0).length + " รายการ";
-            document.getElementById('displayed-category').innerText = selectedCats.length + " หมวดหมู่";
 
             document.getElementById('table-card').classList.remove('hidden');
 
@@ -295,7 +245,7 @@
                 sort: true,
                 pagination: { limit: 10 },
                 language: {
-                    'search': { 'placeholder': '🔍 พิมพ์ค้นหาจากข้อมูลที่นำเข้า...' },
+                    'search': { 'placeholder': '🔍 พิมพ์ค้นหารหัสหรือชื่อสินค้าในตาราง...' },
                     'pagination': { 'previous': 'ก่อนหน้า', 'next': 'ถัดไป', 'showing': 'กำลังแสดง', 'results': () => 'รายการทั้งหมด' }
                 },
                 style: {
@@ -305,15 +255,7 @@
             }).render(wrapper);
         }
 
-        document.getElementById('import-btn').addEventListener('click', renderTable);
-
-        document.getElementById('select-all-btn').addEventListener('click', () => {
-            document.querySelectorAll('.category-checkbox').forEach(cb => cb.checked = true);
-        });
-        document.getElementById('clear-all-btn').addEventListener('click', () => {
-            document.querySelectorAll('.category-checkbox').forEach(cb => cb.checked = false);
-        });
-
+        // อีเวนต์สำหรับการอัปโหลดแบบสำรองฉุกเฉิน
         document.getElementById('excel-file').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (!file) return;
@@ -322,7 +264,9 @@
             reader.readAsArrayBuffer(file);
         });
 
+        // สั่งให้ระบบเริ่มทำงานโหลดข้อมูลอัตโนมัติทันที
         loadExcelFromServer();
+        // รีเฟรชดึง Cache ตัวไฟล์ Excel ทุกๆ 5 นาที
         setInterval(loadExcelFromServer, 300000);
     </script>
 </body>
