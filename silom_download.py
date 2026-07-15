@@ -11,7 +11,6 @@ from selenium.webdriver.support import expected_conditions as EC
 USERNAME = "pet1486@gmail.com"
 PASSWORD = "htz32151"
 
-# บังคับระบุโฟลเดอร์ดาวน์โหลดสำหรับ Ubuntu บน GitHub Actions ตรง ๆ
 DOWNLOAD_DIR = "/home/runner/Downloads"
 
 if not os.path.exists(DOWNLOAD_DIR):
@@ -35,7 +34,7 @@ chrome_options.add_argument("--disable-dev-shm-usage")
 
 print("กำลังสั่งเปิด Chrome (Headless) บน GitHub Actions...")
 driver = webdriver.Chrome(options=chrome_options)
-wait = WebDriverWait(driver, 15)
+wait = WebDriverWait(driver, 20) # เพิ่มเวลารอดักองค์ประกอบ
 
 try:
     print("กำลังเปิดหน้าเว็บไซต์ Silom POS...")
@@ -56,7 +55,7 @@ try:
     login_button.click()
     
     print("กำลังรอโหลดหน้า Dashboard...")
-    time.sleep(4)
+    time.sleep(6) # เพิ่มเวลาให้หน้านิ่งก่อนล้างสิ่งกีดขวาง
     
     try:
         driver.execute_script("""
@@ -66,6 +65,7 @@ try:
             var chats = document.querySelectorAll('#crisp-chat-box, .crisp-client, [class^="cc-"]');
             chats.forEach(function(el) { el.remove(); });
         """)
+        print("ล้างสิ่งกีดขวางหน้าจอชั่วคราวแล้ว")
     except Exception:
         pass
 
@@ -74,23 +74,28 @@ try:
         By.XPATH, "//*[contains(@class, 'sidebar') or contains(@class, 'menu')]//*[contains(text(), 'สินค้าคงคลัง')]"
     )))
     menu_inventory.click()
-    time.sleep(1)
+    time.sleep(2) # รอแอนิเมชันของเมนูกางออก
     
     submenu_sku = wait.until(EC.element_to_be_clickable((
         By.XPATH, "//*[contains(@class, 'sidebar') or contains(@class, 'menu')]//*[contains(text(), 'สินค้าคงเหลือตาม SKU')]"
     )))
     submenu_sku.click()
-    time.sleep(3)
-
+    
+    # ดักรอชัวร์ ๆ ให้ปุ่มแสดงผลขึ้นมาก่อน
     print("กำลังค้นหาปุ่ม 'ส่งออกไฟล์'...")
     export_button = wait.until(EC.presence_of_element_located((By.ID, "SKUInventoryExportButton")))
-    
-    print("กำลังส่งคำสั่งดาวน์โหลดไฟล์ Excel...")
+    time.sleep(3) # รอให้ตารางโหลดนิ่งสนิทจริง ๆ ก่อนกด
+
+    print("กำลังส่งคำสั่งดาวน์โหลดไฟล์ Excel ทะลุสิ่งกีดขวาง...")
     driver.execute_script("arguments[0].click();", export_button)
     
-    # หน่วงเวลารอให้ดาวน์โหลดไฟล์เสร็จสมบูรณ์บนคลาวด์
-    time.sleep(8)
-    print("🎉 ดาวน์โหลดไฟล์ลงบนเซิร์ฟเวอร์สำเร็จ!")
+    # ⏱️ จุดสำคัญ: เพิ่มเวลารอให้เซิร์ฟเวอร์เขียนไฟล์ลงในโฟลเดอร์ Downloads นานขึ้นเป็น 20 วินาที
+    print("⏱️ รอระบบบันทึกไฟล์ลงดิสก์บนเซิร์ฟเวอร์ 20 วินาที...")
+    time.sleep(20)
+    
+    # ตรวจสอบเบื้องต้นว่ามีไฟล์ไหม
+    files = os.listdir(DOWNLOAD_DIR)
+    print(f"ไฟล์ที่พบในโฟลเดอร์ดาวน์โหลด: {files}")
 
 except Exception as e:
     print(f"เกิดข้อผิดพลาดในการทำงาน: {str(e)}")
