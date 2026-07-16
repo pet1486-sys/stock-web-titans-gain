@@ -228,7 +228,7 @@
         const GITHUB_USER = "pet1486-sys";
         const GITHUB_REPO = "stock-web-titans-gain";
         const FILE_NAME = "stock_data/SKU.xlsx"; 
-        const CAT_JSON_PATH = "stock_data/categories.json"; // ไฟล์เก็บข้อมูลหมวดหมู่บน GitHub
+        const CAT_JSON_PATH = "stock_data/categories.json"; 
         
         // ⚠️ วาง Token ของคุณตรงนี้แทนคำว่า "YOUR_GITHUB_TOKEN"
         const GITHUB_TOKEN = "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"; 
@@ -240,7 +240,6 @@
         let selectedFileBlob = null; 
         let currentImageExtension = "";
 
-        // เปลี่ยนจากเก็บ LocalStorage มาเป็นค่าเริ่มต้นชั่วคราว (จะดึงจริงจาก GitHub ตอนโหลดหน้าเว็บ)
         let categoryDatabase = { "สินค้าขายดี/แนะนำ": [], "สินค้าสต็อกต่ำเตือนภัย": [] };
 
         function toggleSidebar() {
@@ -288,7 +287,7 @@
             }
         }
 
-        // ─── 🌐 ส่วนเชื่อมต่อ GITHUB API (บันทึกข้อมูลร่วมกัน) ───
+        // ─── 🌐 ส่วนเชื่อมต่อ GITHUB API ───
         
         // 1. ดึงไฟล์หมวดหมู่จาก GitHub
         async function loadCategoriesFromGitHub() {
@@ -316,7 +315,6 @@
             } catch(e){}
 
             const jsonString = JSON.stringify(categoryDatabase, null, 2);
-            // เข้ารหัสแบบ UTF-8 ป้องกันภาษาไทยเพี้ยน
             const base64Content = btoa(encodeURIComponent(jsonString).replace(/%([0-9A-F]{2})/g, (match, p1) => String.fromCharCode('0x' + p1)));
 
             const body = {
@@ -341,7 +339,6 @@
 
         // 3. ฟังก์ชันอัปโหลดไฟล์รูปภาพเข้า Repository ตรงๆ
         async function uploadImageToGitHub(productName, fileBlob) {
-            // ตั้งชื่อไฟล์รูปด้วยการลบอักขระพิเศษออก ป้องกันลิงก์พัง
             const safeName = productName.replace(/[^a-zA-Z0-9ก-๙_-]/g, '_');
             const path = `image/products/${safeName}${currentImageExtension}`;
             const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${path}`;
@@ -369,7 +366,6 @@
                     });
                     
                     if(res.ok) {
-                        // ส่ง URL ลิงก์ตรงจาก GitHub Pages / Raw กลับไปเซฟ
                         resolve(`https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${path}`);
                     } else {
                         reject();
@@ -418,8 +414,6 @@
                 .map(row => {
                     const name = row[1] ? row[1].toString().trim() : "";
                     const safeName = name.replace(/[^a-zA-Z0-9ก-๙_-]/g, '_');
-                    // ตรวจหารูปภาพจากพาร์ทโฟลเดอร์ใน GitHub ล่วงหน้าตามชื่อสินค้า
-                    // รองรับตรวจสอบไฟล์ .png, .jpg (สร้าง Fallback ลิงก์ตรง)
                     return [
                         row[1] ? row[1].toString().trim() : "", 
                         row[2] ? row[2].toString().trim() : "", 
@@ -688,12 +682,12 @@
 
             const excelInfo = allCleanData.find(row => row[1] === selectedProduct);
             if(excelInfo) {
-                imgElement.src = excelInfo[5] + ".png"; // ลองโหลด PNG
+                imgElement.src = excelInfo[5] + ".png"; 
                 imgElement.classList.remove('hidden'); previewIcon.classList.add('hidden'); placeholderText.classList.add('hidden');
                 
                 imgElement.onerror = function() {
                     this.onerror = null;
-                    this.src = excelInfo[5] + ".jpg"; // Fallback ไป JPG ถ้าไม่มี PNG
+                    this.src = excelInfo[5] + ".jpg"; 
                     this.onerror = function() {
                         this.classList.add('hidden'); previewIcon.classList.remove('hidden');
                         placeholderText.classList.remove('hidden'); placeholderText.innerText = "สินค้านี้ยังไม่มีรูปภาพบนระบบกลาง";
@@ -745,7 +739,6 @@
                 if(catSelect) { const opt1 = document.createElement('option'); opt1.value = item[0]; opt1.text = item[0]; catSelect.appendChild(opt1); }
                 if(imgSelect) { const opt2 = document.createElement('option'); opt2.value = item[0]; opt2.text = item[0]; imgSelect.appendChild(opt2); }
             });
-            // การซิงค์ดรอปดาวน์ใช้ชื่อเป็น text
             if(catSelect) {
                 catSelect.innerHTML = "";
                 allCleanData.forEach(item => { const opt = document.createElement('option'); opt.value = item[1]; opt.text = item[1]; catSelect.appendChild(opt); });
@@ -783,12 +776,55 @@
             }).render(wrapper);
         }
 
-        function loadExcelFromServer() {
+        // 🌟 5. ปุ่มหลักถูกแก้ไขให้กดรัน GitHub Actions คลัง bot-Actions พร้อมระบบป๊อปอัปแจ้งเตือน
+        async function loadExcelFromServer() {
+            const confirmRun = confirm("❓ คุณต้องการสั่งรันบอท (GitHub Actions) เพื่อดึงข้อมูลสต็อกใหม่ล่าสุดใช่หรือไม่?");
+            if (!confirmRun) {
+                return; 
+            }
+
+            document.getElementById('update-status').innerText = "⏳ กำลังส่งคำสั่งรันบอท...";
+
+            const TARGET_BOT_REPO = "bot-Actions"; 
+            const WORKFLOW_FILE = "run_bot.yml"; 
+            const url = `https://api.github.com/repos/${GITHUB_USER}/${TARGET_BOT_REPO}/actions/workflows/${WORKFLOW_FILE}/dispatches`;
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `token ${GITHUB_TOKEN}`,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ ref: 'main' })
+                });
+
+                if (response.status === 204) {
+                    alert("🚀 สั่งบอทรันสำเร็จแล้ว! บอทหลังบ้านกำลังเริ่มทำขั้นตอนดาวน์โหลด ข้อมูลหน้าร้านจะอัปเดตอัตโนมัติในอีกสักครู่ครับ");
+                    document.getElementById('update-status').innerText = "⏳ บอทหลังบ้านกำลังทำงาน...";
+                    
+                    setTimeout(async () => {
+                        fetchActualExcelData();
+                    }, 10000);
+                } else {
+                    alert("เกิดข้อผิดพลาด: รหัส GitHub Token ในโค้ดอาจไม่ถูกต้อง หรือไม่มีสิทธิ์สั่งรันใน Repository");
+                    document.getElementById('update-status').innerText = "❌ สั่งรันบอทล้มเหลว";
+                }
+            } catch (error) {
+                console.error('Error triggering GitHub Action:', error);
+                alert("ไม่สามารถเชื่อมต่อกับ GitHub API ได้ โปรดตรวจสอบอินเทอร์เน็ต");
+                document.getElementById('update-status').innerText = "⚠️ เชื่อมต่อ API ล้มเหลว";
+            }
+        }
+
+        // 🌟 6. แยกฟังก์ชันโหลดไฟล์ Excel ตรงๆ มาทำงานแบบเดี่ยวเพื่อใช้ตอนเปิดเว็บครั้งแรก
+        function fetchActualExcelData() {
             document.getElementById('update-status').innerText = "⏳ กำลังดึงข้อมูลล่าสุด...";
             fetch(FILE_NAME + "?t=" + new Date().getTime()) 
                 .then(res => { if (!res.ok) throw new Error(); return res.arrayBuffer(); })
                 .then(async (buffer) => { 
-                    await loadCategoriesFromGitHub(); // ดึงหมวดหมู่จาก GitHub มาอัปเดตก่อนโปรเซสภาพ
+                    await loadCategoriesFromGitHub(); 
                     processExcelData(buffer); 
                 })
                 .catch(() => { document.getElementById('update-status').innerText = "⚠️ ไม่พบไฟล์ SKU.xlsx บน GitHub"; });
@@ -804,8 +840,8 @@
         document.getElementById('clear-log-btn').addEventListener('click', () => { if(confirm("ต้องการล้างประวัติการเติมสินค้า?")) { localStorage.removeItem('stock_fill_logs'); renderLogTable([]); } });
         document.getElementById('clear-sales-log-btn').addEventListener('click', () => { if(confirm("ต้องการล้างประวัติการขายสินค้า?")) { localStorage.removeItem('stock_sales_logs'); renderSalesLogTable([]); } });
         
-        // โหลดข้อมูลเริ่มต้น
-        loadExcelFromServer();
+        // 🌟 7. เปลี่ยนมาเรียกใช้งาน fetchActualExcelData ตอนเปิดเว็บครั้งแรก เพื่อไม่ให้มีป๊อปอัปแจ้งเตือนรบกวน
+        fetchActualExcelData();
         lucide.createIcons();
     </script>
 </body>
