@@ -50,7 +50,6 @@
                 จัดการรูปภาพสินค้า
             </button>
 
-            <!-- ⚙️ เพิ่มปุ่มตั้งค่า Token ไว้ท้ายเมนู Sidebar -->
             <button onclick="openTokenModal()" class="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-all cursor-pointer hover:bg-slate-800 hover:text-amber-400 text-slate-400 border border-dashed border-slate-700 mt-4">
                 <i data-lucide="settings" class="w-5 h-5"></i>
                 ตั้งค่ารหัส GitHub Token
@@ -58,7 +57,7 @@
         </nav>
         
         <div class="p-4 text-xs text-slate-600 border-t border-slate-800 text-center">
-            v1.9.0 Stock Control Engine
+            v2.0.0 Monthly Log Sync Engine
         </div>
     </aside>
 
@@ -125,7 +124,7 @@
                         <span class="p-2 bg-slate-100 text-slate-700 rounded-xl"><i data-lucide="calendar" class="w-4 h-4"></i></span>
                         <div>
                             <h4 class="text-xs font-bold text-gray-900">ตัวกรองประวัติประจำวัน</h4>
-                            <p class="text-[10px] text-gray-400">เลือกดูรายงานการเติมและขายแยกตามวัน</p>
+                            <p class="text-[10px] text-gray-400">เลือกดูรายงานการเติมและขายแยกตามวัน (ดึงจาก GitHub)</p>
                         </div>
                     </div>
                     <div class="flex items-center gap-2">
@@ -150,19 +149,18 @@
                         <div id="table-wrapper" class="w-full"></div>
                     </div>
 
+                    <!-- 🛑 เอาปุ่มล้างประวัติออกถาวรเรียบร้อยแล้ว -->
                     <div class="xl:col-span-1 space-y-6 flex flex-col">
                         <div id="log-card" class="bg-white p-4 sm:p-5 rounded-2xl shadow-xs border border-gray-100 overflow-hidden hidden">
-                            <div class="mb-3 flex justify-between items-center">
+                            <div class="mb-3 flex items-center">
                                 <h2 class="text-[11px] sm:text-xs font-bold text-gray-900 flex items-center gap-1.5"><i data-lucide="plus-circle" class="w-4 h-4 text-emerald-600"></i> 🕒 ประวัติการเติมสินค้า</h2>
-                                <button id="clear-log-btn" class="text-[10px] sm:text-[11px] text-red-500 hover:underline cursor-pointer">ล้างประวัติทั้งหมด</button>
                             </div>
                             <div id="log-wrapper" class="w-full"></div>
                         </div>
 
                         <div id="sales-log-card" class="bg-white p-4 sm:p-5 rounded-2xl shadow-xs border border-gray-100 overflow-hidden hidden">
-                            <div class="mb-3 flex justify-between items-center">
+                            <div class="mb-3 flex items-center">
                                 <h2 class="text-[11px] sm:text-xs font-bold text-gray-900 flex items-center gap-1.5"><i data-lucide="minus-circle" class="w-4 h-4 text-amber-600"></i> 🛍️ ประวัติการขายสินค้า</h2>
-                                <button id="clear-sales-log-btn" class="text-[10px] sm:text-[11px] text-red-500 hover:underline cursor-pointer">ล้างประวัติทั้งหมด</button>
                             </div>
                             <div id="sales-log-wrapper" class="w-full"></div>
                         </div>
@@ -272,7 +270,8 @@
     <!-- ─── SCRIPT LOGIC ─── -->
     <script>
         const GITHUB_USER = "pet1486-sys";
-        const GITHUB_REPO = "stock-web-titans-gain";
+        // ✅ ปรับแก้ไขชื่อคลังปลายทางตรงตัวเป็นของจริงเรียบร้อย
+        const GITHUB_REPO = "stock-web-titans-gain"; 
         const FILE_NAME = "stock_data/SKU.xlsx"; 
         const CAT_JSON_PATH = "stock_data/categories.json"; 
 
@@ -284,15 +283,14 @@
         let currentImageExtension = "";
         let currentSelectedLogDate = ""; 
 
+        // ตัวแปรส่วนกลางสำหรับพักข้อมูล Log รายเดือนที่โหลดมาจาก GitHub
+        let globalMonthlyLogs = { fill_logs: [], sales_logs: [] };
+
         let categoryDatabase = { "สินค้าขายดี/แนะนำ": [], "สินค้าสต็อกต่ำเตือนภัย": [] };
 
-        // ⚙️ ล้างฟังก์ชันดึงค่าสิทธิ์ Token มาจาก LocalStorage ในเครื่องแทนการ Hardcode
         function getGitHubToken() {
             const localToken = localStorage.getItem('user_github_token');
-            if(!localToken) {
-                return "";
-            }
-            return localToken;
+            return localToken ? localToken : "";
         }
 
         function openTokenModal() {
@@ -392,7 +390,6 @@
 
             const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${CAT_JSON_PATH}`;
             let sha = null;
-            
             try {
                 const resCheck = await fetch(url, { headers: { "Authorization": `token ${token}` } });
                 if (resCheck.ok) { const dataCheck = await resCheck.json(); sha = dataCheck.sha; }
@@ -401,10 +398,7 @@
             const jsonString = JSON.stringify(categoryDatabase, null, 2);
             const base64Content = btoa(encodeURIComponent(jsonString).replace(/%([0-9A-F]{2})/g, (match, p1) => String.fromCharCode('0x' + p1)));
 
-            const body = {
-                message: "📦 Update product categories config via web",
-                content: base64Content
-            };
+            const body = { message: "📦 Update product categories config via web", content: base64Content };
             if (sha) body.sha = sha;
 
             const resSave = await fetch(url, {
@@ -414,8 +408,7 @@
             });
 
             if (resSave.ok) {
-                renderAllCategoryTables();
-                renderDashboardCategoryShowcase();
+                renderAllCategoryTables(); renderDashboardCategoryShowcase();
             } else {
                 alert("เกิดข้อผิดพลาดในการบันทึกข้อมูลขึ้น GitHub (Token อาจจะผิดหรือหมดอายุ)");
             }
@@ -439,10 +432,7 @@
                 const reader = new FileReader();
                 reader.onload = async function(e) {
                     const base64 = e.target.result.split(',')[1];
-                    const body = {
-                        message: `🖼️ Upload image for ${productName}`,
-                        content: base64
-                    };
+                    const body = { message: `🖼️ Upload image for ${productName}`, content: base64 };
                     if(sha) body.sha = sha;
 
                     const res = await fetch(url, {
@@ -450,12 +440,8 @@
                         headers: { "Authorization": `token ${token}`, "Content-Type": "application/json" },
                         body: JSON.stringify(body)
                     });
-                    
-                    if(res.ok) {
-                        resolve(`https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${path}`);
-                    } else {
-                        reject();
-                    }
+                    if(res.ok) resolve(`https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${path}`);
+                    else reject();
                 };
                 reader.readAsDataURL(fileBlob);
             });
@@ -464,7 +450,6 @@
         async function deleteImageFromGitHub(imageHtmlUrl) {
             const token = getGitHubToken();
             if(!token) return;
-
             try {
                 const path = imageHtmlUrl.split(`/main/`)[1];
                 if(!path) return;
@@ -514,53 +499,48 @@
 
             if (!currentSelectedLogDate) {
                 const today = new Date();
-                const yyyy = today.getFullYear();
-                const mm = String(today.getMonth() + 1).padStart(2, '0');
-                const dd = String(today.getDate()).padStart(2, '0');
-                currentSelectedLogDate = `${yyyy}-${mm}-${dd}`;
+                currentSelectedLogDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
                 document.getElementById('log-date-picker').value = currentSelectedLogDate;
             }
 
-            checkStockChanges(allCleanData);
             renderAutomaticTable();
             updateProductDropdowns(); 
             updateCategorySelectDropdown();
             renderAllCategoryTables(); 
             renderDashboardCategoryShowcase(); 
             fetchFileLastCommitTime();
+            
+            // สั่งโหลดคลังข้อมูลประวัติรายเดือนจาก GitHub ออนไลน์ทันที
+            loadMonthlyLogsFromGitHub();
         }
 
-        function checkStockChanges(newData) {
-            let previousStock = JSON.parse(localStorage.getItem('cached_stock_balances')) || {};
-            let fillLogs = JSON.parse(localStorage.getItem('stock_fill_logs')) || [];
-            let salesLogs = JSON.parse(localStorage.getItem('stock_sales_logs')) || [];
-            let hasNewFill = false; let hasNewSales = false;
+        // 🌐 ฟังก์ชันดึงไฟล์ Log ย้อนหลังรายเดือนมาจากคลัง GitHub ออนไลน์โดยตรง
+        async function loadMonthlyLogsFromGitHub() {
+            if(!currentSelectedLogDate) return;
             
-            const today = new Date();
-            const dateStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
-            const timeStr = today.toTimeString().split(' ')[0].substring(0, 5);
-            const fullTimestamp = `${dateStr} ${timeStr}`;
+            // ดึงค่าปีและเดือน เช่น "2026-07" -> "2026_07"
+            const dateParts = currentSelectedLogDate.split('-');
+            const yearMonthStr = `${dateParts[0]}_${dateParts[1]}`;
+            const logUrl = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/stock_data/logs_${yearMonthStr}.json?t=${new Date().getTime()}`;
 
-            newData.forEach(item => {
-                const plu = item[0]; const name = item[1]; const currentQty = item[4]; 
-                if (previousStock[plu] !== undefined) {
-                    const diff = currentQty - previousStock[plu];
-                    if (diff > 0) { fillLogs.unshift([fullTimestamp, plu, name, `+${diff} ชิ้น`]); hasNewFill = true; } 
-                    else if (diff < 0) { salesLogs.unshift([fullTimestamp, plu, name, `${Math.abs(diff)} ชิ้น`]); hasNewSales = true; }
+            try {
+                const response = await fetch(logUrl);
+                if (response.ok) {
+                    globalMonthlyLogs = await response.json();
+                } else {
+                    globalMonthlyLogs = { fill_logs: [], sales_logs: [] };
                 }
-                previousStock[plu] = currentQty;
-            });
-
-            localStorage.setItem('cached_stock_balances', JSON.stringify(previousStock));
-            if (hasNewFill || fillLogs.length > 0) localStorage.setItem('stock_fill_logs', JSON.stringify(fillLogs));
-            if (hasNewSales || salesLogs.length > 0) localStorage.setItem('stock_sales_logs', JSON.stringify(salesLogs));
+            } catch (err) {
+                globalMonthlyLogs = { fill_logs: [], sales_logs: [] };
+            }
             
             filterAndRenderLogs();
         }
 
+        // 📅 ประมวลผลและคัดกรอง Log รายเดือนแสดงเฉพาะวันที่เลือก
         function filterAndRenderLogs() {
-            let fillLogs = JSON.parse(localStorage.getItem('stock_fill_logs')) || [];
-            let salesLogs = JSON.parse(localStorage.getItem('stock_sales_logs')) || [];
+            let fillLogs = globalMonthlyLogs.fill_logs || [];
+            let salesLogs = globalMonthlyLogs.sales_logs || [];
 
             let filteredFill = fillLogs.filter(log => log[0].startsWith(currentSelectedLogDate));
             let filteredSales = salesLogs.filter(log => log[0].startsWith(currentSelectedLogDate));
@@ -618,8 +598,18 @@
 
         function handleLogDateChange(newDateValue) {
             if(!newDateValue) return;
+            
+            // เช็กว่ามีการข้ามเดือนเกิดขึ้นหรือไม่ ถ้าใช่ต้องโหลดไฟล์ .json ใหม่จาก GitHub
+            const oldMonth = currentSelectedLogDate.split('-')[1];
+            const newMonth = newDateValue.split('-')[1];
+            
             currentSelectedLogDate = newDateValue;
-            filterAndRenderLogs();
+            
+            if (oldMonth !== newMonth) {
+                loadMonthlyLogsFromGitHub();
+            } else {
+                filterAndRenderLogs();
+            }
         }
 
         function adjustLogDate(daysOffset) {
@@ -630,9 +620,8 @@
             const mm = String(currentDate.getMonth() + 1).padStart(2, '0');
             const dd = String(currentDate.getDate()).padStart(2, '0');
             
-            currentSelectedLogDate = `${yyyy}-${mm}-${dd}`;
+            handleLogDateChange(`${yyyy}-${mm}-${dd}`);
             document.getElementById('log-date-picker').value = currentSelectedLogDate;
-            filterAndRenderLogs();
         }
 
         function resetLogDateToToday() {
@@ -641,9 +630,8 @@
             const mm = String(today.getMonth() + 1).padStart(2, '0');
             const dd = String(today.getDate()).padStart(2, '0');
             
-            currentSelectedLogDate = `${yyyy}-${mm}-${dd}`;
+            handleLogDateChange(`${yyyy}-${mm}-${dd}`);
             document.getElementById('log-date-picker').value = currentSelectedLogDate;
-            filterAndRenderLogs();
         }
 
         function renderDashboardCategoryShowcase() {
@@ -942,8 +930,7 @@
             const token = getGitHubToken();
             if(!token) {
                 alert("⚠️ คุณยังไม่ได้ตั้งค่ารหัส GitHub Token! กรุณากดปุ่มตั้งค่าที่แถบเมนูด้านซ้ายเพื่อกรอกรหัสก่อนใช้งานปุ่มนี้ครับ");
-                openTokenModal();
-                return;
+                openTokenModal(); return;
             }
 
             const confirmRun = confirm("❓ คุณต้องการสั่งรันบอท (GitHub Actions) เพื่อดึงข้อมูลสต็อกใหม่ล่าสุดใช่หรือไม่?");
@@ -970,9 +957,7 @@
                     alert("🚀 สั่งบอทรันสำเร็จแล้ว! บอทหลังบ้านกำลังเริ่มทำขั้นตอนดาวน์โหลด ข้อมูลหน้าร้านจะอัปเดตอัตโนมัติในอีกสักครู่ครับ");
                     document.getElementById('update-status').innerText = "⏳ บอทหลังบ้านกำลังทำงาน...";
                     
-                    setTimeout(async () => {
-                        fetchActualExcelData();
-                    }, 10000);
+                    setTimeout(async () => { fetchActualExcelData(); }, 10000);
                 } else {
                     alert("เกิดข้อผิดพลาด: รหัส Token ที่คุณกรอกไว้อาจไม่ถูกต้อง หรือไม่มีสิทธิ์เข้าถึงคลังบอท");
                     document.getElementById('update-status').innerText = "❌ สั่งรันบอทล้มเหลว";
@@ -1002,9 +987,6 @@
                 }).catch(() => { document.getElementById('update-status').innerText = `🔄 ซิงค์ข้อมูลออนไลน์สำเร็จ`; });
         }
 
-        document.getElementById('clear-log-btn').addEventListener('click', () => { if(confirm("ต้องการล้างประวัติการเติมสินค้าทั้งหมดออกจากระบบจำลอง?")) { localStorage.removeItem('stock_fill_logs'); filterAndRenderLogs(); } });
-        document.getElementById('clear-sales-log-btn').addEventListener('click', () => { if(confirm("ต้องการล้างประวัติการขายสินค้าทั้งหมดออกจากระบบจำลอง?")) { localStorage.removeItem('stock_sales_logs'); filterAndRenderLogs(); } });
-        
         fetchActualExcelData();
         lucide.createIcons();
     </script>
