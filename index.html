@@ -18,27 +18,51 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
+        /* ซ่อนแถบค้นหาดั้งเดิมของ Grid.js เพื่อใช้แถบค้นหาแบบ Custom ที่รองรับดรอปดาวน์แทน */
         .gridjs-search { display: none !important; }
         
-        /* 📱 จัดการตารางคลังใหญ่ในมือถือให้ย่ออักษรและ Padding กระชับ ไม่ล้นหน้าจอ */
+        /* 📱 CSS ปรับโหมดตารางให้เป็นรูปแบบการ์ดแนวตั้งบนหน้าจอมือถืออัตโนมัติ */
         @media (max-width: 640px) {
-            .responsive-gridjs-table .gridjs-table {
-                table-layout: fixed !important;
+            .responsive-gridjs-table table, 
+            .responsive-gridjs-table thead, 
+            .responsive-gridjs-table tbody, 
+            .responsive-gridjs-table th, 
+            .responsive-gridjs-table td, 
+            .responsive-gridjs-table tr { 
+                display: block !important; 
                 width: 100% !important;
             }
-            .responsive-gridjs-table th, 
-            .responsive-gridjs-table td { 
-                padding: 4px 3px !important; 
-                font-size: 10px !important;
-                white-space: nowrap !important;
-                overflow: hidden !important;
-                text-overflow: ellipsis !important;
+            .responsive-gridjs-table thead { display: none !important; }
+            .responsive-gridjs-table tr {
+                margin-bottom: 0.75rem;
+                border: 1px solid #e2e8f0 !important;
+                border-radius: 0.75rem;
+                padding: 0.5rem;
+                background: #ffffff;
+                box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
             }
-            .responsive-gridjs-table th:nth-child(2),
-            .responsive-gridjs-table td:nth-child(2) {
-                width: 35% !important; /* ให้พื้นที่คอลัมน์ชื่อสินค้ามากหน่อย */
-                white-space: normal !important;
-                word-break: break-all !important;
+            .responsive-gridjs-table td {
+                text-align: right !important;
+                padding: 0.375rem 0.5rem !important;
+                border: none !important;
+                position: relative;
+                display: flex !important;
+                justify-content: space-between;
+                align-items: center;
+            }
+            /* ใส่ชื่อหัวข้อคอลัมน์กำกับไว้ด้านซ้ายของการ์ดมือถือ */
+            .responsive-gridjs-table td::before {
+                content: attr(data-label);
+                float: left;
+                font-weight: 750;
+                color: #4b5563;
+                font-size: 11px;
+                padding-right: 0.5rem;
+            }
+            .responsive-gridjs-table td > div,
+            .responsive-gridjs-table td > span {
+                text-align: right;
+                display: inline-block;
             }
         }
     </style>
@@ -81,7 +105,7 @@
         </nav>
         
         <div class="p-4 text-xs text-slate-600 border-t border-slate-800 text-center">
-            v2.4.0 High Scannability Engine
+            v2.1.0 Mobile Friendly Engine
         </div>
     </aside>
 
@@ -109,37 +133,36 @@
 
             <!-- ================= หน้าที่ 1: สินค้าคงคลังทั้งหมด ================= -->
             <div id="stock-page" class="page-content block">
-                <!-- 🎯 กรอบสินค้าแนะนำ/ขายดีแบบบีบย่อขนาดจิ๋วพิเศษ เพื่อการกวาดสายตาแบบกะทัดรัด -->
-                <div id="dashboard-category-showcase" class="mb-6 space-y-4"></div>
+                <div id="dashboard-category-showcase" class="mb-8 space-y-6"></div>
 
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6">
-                    <div class="bg-white p-3 rounded-xl shadow-xs border border-gray-100 flex items-center justify-between">
+                    <div class="bg-white p-4 rounded-xl shadow-xs border border-gray-100 flex items-center justify-between">
                         <div>
                             <p class="text-[10px] sm:text-xs text-gray-500 font-medium">รายการสินค้า</p>
-                            <h3 id="total-items" class="text-xs sm:text-xl font-bold mt-0.5 text-gray-900">-</h3>
+                            <h3 id="total-items" class="text-sm sm:text-xl font-bold mt-0.5 text-gray-900">-</h3>
                         </div>
-                        <div class="p-1.5 bg-blue-50 text-blue-600 rounded-lg text-xs sm:text-lg">📋</div>
+                        <div class="p-2 bg-blue-50 text-blue-600 rounded-lg text-sm sm:text-lg">📋</div>
                     </div>
-                    <div class="bg-white p-3 rounded-xl shadow-xs border border-gray-100 flex items-center justify-between">
+                    <div class="bg-white p-4 rounded-xl shadow-xs border border-gray-100 flex items-center justify-between">
                         <div>
                             <p class="text-[10px] sm:text-xs text-gray-500 font-medium">สินค้าที่หมด</p>
-                            <h3 id="out-of-stock" class="text-xs sm:text-xl font-bold mt-0.5 text-red-600">-</h3>
+                            <h3 id="out-of-stock" class="text-sm sm:text-xl font-bold mt-0.5 text-red-600">-</h3>
                         </div>
-                        <div class="p-1.5 bg-red-50 text-red-600 rounded-lg text-xs sm:text-lg">⚠️</div>
+                        <div class="p-2 bg-red-50 text-red-600 rounded-lg text-sm sm:text-lg">⚠️</div>
                     </div>
-                    <div class="bg-white p-3 rounded-xl shadow-xs border border-gray-100 flex items-center justify-between">
+                    <div class="bg-white p-4 rounded-xl shadow-xs border border-gray-100 flex items-center justify-between">
                         <div>
                             <p class="text-[10px] sm:text-xs text-gray-500 font-medium">รายการเติมวันนี้</p>
-                            <h3 id="total-logs" class="text-xs sm:text-xl font-bold mt-0.5 text-emerald-600">0</h3>
+                            <h3 id="total-logs" class="text-sm sm:text-xl font-bold mt-0.5 text-emerald-600">0</h3>
                         </div>
-                        <div class="p-1.5 bg-emerald-50 text-emerald-600 rounded-lg text-xs sm:text-lg">📈</div>
+                        <div class="p-2 bg-emerald-50 text-emerald-600 rounded-lg text-sm sm:text-lg">📈</div>
                     </div>
-                    <div class="bg-white p-3 rounded-xl shadow-xs border border-gray-100 flex items-center justify-between">
+                    <div class="bg-white p-4 rounded-xl shadow-xs border border-gray-100 flex items-center justify-between">
                         <div>
                             <p class="text-[10px] sm:text-xs text-gray-500 font-medium">รายการขายวันนี้</p>
-                            <h3 id="total-sales-logs" class="text-xs sm:text-xl font-bold mt-0.5 text-amber-600">0</h3>
+                            <h3 id="total-sales-logs" class="text-sm sm:text-xl font-bold mt-0.5 text-amber-600">0</h3>
                         </div>
-                        <div class="p-1.5 bg-amber-50 text-amber-600 rounded-lg text-xs sm:text-lg">📉</div>
+                        <div class="p-2 bg-amber-50 text-amber-600 rounded-lg text-sm sm:text-lg">📉</div>
                     </div>
                 </div>
 
@@ -169,33 +192,28 @@
                 <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
                     <div id="table-card" class="bg-white p-4 sm:p-6 rounded-2xl shadow-xs border border-gray-100 xl:col-span-2 overflow-hidden hidden">
                         
-                        <!-- 🔍 โซนค้นหาสินค้าขั้นสูง + แผงคุมคีย์เวิร์ดสั่งทำพิเศษ -->
-                        <div class="mb-6 bg-slate-50 p-4 rounded-xl border border-gray-200 space-y-3">
-                            <div class="flex flex-col sm:flex-row gap-2 w-full items-center">
-                                <div class="w-full sm:w-auto font-bold text-xs text-gray-700 whitespace-nowrap flex items-center gap-1">
-                                    <i data-lucide="search" class="w-3.5 h-3.5 text-blue-600"></i> คำค้นหา:
-                                </div>
-                                <input type="text" id="custom-search-input" onkeydown="if(event.key==='Enter') performCustomSearch()" placeholder="พิมพ์ชื่อสินค้า หรือ PLU..." class="w-full flex-1 text-xs px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 bg-white" />
-                                
-                                <button onclick="performCustomSearch()" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-2 px-4 rounded-lg transition-all cursor-pointer flex items-center justify-center gap-1 shadow-sm">
-                                    🔍 ยืนยันค้นหา
-                                </button>
-                                <button onclick="addNewKeywordFromInput()" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-2 px-3 rounded-lg transition-all cursor-pointer flex items-center justify-center gap-1 shadow-sm">
-                                    ➕ เพิ่มคำค้นนี้
-                                </button>
+                        <!-- 🔍 [เพิ่มใหม่] โซนค้นหาสินค้าขั้นสูง รองรับดรอปดาวน์จำคีย์เวิร์ด -->
+                        <div class="mb-4 bg-slate-50 p-3 rounded-xl border border-gray-200 flex flex-col sm:flex-row gap-2 items-center">
+                            <div class="w-full sm:w-auto font-bold text-xs text-gray-700 whitespace-nowrap flex items-center gap-1">
+                                <i data-lucide="search" class="w-3.5 h-3.5 text-blue-600"></i> ค้นหาสินค้า:
                             </div>
-
-                            <div class="pt-2 border-t border-gray-200">
-                                <div class="text-[11px] font-bold text-gray-400 mb-2 flex items-center gap-1"><i data-lucide="bookmark" class="w-3 h-3"></i> ลิสต์คำค้นที่บันทึกไว้ (คลิกเพื่อค้นหาทันที):</div>
-                                <div id="keywords-list-container" class="flex flex-wrap gap-2"></div>
+                            <div class="relative w-full flex-1">
+                                <input type="text" id="custom-search-input" oninput="performCustomSearch()" placeholder="🔍 พิมพ์ชื่อสินค้า หรือ PLU ที่ต้องการ..." class="w-full text-xs px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 bg-white" />
                             </div>
+                            <!-- ดรอปดาวน์เลือกคีย์เวิร์ดที่จดจำไว้ -->
+                            <select id="keyword-bookmark-select" onchange="applySavedKeyword(this.value)" class="w-full sm:w-44 text-xs px-2 py-2 border border-gray-300 rounded-lg focus:outline-none bg-white font-medium text-gray-700">
+                                <option value="">-- คีย์เวิร์ดที่บันทึกไว้ --</option>
+                            </select>
+                            <button onclick="bookmarkCurrentKeyword()" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-2 px-3 rounded-lg transition-all cursor-pointer whitespace-nowrap flex items-center justify-center gap-1 shadow-sm">
+                                📌 บันทึกคำค้น
+                            </button>
                         </div>
 
-                        <div class="mb-2">
+                        <div class="mb-2 flex justify-between items-center">
                             <h3 class="text-xs sm:text-sm font-bold text-gray-900">📑 รายการสินค้าทั้งหมดในระบบ (คลังใหญ่)</h3>
                         </div>
                         
-                        <!-- โครงสร้างแสดงผลเป็นตารางย่ออักษรบนมือถือ -->
+                        <!-- ครอบ Wrapper คลาสช่วยจัด Responsive โหมดมือถือ -->
                         <div id="table-wrapper" class="w-full responsive-gridjs-table"></div>
                     </div>
 
@@ -263,12 +281,6 @@
                             </div>
                             <div>
                                 <select id="product-select" onchange="loadProductImage()" class="w-full text-xs sm:text-sm px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"></select>
-                            </div>
-                            
-                            <!-- 🎯 [เพิ่มใหม่] แผงป้ายแสดงสถานะรูปภาพปัจจุบัน เพื่อแจ้งผู้ใช้ชัดเจนว่ามีรูปภาพในระบบแล้วหรือยัง -->
-                            <div id="image-status-badge-container" class="p-3 bg-slate-50 border border-gray-200 rounded-xl hidden">
-                                <p class="text-[11px] font-bold text-gray-400 mb-1">📋 สถานะระบบภาพกลาง:</p>
-                                <div id="image-status-badge-text" class="text-xs font-bold"></div>
                             </div>
                             
                             <div class="pt-4 border-t border-gray-100">
@@ -345,78 +357,63 @@
             return localToken ? localToken : "";
         }
 
-        // 📌 ระบบแผงจัดการคีย์เวิร์ดประจำเครื่อง
-        function renderKeywordsManager() {
-            const saved = JSON.parse(localStorage.getItem('stock_custom_keywords')) || ["MR", "BY", "EU"];
-            const container = document.getElementById('keywords-list-container');
-            container.innerHTML = "";
-
-            if(saved.length === 0) {
-                container.innerHTML = "<span class='text-xs text-gray-400 italic'>ยังไม่มีคำค้นที่บันทึกไว้</span>";
-                return;
-            }
-
-            saved.forEach((keyword, index) => {
-                const chip = document.createElement('div');
-                chip.className = "flex items-center gap-1.5 bg-white border border-gray-300 rounded-lg pl-2.5 pr-1.5 py-1 text-xs font-medium text-gray-700 shadow-2xs hover:border-blue-500 transition-colors";
-                
-                chip.innerHTML = `
-                    <span onclick="clickKeywordToSearch('${keyword}')" class="cursor-pointer hover:text-blue-600 mr-1">${keyword}</span>
-                    <div class="flex items-center border-l border-gray-200 pl-1 gap-0.5">
-                        <button onclick="moveKeyword(${index}, -1)" class="p-0.5 hover:bg-gray-100 rounded text-gray-400 hover:text-gray-900 cursor-pointer" title="เลื่อนขึ้น"><i data-lucide="chevron-left" class="w-3 h-3"></i></button>
-                        <button onclick="moveKeyword(${index}, 1)" class="p-0.5 hover:bg-gray-100 rounded text-gray-400 hover:text-gray-900 cursor-pointer" title="เลื่อนลง"><i data-lucide="chevron-right" class="w-3 h-3"></i></button>
-                        <button onclick="deleteKeyword(${index})" class="p-0.5 hover:bg-red-50 rounded text-gray-400 hover:text-red-500 cursor-pointer" title="ลบ"><i data-lucide="trash-2" class="w-3 h-3"></i></button>
-                    </div>
-                `;
-                container.appendChild(chip);
+        // 📌 [เพิ่มใหม่] ฟังก์ชันของระบบจำคีย์เวิร์ดประจำเครื่อง (Keyword Bookmark)
+        function loadSavedKeywords() {
+            const saved = JSON.parse(localStorage.getItem('stock_saved_keywords')) || ["MR", "BY", "EU", "อุปกรณ์ปะยาง"];
+            const select = document.getElementById('keyword-bookmark-select');
+            select.innerHTML = '<option value="">-- คีย์เวิร์ดที่บันทึกไว้ --</option>';
+            saved.forEach(keyword => {
+                const opt = document.createElement('option');
+                opt.value = keyword; opt.text = keyword; select.appendChild(opt);
             });
-            lucide.createIcons();
         }
 
-        function addNewKeywordFromInput() {
-            const inputVal = document.getElementById('custom-search-input').value.trim();
-            if(!inputVal) { alert("กรุณาพิมพ์ข้อความที่ต้องการบันทึกในช่องค้นหาก่อนครับ"); return; }
+        function bookmarkCurrentKeyword() {
+            const currentVal = document.getElementById('custom-search-input').value.trim();
+            if(!currentVal) { alert("กรุณาพิมพ์ข้อความค้นหาที่ช่องค้นหาก่อนกดบันทึกครับ"); return; }
             
-            let saved = JSON.parse(localStorage.getItem('stock_custom_keywords')) || ["MR", "BY", "EU"];
-            if(!saved.includes(inputVal)) {
-                saved.push(inputVal);
-                localStorage.setItem('stock_custom_keywords', JSON.stringify(saved));
-                renderKeywordsManager();
+            let saved = JSON.parse(localStorage.getItem('stock_saved_keywords')) || ["MR", "BY", "EU", "อุปกรณ์ปะยาง"];
+            if(!saved.includes(currentVal)) {
+                saved.push(currentVal);
+                localStorage.setItem('stock_saved_keywords', JSON.stringify(saved));
+                loadSavedKeywords();
+                alert(`📌 บันทึกคำค้น "${currentVal}" เข้าในรายการดรอปดาวน์สำเร็จแล้ว!`);
             } else {
-                alert("คำนี้ถูกบันทึกไว้ในรายการแล้วครับ");
+                alert("คำค้นนี้มีอยู่ในรายการบันทึกแล้วครับ");
             }
         }
 
-        function deleteKeyword(index) {
-            let saved = JSON.parse(localStorage.getItem('stock_custom_keywords')) || ["MR", "BY", "EU"];
-            saved.splice(index, 1);
-            localStorage.setItem('stock_custom_keywords', JSON.stringify(saved));
-            renderKeywordsManager();
-        }
-
-        function moveKeyword(index, direction) {
-            let saved = JSON.parse(localStorage.getItem('stock_custom_keywords')) || ["MR", "BY", "EU"];
-            const targetIndex = index + direction;
-            if(targetIndex >= 0 && targetIndex < saved.length) {
-                const temp = saved[index];
-                saved[index] = saved[targetIndex];
-                saved[targetIndex] = temp;
-                localStorage.setItem('stock_custom_keywords', JSON.stringify(saved));
-                renderKeywordsManager();
-            }
-        }
-
-        function clickKeywordToSearch(val) {
+        function applySavedKeyword(val) {
             document.getElementById('custom-search-input').value = val;
             performCustomSearch();
         }
 
         function performCustomSearch() {
-            renderAutomaticTable();
+            const query = document.getElementById('custom-search-input').value.toLowerCase();
+            if(gridInstance) {
+                // ยิงคำสั่งไปสั่งเรียกคัดกรองข้อมูลจากตัว Engine ภายในของ Grid.js โดยตรง
+                gridInstance.config.plugin.get('search').props.keyword = query;
+                gridInstance.forceRender();
+                setTimeout(applyMobileTableLabels, 150); // อัปเดตผูกป้ายข้อมูลหลังตารางรีเฟรชยอด
+            }
         }
 
+        // 📱 ฟังก์ชันพิเศษทำการผูกข้อมูลคอลัมน์เพื่อแปรสภาพโครงสร้าง CSS บนมือถือ
         function applyMobileTableLabels() {
-            // ไม่ต้องใส่ data-label โหมดการ์ดอีกต่อไปแล้ว เพราะคืนร่างใช้โหมดตารางปกติ
+            const tableCard = document.getElementById('table-card');
+            if(!tableCard) return;
+            
+            const rows = tableCard.querySelectorAll('.gridjs-table tbody tr');
+            rows.forEach(row => {
+                const tds = row.querySelectorAll('td');
+                if(tds.length >= 5 && !tds[0].classList.contains('gridjs-loading')) {
+                    tds[0].setAttribute('data-label', 'รหัสสินค้า (PLU)');
+                    tds[1].setAttribute('data-label', 'ชื่อสินค้า');
+                    tds[2].setAttribute('data-label', 'ราคา');
+                    tds[3].setAttribute('data-label', 'หน่วย');
+                    tds[4].setAttribute('data-label', 'คงเหลือ (On Hand)');
+                }
+            });
         }
 
         function openTokenModal() {
@@ -467,7 +464,9 @@
                     overlay.classList.remove('hidden');
                     setTimeout(() => overlay.classList.add('opacity-100'), 10);
                 } else {
-                    sidebar.classList.add('-translate-x-full'); overlay.classList.remove('opacity-100'); setTimeout(() => overlay.classList.add('hidden'), 300);
+                    sidebar.classList.add('-translate-x-full');
+                    overlay.classList.remove('opacity-100');
+                    setTimeout(() => overlay.classList.add('hidden'), 300);
                 }
             }
         }
@@ -629,7 +628,7 @@
             renderAllCategoryTables(); 
             renderDashboardCategoryShowcase(); 
             fetchFileLastCommitTime();
-            renderKeywordsManager(); 
+            loadSavedKeywords(); // เรียกแสดงประวัติคีย์เวิร์ด
             
             loadMonthlyLogsFromGitHub();
         }
@@ -732,7 +731,6 @@
             document.getElementById('log-date-picker').value = currentSelectedLogDate;
         }
 
-        // 🎯 [ปรับปรุงจุดแกนหลัก] บีบย่อกล่องสินค้าแนะนำและจัดหมวดหมู่พิเศษให้เล็กเป็นพิเศษเพื่อการกวาดสายตาแบบกะทัดรัด
         function renderDashboardCategoryShowcase() {
             const container = document.getElementById('dashboard-category-showcase'); if(!container) return; container.innerHTML = "";
             const categories = Object.keys(categoryDatabase); let hasAnyData = false;
@@ -748,40 +746,39 @@
                 if(matchedProducts.length === 0) return; 
 
                 const catBlock = document.createElement('div');
-                catBlock.className = "bg-white p-2.5 sm:p-4 rounded-xl shadow-xs border-l-4 border-l-blue-600 border border-gray-100";
+                catBlock.className = "bg-white p-4 sm:p-5 rounded-2xl shadow-xs border-l-4 border-l-blue-600 border border-gray-100";
                 
                 let cardsHtml = "";
                 matchedProducts.forEach(prod => {
-                    const badgeClass = prod.qty <= 0 ? "bg-red-50 text-red-600 border border-red-100 font-bold text-[9px]" : "bg-emerald-50 text-emerald-600 border border-emerald-100 font-bold text-[10px]";
+                    const badgeClass = prod.qty <= 0 ? "bg-red-50 text-red-600 border border-red-200 text-center font-bold text-[11px]" : "bg-emerald-50 text-emerald-600 border border-emerald-100 text-center font-bold text-xs";
                     
-                    // ✅ แก้ไขลิงก์รูปภาพในส่วนจัดหมวดหมู่พิเศษ โดยเช็กทั้งนามสกุล .png และ .jpg ให้แสดงผลภาพอย่างสมบูรณ์แบบ
                     cardsHtml += `
-                        <div class="bg-slate-50 border border-gray-200 rounded-lg p-1 flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow bg-linear-to-b from-white to-slate-50/50">
-                            <div class="w-full h-11 sm:h-16 bg-white border border-gray-100 rounded-md flex items-center justify-center overflow-hidden p-0.5 mb-1">
-                                <img src="${prod.baseLink}.png" onerror="this.onerror=null; this.src='${prod.baseLink}.jpg'; this.onerror=function(){this.parentElement.innerHTML='<span class=\"text-xs\">📦</span>'}" class="w-full h-full object-contain" />
+                        <div class="bg-slate-50 border border-gray-200 rounded-xl p-2.5 flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow bg-linear-to-b from-white to-slate-50/50">
+                            <div class="w-full h-24 sm:h-28 bg-white border border-gray-100 rounded-lg flex items-center justify-center overflow-hidden p-2 mb-2">
+                                <img src="${prod.baseLink}.png" onerror="this.onerror=null; this.src='${prod.baseLink}.jpg'; this.onerror=function(){this.parentElement.innerHTML='<span class=\"text-2xl\">📦</span>'}" class="w-full h-full object-contain transform hover:scale-105 transition-transform duration-300" />
                             </div>
-                            <div class="flex flex-col justify-between">
-                                <p class="text-[9px] sm:text-[11px] font-bold text-gray-700 truncate text-center mb-0.5 px-0.5" title="${prod.name}">${prod.name}</p>
-                                <div class="py-0.5 rounded text-center leading-none ${badgeClass}">เหลือ ${prod.qty}</div>
+                            <div class="flex-1 flex flex-col justify-between">
+                                <p class="text-[11px] sm:text-[12px] font-bold text-gray-800 line-clamp-2 mb-2 text-center h-8" title="${prod.name}">${prod.name}</p>
+                                <div class="py-1 px-1.5 rounded-lg ${badgeClass}">คงเหลือ ${prod.qty} ชิ้น</div>
                             </div>
                         </div>
                     `;
                 });
 
                 catBlock.innerHTML = `
-                    <div class="flex items-center gap-1.5 mb-2 border-b border-gray-100 pb-1">
-                        <span class="p-1 bg-blue-50 text-blue-600 rounded-md"><i data-lucide="star" class="w-3.5 h-3.5"></i></span>
-                        <h3 class="text-xs font-bold text-slate-800">${catName}</h3>
-                        <span class="text-[9px] bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded-full font-semibold">${matchedProducts.length}</span>
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="p-1.5 bg-blue-50 text-blue-600 rounded-lg"><i data-lucide="star" class="w-4 h-4"></i></span>
+                        <h3 class="text-xs sm:text-sm font-bold text-slate-800">${catName}</h3>
+                        <span class="text-[10px] sm:text-[11px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full font-medium">${matchedProducts.length} รายการ</span>
                     </div>
-                    <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-1.5">${cardsHtml}</div>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">${cardsHtml}</div>
                 `;
                 container.appendChild(catBlock);
             });
 
             if(hasAnyData) {
-                const titleDiv = document.createElement('div'); titleDiv.className = "flex items-center gap-2 mb-1";
-                titleDiv.innerHTML = `<h2 class="text-[9px] font-bold text-slate-400 tracking-wider uppercase">⭐ รายการแนะนำ & แยกหมวดหมู่พิเศษ (กวาดสายตาจำกัดสต็อกด่วน)</h2>`;
+                const titleDiv = document.createElement('div'); titleDiv.className = "flex items-center gap-2 mb-2";
+                titleDiv.innerHTML = `<h2 class="text-[10px] sm:text-xs font-bold text-slate-400 tracking-wider uppercase">⭐ รายการแนะนำ & แยกหมวดหมู่พิเศษ (แชร์ข้อมูลทุกคน)</h2>`;
                 container.insertBefore(titleDiv, container.firstChild);
             }
             lucide.createIcons();
@@ -849,7 +846,7 @@
                         </div>
                         <button onclick="deleteWholeCategory('${catName}')" class="text-xs bg-red-50 hover:bg-red-100 text-red-600 px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer">🗑️ ลบหมวดหมู่</button>
                     </div>
-                    <div id="grid-cat-${catName.replace(/\s+/g, '-')}" class="w-full responsive-gridjs-table"></div>
+                    <div id="grid-cat-${catName.replace(/\s+/g, '-')}" class="w-full"></div>
                 `;
                 container.appendChild(cardDiv);
 
@@ -865,7 +862,7 @@
                             formatter: (cell, row) => {
                                 return gridjs.html(`
                                     <div class="flex flex-col gap-1 items-start">
-                                        <div class="w-10 h-10 bg-gray-50 border border-gray-200 rounded flex items-center justify-center p-0.5 overflow-hidden shadow-xs">
+                                        <div class="w-14 h-14 bg-gray-50 border border-gray-200 rounded-lg flex items-center justify-center p-1 overflow-hidden shadow-xs">
                                             <img src="${cell}.png" onerror="this.onerror=null; this.src='${cell}.jpg'; this.onerror=function(){this.parentElement.innerHTML='📦'}" class="w-full h-full object-contain" />
                                         </div>
                                         <span class="text-[10px] sm:text-[11px] font-medium text-gray-500 max-w-[140px] truncate block" title="${row.cells[2].data}">${row.cells[2].data}</span>
@@ -876,8 +873,8 @@
                         { 
                             name: "จำนวนคงเหลือ", 
                             formatter: (cell) => cell <= 0 ? 
-                                gridjs.html(`<div class="inline-block text-red-600 font-bold bg-red-50 border border-red-200 px-2 py-1 rounded text-xs">${cell} ชิ้น (หมด)</div>`) : 
-                                gridjs.html(`<div class="inline-block text-emerald-600 font-bold bg-emerald-50 border border-emerald-200 px-2 py-1 rounded text-xs sm:text-sm">${cell} ชิ้น</div>`)
+                                gridjs.html(`<div class="inline-block text-red-600 font-bold bg-red-50 border border-red-200 px-3 py-1.5 rounded-xl text-xs">${cell} ชิ้น (หมด)</div>`) : 
+                                gridjs.html(`<div class="inline-block text-emerald-600 font-bold bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-xl text-xs sm:text-sm">${cell} ชิ้น</div>`)
                         },
                         {
                             name: "การจัดการกลุ่ม", width: "90px",
@@ -908,48 +905,29 @@
             reader.readAsDataURL(file);
         }
 
-        // 🎯 [ปรับปรุงใหม่] ฟังก์ชันดึงรูปภาพพร้อมเพิ่มป้ายอัปเดตบอกชัดเจนว่าสินค้านี้มีไฟล์ภาพอยู่แล้วหรือยังบนระบบกลาง
         function loadProductImage() {
             const selectedProduct = document.getElementById('product-select').value;
             const imgElement = document.getElementById('product-preview-img');
             const placeholderText = document.getElementById('preview-placeholder-text');
             const previewIcon = document.getElementById('preview-icon');
-            const statusContainer = document.getElementById('image-status-badge-container');
-            const statusText = document.getElementById('image-status-badge-text');
             
             document.getElementById('local-image-input').value = ""; selectedFileBlob = null;
 
             if (!selectedProduct) {
                 imgElement.classList.add('hidden'); previewIcon.classList.remove('hidden');
-                placeholderText.classList.remove('hidden'); placeholderText.innerText = "กรุณาเลือกชื่อสินค้าจากเมนูด้านซ้าย"; 
-                statusContainer.classList.add('hidden');
-                return;
+                placeholderText.classList.remove('hidden'); placeholderText.innerText = "กรุณาเลือกชื่อสินค้าจากเมนูด้านซ้าย"; return;
             }
 
             const excelInfo = allCleanData.find(row => row[1] === selectedProduct);
             if(excelInfo) {
-                statusContainer.classList.remove('hidden');
                 imgElement.src = excelInfo[5] + ".png"; 
                 imgElement.classList.remove('hidden'); previewIcon.classList.add('hidden'); placeholderText.classList.add('hidden');
                 
-                // ถ้ารูปแบบ .png สามารถเปิดอ่านไฟล์โหลดขึ้นมาแสดงผลได้สำเร็จ
-                imgElement.onload = function() {
-                    statusText.innerHTML = `<span class="text-emerald-600">🟢 สินค้าชิ้นนี้มีภาพแล้ว (${selectedProduct}.png)</span>`;
-                };
-
                 imgElement.onerror = function() {
-                    this.onerror = null; 
-                    this.src = excelInfo[5] + ".jpg"; 
-                    
-                    // ถ้ารูปแบบ .jpg สามารถเปิดอ่านไฟล์โหลดขึ้นมาแสดงผลได้สำเร็จ
-                    imgElement.onload = function() {
-                        statusText.innerHTML = `<span class="text-emerald-600">🟢 สินค้าชิ้นนี้มีภาพแล้ว (${selectedProduct}.jpg)</span>`;
-                    };
-
+                    this.onerror = null; this.src = excelInfo[5] + ".jpg"; 
                     this.onerror = function() {
                         this.classList.add('hidden'); previewIcon.classList.remove('hidden');
                         placeholderText.classList.remove('hidden'); placeholderText.innerText = "สินค้านี้ยังไม่มีรูปภาพบนระบบกลาง";
-                        statusText.innerHTML = `<span class="text-red-500">🔴 สินค้านี้ยังไม่มีรูปภาพในระบบกลาง</span>`;
                     }
                 };
             }
@@ -1022,38 +1000,33 @@
 
         function renderAutomaticTable() {
             if (allCleanData.length === 0) return;
-            const searchQuery = document.getElementById('custom-search-input').value.trim().toLowerCase();
-            
-            const filteredData = allCleanData.filter(row => {
-                const plu = row[0].toLowerCase();
-                const name = row[1].toLowerCase();
-                return plu.includes(searchQuery) || name.includes(searchQuery);
-            });
-
             document.getElementById('total-items').innerText = allCleanData.length;
             document.getElementById('out-of-stock').innerText = allCleanData.filter(row => row[4] <= 0).length;
             document.getElementById('table-card').classList.remove('hidden');
-            
-            const wrapper = document.getElementById("table-wrapper"); 
-            wrapper.innerHTML = "";
+            const wrapper = document.getElementById("table-wrapper"); wrapper.innerHTML = "";
             
             if (gridInstance) gridInstance.destroy();
             
             gridInstance = new gridjs.Grid({
                 columns: [
                     { name: "รหัสสินค้า (PLU)", width: "110px" }, 
-                    { name: "ชื่อสินค้า", formatter: (cell) => gridjs.html(`<div class="font-medium text-gray-900">${cell}</div>`) }, 
+                    { name: "ชื่อสินค้า", formatter: (cell) => gridjs.html(`<div class="whitespace-normal break-words font-medium text-gray-900">${cell}</div>`) }, 
                     { name: "ราคา", width: "85px", formatter: (cell) => `${cell} บ.` }, 
                     { name: "หน่วย", width: "65px" }, 
                     { name: "คงเหลือ (On Hand)", width: "130px", formatter: (cell) => cell <= 0 ? gridjs.html(`<span class="text-red-600 font-bold bg-red-50 px-2 py-0.5 rounded text-xs">${cell} (หมด)</span>`) : gridjs.html(`<span class="text-emerald-600 font-medium bg-emerald-50 px-2 py-0.5 rounded text-xs">${cell}</span>`) }
                 ],
-                data: filteredData.map(r => [r[0], r[1], r[2], r[3], r[4]]), 
+                data: allCleanData.map(r => [r[0], r[1], r[2], r[3], r[4]]), 
+                search: true, // เปิดไว้หลังบ้านเพื่อให้สคริปต์ Custom ยิงค่าคัดกรองมาทำงานได้
                 sort: true, 
                 pagination: { limit: 10 }, 
                 style: { table: { 'font-size': '12px' }, th: { 'background-color': '#f3f4f6', 'padding': '8px' } }
             });
 
-            gridInstance.on('render', () => { applyMobileTableLabels(); });
+            // ดักผูกอีเวนต์หลัง Render หรือเปลี่ยนหน้าเพื่อให้คลาสการ์ด Responsive มือถือทำงาน
+            gridInstance.on('render', () => {
+                applyMobileTableLabels();
+            });
+
             gridInstance.render(wrapper);
         }
 
