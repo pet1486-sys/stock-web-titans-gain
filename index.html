@@ -24,7 +24,7 @@
             .responsive-gridjs-table .gridjs-wrapper { overflow-x: hidden !important; }
             .responsive-gridjs-table table.gridjs-table { table-layout: fixed !important; width: 100% !important; }
             .responsive-gridjs-table th, 
-            .responsive-gridjs-table td { padding: 6px 4px !important; font-size: 11px !important; text-overflow: ellipsis !important; overflow: hidden !hidden !important; white-space: nowrap !important; }
+            .responsive-gridjs-table td { padding: 6px 4px !important; font-size: 11px !important; text-overflow: ellipsis !important; overflow: hidden !important; white-space: nowrap !important; }
         }
     </style>
 </head>
@@ -71,7 +71,7 @@
         </nav>
         
         <div class="p-4 text-xs text-slate-600 border-t border-slate-800 text-center">
-            v2.7.4 Custom Dashboard Layout
+            v2.7.5 Permanent Storage Engine
         </div>
     </aside>
 
@@ -296,6 +296,7 @@
             if(!saved.includes(inputVal)) { saved.push(inputVal); localStorage.setItem('stock_custom_keywords', JSON.stringify(saved)); renderKeywordsManager(); }
         }
 
+        // ป๊อปอัพยืนยันการลบคีย์เวิร์ด
         function deleteKeyword(index, keywordName) {
             if (confirm(`❓ คุณต้องการลบคำค้นหา "${keywordName}" ใช่หรือไม่?`)) {
                 let saved = JSON.parse(localStorage.getItem('stock_custom_keywords')) || ["MR", "BY", "EU"];
@@ -343,6 +344,7 @@
             renderDashboardCategoryShowcase();
         }
 
+        // ─── 📥 แก้ไขระบบดึงไฟล์ JSON: บังคับให้อ่านไฟล์จริงจาก GitHub มาเก็บไว้ก่อนเสมอ ───
         async function loadCategoriesFromGitHub() {
             try {
                 const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${CAT_JSON_PATH}?t=${new Date().getTime()}`;
@@ -351,8 +353,11 @@
                     const data = await res.json();
                     const content = decodeURIComponent(atob(data.content).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
                     categoryDatabase = JSON.parse(content);
+                    console.log("📥 โหลดโครงสร้างหมวดหมู่จาก GitHub สำเร็จ:", categoryDatabase);
                 }
-            } catch (err) {}
+            } catch (err) {
+                console.error("❌ โหลดไฟล์หมวดหมู่ล้มเหลว:", err);
+            }
         }
 
         async function saveCategoriesToGitHub() {
@@ -362,7 +367,7 @@
             try { const resCheck = await fetch(url, { headers: { "Authorization": `token ${token}` } }); if (resCheck.ok) { const dataCheck = await resCheck.json(); sha = dataCheck.sha; } } catch(e){}
             const jsonString = JSON.stringify(categoryDatabase, null, 2);
             const base64Content = btoa(encodeURIComponent(jsonString).replace(/%([0-9A-F]{2})/g, (match, p1) => String.fromCharCode('0x' + p1)));
-            const body = { message: "📦 Update categories layout", content: base64Content }; if (sha) body.sha = sha;
+            const body = { message: "📦 Update categories layout from web panel", content: base64Content }; if (sha) body.sha = sha;
             const resSave = await fetch(url, { method: "PUT", headers: { "Authorization": `token ${token}`, "Content-Type": "application/json" }, body: JSON.stringify(body) });
             if (resSave.ok) { renderAllCategoryTables(); renderDashboardCategoryShowcase(); }
         }
@@ -464,7 +469,7 @@
         function adjustLogDate(daysOffset) { const currentDate = new Date(currentSelectedLogDate); currentDate.setDate(currentDate.getDate() + daysOffset); const yyyy = currentDate.getFullYear(); const mm = String(currentDate.getMonth() + 1).padStart(2, '0'); const dd = String(currentDate.getDate()).padStart(2, '0'); handleLogDateChange(`${yyyy}-${mm}-${dd}`); document.getElementById('log-date-picker').value = currentSelectedLogDate; }
         function resetLogDateToToday() { const today = new Date(); const yyyy = today.getFullYear(); const mm = String(today.getMonth() + 1).padStart(2, '0'); const dd = String(today.getDate()).padStart(2, '0'); handleLogDateChange(`${yyyy}-${mm}-${dd}`); document.getElementById('log-date-picker').value = currentSelectedLogDate; }
 
-        // ─── 📊 ฟังก์ชันปรับขนาดรูป h-10 และตัวหนังสือ text-[8px] ตามสั่ง ───
+        // ─── 📊 แดชบอร์ดภาพรวมบริษัท (ปรับขนาดรูป h-10 และตัวหนังสือ text-[8px]) ───
         function renderDashboardCategoryShowcase() {
             const container = document.getElementById('dashboard-category-showcase'); if(!container) return; container.innerHTML = "";
             Object.keys(categoryDatabase).forEach(catName => {
@@ -522,10 +527,13 @@
             const keys = Object.keys(categoryDatabase);
             keys.forEach((catName, catIdx) => {
                 const mappedTableData = [];
-                categoryDatabase[catName].forEach((prodName, prodIdx) => { 
-                    const excelInfo = allCleanData.find(row => row[1] === prodName); 
-                    if(excelInfo) mappedTableData.push({ idx: prodIdx, name: prodName, link: excelInfo[5], qty: excelInfo[4] }); 
-                });
+                if (categoryDatabase[catName]) {
+                    categoryDatabase[catName].forEach((prodName, prodIdx) => { 
+                        const excelInfo = allCleanData.find(row => row[1] === prodName); 
+                        if(excelInfo) mappedTableData.push({ idx: prodIdx, name: prodName, link: excelInfo[5], qty: excelInfo[4] }); 
+                        else mappedTableData.push({ idx: prodIdx, name: prodName, link: "", qty: 0 }); // แสดงแม้ไม่มีรูป
+                    });
+                }
 
                 const cardDiv = document.createElement('div'); cardDiv.className = "bg-white p-3 rounded-xl border border-gray-100 shadow-2xs";
                 const upCatBtn = catIdx > 0 ? `<button onclick="moveCategoryOrder('${catName}', 'up')" class="p-1 border rounded bg-slate-50 hover:bg-slate-200 cursor-pointer text-xs">⬆️ ขึ้น</button>` : '';
@@ -548,7 +556,7 @@
                 new gridjs.Grid({
                     columns: [
                         { name: "สินค้า", formatter: (cell, row) => gridjs.html(`<div class="flex items-center gap-1"><div class="w-7 h-7 bg-white rounded flex items-center justify-center overflow-hidden"><img src="${cell}.png" onerror="this.onerror=null; this.src='${cell}.jpg'; this.onerror=function(){this.parentElement.innerHTML='📦'}" class="w-full h-full object-contain"/></div><span class="text-xs font-medium">${row.cells[3].data}</span></div>`) },
-                        { name: "คงเหลือ", formatter: (cell) => cell <= 0 ? gridjs.html(`<span class="text-red-600 font-bold">หมด</span>`) : gridjs.html(`<span class="text-emerald-600 font-bold">${cell} ชิ้น</span>`) },
+                        { name: "คงเหลือ", formatter: (cell) => cell <= 0 ? gridjs.html(`<span class="text-red-600 font-bold">หมด/ไม่พบข้อมูลคลัง</span>`) : gridjs.html(`<span class="text-emerald-600 font-bold">${cell} ชิ้น</span>`) },
                         { name: "เรียงลำดับสินค้า", formatter: (cell, row) => {
                             const pIdx = parseInt(row.cells[2].data);
                             const upProd = pIdx > 0 ? `<button onclick="moveProductOrder('${catName}', ${pIdx}, 'up')" class="px-1 py-0.5 border rounded bg-gray-50 text-[10px]">⬆️</button>` : '';
@@ -560,7 +568,7 @@
                     data: mappedTableData.map(r => [r.link, r.qty, r.idx, r.name]), 
                     pagination: { limit: 5 }, 
                     style: { table: { 'font-size': '11px' } },
-                    language: { 'noRecordsFound': '⚠️ ยังไม่พบข้อมูลสินค้าปะยางตรงกับชื่อนี้ในคลัง' }
+                    language: { 'noRecordsFound': '⚠️ ยังไม่มีข้อมูลสินค้าในหมวดหมู่นี้' }
                 }).render(targetWrapper);
             });
         }
@@ -660,15 +668,24 @@
             } catch (error) { document.getElementById('update-status').innerText = "❌ สั่งรันบอทล้มเหลว"; }
         }
 
+        // ─── 🎯 ล็อกลำดับความปลอดภัย: โหลดไฟล์ JSON จนเสร็จสมบูรณ์ก่อน ค่อยอ่าน Excel และดึงประวัติการขาย ───
         async function fetchActualExcelData() {
-            document.getElementById('update-status').innerText = "⏳ กำลังโหลดข้อมูล...";
+            document.getElementById('update-status').innerText = "⏳ กำลังโหลดโครงสร้างหมวดหมู่...";
             try {
+                // 1. บังคับรอโหลดโครงสร้างก้อนหิน categories.json จาก GitHub ให้เรียบร้อย 100%
                 await loadCategoriesFromGitHub(); 
+                
+                document.getElementById('update-status').innerText = "⏳ กำลังดึงไฟล์คลังสินค้าดิบ...";
+                // 2. โหลด Excel ต่อเนื่อง
                 const res = await fetch(FILE_NAME + "?t=" + new Date().getTime());
                 if (!res.ok) throw new Error();
                 const buffer = await res.arrayBuffer();
+                
+                // 3. ประมวลผลและกระจายคำสั่งเรนเดอร์ตารางทั้งหมดพร้อมกันแบบปลอดภัย
                 processExcelData(buffer); 
-            } catch (error) { document.getElementById('update-status').innerText = "⚠️ โหลดข้อมูลคลังไม่สำเร็จ"; }
+            } catch (error) { 
+                document.getElementById('update-status').innerText = "⚠️ ระบบขัดข้อง โหลดข้อมูลไม่สำเร็จ"; 
+            }
         }
 
         function fetchFileLastCommitTime() {
