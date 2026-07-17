@@ -49,10 +49,16 @@
                 <i data-lucide="image-plus" class="w-5 h-5"></i>
                 จัดการรูปภาพสินค้า
             </button>
+
+            <!-- ⚙️ เพิ่มปุ่มตั้งค่า Token ไว้ท้ายเมนู Sidebar -->
+            <button onclick="openTokenModal()" class="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-all cursor-pointer hover:bg-slate-800 hover:text-amber-400 text-slate-400 border border-dashed border-slate-700 mt-4">
+                <i data-lucide="settings" class="w-5 h-5"></i>
+                ตั้งค่ารหัส GitHub Token
+            </button>
         </nav>
         
         <div class="p-4 text-xs text-slate-600 border-t border-slate-800 text-center">
-            v1.8.0 Stock Control Engine
+            v1.9.0 Stock Control Engine
         </div>
     </aside>
 
@@ -113,7 +119,7 @@
                     </div>
                 </div>
 
-                <!-- 📅 เพิ่มแถบควบคุมวันทำงาน (Date Navigation Bar) สำหรับกลุ่ม Log -->
+                <!-- 📅 ตัวกรองประวัติประจำวัน -->
                 <div class="bg-white p-4 mb-6 rounded-2xl border border-gray-100 shadow-xs flex flex-wrap gap-4 items-center justify-between">
                     <div class="flex items-center gap-1.5">
                         <span class="p-2 bg-slate-100 text-slate-700 rounded-xl"><i data-lucide="calendar" class="w-4 h-4"></i></span>
@@ -245,16 +251,30 @@
         </div>
     </div>
 
+    <!-- ─── ⚙️ POPUP MODAL สำหรับตั้งค่า TOKEN ─── -->
+    <div id="token-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white p-6 rounded-2xl max-w-md w-full mx-4 shadow-2xl transform scale-95 transition-transform duration-300">
+            <div class="flex items-center gap-2 mb-3">
+                <span class="p-2 bg-amber-50 text-amber-600 rounded-xl"><i data-lucide="key-round" class="w-5 h-5"></i></span>
+                <h3 class="text-md font-bold text-gray-950">ตั้งค่ารหัส GitHub Token บนเครื่อง</h3>
+            </div>
+            <p class="text-xs text-gray-500 mb-4 leading-relaxed">รหัสนี้จะถูกจดจำไว้ภายในเบราว์เซอร์ของเครื่องคอมพิวเตอร์/มือถือเครื่องนี้อย่างปลอดภัย ไม่มีการส่งข้อมูลฝังไว้ในโค้ดส่วนกลาง</p>
+            <div class="space-y-3">
+                <input type="password" id="input-token-value" placeholder="วางรหัส ghp_... ตรงนี้" class="w-full text-xs px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500 shadow-inner" />
+                <div class="flex gap-2 justify-end pt-2">
+                    <button onclick="closeTokenModal()" class="text-xs font-medium text-gray-500 hover:bg-gray-100 px-4 py-2 rounded-xl transition-colors cursor-pointer">ยกเลิก</button>
+                    <button onclick="saveTokenToLocal()" class="text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-xl shadow-sm transition-all cursor-pointer">💾 บันทึกรหัส</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- ─── SCRIPT LOGIC ─── -->
     <script>
-        // ─── ตั้งค่าการเชื่อมต่อ GITHUB ───
         const GITHUB_USER = "pet1486-sys";
         const GITHUB_REPO = "stock-web-titans-gain";
         const FILE_NAME = "stock_data/SKU.xlsx"; 
         const CAT_JSON_PATH = "stock_data/categories.json"; 
-        
-        // ⚠️ วาง Token ของคุณตรงนี้แทนคำว่า "YOUR_GITHUB_TOKEN"
-        const GITHUB_TOKEN = "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"; 
 
         let allCleanData = [];
         let gridInstance = null;
@@ -262,11 +282,49 @@
         let salesLogGridInstance = null;
         let selectedFileBlob = null; 
         let currentImageExtension = "";
-        
-        // 📅 กำหนดตัวแปรสำหรับคัดกรองวันของ Log
         let currentSelectedLogDate = ""; 
 
         let categoryDatabase = { "สินค้าขายดี/แนะนำ": [], "สินค้าสต็อกต่ำเตือนภัย": [] };
+
+        // ⚙️ ล้างฟังก์ชันดึงค่าสิทธิ์ Token มาจาก LocalStorage ในเครื่องแทนการ Hardcode
+        function getGitHubToken() {
+            const localToken = localStorage.getItem('user_github_token');
+            if(!localToken) {
+                return "";
+            }
+            return localToken;
+        }
+
+        function openTokenModal() {
+            const modal = document.getElementById('token-modal');
+            document.getElementById('input-token-value').value = getGitHubToken();
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.add('opacity-100');
+                modal.querySelector('div').classList.replace('scale-95', 'scale-100');
+            }, 10);
+        }
+
+        function closeTokenModal() {
+            const modal = document.getElementById('token-modal');
+            modal.classList.remove('opacity-100');
+            modal.querySelector('div').classList.replace('scale-100', 'scale-95');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        }
+
+        function saveTokenToLocal() {
+            const tokenValue = document.getElementById('input-token-value').value.trim();
+            if(!tokenValue) {
+                if(confirm("ต้องการลบรหัส Token ที่บันทึกไว้ใช่หรือไม่?")) {
+                    localStorage.removeItem('user_github_token');
+                    closeTokenModal();
+                }
+                return;
+            }
+            localStorage.setItem('user_github_token', tokenValue);
+            alert("🔒 บันทึกรหัสลงในเครื่องของคุณสำเร็จแล้ว!");
+            closeTokenModal();
+        }
 
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
@@ -329,11 +387,14 @@
         }
 
         async function saveCategoriesToGitHub() {
+            const token = getGitHubToken();
+            if(!token) { alert("⚠️ ไม่พบรหัส Token กรุณากดตั้งค่าที่เมนูด้านซ้ายก่อนครับ"); openTokenModal(); return; }
+
             const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${CAT_JSON_PATH}`;
             let sha = null;
             
             try {
-                const resCheck = await fetch(url, { headers: { "Authorization": `token ${GITHUB_TOKEN}` } });
+                const resCheck = await fetch(url, { headers: { "Authorization": `token ${token}` } });
                 if (resCheck.ok) { const dataCheck = await resCheck.json(); sha = dataCheck.sha; }
             } catch(e){}
 
@@ -348,7 +409,7 @@
 
             const resSave = await fetch(url, {
                 method: "PUT",
-                headers: { "Authorization": `token ${GITHUB_TOKEN}`, "Content-Type": "application/json" },
+                headers: { "Authorization": `token ${token}`, "Content-Type": "application/json" },
                 body: JSON.stringify(body)
             });
 
@@ -356,11 +417,14 @@
                 renderAllCategoryTables();
                 renderDashboardCategoryShowcase();
             } else {
-                alert("เกิดข้อผิดพลาดในการบันทึกข้อมูลขึ้น GitHub");
+                alert("เกิดข้อผิดพลาดในการบันทึกข้อมูลขึ้น GitHub (Token อาจจะผิดหรือหมดอายุ)");
             }
         }
 
         async function uploadImageToGitHub(productName, fileBlob) {
+            const token = getGitHubToken();
+            if(!token) { alert("⚠️ ไม่พบรหัส Token กรุณากดตั้งค่าที่เมนูด้านซ้ายก่อนครับ"); openTokenModal(); return Promise.reject(); }
+
             const safeName = productName.replace(/[^a-zA-Z0-9ก-๙_-]/g, '_');
             const path = `image/products/${safeName}${currentImageExtension}`;
             const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${path}`;
@@ -383,7 +447,7 @@
 
                     const res = await fetch(url, {
                         method: "PUT",
-                        headers: { "Authorization": `token ${GITHUB_TOKEN}`, "Content-Type": "application/json" },
+                        headers: { "Authorization": `token ${token}`, "Content-Type": "application/json" },
                         body: JSON.stringify(body)
                     });
                     
@@ -398,6 +462,9 @@
         }
 
         async function deleteImageFromGitHub(imageHtmlUrl) {
+            const token = getGitHubToken();
+            if(!token) return;
+
             try {
                 const path = imageHtmlUrl.split(`/main/`)[1];
                 if(!path) return;
@@ -407,7 +474,7 @@
                     const dataCheck = await resCheck.json();
                     await fetch(url, {
                         method: "DELETE",
-                        headers: { "Authorization": `token ${GITHUB_TOKEN}`, "Content-Type": "application/json" },
+                        headers: { "Authorization": `token ${token}`, "Content-Type": "application/json" },
                         body: JSON.stringify({ message: `🗑️ Delete image file`, sha: dataCheck.sha })
                     });
                 }
@@ -445,7 +512,6 @@
                     ];
                 });
 
-            // ตั้งค่าเริ่มต้นวันที่เลือกให้เป็นวันนี้ก่อนกระทำการดัก Log
             if (!currentSelectedLogDate) {
                 const today = new Date();
                 const yyyy = today.getFullYear();
@@ -470,10 +536,9 @@
             let salesLogs = JSON.parse(localStorage.getItem('stock_sales_logs')) || [];
             let hasNewFill = false; let hasNewSales = false;
             
-            // ใช้โครงสร้างวันที่แบบสากล YYYY-MM-DD เพื่อเอาไว้ค้นหาคัดกรองง่ายๆ
             const today = new Date();
             const dateStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
-            const timeStr = today.toTimeString().split(' ')[0].substring(0, 5); // ดึงเฉพาะ HH:MM
+            const timeStr = today.toTimeString().split(' ')[0].substring(0, 5);
             const fullTimestamp = `${dateStr} ${timeStr}`;
 
             newData.forEach(item => {
@@ -490,20 +555,16 @@
             if (hasNewFill || fillLogs.length > 0) localStorage.setItem('stock_fill_logs', JSON.stringify(fillLogs));
             if (hasNewSales || salesLogs.length > 0) localStorage.setItem('stock_sales_logs', JSON.stringify(salesLogs));
             
-            // สั่งรันอัปเดตตารางคัดกรองตามวันที่ระบุ
             filterAndRenderLogs();
         }
 
-        // 📅 ฟังก์ชันคัดกรองและประมวลผลตาราง Log ประจำวันโดยเฉพาะ
         function filterAndRenderLogs() {
             let fillLogs = JSON.parse(localStorage.getItem('stock_fill_logs')) || [];
             let salesLogs = JSON.parse(localStorage.getItem('stock_sales_logs')) || [];
 
-            // กรองเอาเฉพาะข้อมูลที่มีวันที่ขึ้นต้นตรงกับคีย์วันที่ระบุใน Date Picker
             let filteredFill = fillLogs.filter(log => log[0].startsWith(currentSelectedLogDate));
             let filteredSales = salesLogs.filter(log => log[0].startsWith(currentSelectedLogDate));
 
-            // แปลงรูปแบบโครงสร้างวันที่แสดงผลในตารางให้สวยงามอ่านง่ายขึ้น
             const formatLogTime = (dateTimeStr) => {
                 try {
                     const parts = dateTimeStr.split(' ');
@@ -512,11 +573,9 @@
                 } catch(e) { return dateTimeStr; }
             };
 
-            // อัปเดตตัวเลขการสรุปยอดประจำวันบนหัวการ์ด
             document.getElementById('total-logs').innerText = filteredFill.length;
             document.getElementById('total-sales-logs').innerText = filteredSales.length;
 
-            // --- วาดตารางประวัติการเติมสินค้า ---
             const fillWrapper = document.getElementById("log-wrapper"); fillWrapper.innerHTML = "";
             if (filteredFill.length === 0) { 
                 fillWrapper.innerHTML = `<p class='text-xs text-gray-400 text-center py-8 border border-dashed border-gray-100 rounded-xl bg-slate-50/50'>ไม่มีรายการเติมเข้าในวันที่เลือก</p>`; 
@@ -535,7 +594,6 @@
                 }).render(fillWrapper);
             }
 
-            // --- วาดตารางประวัติการขายสินค้า ---
             const salesWrapper = document.getElementById("sales-log-wrapper"); salesWrapper.innerHTML = "";
             if (filteredSales.length === 0) { 
                 salesWrapper.innerHTML = `<p class='text-xs text-gray-400 text-center py-8 border border-dashed border-gray-100 rounded-xl bg-slate-50/50'>ไม่มีรายการยอดขายในวันที่เลือก</p>`; 
@@ -554,12 +612,10 @@
                 }).render(salesWrapper);
             }
             
-            // แสดงผลกล่องการ์ดบันทึก Log
             document.getElementById('log-card').classList.remove('hidden');
             document.getElementById('sales-log-card').classList.remove('hidden');
         }
 
-        // 📅 ฟังก์ชันทำงานร่วมกับการขยับเลื่อนเปลี่ยนวันที่
         function handleLogDateChange(newDateValue) {
             if(!newDateValue) return;
             currentSelectedLogDate = newDateValue;
@@ -652,7 +708,6 @@
             document.getElementById('new-category-name').value = "";
             updateCategorySelectDropdown();
             saveCategoriesToGitHub(); 
-            alert(`เพิ่มหมวดหมู่เรียบร้อยและกำลังบันทึกไปที่ระบบกลาง...`);
         }
 
         function updateCategorySelectDropdown() {
@@ -670,7 +725,6 @@
             if (categoryDatabase[targetCategory].includes(productName)) { alert("สินค้านี้อยู่ในหมวดนี้อยู่แล้ว"); return; }
             categoryDatabase[targetCategory].push(productName);
             saveCategoriesToGitHub(); 
-            alert("บันทึกข้อมูลเข้าสู่ระบบกลางแล้ว!");
         }
 
         function removeProductFromCategory(catName, prodName) {
@@ -885,10 +939,15 @@
         }
 
         async function loadExcelFromServer() {
-            const confirmRun = confirm("❓ คุณต้องการสั่งรันบอท (GitHub Actions) เพื่อดึงข้อมูลสต็อกใหม่ล่าสุดใช่หรือไม่?");
-            if (!confirmRun) {
-                return; 
+            const token = getGitHubToken();
+            if(!token) {
+                alert("⚠️ คุณยังไม่ได้ตั้งค่ารหัส GitHub Token! กรุณากดปุ่มตั้งค่าที่แถบเมนูด้านซ้ายเพื่อกรอกรหัสก่อนใช้งานปุ่มนี้ครับ");
+                openTokenModal();
+                return;
             }
+
+            const confirmRun = confirm("❓ คุณต้องการสั่งรันบอท (GitHub Actions) เพื่อดึงข้อมูลสต็อกใหม่ล่าสุดใช่หรือไม่?");
+            if (!confirmRun) return;
 
             document.getElementById('update-status').innerText = "⏳ กำลังส่งคำสั่งรันบอท...";
 
@@ -900,7 +959,7 @@
                 const response = await fetch(url, {
                     method: 'POST',
                     headers: {
-                        'Authorization': `token ${GITHUB_TOKEN}`,
+                        'Authorization': `token ${token}`,
                         'Accept': 'application/vnd.github.v3+json',
                         'Content-Type': 'application/json'
                     },
@@ -915,7 +974,7 @@
                         fetchActualExcelData();
                     }, 10000);
                 } else {
-                    alert("เกิดข้อผิดพลาด: รหัส GitHub Token ในโค้ดอาจไม่ถูกต้อง หรือไม่มีสิทธิ์สั่งรันใน Repository");
+                    alert("เกิดข้อผิดพลาด: รหัส Token ที่คุณกรอกไว้อาจไม่ถูกต้อง หรือไม่มีสิทธิ์เข้าถึงคลังบอท");
                     document.getElementById('update-status').innerText = "❌ สั่งรันบอทล้มเหลว";
                 }
             } catch (error) {
