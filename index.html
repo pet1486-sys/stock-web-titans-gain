@@ -24,7 +24,7 @@
             .responsive-gridjs-table .gridjs-wrapper { overflow-x: hidden !important; }
             .responsive-gridjs-table table.gridjs-table { table-layout: fixed !important; width: 100% !important; }
             .responsive-gridjs-table th, 
-            .responsive-gridjs-table td { padding: 6px 4px !important; font-size: 11px !important; text-overflow: ellipsis !important; overflow: hidden !important; white-space: nowrap !important; }
+            .responsive-gridjs-table td { padding: 6px 4px !important; font-size: 11px !important; text-overflow: ellipsis !important; overflow: hidden !hidden !important; white-space: nowrap !important; }
         }
     </style>
 </head>
@@ -71,7 +71,7 @@
         </nav>
         
         <div class="p-4 text-xs text-slate-600 border-t border-slate-800 text-center">
-            v2.7.1 Fixed Sync Engine
+            v2.7.3 Mini-Grid Dashboard Engine
         </div>
     </aside>
 
@@ -100,8 +100,8 @@
             <!-- ================= หน้าแดชบอร์ดภาพรวมแยกแท็บ ================= -->
             <div id="dashboard-page" class="page-content block">
                 <div class="mb-4">
-                    <h3 class="text-sm font-bold text-gray-900 mb-2">⭐ หมวดหมู่แนะนำและจำแนกหน้าร้าน</h3>
-                    <div id="dashboard-category-showcase" class="space-y-4"></div>
+                    <h3 class="text-xs font-bold text-gray-900 mb-2">⭐ หมวดหมู่แนะนำและจำแนกหน้าร้าน</h3>
+                    <div id="dashboard-category-showcase" class="space-y-3"></div>
                 </div>
             </div>
 
@@ -328,6 +328,7 @@
             else { sidebar.classList.add('-translate-x-full'); overlay.classList.add('hidden'); }
         }
 
+        // แท็บควบคุม
         function switchTab(element, pageId) {
             document.querySelectorAll('.page-content').forEach(page => page.classList.replace('block', 'hidden'));
             document.getElementById(pageId).classList.replace('hidden', 'block');
@@ -464,38 +465,40 @@
         function adjustLogDate(daysOffset) { const currentDate = new Date(currentSelectedLogDate); currentDate.setDate(currentDate.getDate() + daysOffset); const yyyy = currentDate.getFullYear(); const mm = String(currentDate.getMonth() + 1).padStart(2, '0'); const dd = String(currentDate.getDate()).padStart(2, '0'); handleLogDateChange(`${yyyy}-${mm}-${dd}`); document.getElementById('log-date-picker').value = currentSelectedLogDate; }
         function resetLogDateToToday() { const today = new Date(); const yyyy = today.getFullYear(); const mm = String(today.getMonth() + 1).padStart(2, '0'); const dd = String(today.getDate()).padStart(2, '0'); handleLogDateChange(`${yyyy}-${mm}-${dd}`); document.getElementById('log-date-picker').value = currentSelectedLogDate; }
 
-        // ─── 🎯 [แก้ไขกลไกล็อกตรงหัวข้อ] ค้นหาและจับคู่สินค้าผ่านชื่อ "Name" (row[1]) ที่เก็บอยู่ใน categories.json โดยตรง ───
+        // ─── 📊 ฟังก์ชันปรับแต่งขนาดกรอบรูปภาพจิ๋วพิเศษตามคำขอ ───
         function renderDashboardCategoryShowcase() {
             const container = document.getElementById('dashboard-category-showcase'); if(!container) return; container.innerHTML = "";
             Object.keys(categoryDatabase).forEach(catName => {
                 const matchedProducts = [];
                 categoryDatabase[catName].forEach(prodName => {
-                    // ล็อกการค้นหาด้วย ชื่อสินค้า (row[1])
                     const excelInfo = allCleanData.find(row => row[1] === prodName);
                     if(excelInfo) matchedProducts.push({ name: prodName, baseLink: excelInfo[5], qty: excelInfo[4] });
                 });
                 if(matchedProducts.length === 0) return; 
 
                 const catBlock = document.createElement('div');
-                catBlock.className = "bg-white p-3 rounded-xl shadow-xs border-l-4 border-l-blue-600 border border-gray-100";
+                catBlock.className = "bg-white p-2 rounded-lg shadow-2xs border-l-4 border-l-blue-600 border border-gray-100";
                 
                 let cardsHtml = "";
                 matchedProducts.forEach(prod => {
-                    const badgeClass = prod.qty <= 0 ? "bg-red-50 text-red-600 font-bold text-[9px]" : "bg-emerald-50 text-emerald-600 font-bold text-[10px]";
+                    // 🎯 แก้ไขขนาดตัวอักษรของป้ายสถานะคงเหลือเป็น text-[5px]
+                    const badgeClass = prod.qty <= 0 ? "bg-red-50 text-red-600 font-bold text-[5px]" : "bg-emerald-50 text-emerald-600 font-bold text-[5px]";
                     cardsHtml += `
-                        <div class="bg-slate-50 border border-gray-200 rounded p-1.5 flex flex-col justify-between">
-                            <div class="w-full h-12 bg-white rounded flex items-center justify-center overflow-hidden mb-1">
+                        <div class="bg-slate-50 border border-gray-200 rounded p-1 flex flex-col justify-between">
+                            <!-- 🎯 ปรับขนาดความสูงกรอบรูปภาพเป็น h-8 -->
+                            <div class="w-full h-8 bg-white rounded flex items-center justify-center overflow-hidden mb-0.5">
                                 <img src="${prod.baseLink}.png" onerror="this.onerror=null; this.src='${prod.baseLink}.jpg'; this.onerror=function(){this.parentElement.innerHTML='📦'}" class="w-full h-full object-contain" />
                             </div>
-                            <p class="text-[10px] font-bold text-gray-700 truncate text-center mb-1" title="${prod.name}">${prod.name}</p>
+                            <!-- 🎯 ปรับขนาดข้อความตัวหนังสือชื่อสินค้าเหลือเพียง text-[5px] -->
+                            <p class="text-[5px] font-bold text-gray-700 truncate text-center leading-none mb-0.5" title="${prod.name}">${prod.name}</p>
                             <div class="py-0.5 text-center leading-none rounded ${badgeClass}">เหลือ ${prod.qty}</div>
                         </div>
                     `;
                 });
 
                 catBlock.innerHTML = `
-                    <div class="flex items-center gap-1 mb-2 border-b border-gray-100 pb-1"><h3 class="text-xs font-bold text-slate-800">${catName} (${matchedProducts.length})</h3></div>
-                    <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-1.5">${cardsHtml}</div>
+                    <div class="flex items-center gap-1 mb-1 border-b border-gray-100 pb-0.5"><h3 class="text-[11px] font-bold text-slate-800">${catName} (${matchedProducts.length})</h3></div>
+                    <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-1">${cardsHtml}</div>
                 `;
                 container.appendChild(catBlock);
             });
@@ -517,7 +520,6 @@
         function removeProductFromCategory(catName, prodName) { if(confirm(`นำออก?`)) { categoryDatabase[catName] = categoryDatabase[catName].filter(name => name !== prodName); saveCategoriesToGitHub(); } }
         function deleteWholeCategory(catName) { if(confirm(`ลบกลุ่ม?`)) { delete categoryDatabase[catName]; updateCategorySelectDropdown(); saveCategoriesToGitHub(); } }
 
-        // ─── 🎯 [แก้ไขกลไกล็อกตรงหัวข้อ] ปรับแต่งส่วนหน้าต่างจัดการจัดหมวดหมู่สินค้าให้ดึงค่าแมปจาก ชื่อสินค้า (row[1]) ตรงกัน ───
         function renderAllCategoryTables() {
             const container = document.getElementById('dynamic-categories-container'); if(!container) return; container.innerHTML = "";
             
@@ -525,7 +527,6 @@
             keys.forEach((catName, catIdx) => {
                 const mappedTableData = [];
                 categoryDatabase[catName].forEach((prodName, prodIdx) => { 
-                    // ดึงแมปข้อมูลจาก ชื่อสินค้า (row[1]) ให้สอดคล้องกัน
                     const excelInfo = allCleanData.find(row => row[1] === prodName); 
                     if(excelInfo) mappedTableData.push({ idx: prodIdx, name: prodName, link: excelInfo[5], qty: excelInfo[4] }); 
                 });
@@ -547,8 +548,7 @@
                 container.appendChild(cardDiv);
                 
                 const targetWrapper = document.getElementById(`grid-cat-${catName.replace(/\s+/g, '-')}`);
-                if(mappedTableData.length === 0) return;
-
+                
                 new gridjs.Grid({
                     columns: [
                         { name: "สินค้า", formatter: (cell, row) => gridjs.html(`<div class="flex items-center gap-1"><div class="w-7 h-7 bg-white rounded flex items-center justify-center overflow-hidden"><img src="${cell}.png" onerror="this.onerror=null; this.src='${cell}.jpg'; this.onerror=function(){this.parentElement.innerHTML='📦'}" class="w-full h-full object-contain"/></div><span class="text-xs font-medium">${row.cells[3].data}</span></div>`) },
@@ -561,7 +561,10 @@
                         }},
                         { name: "จัดการ", formatter: (cell, row) => gridjs.html(`<button onclick="removeProductFromCategory('${catName}', '${row.cells[3].data}')" class="text-[10px] border border-gray-200 px-1.5 py-0.5 rounded text-red-500">ออก</button>`) }
                     ],
-                    data: mappedTableData.map(r => [r.link, r.qty, r.idx, r.name]), pagination: { limit: 5 }, style: { table: { 'font-size': '11px' } }
+                    data: mappedTableData.map(r => [r.link, r.qty, r.idx, r.name]), 
+                    pagination: { limit: 5 }, 
+                    style: { table: { 'font-size': '11px' } },
+                    language: { 'noRecordsFound': '⚠️ ยังไม่พบข้อมูลสินค้าปะยางตรงกับชื่อนี้ในคลัง' }
                 }).render(targetWrapper);
             });
         }
@@ -661,19 +664,13 @@
             } catch (error) { document.getElementById('update-status').innerText = "❌ สั่งรันบอทล้มเหลว"; }
         }
 
-        // ─── 🎯 [แก้ปัญหา Sync] โหลดโครงสร้างหมวดหมู่ก่อน แล้วรันการดึงไฟล์ Excel ตามลำดับ ───
         async function fetchActualExcelData() {
             document.getElementById('update-status').innerText = "⏳ กำลังโหลดข้อมูล...";
             try {
-                // 1. โหลดข้อมูลหมวดหมู่จาก GitHub พักไว้ก่อน
                 await loadCategoriesFromGitHub(); 
-                
-                // 2. ดึงไฟล์ Excel ตามมา
                 const res = await fetch(FILE_NAME + "?t=" + new Date().getTime());
                 if (!res.ok) throw new Error();
                 const buffer = await res.arrayBuffer();
-                
-                // 3. นำข้อมูล Excel ไปกระจายตัวแปรแล้วสั่งให้เรนเดอร์ตารางพร้อม ๆ กัน
                 processExcelData(buffer); 
             } catch (error) { document.getElementById('update-status').innerText = "⚠️ โหลดข้อมูลคลังไม่สำเร็จ"; }
         }
