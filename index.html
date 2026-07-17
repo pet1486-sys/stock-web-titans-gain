@@ -44,13 +44,11 @@
         </div>
 
         <nav class="flex-1 p-4 space-y-1.5 overflow-y-auto no-scrollbar">
-            <!-- ⚡ หน้าแรกเปลี่ยนเป็น แดชบอร์ด -->
             <button onclick="switchTab(this, 'dashboard-page')" class="tab-item w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-all cursor-pointer bg-blue-600 text-white shadow-sm">
                 <i data-lucide="pie-chart" class="w-5 h-5"></i>
                 แดชบอร์ดภาพรวม
             </button>
 
-            <!-- ⚡ หน้าคลังใหญ่ย้ายมาอยู่แท็บที่สอง -->
             <button onclick="switchTab(this, 'stock-page')" class="tab-item w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-all cursor-pointer hover:bg-slate-800 hover:text-white text-slate-400">
                 <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
                 สินค้าคงคลัง (ทั้งหมด)
@@ -73,7 +71,7 @@
         </nav>
         
         <div class="p-4 text-xs text-slate-600 border-t border-slate-800 text-center">
-            v2.7.0 Ordered Dashboard Engine
+            v2.7.1 Fixed Sync Engine
         </div>
     </aside>
 
@@ -99,7 +97,7 @@
 
         <div class="p-3 sm:p-6 md:p-8 flex-1">
 
-            <!-- ================= (ใหม่) หน้าแดชบอร์ดภาพรวมแยกแท็บ ================= -->
+            <!-- ================= หน้าแดชบอร์ดภาพรวมแยกแท็บ ================= -->
             <div id="dashboard-page" class="page-content block">
                 <div class="mb-4">
                     <h3 class="text-sm font-bold text-gray-900 mb-2">⭐ หมวดหมู่แนะนำและจำแนกหน้าร้าน</h3>
@@ -107,7 +105,7 @@
                 </div>
             </div>
 
-            <!-- ================= หน้าคลังสินค้าคงคลังทั้งหมด (ย้ายมาแท็บ 2) ================= -->
+            <!-- ================= หน้าคลังสินค้าคงคลังทั้งหมด ================= -->
             <div id="stock-page" class="page-content hidden">
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4 mb-4">
                     <div class="bg-white p-3 rounded-xl shadow-xs border border-gray-100 flex items-center justify-between">
@@ -183,7 +181,7 @@
                 </div>
             </div>
 
-            <!-- ================= หน้าที่ 3: จัดหมวดหมู่สินค้าแยกตาราง (เพิ่มฟังก์ชันเลื่อนเรียงลำดับ) ================= -->
+            <!-- ================= หน้าที่ 3: จัดหมวดหมู่สินค้าแยกตาราง ================= -->
             <div id="category-page" class="page-content hidden">
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
                     <div class="bg-white p-4 rounded-xl border border-gray-100">
@@ -209,7 +207,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- 🎯 คอนเทนเนอร์หมวดหมู่ที่เพิ่มระบบปรับแต่งลำดับ -->
                 <div id="dynamic-categories-container" class="space-y-6"></div>
             </div>
 
@@ -271,8 +268,6 @@
         let currentSelectedLogDate = ""; 
 
         let globalMonthlyLogs = { fill_logs: [], sales_logs: [] };
-        
-        // 🎯 แก้ปัญหาหมวดหมู่หาย: เปลี่ยนโครงสร้างเริ่มต้นให้เป็น Object เปล่าเพื่อรองรับข้อมูล Dynamic
         let categoryDatabase = {}; 
 
         function getGitHubToken() { return localStorage.getItem('user_github_token') || ""; }
@@ -337,7 +332,6 @@
             document.querySelectorAll('.page-content').forEach(page => page.classList.replace('block', 'hidden'));
             document.getElementById(pageId).classList.replace('hidden', 'block');
             
-            // เปลี่ยนหัวข้อหน้าเว็บตามแท็บที่กด
             const titleMap = { 'dashboard-page': '📊 แดชบอร์ดภาพรวมบริษัท', 'stock-page': '📦 ระบบสินค้าคงเหลือ Real-time', 'category-page': '📂 จัดหมวดหมู่และลำดับสินค้า', 'image-management-page': '🖼️ จัดการรูปภาพสินค้า' };
             document.getElementById('page-title').innerText = titleMap[pageId] || "ระบบสินค้าคงเหลือ";
 
@@ -373,7 +367,6 @@
             if (resSave.ok) { renderAllCategoryTables(); renderDashboardCategoryShowcase(); }
         }
 
-        // ─── 🎯 ฟังก์ชันสลับลำดับหมวดหมู่สินค้า (⬆️ / ⬇️) ───
         function moveCategoryOrder(catName, direction) {
             const keys = Object.keys(categoryDatabase);
             const index = keys.indexOf(catName);
@@ -381,7 +374,6 @@
             const targetIndex = direction === 'up' ? index - 1 : index + 1;
             if (targetIndex < 0 || targetIndex >= keys.length) return;
 
-            // สลับตำแหน่ง Key ใน Object
             const temp = keys[index];
             keys[index] = keys[targetIndex];
             keys[targetIndex] = temp;
@@ -392,18 +384,15 @@
             saveCategoriesToGitHub();
         }
 
-        // ─── 🎯 ฟังก์ชันสลับลำดับสินค้าภายในหมวดหมู่ (⬆️ / ⬇️) ───
         function moveProductOrder(catName, prodIndex, direction) {
             const list = categoryDatabase[catName];
             if (!list) return;
             const targetIndex = direction === 'up' ? prodIndex - 1 : prodIndex + 1;
             if (targetIndex < 0 || targetIndex >= list.length) return;
 
-            // สลับตำแหน่งข้อมูลใน Array
             const temp = list[prodIndex];
             list[prodIndex] = list[targetIndex];
             list[targetIndex] = temp;
-
             saveCategoriesToGitHub();
         }
 
@@ -475,12 +464,13 @@
         function adjustLogDate(daysOffset) { const currentDate = new Date(currentSelectedLogDate); currentDate.setDate(currentDate.getDate() + daysOffset); const yyyy = currentDate.getFullYear(); const mm = String(currentDate.getMonth() + 1).padStart(2, '0'); const dd = String(currentDate.getDate()).padStart(2, '0'); handleLogDateChange(`${yyyy}-${mm}-${dd}`); document.getElementById('log-date-picker').value = currentSelectedLogDate; }
         function resetLogDateToToday() { const today = new Date(); const yyyy = today.getFullYear(); const mm = String(today.getMonth() + 1).padStart(2, '0'); const dd = String(today.getDate()).padStart(2, '0'); handleLogDateChange(`${yyyy}-${mm}-${dd}`); document.getElementById('log-date-picker').value = currentSelectedLogDate; }
 
-        // ─── 📊 เรนเดอร์หน้าแดชบอร์ดตามลำดับจัดหมวดหมู่ ───
+        // ─── 🎯 [แก้ไขกลไกล็อกตรงหัวข้อ] ค้นหาและจับคู่สินค้าผ่านชื่อ "Name" (row[1]) ที่เก็บอยู่ใน categories.json โดยตรง ───
         function renderDashboardCategoryShowcase() {
             const container = document.getElementById('dashboard-category-showcase'); if(!container) return; container.innerHTML = "";
             Object.keys(categoryDatabase).forEach(catName => {
                 const matchedProducts = [];
                 categoryDatabase[catName].forEach(prodName => {
+                    // ล็อกการค้นหาด้วย ชื่อสินค้า (row[1])
                     const excelInfo = allCleanData.find(row => row[1] === prodName);
                     if(excelInfo) matchedProducts.push({ name: prodName, baseLink: excelInfo[5], qty: excelInfo[4] });
                 });
@@ -527,7 +517,7 @@
         function removeProductFromCategory(catName, prodName) { if(confirm(`นำออก?`)) { categoryDatabase[catName] = categoryDatabase[catName].filter(name => name !== prodName); saveCategoriesToGitHub(); } }
         function deleteWholeCategory(catName) { if(confirm(`ลบกลุ่ม?`)) { delete categoryDatabase[catName]; updateCategorySelectDropdown(); saveCategoriesToGitHub(); } }
 
-        // ─── 📂 หน้าจัดการจัดหมวดหมู่สินค้า (เวอร์ชันอัปเกรดปุ่มเลื่อนอันดับสินค้าและกล่อง) ───
+        // ─── 🎯 [แก้ไขกลไกล็อกตรงหัวข้อ] ปรับแต่งส่วนหน้าต่างจัดการจัดหมวดหมู่สินค้าให้ดึงค่าแมปจาก ชื่อสินค้า (row[1]) ตรงกัน ───
         function renderAllCategoryTables() {
             const container = document.getElementById('dynamic-categories-container'); if(!container) return; container.innerHTML = "";
             
@@ -535,13 +525,12 @@
             keys.forEach((catName, catIdx) => {
                 const mappedTableData = [];
                 categoryDatabase[catName].forEach((prodName, prodIdx) => { 
+                    // ดึงแมปข้อมูลจาก ชื่อสินค้า (row[1]) ให้สอดคล้องกัน
                     const excelInfo = allCleanData.find(row => row[1] === prodName); 
                     if(excelInfo) mappedTableData.push({ idx: prodIdx, name: prodName, link: excelInfo[5], qty: excelInfo[4] }); 
                 });
 
                 const cardDiv = document.createElement('div'); cardDiv.className = "bg-white p-3 rounded-xl border border-gray-100 shadow-2xs";
-                
-                // ปุ่มควบคุมลำดับกล่องหมวดหมู่
                 const upCatBtn = catIdx > 0 ? `<button onclick="moveCategoryOrder('${catName}', 'up')" class="p-1 border rounded bg-slate-50 hover:bg-slate-200 cursor-pointer text-xs">⬆️ ขึ้น</button>` : '';
                 const downCatBtn = catIdx < keys.length - 1 ? `<button onclick="moveCategoryOrder('${catName}', 'down')" class="p-1 border rounded bg-slate-50 hover:bg-slate-200 cursor-pointer text-xs">⬇️ ลง</button>` : '';
 
@@ -672,13 +661,19 @@
             } catch (error) { document.getElementById('update-status').innerText = "❌ สั่งรันบอทล้มเหลว"; }
         }
 
+        // ─── 🎯 [แก้ปัญหา Sync] โหลดโครงสร้างหมวดหมู่ก่อน แล้วรันการดึงไฟล์ Excel ตามลำดับ ───
         async function fetchActualExcelData() {
             document.getElementById('update-status').innerText = "⏳ กำลังโหลดข้อมูล...";
             try {
+                // 1. โหลดข้อมูลหมวดหมู่จาก GitHub พักไว้ก่อน
                 await loadCategoriesFromGitHub(); 
+                
+                // 2. ดึงไฟล์ Excel ตามมา
                 const res = await fetch(FILE_NAME + "?t=" + new Date().getTime());
                 if (!res.ok) throw new Error();
                 const buffer = await res.arrayBuffer();
+                
+                // 3. นำข้อมูล Excel ไปกระจายตัวแปรแล้วสั่งให้เรนเดอร์ตารางพร้อม ๆ กัน
                 processExcelData(buffer); 
             } catch (error) { document.getElementById('update-status').innerText = "⚠️ โหลดข้อมูลคลังไม่สำเร็จ"; }
         }
