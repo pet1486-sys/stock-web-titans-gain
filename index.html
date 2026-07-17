@@ -465,7 +465,7 @@
         function adjustLogDate(daysOffset) { const currentDate = new Date(currentSelectedLogDate); currentDate.setDate(currentDate.getDate() + daysOffset); const yyyy = currentDate.getFullYear(); const mm = String(currentDate.getMonth() + 1).padStart(2, '0'); const dd = String(currentDate.getDate()).padStart(2, '0'); handleLogDateChange(`${yyyy}-${mm}-${dd}`); document.getElementById('log-date-picker').value = currentSelectedLogDate; }
         function resetLogDateToToday() { const today = new Date(); const yyyy = today.getFullYear(); const mm = String(today.getMonth() + 1).padStart(2, '0'); const dd = String(today.getDate()).padStart(2, '0'); handleLogDateChange(`${yyyy}-${mm}-${dd}`); document.getElementById('log-date-picker').value = currentSelectedLogDate; }
 
-        // ─── 📊 ฟังก์ชันปรับแต่งขนาดกรอบรูปภาพจิ๋วพิเศษตามคำขอ ───
+        // ─── 📊 ฟังก์ชันปรับแต่งขนาดกรอบรูปภาพตามใจชอบ ───
         function renderDashboardCategoryShowcase() {
             const container = document.getElementById('dashboard-category-showcase'); if(!container) return; container.innerHTML = "";
             Object.keys(categoryDatabase).forEach(catName => {
@@ -481,20 +481,28 @@
                 
                 let cardsHtml = "";
                 matchedProducts.forEach(prod => {
-                    // 🎯 แก้ไขขนาดตัวอักษรของป้ายสถานะคงเหลือเป็น text-[5px]
-                    const badgeClass = prod.qty <= 0 ? "bg-red-50 text-red-600 font-bold text-[5px]" : "bg-emerald-50 text-emerald-600 font-bold text-[5px]";
+                    // 🎯 ปรับป้ายจำนวนคงเหลือด้านล่างเป็น text-[8px]
+                    const badgeClass = prod.qty <= 0 ? "bg-red-50 text-red-600 font-bold text-[8px]" : "bg-emerald-50 text-emerald-600 font-bold text-[8px]";
                     cardsHtml += `
                         <div class="bg-slate-50 border border-gray-200 rounded p-1 flex flex-col justify-between">
-                            <!-- 🎯 ปรับขนาดความสูงกรอบรูปภาพเป็น h-8 -->
-                            <div class="w-full h-8 bg-white rounded flex items-center justify-center overflow-hidden mb-0.5">
+                            <!-- 🎯 ปรับความสูงกรอบรูปภาพเป็น h-10ตามที่ต้องการ -->
+                            <div class="w-full h-10 bg-white rounded flex items-center justify-center overflow-hidden mb-0.5">
                                 <img src="${prod.baseLink}.png" onerror="this.onerror=null; this.src='${prod.baseLink}.jpg'; this.onerror=function(){this.parentElement.innerHTML='📦'}" class="w-full h-full object-contain" />
                             </div>
-                            <!-- 🎯 ปรับขนาดข้อความตัวหนังสือชื่อสินค้าเหลือเพียง text-[5px] -->
-                            <p class="text-[5px] font-bold text-gray-700 truncate text-center leading-none mb-0.5" title="${prod.name}">${prod.name}</p>
+                            <!-- 🎯 ปรับขนาดฟอนต์ชื่อสินค้าเป็น text-[8px] ตามที่ต้องการ -->
+                            <p class="text-[8px] font-bold text-gray-700 truncate text-center leading-none mb-0.5" title="${prod.name}">${prod.name}</p>
                             <div class="py-0.5 text-center leading-none rounded ${badgeClass}">เหลือ ${prod.qty}</div>
                         </div>
                     `;
                 });
+
+                catBlock.innerHTML = `
+                    <div class="flex items-center gap-1 mb-1 border-b border-gray-100 pb-0.5"><h3 class="text-[11px] font-bold text-slate-800">${catName} (${matchedProducts.length})</h3></div>
+                    <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-1">${cardsHtml}</div>
+                `;
+                container.appendChild(catBlock);
+            });
+        }
 
                 catBlock.innerHTML = `
                     <div class="flex items-center gap-1 mb-1 border-b border-gray-100 pb-0.5"><h3 class="text-[11px] font-bold text-slate-800">${catName} (${matchedProducts.length})</h3></div>
