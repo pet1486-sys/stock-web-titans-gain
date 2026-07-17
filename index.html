@@ -469,33 +469,59 @@
         function adjustLogDate(daysOffset) { const currentDate = new Date(currentSelectedLogDate); currentDate.setDate(currentDate.getDate() + daysOffset); const yyyy = currentDate.getFullYear(); const mm = String(currentDate.getMonth() + 1).padStart(2, '0'); const dd = String(currentDate.getDate()).padStart(2, '0'); handleLogDateChange(`${yyyy}-${mm}-${dd}`); document.getElementById('log-date-picker').value = currentSelectedLogDate; }
         function resetLogDateToToday() { const today = new Date(); const yyyy = today.getFullYear(); const mm = String(today.getMonth() + 1).padStart(2, '0'); const dd = String(today.getDate()).padStart(2, '0'); handleLogDateChange(`${yyyy}-${mm}-${dd}`); document.getElementById('log-date-picker').value = currentSelectedLogDate; }
 
-        // ─── 📊 แดชบอร์ดภาพรวมบริษัท (ปรับขนาดรูป h-10 และตัวหนังสือ text-[8px]) ───
+        // ─── 📊 แดชบอร์ดภาพรวมบริษัท (แก้ไข: แสดงหมวดหมู่เสมอ แม้ยังไม่มีข้อมูลจาก Excel มาแมตช์) ───
         function renderDashboardCategoryShowcase() {
             const container = document.getElementById('dashboard-category-showcase'); if(!container) return; container.innerHTML = "";
             Object.keys(categoryDatabase).forEach(catName => {
-                const matchedProducts = [];
-                categoryDatabase[catName].forEach(prodName => {
+                const productList = categoryDatabase[catName] || [];
+
+                // เดิม: ถ้าสินค้าตัวไหนไม่เจอใน allCleanData (Excel) จะถูกข้ามไปเลย ทำให้ทั้งหมวดหมู่หายถ้าไม่มีตัวไหนแมตช์เลย
+                // ใหม่: แสดงสินค้าทุกตัวที่ถูกจัดไว้ใน categories.json เสมอ ถ้ายังไม่เจอข้อมูลจาก Excel ให้ทำเครื่องหมาย noData ไว้ก่อน รอ Excel มาเติมทีหลัง
+                const matchedProducts = productList.map(prodName => {
                     const excelInfo = allCleanData.find(row => row[1] === prodName);
-                    if(excelInfo) matchedProducts.push({ name: prodName, baseLink: excelInfo[5], qty: excelInfo[4] });
+                    if (excelInfo) {
+                        return { name: prodName, baseLink: excelInfo[5], qty: excelInfo[4], noData: false };
+                    }
+                    const safeName = prodName.replace(/[^a-zA-Z0-9ก-๙_-]/g, '_');
+                    return {
+                        name: prodName,
+                        baseLink: `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/image/products/${safeName}`,
+                        qty: 0,
+                        noData: true
+                    };
                 });
-                if(matchedProducts.length === 0) return; 
 
                 const catBlock = document.createElement('div');
                 catBlock.className = "bg-white p-2 rounded-lg shadow-2xs border-l-4 border-l-blue-600 border border-gray-100";
-                
+
                 let cardsHtml = "";
-                matchedProducts.forEach(prod => {
-                    const badgeClass = prod.qty <= 0 ? "bg-red-50 text-red-600 font-bold text-[8px]" : "bg-emerald-50 text-emerald-600 font-bold text-[8px]";
-                    cardsHtml += `
-                        <div class="bg-slate-50 border border-gray-200 rounded p-1 flex flex-col justify-between">
-                            <div class="w-full h-10 bg-white rounded flex items-center justify-center overflow-hidden mb-0.5">
-                                <img src="${prod.baseLink}.png" onerror="this.onerror=null; this.src='${prod.baseLink}.jpg'; this.onerror=function(){this.parentElement.innerHTML='📦'}" class="w-full h-full object-contain" />
+                if (matchedProducts.length === 0) {
+                    // หมวดหมู่นี้ยังไม่มีสินค้าถูกจัดเข้ามาเลย แต่ยังคงแสดงชื่อหมวดหมู่ไว้
+                    cardsHtml = `<p class="text-[10px] text-gray-400 col-span-full py-2 text-center">ยังไม่มีสินค้าในหมวดหมู่นี้</p>`;
+                } else {
+                    matchedProducts.forEach(prod => {
+                        let badgeClass, badgeText;
+                        if (prod.noData) {
+                            badgeClass = "bg-amber-50 text-amber-600 font-bold text-[8px]";
+                            badgeText = "รอข้อมูล Excel";
+                        } else if (prod.qty <= 0) {
+                            badgeClass = "bg-red-50 text-red-600 font-bold text-[8px]";
+                            badgeText = `เหลือ ${prod.qty}`;
+                        } else {
+                            badgeClass = "bg-emerald-50 text-emerald-600 font-bold text-[8px]";
+                            badgeText = `เหลือ ${prod.qty}`;
+                        }
+                        cardsHtml += `
+                            <div class="bg-slate-50 border border-gray-200 rounded p-1 flex flex-col justify-between">
+                                <div class="w-full h-10 bg-white rounded flex items-center justify-center overflow-hidden mb-0.5">
+                                    <img src="${prod.baseLink}.png" onerror="this.onerror=null; this.src='${prod.baseLink}.jpg'; this.onerror=function(){this.parentElement.innerHTML='📦'}" class="w-full h-full object-contain" />
+                                </div>
+                                <p class="text-[8px] font-bold text-gray-700 truncate text-center leading-none mb-0.5" title="${prod.name}">${prod.name}</p>
+                                <div class="py-0.5 text-center leading-none rounded ${badgeClass}">${badgeText}</div>
                             </div>
-                            <p class="text-[8px] font-bold text-gray-700 truncate text-center leading-none mb-0.5" title="${prod.name}">${prod.name}</p>
-                            <div class="py-0.5 text-center leading-none rounded ${badgeClass}">เหลือ ${prod.qty}</div>
-                        </div>
-                    `;
-                });
+                        `;
+                    });
+                }
 
                 catBlock.innerHTML = `
                     <div class="flex items-center gap-1 mb-1 border-b border-gray-100 pb-0.5"><h3 class="text-[11px] font-bold text-slate-800">${catName} (${matchedProducts.length})</h3></div>
@@ -674,6 +700,9 @@
             try {
                 // 1. บังคับรอโหลดโครงสร้างก้อนหิน categories.json จาก GitHub ให้เรียบร้อย 100%
                 await loadCategoriesFromGitHub(); 
+                // 1.1 แสดงหมวดหมู่ทันทีหลังโหลด JSON เสร็จ แม้ยังไม่มีข้อมูล Excel มาแมตช์ (จะขึ้นเป็น "รอข้อมูล Excel")
+                renderDashboardCategoryShowcase();
+                renderAllCategoryTables();
                 
                 document.getElementById('update-status').innerText = "⏳ กำลังดึงไฟล์คลังสินค้าดิบ...";
                 // 2. โหลด Excel ต่อเนื่อง
