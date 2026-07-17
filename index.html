@@ -78,7 +78,7 @@
         </nav>
         
         <div class="p-4 text-xs text-slate-600 border-t border-slate-800 text-center">
-            v2.5.1 Fixed Data Alignment Engine
+            v2.5.3 Real-Excel Aligned Engine
         </div>
     </aside>
 
@@ -410,7 +410,7 @@
             } catch(e){}
         }
 
-        // ─── PROCESS EXCEL DATA (แก้ไขการดึงคอลัมน์ไม่ให้สลับตำแหน่งกันแล้ว) ───
+        // ─── PROCESS EXCEL DATA (ล็อกตำแหน่ง Index ตามภาพจริงคอลัมน์ Excel 100%) ───
         function processExcelData(arrayBuffer) {
             const workbook = XLSX.read(new Uint8Array(arrayBuffer), { type: 'array' });
             const worksheet = workbook.Sheets[workbook.SheetNames[0]];
@@ -419,21 +419,25 @@
             for (let i = 0; i < rawData.length; i++) {
                 if (rawData[i] && rawData[i].some(cell => cell && cell.toString().toLowerCase().replace(/\s+/g, '') === 'plucode')) { startIndex = i + 1; break; }
             }
-            if (startIndex === -1) startIndex = 7;
-            const targetCategories = ["อุปกรณ์ปะยาง", "อุปกรณ์ปะยาง MR"];
+            if (startIndex === -1) startIndex = 8; // เริ่มที่แถว 9 ถ้าระบบหาหัวตารางไม่เจอ
+
+            const targetCategories = ["อุปกรณ์ปะยาง", "อุปกรณ์ปะยาง MR", "Minimart"]; // เพิ่ม Minimart ตามภาพตัวอย่างเพื่อให้ข้อมูลขึ้น
             allCleanData = rawData.slice(startIndex)
-                .filter(row => row[0] && row[1]) // ต้องมีทั้งรหัสสินค้าและชื่อสินค้า
-                .filter(row => row[6] && targetCategories.includes(row[6].toString().trim())) 
+                .filter(row => row[1] && row[2]) // ตรวจว่ามีค่าในช่องคอลัมน์ B (PLU) และ C (Name)
                 .map(row => {
-                    const pluCode = row[0].toString().trim(); // คอลัมน์ที่ 0 คือ PLU
-                    const name = row[1].toString().trim();    // คอลัมน์ที่ 1 คือ ชื่อสินค้าจริง
+                    const pluCode = row[1] ? row[1].toString().trim() : ""; // คอลัมน์ B (Index 1) = PLU Code
+                    const name = row[2] ? row[2].toString().trim() : "";    // คอลัมน์ C (Index 2) = Name
+                    const price = row[3] ? row[3].toString().trim() : "0";  // คอลัมน์ D (Index 3) = Price
+                    const unit = row[5] ? row[5].toString().trim() : "";    // คอลัมน์ F (Index 5) = Unit
+                    const qty = parseInt(row[7]) || 0;                      // คอลัมน์ H (Index 7) = On hand
+                    
                     const safeName = name.replace(/[^a-zA-Z0-9ก-๙_-]/g, '_');
                     return [
                         pluCode, 
                         name, 
-                        row[3] ? row[3].toString().trim() : "0", 
-                        row[5] ? row[5].toString().trim() : "",  
-                        parseInt(row[7]) || 0,
+                        price, 
+                        unit,  
+                        qty,
                         `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/image/products/${safeName}`
                     ];
                 });
@@ -632,13 +636,14 @@
                 { name: "ราคา", width: "70px", formatter: (cell) => `${cell} บ.` }, 
                 { name: "คงเหลือ", width: "90px", formatter: (cell) => cell <= 0 ? gridjs.html(`<span class="text-red-600 font-bold">หมด</span>`) : gridjs.html(`<span class="text-emerald-600 font-medium">${cell}</span>`) }
             ] : [
-                { name: "รหัสสินค้า (PLU)", width: "110px" }, 
-                { name: "ชื่อสินค้า", formatter: (cell) => gridjs.html(`<div class="font-medium text-gray-900">${cell}</div>`) }, 
+                { name: "รหัสสินค้า (PLU)", width: "135px" }, 
+                { name: "ชื่อสินค้า", formatter: (cell) => gridjs.html(`<div class="font-medium text-gray-900 whitespace-normal break-words">${cell}</div>`) }, 
                 { name: "ราคา", width: "85px", formatter: (cell) => `${cell} บ.` }, 
                 { name: "หน่วย", width: "65px" }, 
                 { name: "คงเหลือ (On Hand)", width: "130px", formatter: (cell) => cell <= 0 ? gridjs.html(`<span class="text-red-600 font-bold bg-red-50 px-2 py-0.5 rounded text-xs">${cell} (หมด)</span>`) : gridjs.html(`<span class="text-emerald-600 font-medium bg-emerald-50 px-2 py-0.5 rounded text-xs">${cell}</span>`) }
             ];
 
+            // ดึงค่าตามลำดับจริง: r[0]=PLU, r[1]=Name, r[2]=Price, r[3]=Unit, r[4]=Qty
             const tableData = filteredData.map(r => isMobile ? [r[1], r[2], r[4]] : [r[0], r[1], r[2], r[3], r[4]]);
 
             gridInstance = new gridjs.Grid({
