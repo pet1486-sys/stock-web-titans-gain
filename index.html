@@ -17,6 +17,54 @@
         body { font-family: 'Sarabun', sans-serif; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* ซ่อนแถบค้นหาดั้งเดิมของ Grid.js เพื่อใช้แถบค้นหาแบบ Custom ที่รองรับดรอปดาวน์แทน */
+        .gridjs-search { display: none !important; }
+        
+        /* 📱 CSS ปรับโหมดตารางให้เป็นรูปแบบการ์ดแนวตั้งบนหน้าจอมือถืออัตโนมัติ */
+        @media (max-width: 640px) {
+            .responsive-gridjs-table table, 
+            .responsive-gridjs-table thead, 
+            .responsive-gridjs-table tbody, 
+            .responsive-gridjs-table th, 
+            .responsive-gridjs-table td, 
+            .responsive-gridjs-table tr { 
+                display: block !important; 
+                width: 100% !important;
+            }
+            .responsive-gridjs-table thead { display: none !important; }
+            .responsive-gridjs-table tr {
+                margin-bottom: 0.75rem;
+                border: 1px solid #e2e8f0 !important;
+                border-radius: 0.75rem;
+                padding: 0.5rem;
+                background: #ffffff;
+                box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            }
+            .responsive-gridjs-table td {
+                text-align: right !important;
+                padding: 0.375rem 0.5rem !important;
+                border: none !important;
+                position: relative;
+                display: flex !important;
+                justify-content: space-between;
+                align-items: center;
+            }
+            /* ใส่ชื่อหัวข้อคอลัมน์กำกับไว้ด้านซ้ายของการ์ดมือถือ */
+            .responsive-gridjs-table td::before {
+                content: attr(data-label);
+                float: left;
+                font-weight: 750;
+                color: #4b5563;
+                font-size: 11px;
+                padding-right: 0.5rem;
+            }
+            .responsive-gridjs-table td > div,
+            .responsive-gridjs-table td > span {
+                text-align: right;
+                display: inline-block;
+            }
+        }
     </style>
 </head>
 <body class="bg-slate-50 min-h-screen text-gray-800 flex overflow-x-hidden">
@@ -57,7 +105,7 @@
         </nav>
         
         <div class="p-4 text-xs text-slate-600 border-t border-slate-800 text-center">
-            v2.0.0 Monthly Log Sync Engine
+            v2.1.0 Mobile Friendly Engine
         </div>
     </aside>
 
@@ -143,13 +191,32 @@
 
                 <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
                     <div id="table-card" class="bg-white p-4 sm:p-6 rounded-2xl shadow-xs border border-gray-100 xl:col-span-2 overflow-hidden hidden">
-                        <div class="mb-3">
+                        
+                        <!-- 🔍 [เพิ่มใหม่] โซนค้นหาสินค้าขั้นสูง รองรับดรอปดาวน์จำคีย์เวิร์ด -->
+                        <div class="mb-4 bg-slate-50 p-3 rounded-xl border border-gray-200 flex flex-col sm:flex-row gap-2 items-center">
+                            <div class="w-full sm:w-auto font-bold text-xs text-gray-700 whitespace-nowrap flex items-center gap-1">
+                                <i data-lucide="search" class="w-3.5 h-3.5 text-blue-600"></i> ค้นหาสินค้า:
+                            </div>
+                            <div class="relative w-full flex-1">
+                                <input type="text" id="custom-search-input" oninput="performCustomSearch()" placeholder="🔍 พิมพ์ชื่อสินค้า หรือ PLU ที่ต้องการ..." class="w-full text-xs px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 bg-white" />
+                            </div>
+                            <!-- ดรอปดาวน์เลือกคีย์เวิร์ดที่จดจำไว้ -->
+                            <select id="keyword-bookmark-select" onchange="applySavedKeyword(this.value)" class="w-full sm:w-44 text-xs px-2 py-2 border border-gray-300 rounded-lg focus:outline-none bg-white font-medium text-gray-700">
+                                <option value="">-- คีย์เวิร์ดที่บันทึกไว้ --</option>
+                            </select>
+                            <button onclick="bookmarkCurrentKeyword()" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-2 px-3 rounded-lg transition-all cursor-pointer whitespace-nowrap flex items-center justify-center gap-1 shadow-sm">
+                                📌 บันทึกคำค้น
+                            </button>
+                        </div>
+
+                        <div class="mb-2 flex justify-between items-center">
                             <h3 class="text-xs sm:text-sm font-bold text-gray-900">📑 รายการสินค้าทั้งหมดในระบบ (คลังใหญ่)</h3>
                         </div>
-                        <div id="table-wrapper" class="w-full"></div>
+                        
+                        <!-- ครอบ Wrapper คลาสช่วยจัด Responsive โหมดมือถือ -->
+                        <div id="table-wrapper" class="w-full responsive-gridjs-table"></div>
                     </div>
 
-                    <!-- 🛑 เอาปุ่มล้างประวัติออกถาวรเรียบร้อยแล้ว -->
                     <div class="xl:col-span-1 space-y-6 flex flex-col">
                         <div id="log-card" class="bg-white p-4 sm:p-5 rounded-2xl shadow-xs border border-gray-100 overflow-hidden hidden">
                             <div class="mb-3 flex items-center">
@@ -270,7 +337,6 @@
     <!-- ─── SCRIPT LOGIC ─── -->
     <script>
         const GITHUB_USER = "pet1486-sys";
-        // ✅ ปรับแก้ไขชื่อคลังปลายทางตรงตัวเป็นของจริงเรียบร้อย
         const GITHUB_REPO = "stock-web-titans-gain"; 
         const FILE_NAME = "stock_data/SKU.xlsx"; 
         const CAT_JSON_PATH = "stock_data/categories.json"; 
@@ -283,14 +349,71 @@
         let currentImageExtension = "";
         let currentSelectedLogDate = ""; 
 
-        // ตัวแปรส่วนกลางสำหรับพักข้อมูล Log รายเดือนที่โหลดมาจาก GitHub
         let globalMonthlyLogs = { fill_logs: [], sales_logs: [] };
-
         let categoryDatabase = { "สินค้าขายดี/แนะนำ": [], "สินค้าสต็อกต่ำเตือนภัย": [] };
 
         function getGitHubToken() {
             const localToken = localStorage.getItem('user_github_token');
             return localToken ? localToken : "";
+        }
+
+        // 📌 [เพิ่มใหม่] ฟังก์ชันของระบบจำคีย์เวิร์ดประจำเครื่อง (Keyword Bookmark)
+        function loadSavedKeywords() {
+            const saved = JSON.parse(localStorage.getItem('stock_saved_keywords')) || ["MR", "BY", "EU", "อุปกรณ์ปะยาง"];
+            const select = document.getElementById('keyword-bookmark-select');
+            select.innerHTML = '<option value="">-- คีย์เวิร์ดที่บันทึกไว้ --</option>';
+            saved.forEach(keyword => {
+                const opt = document.createElement('option');
+                opt.value = keyword; opt.text = keyword; select.appendChild(opt);
+            });
+        }
+
+        function bookmarkCurrentKeyword() {
+            const currentVal = document.getElementById('custom-search-input').value.trim();
+            if(!currentVal) { alert("กรุณาพิมพ์ข้อความค้นหาที่ช่องค้นหาก่อนกดบันทึกครับ"); return; }
+            
+            let saved = JSON.parse(localStorage.getItem('stock_saved_keywords')) || ["MR", "BY", "EU", "อุปกรณ์ปะยาง"];
+            if(!saved.includes(currentVal)) {
+                saved.push(currentVal);
+                localStorage.setItem('stock_saved_keywords', JSON.stringify(saved));
+                loadSavedKeywords();
+                alert(`📌 บันทึกคำค้น "${currentVal}" เข้าในรายการดรอปดาวน์สำเร็จแล้ว!`);
+            } else {
+                alert("คำค้นนี้มีอยู่ในรายการบันทึกแล้วครับ");
+            }
+        }
+
+        function applySavedKeyword(val) {
+            document.getElementById('custom-search-input').value = val;
+            performCustomSearch();
+        }
+
+        function performCustomSearch() {
+            const query = document.getElementById('custom-search-input').value.toLowerCase();
+            if(gridInstance) {
+                // ยิงคำสั่งไปสั่งเรียกคัดกรองข้อมูลจากตัว Engine ภายในของ Grid.js โดยตรง
+                gridInstance.config.plugin.get('search').props.keyword = query;
+                gridInstance.forceRender();
+                setTimeout(applyMobileTableLabels, 150); // อัปเดตผูกป้ายข้อมูลหลังตารางรีเฟรชยอด
+            }
+        }
+
+        // 📱 ฟังก์ชันพิเศษทำการผูกข้อมูลคอลัมน์เพื่อแปรสภาพโครงสร้าง CSS บนมือถือ
+        function applyMobileTableLabels() {
+            const tableCard = document.getElementById('table-card');
+            if(!tableCard) return;
+            
+            const rows = tableCard.querySelectorAll('.gridjs-table tbody tr');
+            rows.forEach(row => {
+                const tds = row.querySelectorAll('td');
+                if(tds.length >= 5 && !tds[0].classList.contains('gridjs-loading')) {
+                    tds[0].setAttribute('data-label', 'รหัสสินค้า (PLU)');
+                    tds[1].setAttribute('data-label', 'ชื่อสินค้า');
+                    tds[2].setAttribute('data-label', 'ราคา');
+                    tds[3].setAttribute('data-label', 'หน่วย');
+                    tds[4].setAttribute('data-label', 'คงเหลือ (On Hand)');
+                }
+            });
         }
 
         function openTokenModal() {
@@ -314,8 +437,7 @@
             const tokenValue = document.getElementById('input-token-value').value.trim();
             if(!tokenValue) {
                 if(confirm("ต้องการลบรหัส Token ที่บันทึกไว้ใช่หรือไม่?")) {
-                    localStorage.removeItem('user_github_token');
-                    closeTokenModal();
+                    localStorage.removeItem('user_github_token'); closeTokenModal();
                 }
                 return;
             }
@@ -359,13 +481,10 @@
             if (window.innerWidth < 768) {
                 const sidebar = document.getElementById('sidebar');
                 const overlay = document.getElementById('sidebar-overlay');
-                sidebar.classList.add('-translate-x-full');
-                overlay.classList.remove('opacity-100');
-                overlay.classList.add('hidden');
+                sidebar.classList.add('-translate-x-full'); overlay.classList.remove('opacity-100'); overlay.classList.add('hidden');
             }
             if(pageId === 'stock-page' || pageId === 'category-page') {
-                renderAllCategoryTables();
-                renderDashboardCategoryShowcase();
+                renderAllCategoryTables(); renderDashboardCategoryShowcase();
             }
         }
 
@@ -509,39 +628,30 @@
             renderAllCategoryTables(); 
             renderDashboardCategoryShowcase(); 
             fetchFileLastCommitTime();
+            loadSavedKeywords(); // เรียกแสดงประวัติคีย์เวิร์ด
             
-            // สั่งโหลดคลังข้อมูลประวัติรายเดือนจาก GitHub ออนไลน์ทันที
             loadMonthlyLogsFromGitHub();
         }
 
-        // 🌐 ฟังก์ชันดึงไฟล์ Log ย้อนหลังรายเดือนมาจากคลัง GitHub ออนไลน์โดยตรง
         async function loadMonthlyLogsFromGitHub() {
             if(!currentSelectedLogDate) return;
-            
-            // ดึงค่าปีและเดือน เช่น "2026-07" -> "2026_07"
             const dateParts = currentSelectedLogDate.split('-');
             const yearMonthStr = `${dateParts[0]}_${dateParts[1]}`;
             const logUrl = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/stock_data/logs_${yearMonthStr}.json?t=${new Date().getTime()}`;
 
             try {
                 const response = await fetch(logUrl);
-                if (response.ok) {
-                    globalMonthlyLogs = await response.json();
-                } else {
-                    globalMonthlyLogs = { fill_logs: [], sales_logs: [] };
-                }
+                if (response.ok)  globalMonthlyLogs = await response.json();
+                else  globalMonthlyLogs = { fill_logs: [], sales_logs: [] };
             } catch (err) {
                 globalMonthlyLogs = { fill_logs: [], sales_logs: [] };
             }
-            
             filterAndRenderLogs();
         }
 
-        // 📅 ประมวลผลและคัดกรอง Log รายเดือนแสดงเฉพาะวันที่เลือก
         function filterAndRenderLogs() {
             let fillLogs = globalMonthlyLogs.fill_logs || [];
             let salesLogs = globalMonthlyLogs.sales_logs || [];
-
             let filteredFill = fillLogs.filter(log => log[0].startsWith(currentSelectedLogDate));
             let filteredSales = salesLogs.filter(log => log[0].startsWith(currentSelectedLogDate));
 
@@ -568,8 +678,7 @@
                         { name: "รหัส", hidden: true }, 
                         { name: "ยอดรับเข้า", width: "85px", formatter: (cell) => gridjs.html(`<span class="text-emerald-600 font-bold bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded">${cell}</span>`) }
                     ],
-                    data: filteredFill.map(l => [formatLogTime(l[0]), l[2], l[1], l[3]]), 
-                    pagination: { limit: 10 },
+                    data: filteredFill.map(l => [formatLogTime(l[0]), l[2], l[1], l[3]]), pagination: { limit: 10 },
                     style: { table: { 'font-size': '11px' }, th: { 'background-color': '#f9fafb', 'padding': '6px' }, td: { 'padding': '8px 6px' } }
                 }).render(fillWrapper);
             }
@@ -586,40 +695,29 @@
                         { name: "รหัส", hidden: true }, 
                         { name: "ยอดขายได้", width: "85px", formatter: (cell) => gridjs.html(`<span class="text-amber-600 font-bold bg-amber-50 border border-amber-100 px-2 py-0.5 rounded">${cell}</span>`) }
                     ],
-                    data: filteredSales.map(l => [formatLogTime(l[0]), l[2], l[1], l[3]]), 
-                    pagination: { limit: 10 },
+                    data: filteredSales.map(l => [formatLogTime(l[0]), l[2], l[1], l[3]]), pagination: { limit: 10 },
                     style: { table: { 'font-size': '11px' }, th: { 'background-color': '#f9fafb', 'padding': '6px' }, td: { 'padding': '8px 6px' } }
                 }).render(salesWrapper);
             }
-            
             document.getElementById('log-card').classList.remove('hidden');
             document.getElementById('sales-log-card').classList.remove('hidden');
         }
 
         function handleLogDateChange(newDateValue) {
             if(!newDateValue) return;
-            
-            // เช็กว่ามีการข้ามเดือนเกิดขึ้นหรือไม่ ถ้าใช่ต้องโหลดไฟล์ .json ใหม่จาก GitHub
             const oldMonth = currentSelectedLogDate.split('-')[1];
             const newMonth = newDateValue.split('-')[1];
-            
             currentSelectedLogDate = newDateValue;
-            
-            if (oldMonth !== newMonth) {
-                loadMonthlyLogsFromGitHub();
-            } else {
-                filterAndRenderLogs();
-            }
+            if (oldMonth !== newMonth) loadMonthlyLogsFromGitHub();
+            else filterAndRenderLogs();
         }
 
         function adjustLogDate(daysOffset) {
             const currentDate = new Date(currentSelectedLogDate);
             currentDate.setDate(currentDate.getDate() + daysOffset);
-            
             const yyyy = currentDate.getFullYear();
             const mm = String(currentDate.getMonth() + 1).padStart(2, '0');
             const dd = String(currentDate.getDate()).padStart(2, '0');
-            
             handleLogDateChange(`${yyyy}-${mm}-${dd}`);
             document.getElementById('log-date-picker').value = currentSelectedLogDate;
         }
@@ -629,7 +727,6 @@
             const yyyy = today.getFullYear();
             const mm = String(today.getMonth() + 1).padStart(2, '0');
             const dd = String(today.getDate()).padStart(2, '0');
-            
             handleLogDateChange(`${yyyy}-${mm}-${dd}`);
             document.getElementById('log-date-picker').value = currentSelectedLogDate;
         }
@@ -643,8 +740,7 @@
                 categoryDatabase[catName].forEach(prodName => {
                     const excelInfo = allCleanData.find(row => row[1] === prodName);
                     if(excelInfo) {
-                        matchedProducts.push({ name: prodName, baseLink: excelInfo[5], qty: excelInfo[4] });
-                        hasAnyData = true;
+                        matchedProducts.push({ name: prodName, baseLink: excelInfo[5], qty: excelInfo[4] }); hasAnyData = true;
                     }
                 });
                 if(matchedProducts.length === 0) return; 
@@ -694,8 +790,7 @@
             if (categoryDatabase[catName]) { alert("มีหมวดหมู่นี้แล้ว"); return; }
             categoryDatabase[catName] = [];
             document.getElementById('new-category-name').value = "";
-            updateCategorySelectDropdown();
-            saveCategoriesToGitHub(); 
+            updateCategorySelectDropdown(); saveCategoriesToGitHub(); 
         }
 
         function updateCategorySelectDropdown() {
@@ -711,22 +806,18 @@
             const targetCategory = document.getElementById('cat-target-select').value;
             if (!productName || !targetCategory) { alert("กรุณาเลือกข้อมูลให้ครบถ้วน"); return; }
             if (categoryDatabase[targetCategory].includes(productName)) { alert("สินค้านี้อยู่ในหมวดนี้อยู่แล้ว"); return; }
-            categoryDatabase[targetCategory].push(productName);
-            saveCategoriesToGitHub(); 
+            categoryDatabase[targetCategory].push(productName); saveCategoriesToGitHub(); 
         }
 
         function removeProductFromCategory(catName, prodName) {
             if(confirm(`คุณต้องการนำสินค้า "${prodName}" ออกจากกลุ่มใช่หรือไม่?`)) {
-                categoryDatabase[catName] = categoryDatabase[catName].filter(name => name !== prodName);
-                saveCategoriesToGitHub();
+                categoryDatabase[catName] = categoryDatabase[catName].filter(name => name !== prodName); saveCategoriesToGitHub();
             }
         }
 
         function deleteWholeCategory(catName) {
             if(confirm(`⚠️ ลบหมวดหมู่ "${catName}" และข้อมูลภายในทั้งหมดออกจากระบบกลาง?`)) {
-                delete categoryDatabase[catName];
-                updateCategorySelectDropdown();
-                saveCategoriesToGitHub();
+                delete categoryDatabase[catName]; updateCategorySelectDropdown(); saveCategoriesToGitHub();
             }
         }
 
@@ -802,8 +893,7 @@
             const file = inputElement.files[0]; if (!file) return;
             if (file.size > 3 * 1024 * 1024) { alert("รูปใหญ่เกินไปครับ จำกัดไม่เกิน 3MB"); inputElement.value = ""; return; }
             
-            selectedFileBlob = file; 
-            currentImageExtension = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
+            selectedFileBlob = file; currentImageExtension = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
 
             const reader = new FileReader();
             reader.onload = function(e) {
@@ -821,13 +911,11 @@
             const placeholderText = document.getElementById('preview-placeholder-text');
             const previewIcon = document.getElementById('preview-icon');
             
-            document.getElementById('local-image-input').value = "";
-            selectedFileBlob = null;
+            document.getElementById('local-image-input').value = ""; selectedFileBlob = null;
 
             if (!selectedProduct) {
                 imgElement.classList.add('hidden'); previewIcon.classList.remove('hidden');
-                placeholderText.classList.remove('hidden'); placeholderText.innerText = "กรุณาเลือกชื่อสินค้าจากเมนูด้านซ้าย";
-                return;
+                placeholderText.classList.remove('hidden'); placeholderText.innerText = "กรุณาเลือกชื่อสินค้าจากเมนูด้านซ้าย"; return;
             }
 
             const excelInfo = allCleanData.find(row => row[1] === selectedProduct);
@@ -836,8 +924,7 @@
                 imgElement.classList.remove('hidden'); previewIcon.classList.add('hidden'); placeholderText.classList.add('hidden');
                 
                 imgElement.onerror = function() {
-                    this.onerror = null;
-                    this.src = excelInfo[5] + ".jpg"; 
+                    this.onerror = null; this.src = excelInfo[5] + ".jpg"; 
                     this.onerror = function() {
                         this.classList.add('hidden'); previewIcon.classList.remove('hidden');
                         placeholderText.classList.remove('hidden'); placeholderText.innerText = "สินค้านี้ยังไม่มีรูปภาพบนระบบกลาง";
@@ -857,8 +944,7 @@
             try {
                 await uploadImageToGitHub(selectedProduct, selectedFileBlob);
                 alert("🎉 อัปโหลดรูปภาพเข้าคลังระบบกลางบน GitHub เรียบร้อยแล้วทุกคนจะเห็นเหมือนกันทันที!");
-                selectedFileBlob = null;
-                loadProductImage(); renderAllCategoryTables(); renderDashboardCategoryShowcase();
+                selectedFileBlob = null; loadProductImage(); renderAllCategoryTables(); renderDashboardCategoryShowcase();
             } catch(e) {
                 alert("การอัปโหลดล้มเหลว ตรวจสอบ Token หรือสิทธิ์เขียน Repository");
             } finally {
@@ -877,8 +963,7 @@
                 await deleteImageFromGitHub(excelInfo[5] + ".png");
                 await deleteImageFromGitHub(excelInfo[5] + ".jpg");
                 alert("ลบรูปออกจากระบบกลางเสร็จสิ้น");
-                btn.disabled = false;
-                loadProductImage(); renderAllCategoryTables(); renderDashboardCategoryShowcase();
+                btn.disabled = false; loadProductImage(); renderAllCategoryTables(); renderDashboardCategoryShowcase();
             }
         }
 
@@ -919,11 +1004,30 @@
             document.getElementById('out-of-stock').innerText = allCleanData.filter(row => row[4] <= 0).length;
             document.getElementById('table-card').classList.remove('hidden');
             const wrapper = document.getElementById("table-wrapper"); wrapper.innerHTML = "";
+            
             if (gridInstance) gridInstance.destroy();
+            
             gridInstance = new gridjs.Grid({
-                columns: [{ name: "รหัสสินค้า (PLU)", width: "110px" }, { name: "ชื่อสินค้า", formatter: (cell) => gridjs.html(`<div class="whitespace-normal break-words font-medium text-gray-900">${cell}</div>`) }, { name: "ราคา", width: "85px", formatter: (cell) => `${cell} บ.` }, { name: "หน่วย", width: "65px" }, { name: "คงเหลือ (On Hand)", width: "130px", formatter: (cell) => cell <= 0 ? gridjs.html(`<span class="text-red-600 font-bold bg-red-50 px-2 py-0.5 rounded text-xs">${cell} (หมด)</span>`) : gridjs.html(`<span class="text-emerald-600 font-medium bg-emerald-50 px-2 py-0.5 rounded text-xs">${cell}</span>`) }],
-                data: allCleanData.map(r => [r[0], r[1], r[2], r[3], r[4]]), search: true, sort: true, pagination: { limit: 10 }, style: { table: { 'font-size': '12px' }, th: { 'background-color': '#f3f4f6', 'padding': '8px' } }
-            }).render(wrapper);
+                columns: [
+                    { name: "รหัสสินค้า (PLU)", width: "110px" }, 
+                    { name: "ชื่อสินค้า", formatter: (cell) => gridjs.html(`<div class="whitespace-normal break-words font-medium text-gray-900">${cell}</div>`) }, 
+                    { name: "ราคา", width: "85px", formatter: (cell) => `${cell} บ.` }, 
+                    { name: "หน่วย", width: "65px" }, 
+                    { name: "คงเหลือ (On Hand)", width: "130px", formatter: (cell) => cell <= 0 ? gridjs.html(`<span class="text-red-600 font-bold bg-red-50 px-2 py-0.5 rounded text-xs">${cell} (หมด)</span>`) : gridjs.html(`<span class="text-emerald-600 font-medium bg-emerald-50 px-2 py-0.5 rounded text-xs">${cell}</span>`) }
+                ],
+                data: allCleanData.map(r => [r[0], r[1], r[2], r[3], r[4]]), 
+                search: true, // เปิดไว้หลังบ้านเพื่อให้สคริปต์ Custom ยิงค่าคัดกรองมาทำงานได้
+                sort: true, 
+                pagination: { limit: 10 }, 
+                style: { table: { 'font-size': '12px' }, th: { 'background-color': '#f3f4f6', 'padding': '8px' } }
+            });
+
+            // ดักผูกอีเวนต์หลัง Render หรือเปลี่ยนหน้าเพื่อให้คลาสการ์ด Responsive มือถือทำงาน
+            gridInstance.on('render', () => {
+                applyMobileTableLabels();
+            });
+
+            gridInstance.render(wrapper);
         }
 
         async function loadExcelFromServer() {
@@ -945,18 +1049,13 @@
             try {
                 const response = await fetch(url, {
                     method: 'POST',
-                    headers: {
-                        'Authorization': `token ${token}`,
-                        'Accept': 'application/vnd.github.v3+json',
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
                     body: JSON.stringify({ ref: 'main' })
                 });
 
                 if (response.status === 204) {
                     alert("🚀 สั่งบอทรันสำเร็จแล้ว! บอทหลังบ้านกำลังเริ่มทำขั้นตอนดาวน์โหลด ข้อมูลหน้าร้านจะอัปเดตอัตโนมัติในอีกสักครู่ครับ");
                     document.getElementById('update-status').innerText = "⏳ บอทหลังบ้านกำลังทำงาน...";
-                    
                     setTimeout(async () => { fetchActualExcelData(); }, 10000);
                 } else {
                     alert("เกิดข้อผิดพลาด: รหัส Token ที่คุณกรอกไว้อาจไม่ถูกต้อง หรือไม่มีสิทธิ์เข้าถึงคลังบอท");
@@ -974,8 +1073,7 @@
             fetch(FILE_NAME + "?t=" + new Date().getTime()) 
                 .then(res => { if (!res.ok) throw new Error(); return res.arrayBuffer(); })
                 .then(async (buffer) => { 
-                    await loadCategoriesFromGitHub(); 
-                    processExcelData(buffer); 
+                    await loadCategoriesFromGitHub(); processExcelData(buffer); 
                 })
                 .catch(() => { document.getElementById('update-status').innerText = "⚠️ ไม่พบไฟล์ SKU.xlsx บน GitHub"; });
         }
