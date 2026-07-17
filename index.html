@@ -99,17 +99,40 @@
                     </div>
                     <div class="bg-white p-4 rounded-xl shadow-xs border border-gray-100 flex items-center justify-between">
                         <div>
-                            <p class="text-[10px] sm:text-xs text-gray-500 font-medium">ประวัติการเติม</p>
+                            <p class="text-[10px] sm:text-xs text-gray-500 font-medium">รายการเติมวันนี้</p>
                             <h3 id="total-logs" class="text-sm sm:text-xl font-bold mt-0.5 text-emerald-600">0</h3>
                         </div>
                         <div class="p-2 bg-emerald-50 text-emerald-600 rounded-lg text-sm sm:text-lg">📈</div>
                     </div>
                     <div class="bg-white p-4 rounded-xl shadow-xs border border-gray-100 flex items-center justify-between">
                         <div>
-                            <p class="text-[10px] sm:text-xs text-gray-500 font-medium">ประวัติการขาย</p>
+                            <p class="text-[10px] sm:text-xs text-gray-500 font-medium">รายการขายวันนี้</p>
                             <h3 id="total-sales-logs" class="text-sm sm:text-xl font-bold mt-0.5 text-amber-600">0</h3>
                         </div>
                         <div class="p-2 bg-amber-50 text-amber-600 rounded-lg text-sm sm:text-lg">📉</div>
+                    </div>
+                </div>
+
+                <!-- 📅 เพิ่มแถบควบคุมวันทำงาน (Date Navigation Bar) สำหรับกลุ่ม Log -->
+                <div class="bg-white p-4 mb-6 rounded-2xl border border-gray-100 shadow-xs flex flex-wrap gap-4 items-center justify-between">
+                    <div class="flex items-center gap-1.5">
+                        <span class="p-2 bg-slate-100 text-slate-700 rounded-xl"><i data-lucide="calendar" class="w-4 h-4"></i></span>
+                        <div>
+                            <h4 class="text-xs font-bold text-gray-900">ตัวกรองประวัติประจำวัน</h4>
+                            <p class="text-[10px] text-gray-400">เลือกดูรายงานการเติมและขายแยกตามวัน</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="adjustLogDate(-1)" class="p-2 bg-slate-50 hover:bg-slate-100 border border-gray-200 rounded-xl text-gray-600 hover:text-gray-900 transition-colors cursor-pointer">
+                            <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                        </button>
+                        <input type="date" id="log-date-picker" onchange="handleLogDateChange(this.value)" class="text-xs font-bold px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500 text-center bg-slate-50 cursor-pointer" />
+                        <button onclick="adjustLogDate(1)" class="p-2 bg-slate-50 hover:bg-slate-100 border border-gray-200 rounded-xl text-gray-600 hover:text-gray-900 transition-colors cursor-pointer">
+                            <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                        </button>
+                        <button onclick="resetLogDateToToday()" class="text-[11px] bg-slate-800 hover:bg-slate-900 text-white font-medium py-2 px-3 rounded-xl transition-all cursor-pointer">
+                            วันนี้
+                        </button>
                     </div>
                 </div>
 
@@ -125,7 +148,7 @@
                         <div id="log-card" class="bg-white p-4 sm:p-5 rounded-2xl shadow-xs border border-gray-100 overflow-hidden hidden">
                             <div class="mb-3 flex justify-between items-center">
                                 <h2 class="text-[11px] sm:text-xs font-bold text-gray-900 flex items-center gap-1.5"><i data-lucide="plus-circle" class="w-4 h-4 text-emerald-600"></i> 🕒 ประวัติการเติมสินค้า</h2>
-                                <button id="clear-log-btn" class="text-[10px] sm:text-[11px] text-red-500 hover:underline cursor-pointer">ล้างประวัติ</button>
+                                <button id="clear-log-btn" class="text-[10px] sm:text-[11px] text-red-500 hover:underline cursor-pointer">ล้างประวัติทั้งหมด</button>
                             </div>
                             <div id="log-wrapper" class="w-full"></div>
                         </div>
@@ -133,7 +156,7 @@
                         <div id="sales-log-card" class="bg-white p-4 sm:p-5 rounded-2xl shadow-xs border border-gray-100 overflow-hidden hidden">
                             <div class="mb-3 flex justify-between items-center">
                                 <h2 class="text-[11px] sm:text-xs font-bold text-gray-900 flex items-center gap-1.5"><i data-lucide="minus-circle" class="w-4 h-4 text-amber-600"></i> 🛍️ ประวัติการขายสินค้า</h2>
-                                <button id="clear-sales-log-btn" class="text-[10px] sm:text-[11px] text-red-500 hover:underline cursor-pointer">ล้างประวัติ</button>
+                                <button id="clear-sales-log-btn" class="text-[10px] sm:text-[11px] text-red-500 hover:underline cursor-pointer">ล้างประวัติทั้งหมด</button>
                             </div>
                             <div id="sales-log-wrapper" class="w-full"></div>
                         </div>
@@ -239,6 +262,9 @@
         let salesLogGridInstance = null;
         let selectedFileBlob = null; 
         let currentImageExtension = "";
+        
+        // 📅 กำหนดตัวแปรสำหรับคัดกรองวันของ Log
+        let currentSelectedLogDate = ""; 
 
         let categoryDatabase = { "สินค้าขายดี/แนะนำ": [], "สินค้าสต็อกต่ำเตือนภัย": [] };
 
@@ -288,8 +314,6 @@
         }
 
         // ─── 🌐 ส่วนเชื่อมต่อ GITHUB API ───
-        
-        // 1. ดึงไฟล์หมวดหมู่จาก GitHub
         async function loadCategoriesFromGitHub() {
             try {
                 const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${CAT_JSON_PATH}?t=${new Date().getTime()}`;
@@ -304,7 +328,6 @@
             }
         }
 
-        // 2. อัปเดตไฟล์หมวดหมู่กลับขึ้น GitHub
         async function saveCategoriesToGitHub() {
             const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${CAT_JSON_PATH}`;
             let sha = null;
@@ -337,7 +360,6 @@
             }
         }
 
-        // 3. ฟังก์ชันอัปโหลดไฟล์รูปภาพเข้า Repository ตรงๆ
         async function uploadImageToGitHub(productName, fileBlob) {
             const safeName = productName.replace(/[^a-zA-Z0-9ก-๙_-]/g, '_');
             const path = `image/products/${safeName}${currentImageExtension}`;
@@ -375,7 +397,6 @@
             });
         }
 
-        // 4. ลบไฟล์รูปออกจาก GitHub
         async function deleteImageFromGitHub(imageHtmlUrl) {
             try {
                 const path = imageHtmlUrl.split(`/main/`)[1];
@@ -424,6 +445,16 @@
                     ];
                 });
 
+            // ตั้งค่าเริ่มต้นวันที่เลือกให้เป็นวันนี้ก่อนกระทำการดัก Log
+            if (!currentSelectedLogDate) {
+                const today = new Date();
+                const yyyy = today.getFullYear();
+                const mm = String(today.getMonth() + 1).padStart(2, '0');
+                const dd = String(today.getDate()).padStart(2, '0');
+                currentSelectedLogDate = `${yyyy}-${mm}-${dd}`;
+                document.getElementById('log-date-picker').value = currentSelectedLogDate;
+            }
+
             checkStockChanges(allCleanData);
             renderAutomaticTable();
             updateProductDropdowns(); 
@@ -438,14 +469,19 @@
             let fillLogs = JSON.parse(localStorage.getItem('stock_fill_logs')) || [];
             let salesLogs = JSON.parse(localStorage.getItem('stock_sales_logs')) || [];
             let hasNewFill = false; let hasNewSales = false;
-            const currentTimestamp = new Date().toLocaleString('th-TH', { hour12: false });
+            
+            // ใช้โครงสร้างวันที่แบบสากล YYYY-MM-DD เพื่อเอาไว้ค้นหาคัดกรองง่ายๆ
+            const today = new Date();
+            const dateStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+            const timeStr = today.toTimeString().split(' ')[0].substring(0, 5); // ดึงเฉพาะ HH:MM
+            const fullTimestamp = `${dateStr} ${timeStr}`;
 
             newData.forEach(item => {
                 const plu = item[0]; const name = item[1]; const currentQty = item[4]; 
                 if (previousStock[plu] !== undefined) {
                     const diff = currentQty - previousStock[plu];
-                    if (diff > 0) { fillLogs.unshift([currentTimestamp, plu, name, `+${diff} ชิ้น`]); hasNewFill = true; } 
-                    else if (diff < 0) { salesLogs.unshift([currentTimestamp, plu, name, `${Math.abs(diff)} ชิ้น`]); hasNewSales = true; }
+                    if (diff > 0) { fillLogs.unshift([fullTimestamp, plu, name, `+${diff} ชิ้น`]); hasNewFill = true; } 
+                    else if (diff < 0) { salesLogs.unshift([fullTimestamp, plu, name, `${Math.abs(diff)} ชิ้น`]); hasNewSales = true; }
                 }
                 previousStock[plu] = currentQty;
             });
@@ -453,33 +489,105 @@
             localStorage.setItem('cached_stock_balances', JSON.stringify(previousStock));
             if (hasNewFill || fillLogs.length > 0) localStorage.setItem('stock_fill_logs', JSON.stringify(fillLogs));
             if (hasNewSales || salesLogs.length > 0) localStorage.setItem('stock_sales_logs', JSON.stringify(salesLogs));
-            renderLogTable(fillLogs); renderSalesLogTable(salesLogs);
+            
+            // สั่งรันอัปเดตตารางคัดกรองตามวันที่ระบุ
+            filterAndRenderLogs();
         }
 
-        function renderLogTable(logs) {
-            const logCard = document.getElementById('log-card'); if(!logCard) return; logCard.classList.remove('hidden');
-            document.getElementById('total-logs').innerText = logs.length;
-            const wrapper = document.getElementById("log-wrapper"); wrapper.innerHTML = "";
-            if (logs.length === 0) { wrapper.innerHTML = "<p class='text-xs text-gray-400 text-center py-6'>ยังไม่มีประวัติการเติมสินค้า</p>"; return; }
-            if (logGridInstance) logGridInstance.destroy();
-            logGridInstance = new gridjs.Grid({
-                columns: [{ name: "วันที่และเวลา", width: "130px" }, { name: "สินค้า", formatter: (cell, row) => gridjs.html(`<div class="text-xs font-medium text-gray-800 break-words">${cell} <span class="text-[10px] text-gray-400 block">(PLU: ${row.cells[1].data})</span></div>`) }, { name: "รหัส", hidden: true }, { name: "รับเข้า", width: "85px", formatter: (cell) => gridjs.html(`<span class="text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded">${cell}</span>`) }],
-                data: logs.map(l => [l[0], l[2], l[1], l[3]]), pagination: { limit: 5 },
-                style: { table: { 'font-size': '11px' }, th: { 'background-color': '#f9fafb', 'padding': '6px' }, td: { 'padding': '8px 6px' } }
-            }).render(wrapper);
+        // 📅 ฟังก์ชันคัดกรองและประมวลผลตาราง Log ประจำวันโดยเฉพาะ
+        function filterAndRenderLogs() {
+            let fillLogs = JSON.parse(localStorage.getItem('stock_fill_logs')) || [];
+            let salesLogs = JSON.parse(localStorage.getItem('stock_sales_logs')) || [];
+
+            // กรองเอาเฉพาะข้อมูลที่มีวันที่ขึ้นต้นตรงกับคีย์วันที่ระบุใน Date Picker
+            let filteredFill = fillLogs.filter(log => log[0].startsWith(currentSelectedLogDate));
+            let filteredSales = salesLogs.filter(log => log[0].startsWith(currentSelectedLogDate));
+
+            // แปลงรูปแบบโครงสร้างวันที่แสดงผลในตารางให้สวยงามอ่านง่ายขึ้น
+            const formatLogTime = (dateTimeStr) => {
+                try {
+                    const parts = dateTimeStr.split(' ');
+                    const dParts = parts[0].split('-');
+                    return `${dParts[2]}/${dParts[1]} เวลา ${parts[1]} น.`;
+                } catch(e) { return dateTimeStr; }
+            };
+
+            // อัปเดตตัวเลขการสรุปยอดประจำวันบนหัวการ์ด
+            document.getElementById('total-logs').innerText = filteredFill.length;
+            document.getElementById('total-sales-logs').innerText = filteredSales.length;
+
+            // --- วาดตารางประวัติการเติมสินค้า ---
+            const fillWrapper = document.getElementById("log-wrapper"); fillWrapper.innerHTML = "";
+            if (filteredFill.length === 0) { 
+                fillWrapper.innerHTML = `<p class='text-xs text-gray-400 text-center py-8 border border-dashed border-gray-100 rounded-xl bg-slate-50/50'>ไม่มีรายการเติมเข้าในวันที่เลือก</p>`; 
+            } else {
+                if (logGridInstance) logGridInstance.destroy();
+                logGridInstance = new gridjs.Grid({
+                    columns: [
+                        { name: "เวลาทำรายการ", width: "130px" }, 
+                        { name: "รายละเอียดสินค้า", formatter: (cell, row) => gridjs.html(`<div class="text-xs font-medium text-gray-800 break-words">${cell} <span class="text-[10px] text-gray-400 block font-normal">(PLU: ${row.cells[2].data})</span></div>`) }, 
+                        { name: "รหัส", hidden: true }, 
+                        { name: "ยอดรับเข้า", width: "85px", formatter: (cell) => gridjs.html(`<span class="text-emerald-600 font-bold bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded">${cell}</span>`) }
+                    ],
+                    data: filteredFill.map(l => [formatLogTime(l[0]), l[2], l[1], l[3]]), 
+                    pagination: { limit: 10 },
+                    style: { table: { 'font-size': '11px' }, th: { 'background-color': '#f9fafb', 'padding': '6px' }, td: { 'padding': '8px 6px' } }
+                }).render(fillWrapper);
+            }
+
+            // --- วาดตารางประวัติการขายสินค้า ---
+            const salesWrapper = document.getElementById("sales-log-wrapper"); salesWrapper.innerHTML = "";
+            if (filteredSales.length === 0) { 
+                salesWrapper.innerHTML = `<p class='text-xs text-gray-400 text-center py-8 border border-dashed border-gray-100 rounded-xl bg-slate-50/50'>ไม่มีรายการยอดขายในวันที่เลือก</p>`; 
+            } else {
+                if (salesLogGridInstance) salesLogGridInstance.destroy();
+                salesLogGridInstance = new gridjs.Grid({
+                    columns: [
+                        { name: "เวลาทำรายการ", width: "130px" }, 
+                        { name: "รายละเอียดสินค้า", formatter: (cell, row) => gridjs.html(`<div class="text-xs font-medium text-gray-800 break-words">${cell} <span class="text-[10px] text-gray-400 block font-normal">(PLU: ${row.cells[2].data})</span></div>`) }, 
+                        { name: "รหัส", hidden: true }, 
+                        { name: "ยอดขายได้", width: "85px", formatter: (cell) => gridjs.html(`<span class="text-amber-600 font-bold bg-amber-50 border border-amber-100 px-2 py-0.5 rounded">${cell}</span>`) }
+                    ],
+                    data: filteredSales.map(l => [formatLogTime(l[0]), l[2], l[1], l[3]]), 
+                    pagination: { limit: 10 },
+                    style: { table: { 'font-size': '11px' }, th: { 'background-color': '#f9fafb', 'padding': '6px' }, td: { 'padding': '8px 6px' } }
+                }).render(salesWrapper);
+            }
+            
+            // แสดงผลกล่องการ์ดบันทึก Log
+            document.getElementById('log-card').classList.remove('hidden');
+            document.getElementById('sales-log-card').classList.remove('hidden');
         }
 
-        function renderSalesLogTable(logs) {
-            const salesLogCard = document.getElementById('sales-log-card'); if(!salesLogCard) return; salesLogCard.classList.remove('hidden');
-            document.getElementById('total-sales-logs').innerText = logs.length;
-            const wrapper = document.getElementById("sales-log-wrapper"); wrapper.innerHTML = "";
-            if (logs.length === 0) { wrapper.innerHTML = "<p class='text-xs text-gray-400 text-center py-6'>ยังไม่มีประวัติการขายสินค้า</p>"; return; }
-            if (salesLogGridInstance) salesLogGridInstance.destroy();
-            salesLogGridInstance = new gridjs.Grid({
-                columns: [{ name: "วันที่และเวลา", width: "130px" }, { name: "สินค้า", formatter: (cell, row) => gridjs.html(`<div class="text-xs font-medium text-gray-800 break-words">${cell} <span class="text-[10px] text-gray-400 block">(PLU: ${row.cells[1].data})</span></div>`) }, { name: "รหัส", hidden: true }, { name: "ขายได้", width: "85px", formatter: (cell) => gridjs.html(`<span class="text-amber-600 font-bold bg-amber-50 px-2 py-0.5 rounded">${cell}</span>`) }],
-                data: logs.map(l => [l[0], l[2], l[1], l[3]]), pagination: { limit: 5 },
-                style: { table: { 'font-size': '11px' }, th: { 'background-color': '#f9fafb', 'padding': '6px' }, td: { 'padding': '8px 6px' } }
-            }).render(wrapper);
+        // 📅 ฟังก์ชันทำงานร่วมกับการขยับเลื่อนเปลี่ยนวันที่
+        function handleLogDateChange(newDateValue) {
+            if(!newDateValue) return;
+            currentSelectedLogDate = newDateValue;
+            filterAndRenderLogs();
+        }
+
+        function adjustLogDate(daysOffset) {
+            const currentDate = new Date(currentSelectedLogDate);
+            currentDate.setDate(currentDate.getDate() + daysOffset);
+            
+            const yyyy = currentDate.getFullYear();
+            const mm = String(currentDate.getMonth() + 1).padStart(2, '0');
+            const dd = String(currentDate.getDate()).padStart(2, '0');
+            
+            currentSelectedLogDate = `${yyyy}-${mm}-${dd}`;
+            document.getElementById('log-date-picker').value = currentSelectedLogDate;
+            filterAndRenderLogs();
+        }
+
+        function resetLogDateToToday() {
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            
+            currentSelectedLogDate = `${yyyy}-${mm}-${dd}`;
+            document.getElementById('log-date-picker').value = currentSelectedLogDate;
+            filterAndRenderLogs();
         }
 
         function renderDashboardCategoryShowcase() {
@@ -776,7 +884,6 @@
             }).render(wrapper);
         }
 
-        // 🌟 5. ปุ่มหลักถูกแก้ไขให้กดรัน GitHub Actions คลัง bot-Actions พร้อมระบบป๊อปอัปแจ้งเตือน
         async function loadExcelFromServer() {
             const confirmRun = confirm("❓ คุณต้องการสั่งรันบอท (GitHub Actions) เพื่อดึงข้อมูลสต็อกใหม่ล่าสุดใช่หรือไม่?");
             if (!confirmRun) {
@@ -818,7 +925,6 @@
             }
         }
 
-        // 🌟 6. แยกฟังก์ชันโหลดไฟล์ Excel ตรงๆ มาทำงานแบบเดี่ยวเพื่อใช้ตอนเปิดเว็บครั้งแรก
         function fetchActualExcelData() {
             document.getElementById('update-status').innerText = "⏳ กำลังดึงข้อมูลล่าสุด...";
             fetch(FILE_NAME + "?t=" + new Date().getTime()) 
@@ -837,10 +943,9 @@
                 }).catch(() => { document.getElementById('update-status').innerText = `🔄 ซิงค์ข้อมูลออนไลน์สำเร็จ`; });
         }
 
-        document.getElementById('clear-log-btn').addEventListener('click', () => { if(confirm("ต้องการล้างประวัติการเติมสินค้า?")) { localStorage.removeItem('stock_fill_logs'); renderLogTable([]); } });
-        document.getElementById('clear-sales-log-btn').addEventListener('click', () => { if(confirm("ต้องการล้างประวัติการขายสินค้า?")) { localStorage.removeItem('stock_sales_logs'); renderSalesLogTable([]); } });
+        document.getElementById('clear-log-btn').addEventListener('click', () => { if(confirm("ต้องการล้างประวัติการเติมสินค้าทั้งหมดออกจากระบบจำลอง?")) { localStorage.removeItem('stock_fill_logs'); filterAndRenderLogs(); } });
+        document.getElementById('clear-sales-log-btn').addEventListener('click', () => { if(confirm("ต้องการล้างประวัติการขายสินค้าทั้งหมดออกจากระบบจำลอง?")) { localStorage.removeItem('stock_sales_logs'); filterAndRenderLogs(); } });
         
-        // 🌟 7. เปลี่ยนมาเรียกใช้งาน fetchActualExcelData ตอนเปิดเว็บครั้งแรก เพื่อไม่ให้มีป๊อปอัปแจ้งเตือนรบกวน
         fetchActualExcelData();
         lucide.createIcons();
     </script>
