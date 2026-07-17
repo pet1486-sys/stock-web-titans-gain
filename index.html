@@ -20,23 +20,11 @@
         
         .gridjs-search { display: none !important; }
         
-        /* 📱 ล็อกการแสดงผลบนมือถือให้พอดีหน้าจอ ห้ามมี scrollbar แนวนอน */
         @media (max-width: 640px) {
-            .responsive-gridjs-table .gridjs-wrapper {
-                overflow-x: hidden !important;
-            }
-            .responsive-gridjs-table table.gridjs-table {
-                table-layout: fixed !important;
-                width: 100% !important;
-            }
+            .responsive-gridjs-table .gridjs-wrapper { overflow-x: hidden !important; }
+            .responsive-gridjs-table table.gridjs-table { table-layout: fixed !important; width: 100% !important; }
             .responsive-gridjs-table th, 
-            .responsive-gridjs-table td { 
-                padding: 6px 4px !important; 
-                font-size: 11px !important;
-                text-overflow: ellipsis !important;
-                overflow: hidden !important;
-                white-space: nowrap !important;
-            }
+            .responsive-gridjs-table td { padding: 6px 4px !important; font-size: 11px !important; text-overflow: ellipsis !important; overflow: hidden !important; white-space: nowrap !important; }
         }
     </style>
 </head>
@@ -56,7 +44,14 @@
         </div>
 
         <nav class="flex-1 p-4 space-y-1.5 overflow-y-auto no-scrollbar">
-            <button onclick="switchTab(this, 'stock-page')" class="tab-item w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-all cursor-pointer bg-blue-600 text-white shadow-sm">
+            <!-- ⚡ หน้าแรกเปลี่ยนเป็น แดชบอร์ด -->
+            <button onclick="switchTab(this, 'dashboard-page')" class="tab-item w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-all cursor-pointer bg-blue-600 text-white shadow-sm">
+                <i data-lucide="pie-chart" class="w-5 h-5"></i>
+                แดชบอร์ดภาพรวม
+            </button>
+
+            <!-- ⚡ หน้าคลังใหญ่ย้ายมาอยู่แท็บที่สอง -->
+            <button onclick="switchTab(this, 'stock-page')" class="tab-item w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-all cursor-pointer hover:bg-slate-800 hover:text-white text-slate-400">
                 <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
                 สินค้าคงคลัง (ทั้งหมด)
             </button>
@@ -78,7 +73,7 @@
         </nav>
         
         <div class="p-4 text-xs text-slate-600 border-t border-slate-800 text-center">
-            v2.6.1 Safe-Click Engine
+            v2.7.0 Ordered Dashboard Engine
         </div>
     </aside>
 
@@ -92,7 +87,7 @@
                 <button onclick="toggleSidebar()" class="p-1.5 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors cursor-pointer focus:outline-none">
                     <i data-lucide="menu" class="w-5 h-5"></i>
                 </button>
-                <h2 id="page-title" class="text-xs sm:text-sm md:text-lg font-bold text-gray-800 truncate flex items-center gap-1.5">📦 ระบบสินค้าคงเหลือ Real-time</h2>
+                <h2 id="page-title" class="text-xs sm:text-sm md:text-lg font-bold text-gray-800 truncate flex items-center gap-1.5">📊 แดชบอร์ดภาพรวมบริษัท</h2>
             </div>
             <div class="flex items-center gap-2">
                 <span id="update-status" class="text-[10px] sm:text-xs bg-gray-100 text-gray-600 px-2 sm:px-3 py-1 rounded-full font-medium border border-gray-200 whitespace-nowrap">กำลังตรวจสอบเวลาไฟล์...</span>
@@ -104,11 +99,16 @@
 
         <div class="p-3 sm:p-6 md:p-8 flex-1">
 
-            <!-- ================= หน้าที่ 1: สินค้าคงคลังทั้งหมด ================= -->
-            <div id="stock-page" class="page-content block">
-                <!-- 🎯 กล่องแนะนำกวาดสายตาด่วนขนาดจิ๋วพิเศษ -->
-                <div id="dashboard-category-showcase" class="mb-4 space-y-3"></div>
+            <!-- ================= (ใหม่) หน้าแดชบอร์ดภาพรวมแยกแท็บ ================= -->
+            <div id="dashboard-page" class="page-content block">
+                <div class="mb-4">
+                    <h3 class="text-sm font-bold text-gray-900 mb-2">⭐ หมวดหมู่แนะนำและจำแนกหน้าร้าน</h3>
+                    <div id="dashboard-category-showcase" class="space-y-4"></div>
+                </div>
+            </div>
 
+            <!-- ================= หน้าคลังสินค้าคงคลังทั้งหมด (ย้ายมาแท็บ 2) ================= -->
+            <div id="stock-page" class="page-content hidden">
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4 mb-4">
                     <div class="bg-white p-3 rounded-xl shadow-xs border border-gray-100 flex items-center justify-between">
                         <div>
@@ -140,46 +140,36 @@
                     </div>
                 </div>
 
-                <!-- 📅 ตัวกรองประวัติประจำวัน -->
                 <div class="bg-white p-3 mb-4 rounded-xl border border-gray-100 shadow-xs flex flex-wrap gap-3 items-center justify-between">
                     <div class="flex items-center gap-1.5">
                         <span class="p-2 bg-slate-100 text-slate-700 rounded-xl"><i data-lucide="calendar" class="w-4 h-4"></i></span>
-                        <div>
-                            <h4 class="text-xs font-bold text-gray-900">ตัวกรองประวัติประจำวัน</h4>
-                        </div>
+                        <h4 class="text-xs font-bold text-gray-900">ตัวกรองประวัติประจำวัน</h4>
                     </div>
                     <div class="flex items-center gap-1.5">
-                        <button onclick="adjustLogDate(-1)" class="p-1.5 bg-slate-50 border border-gray-200 rounded-lg text-gray-600 cursor-pointer"><i data-lucide="chevron-left" class="w-3.5 h-3.5"></i></button>
+                        <button onclick="adjustLogDate(-1)" class="p-1.5 bg-slate-50 border border-gray-200 rounded-lg text-gray-600"><i data-lucide="chevron-left" class="w-3.5 h-3.5"></i></button>
                         <input type="date" id="log-date-picker" onchange="handleLogDateChange(this.value)" class="text-xs font-bold px-2 py-1.5 border border-gray-300 rounded-lg bg-slate-50 text-center" />
-                        <button onclick="adjustLogDate(1)" class="p-1.5 bg-slate-50 border border-gray-200 rounded-lg text-gray-600 cursor-pointer"><i data-lucide="chevron-right" class="w-3.5 h-3.5"></i></button>
-                        <button onclick="resetLogDateToToday()" class="text-[11px] bg-slate-800 text-white font-medium py-1.5 px-2.5 rounded-lg cursor-pointer">วันนี้</button>
+                        <button onclick="adjustLogDate(1)" class="p-1.5 bg-slate-50 border border-gray-200 rounded-lg text-gray-600"><i data-lucide="chevron-right" class="w-3.5 h-3.5"></i></button>
+                        <button onclick="resetLogDateToToday()" class="text-[11px] bg-slate-800 text-white font-medium py-1.5 px-2.5 rounded-lg">วันนี้</button>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
                     <div id="table-card" class="bg-white p-3 sm:p-5 rounded-xl shadow-xs border border-gray-100 xl:col-span-2 overflow-hidden hidden">
-                        
-                        <!-- 🔍 โซนค้นหาสินค้าขั้นสูง + แผงคุมคีย์เวิร์ด -->
                         <div class="mb-4 bg-slate-50 p-3 rounded-xl border border-gray-200 space-y-2">
                             <div class="flex flex-col sm:flex-row gap-2 w-full items-center">
                                 <input type="text" id="custom-search-input" onkeydown="if(event.key==='Enter') performCustomSearch()" placeholder="พิมพ์ชื่อสินค้า หรือ PLU..." class="w-full flex-1 text-xs px-3 py-2 border border-gray-300 rounded-lg bg-white" />
                                 <div class="flex gap-2 w-full sm:w-auto">
-                                    <button onclick="performCustomSearch()" class="flex-1 sm:flex-none bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-2 px-3 rounded-lg cursor-pointer flex items-center justify-center gap-1"><i data-lucide="search" class="w-3.5 h-3.5"></i> ยืนยันค้นหา</button>
-                                    <button onclick="addNewKeywordFromInput()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-2 px-2.5 rounded-lg cursor-pointer flex items-center justify-center gap-1">➕ บันทึกคำ</button>
+                                    <button onclick="performCustomSearch()" class="flex-1 sm:flex-none bg-emerald-600 text-white text-xs font-bold py-2 px-3 rounded-lg flex items-center justify-center gap-1"><i data-lucide="search" class="w-3.5 h-3.5"></i> ยืนยันค้นหา</button>
+                                    <button onclick="addNewKeywordFromInput()" class="bg-blue-600 text-white text-xs font-bold py-2 px-2.5 rounded-lg flex items-center justify-center gap-1">➕ บันทึกคำ</button>
                                 </div>
                             </div>
                             <div class="pt-1.5 border-t border-gray-200">
                                 <div id="keywords-list-container" class="flex flex-wrap gap-1.5"></div>
                             </div>
                         </div>
-
-                        <div class="mb-2">
-                            <h3 class="text-xs sm:text-sm font-bold text-gray-900">📑 รายการสินค้าทั้งหมดในระบบ (คลังใหญ่)</h3>
-                        </div>
-                        
+                        <div class="mb-2"><h3 class="text-xs sm:text-sm font-bold text-gray-900">📑 รายการสินค้าทั้งหมดในระบบ (คลังใหญ่)</h3></div>
                         <div id="table-wrapper" class="w-full responsive-gridjs-table"></div>
                     </div>
-
                     <div class="xl:col-span-1 space-y-4 flex flex-col">
                         <div id="log-card" class="bg-white p-3 rounded-xl shadow-xs border border-gray-100 overflow-hidden hidden">
                             <div class="mb-2"><h2 class="text-xs font-bold text-gray-900 flex items-center gap-1.5"><i data-lucide="plus-circle" class="w-4 h-4 text-emerald-600"></i> 🕒 ประวัติการเติมสินค้า</h2></div>
@@ -193,7 +183,7 @@
                 </div>
             </div>
 
-            <!-- ================= หน้าที่ 2: จัดหมวดหมู่สินค้าแยกตาราง ================= -->
+            <!-- ================= หน้าที่ 3: จัดหมวดหมู่สินค้าแยกตาราง (เพิ่มฟังก์ชันเลื่อนเรียงลำดับ) ================= -->
             <div id="category-page" class="page-content hidden">
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
                     <div class="bg-white p-4 rounded-xl border border-gray-100">
@@ -219,21 +209,18 @@
                         </div>
                     </div>
                 </div>
+                <!-- 🎯 คอนเทนเนอร์หมวดหมู่ที่เพิ่มระบบปรับแต่งลำดับ -->
                 <div id="dynamic-categories-container" class="space-y-6"></div>
             </div>
 
-            <!-- ================= หน้าที่ 3: จัดการรูปภาพสินค้า ================= -->
+            <!-- ================= หน้าที่ 4: จัดการรูปภาพสินค้า ================= -->
             <div id="image-management-page" class="page-content hidden">
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
                     <div class="bg-white p-4 rounded-xl border border-gray-100 lg:col-span-1 space-y-4">
                         <h3 class="text-xs font-bold text-gray-900">1. เลือกชื่อสินค้า</h3>
                         <input type="text" id="search-product-name" oninput="filterProductDropdown()" placeholder="พิมพ์ค้นหาชื่อสินค้า..." class="w-full text-xs px-3 py-2 border border-gray-300 rounded-lg" />
                         <select id="product-select" onchange="loadProductImage()" class="w-full text-xs px-3 py-2 border border-gray-300 rounded-lg"></select>
-                        
-                        <div id="image-status-badge-container" class="p-2.5 bg-slate-50 border border-gray-200 rounded-lg hidden">
-                            <div id="image-status-badge-text" class="text-xs font-bold"></div>
-                        </div>
-                        
+                        <div id="image-status-badge-container" class="p-2.5 bg-slate-50 border border-gray-200 rounded-lg hidden"><div id="image-status-badge-text" class="text-xs font-bold"></div></div>
                         <div class="pt-3 border-t border-gray-100">
                             <h3 class="text-xs font-bold text-gray-900 mb-2">2. อัปโหลดภาพ</h3>
                             <label class="block w-full text-center border border-dashed border-gray-300 rounded-lg p-3 bg-gray-50 cursor-pointer">
@@ -284,7 +271,9 @@
         let currentSelectedLogDate = ""; 
 
         let globalMonthlyLogs = { fill_logs: [], sales_logs: [] };
-        let categoryDatabase = { "สินค้าขายดี/แนะนำ": [], "สินค้าสต็อกต่ำเตือนภัย": [] };
+        
+        // 🎯 แก้ปัญหาหมวดหมู่หาย: เปลี่ยนโครงสร้างเริ่มต้นให้เป็น Object เปล่าเพื่อรองรับข้อมูล Dynamic
+        let categoryDatabase = {}; 
 
         function getGitHubToken() { return localStorage.getItem('user_github_token') || ""; }
 
@@ -293,7 +282,6 @@
             const container = document.getElementById('keywords-list-container');
             container.innerHTML = "";
             if(saved.length === 0) return;
-
             saved.forEach((keyword, index) => {
                 const chip = document.createElement('div');
                 chip.className = "flex items-center gap-1 bg-white border border-gray-300 rounded-md pl-2 pr-1 py-0.5 text-[11px] font-medium text-gray-700 shadow-2xs";
@@ -310,18 +298,13 @@
             const inputVal = document.getElementById('custom-search-input').value.trim();
             if(!inputVal) return;
             let saved = JSON.parse(localStorage.getItem('stock_custom_keywords')) || ["MR", "BY", "EU"];
-            if(!saved.includes(inputVal)) {
-                saved.push(inputVal); localStorage.setItem('stock_custom_keywords', JSON.stringify(saved)); renderKeywordsManager();
-            }
+            if(!saved.includes(inputVal)) { saved.push(inputVal); localStorage.setItem('stock_custom_keywords', JSON.stringify(saved)); renderKeywordsManager(); }
         }
 
-        // 🎯 [แก้ไขตามสั่ง] เพิ่มหน้าต่างยืนยันการลบคำค้นหาเพื่อแก้ปัญหามือลั่นบนหน้าจอมือถือ
         function deleteKeyword(index, keywordName) {
-            if (confirm(`❓ คุณต้องการลบคำค้นหา "${keywordName}" ที่บันทึกไว้ใช่หรือไม่?`)) {
+            if (confirm(`❓ คุณต้องการลบคำค้นหา "${keywordName}" ใช่หรือไม่?`)) {
                 let saved = JSON.parse(localStorage.getItem('stock_custom_keywords')) || ["MR", "BY", "EU"];
-                saved.splice(index, 1); 
-                localStorage.setItem('stock_custom_keywords', JSON.stringify(saved)); 
-                renderKeywordsManager();
+                saved.splice(index, 1); localStorage.setItem('stock_custom_keywords', JSON.stringify(saved)); renderKeywordsManager();
             }
         }
 
@@ -346,20 +329,24 @@
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebar-overlay');
-            if (sidebar.classList.contains('-translate-x-full')) {
-                sidebar.classList.remove('-translate-x-full'); overlay.classList.remove('hidden', 'opacity-0'); overlay.classList.add('opacity-100');
-            } else {
-                sidebar.classList.add('-translate-x-full'); overlay.classList.add('hidden');
-            }
+            if (sidebar.classList.contains('-translate-x-full')) { sidebar.classList.remove('-translate-x-full'); overlay.classList.remove('hidden', 'opacity-0'); overlay.classList.add('opacity-100'); } 
+            else { sidebar.classList.add('-translate-x-full'); overlay.classList.add('hidden'); }
         }
 
         function switchTab(element, pageId) {
             document.querySelectorAll('.page-content').forEach(page => page.classList.replace('block', 'hidden'));
             document.getElementById(pageId).classList.replace('hidden', 'block');
+            
+            // เปลี่ยนหัวข้อหน้าเว็บตามแท็บที่กด
+            const titleMap = { 'dashboard-page': '📊 แดชบอร์ดภาพรวมบริษัท', 'stock-page': '📦 ระบบสินค้าคงเหลือ Real-time', 'category-page': '📂 จัดหมวดหมู่และลำดับสินค้า', 'image-management-page': '🖼️ จัดการรูปภาพสินค้า' };
+            document.getElementById('page-title').innerText = titleMap[pageId] || "ระบบสินค้าคงเหลือ";
+
             document.querySelectorAll('.tab-item').forEach(btn => btn.className = "tab-item w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl text-slate-400 hover:bg-slate-800");
             element.className = "tab-item w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl bg-blue-600 text-white shadow-sm";
             if (window.innerWidth < 768) { document.getElementById('sidebar').classList.add('-translate-x-full'); document.getElementById('sidebar-overlay').classList.add('hidden'); }
-            if(pageId === 'stock-page' || pageId === 'category-page') { renderAllCategoryTables(); renderDashboardCategoryShowcase(); }
+            
+            renderAllCategoryTables(); 
+            renderDashboardCategoryShowcase();
         }
 
         async function loadCategoriesFromGitHub() {
@@ -371,9 +358,7 @@
                     const content = decodeURIComponent(atob(data.content).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
                     categoryDatabase = JSON.parse(content);
                 }
-            } catch (err) {
-                console.log("ดาวน์โหลดหมวดหมู่ขัดข้อง ใช้โครงสร้างฐานข้อมูลปัจจุบัน");
-            }
+            } catch (err) {}
         }
 
         async function saveCategoriesToGitHub() {
@@ -383,38 +368,43 @@
             try { const resCheck = await fetch(url, { headers: { "Authorization": `token ${token}` } }); if (resCheck.ok) { const dataCheck = await resCheck.json(); sha = dataCheck.sha; } } catch(e){}
             const jsonString = JSON.stringify(categoryDatabase, null, 2);
             const base64Content = btoa(encodeURIComponent(jsonString).replace(/%([0-9A-F]{2})/g, (match, p1) => String.fromCharCode('0x' + p1)));
-            const body = { message: "📦 Update categories", content: base64Content }; if (sha) body.sha = sha;
+            const body = { message: "📦 Update categories layout", content: base64Content }; if (sha) body.sha = sha;
             const resSave = await fetch(url, { method: "PUT", headers: { "Authorization": `token ${token}`, "Content-Type": "application/json" }, body: JSON.stringify(body) });
             if (resSave.ok) { renderAllCategoryTables(); renderDashboardCategoryShowcase(); }
         }
 
-        async function uploadImageToGitHub(productName, fileBlob) {
-            const token = getGitHubToken(); if(!token) { openTokenModal(); return Promise.reject(); }
-            const safeName = productName.replace(/[^a-zA-Z0-9ก-๙_-]/g, '_');
-            const path = `image/products/${safeName}${currentImageExtension}`;
-            const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${path}`;
-            let sha = null;
-            try { const resCheck = await fetch(url); if (resCheck.ok) { const dataCheck = await resCheck.json(); sha = dataCheck.sha; } } catch(e){}
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = async function(e) {
-                    const base64 = e.target.result.split(',')[1];
-                    const body = { message: `🖼️ Upload image ${productName}`, content: base64 }; if(sha) body.sha = sha;
-                    const res = await fetch(url, { method: "PUT", headers: { "Authorization": `token ${token}`, "Content-Type": "application/json" }, body: JSON.stringify(body) });
-                    if(res.ok) resolve(); else reject();
-                };
-                reader.readAsDataURL(fileBlob);
-            });
+        // ─── 🎯 ฟังก์ชันสลับลำดับหมวดหมู่สินค้า (⬆️ / ⬇️) ───
+        function moveCategoryOrder(catName, direction) {
+            const keys = Object.keys(categoryDatabase);
+            const index = keys.indexOf(catName);
+            if (index === -1) return;
+            const targetIndex = direction === 'up' ? index - 1 : index + 1;
+            if (targetIndex < 0 || targetIndex >= keys.length) return;
+
+            // สลับตำแหน่ง Key ใน Object
+            const temp = keys[index];
+            keys[index] = keys[targetIndex];
+            keys[targetIndex] = temp;
+
+            const newDb = {};
+            keys.forEach(k => { newDb[k] = categoryDatabase[k]; });
+            categoryDatabase = newDb;
+            saveCategoriesToGitHub();
         }
 
-        async function deleteImageFromGitHub(imageHtmlUrl) {
-            const token = getGitHubToken(); if(!token) return;
-            try {
-                const path = imageHtmlUrl.split(`/main/`)[1]; if(!path) return;
-                const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${path}`;
-                const resCheck = await fetch(url);
-                if (resCheck.ok) { const dataCheck = await resCheck.json(); await fetch(url, { method: "DELETE", headers: { "Authorization": `token ${token}`, "Content-Type": "application/json" }, body: JSON.stringify({ message: `🗑️ Delete image`, sha: dataCheck.sha }) }); }
-            } catch(e){}
+        // ─── 🎯 ฟังก์ชันสลับลำดับสินค้าภายในหมวดหมู่ (⬆️ / ⬇️) ───
+        function moveProductOrder(catName, prodIndex, direction) {
+            const list = categoryDatabase[catName];
+            if (!list) return;
+            const targetIndex = direction === 'up' ? prodIndex - 1 : prodIndex + 1;
+            if (targetIndex < 0 || targetIndex >= list.length) return;
+
+            // สลับตำแหน่งข้อมูลใน Array
+            const temp = list[prodIndex];
+            list[prodIndex] = list[targetIndex];
+            list[targetIndex] = temp;
+
+            saveCategoriesToGitHub();
         }
 
         function processExcelData(arrayBuffer) {
@@ -437,16 +427,8 @@
                     const price = row[3] ? row[3].toString().trim() : "0";  
                     const unit = row[5] ? row[5].toString().trim() : "";    
                     const qty = parseInt(row[7]) || 0;                      
-                    
                     const safeName = name.replace(/[^a-zA-Z0-9ก-๙_-]/g, '_');
-                    return [
-                        pluCode, 
-                        name, 
-                        price, 
-                        unit,  
-                        qty,
-                        `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/image/products/${safeName}`
-                    ];
+                    return [pluCode, name, price, unit, qty, `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/image/products/${safeName}`];
                 });
 
             if (!currentSelectedLogDate) {
@@ -493,6 +475,7 @@
         function adjustLogDate(daysOffset) { const currentDate = new Date(currentSelectedLogDate); currentDate.setDate(currentDate.getDate() + daysOffset); const yyyy = currentDate.getFullYear(); const mm = String(currentDate.getMonth() + 1).padStart(2, '0'); const dd = String(currentDate.getDate()).padStart(2, '0'); handleLogDateChange(`${yyyy}-${mm}-${dd}`); document.getElementById('log-date-picker').value = currentSelectedLogDate; }
         function resetLogDateToToday() { const today = new Date(); const yyyy = today.getFullYear(); const mm = String(today.getMonth() + 1).padStart(2, '0'); const dd = String(today.getDate()).padStart(2, '0'); handleLogDateChange(`${yyyy}-${mm}-${dd}`); document.getElementById('log-date-picker').value = currentSelectedLogDate; }
 
+        // ─── 📊 เรนเดอร์หน้าแดชบอร์ดตามลำดับจัดหมวดหมู่ ───
         function renderDashboardCategoryShowcase() {
             const container = document.getElementById('dashboard-category-showcase'); if(!container) return; container.innerHTML = "";
             Object.keys(categoryDatabase).forEach(catName => {
@@ -504,25 +487,25 @@
                 if(matchedProducts.length === 0) return; 
 
                 const catBlock = document.createElement('div');
-                catBlock.className = "bg-white p-2 rounded-lg shadow-2xs border-l-4 border-l-blue-600 border border-gray-100";
+                catBlock.className = "bg-white p-3 rounded-xl shadow-xs border-l-4 border-l-blue-600 border border-gray-100";
                 
                 let cardsHtml = "";
                 matchedProducts.forEach(prod => {
                     const badgeClass = prod.qty <= 0 ? "bg-red-50 text-red-600 font-bold text-[9px]" : "bg-emerald-50 text-emerald-600 font-bold text-[10px]";
                     cardsHtml += `
-                        <div class="bg-slate-50 border border-gray-200 rounded p-1 flex flex-col justify-between">
-                            <div class="w-full h-10 bg-white rounded flex items-center justify-center overflow-hidden mb-0.5">
+                        <div class="bg-slate-50 border border-gray-200 rounded p-1.5 flex flex-col justify-between">
+                            <div class="w-full h-12 bg-white rounded flex items-center justify-center overflow-hidden mb-1">
                                 <img src="${prod.baseLink}.png" onerror="this.onerror=null; this.src='${prod.baseLink}.jpg'; this.onerror=function(){this.parentElement.innerHTML='📦'}" class="w-full h-full object-contain" />
                             </div>
-                            <p class="text-[9px] font-bold text-gray-700 truncate text-center leading-none mb-0.5" title="${prod.name}">${prod.name}</p>
+                            <p class="text-[10px] font-bold text-gray-700 truncate text-center mb-1" title="${prod.name}">${prod.name}</p>
                             <div class="py-0.5 text-center leading-none rounded ${badgeClass}">เหลือ ${prod.qty}</div>
                         </div>
                     `;
                 });
 
                 catBlock.innerHTML = `
-                    <div class="flex items-center gap-1 mb-1 border-b border-gray-100 pb-0.5"><h3 class="text-[11px] font-bold text-slate-800">${catName} (${matchedProducts.length})</h3></div>
-                    <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-1">${cardsHtml}</div>
+                    <div class="flex items-center gap-1 mb-2 border-b border-gray-100 pb-1"><h3 class="text-xs font-bold text-slate-800">${catName} (${matchedProducts.length})</h3></div>
+                    <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-1.5">${cardsHtml}</div>
                 `;
                 container.appendChild(catBlock);
             });
@@ -544,31 +527,52 @@
         function removeProductFromCategory(catName, prodName) { if(confirm(`นำออก?`)) { categoryDatabase[catName] = categoryDatabase[catName].filter(name => name !== prodName); saveCategoriesToGitHub(); } }
         function deleteWholeCategory(catName) { if(confirm(`ลบกลุ่ม?`)) { delete categoryDatabase[catName]; updateCategorySelectDropdown(); saveCategoriesToGitHub(); } }
 
+        // ─── 📂 หน้าจัดการจัดหมวดหมู่สินค้า (เวอร์ชันอัปเกรดปุ่มเลื่อนอันดับสินค้าและกล่อง) ───
         function renderAllCategoryTables() {
             const container = document.getElementById('dynamic-categories-container'); if(!container) return; container.innerHTML = "";
-            Object.keys(categoryDatabase).forEach(catName => {
+            
+            const keys = Object.keys(categoryDatabase);
+            keys.forEach((catName, catIdx) => {
                 const mappedTableData = [];
-                categoryDatabase[catName].forEach(prodName => { const excelInfo = allCleanData.find(row => row[1] === prodName); if(excelInfo) mappedTableData.push([prodName, excelInfo[5], excelInfo[4]]); });
+                categoryDatabase[catName].forEach((prodName, prodIdx) => { 
+                    const excelInfo = allCleanData.find(row => row[1] === prodName); 
+                    if(excelInfo) mappedTableData.push({ idx: prodIdx, name: prodName, link: excelInfo[5], qty: excelInfo[4] }); 
+                });
 
                 const cardDiv = document.createElement('div'); cardDiv.className = "bg-white p-3 rounded-xl border border-gray-100 shadow-2xs";
+                
+                // ปุ่มควบคุมลำดับกล่องหมวดหมู่
+                const upCatBtn = catIdx > 0 ? `<button onclick="moveCategoryOrder('${catName}', 'up')" class="p-1 border rounded bg-slate-50 hover:bg-slate-200 cursor-pointer text-xs">⬆️ ขึ้น</button>` : '';
+                const downCatBtn = catIdx < keys.length - 1 ? `<button onclick="moveCategoryOrder('${catName}', 'down')" class="p-1 border rounded bg-slate-50 hover:bg-slate-200 cursor-pointer text-xs">⬇️ ลง</button>` : '';
+
                 cardDiv.innerHTML = `
-                    <div class="flex justify-between items-center mb-2 pb-1 border-b border-gray-100">
-                        <h2 class="text-xs font-bold text-gray-900">📂 หมวดหมู่: ${catName}</h2>
+                    <div class="flex flex-wrap justify-between items-center mb-2 pb-1 border-b border-gray-100 gap-2">
+                        <div class="flex items-center gap-2">
+                            <h2 class="text-xs font-bold text-gray-900">📂 หมวดหมู่: ${catName}</h2>
+                            <div class="flex gap-1">${upCatBtn} ${downCatBtn}</div>
+                        </div>
                         <button onclick="deleteWholeCategory('${catName}')" class="text-[10px] bg-red-50 text-red-600 px-2 py-1 rounded">ลบกลุ่ม</button>
                     </div>
                     <div id="grid-cat-${catName.replace(/\s+/g, '-')}" class="w-full"></div>
                 `;
                 container.appendChild(cardDiv);
+                
                 const targetWrapper = document.getElementById(`grid-cat-${catName.replace(/\s+/g, '-')}`);
                 if(mappedTableData.length === 0) return;
 
                 new gridjs.Grid({
                     columns: [
-                        { name: "สินค้า", formatter: (cell, row) => gridjs.html(`<div class="flex items-center gap-1"><div class="w-7 h-7 bg-white rounded flex items-center justify-center overflow-hidden"><img src="${cell}.png" onerror="this.onerror=null; this.src='${cell}.jpg'; this.onerror=function(){this.parentElement.innerHTML='📦'}" class="w-full h-full object-contain"/></div><span class="text-xs font-medium">${row.cells[2].data}</span></div>`) },
+                        { name: "สินค้า", formatter: (cell, row) => gridjs.html(`<div class="flex items-center gap-1"><div class="w-7 h-7 bg-white rounded flex items-center justify-center overflow-hidden"><img src="${cell}.png" onerror="this.onerror=null; this.src='${cell}.jpg'; this.onerror=function(){this.parentElement.innerHTML='📦'}" class="w-full h-full object-contain"/></div><span class="text-xs font-medium">${row.cells[3].data}</span></div>`) },
                         { name: "คงเหลือ", formatter: (cell) => cell <= 0 ? gridjs.html(`<span class="text-red-600 font-bold">หมด</span>`) : gridjs.html(`<span class="text-emerald-600 font-bold">${cell} ชิ้น</span>`) },
-                        { name: "จัดการ", formatter: (cell, row) => gridjs.html(`<button onclick="removeProductFromCategory('${catName}', '${row.cells[2].data}')" class="text-[10px] border border-gray-200 px-1.5 py-0.5 rounded">ออก</button>`) }
+                        { name: "เรียงลำดับสินค้า", formatter: (cell, row) => {
+                            const pIdx = parseInt(row.cells[2].data);
+                            const upProd = pIdx > 0 ? `<button onclick="moveProductOrder('${catName}', ${pIdx}, 'up')" class="px-1 py-0.5 border rounded bg-gray-50 text-[10px]">⬆️</button>` : '';
+                            const downProd = pIdx < categoryDatabase[catName].length - 1 ? `<button onclick="moveProductOrder('${catName}', ${pIdx}, 'down')" class="px-1 py-0.5 border rounded bg-gray-50 text-[10px]">⬇️</button>` : '';
+                            return gridjs.html(`<div class="flex gap-1">${upProd} ${downProd}</div>`);
+                        }},
+                        { name: "จัดการ", formatter: (cell, row) => gridjs.html(`<button onclick="removeProductFromCategory('${catName}', '${row.cells[3].data}')" class="text-[10px] border border-gray-200 px-1.5 py-0.5 rounded text-red-500">ออก</button>`) }
                     ],
-                    data: mappedTableData.map(r => [r[1], r[2], r[0]]), pagination: { limit: 5 }, style: { table: { 'font-size': '11px' } }
+                    data: mappedTableData.map(r => [r.link, r.qty, r.idx, r.name]), pagination: { limit: 5 }, style: { table: { 'font-size': '11px' } }
                 }).render(targetWrapper);
             });
         }
@@ -635,7 +639,6 @@
             const wrapper = document.getElementById("table-wrapper"); wrapper.innerHTML = "";
             
             if (gridInstance) gridInstance.destroy();
-            
             const isMobile = window.innerWidth < 640;
             
             const tableColumns = isMobile ? [
@@ -673,15 +676,11 @@
             document.getElementById('update-status').innerText = "⏳ กำลังโหลดข้อมูล...";
             try {
                 await loadCategoriesFromGitHub(); 
-                
                 const res = await fetch(FILE_NAME + "?t=" + new Date().getTime());
                 if (!res.ok) throw new Error();
-                
                 const buffer = await res.arrayBuffer();
                 processExcelData(buffer); 
-            } catch (error) {
-                document.getElementById('update-status').innerText = "⚠️ โหลดข้อมูลคลังไม่สำเร็จ";
-            }
+            } catch (error) { document.getElementById('update-status').innerText = "⚠️ โหลดข้อมูลคลังไม่สำเร็จ"; }
         }
 
         function fetchFileLastCommitTime() {
