@@ -78,7 +78,7 @@
         </nav>
         
         <div class="p-4 text-xs text-slate-600 border-t border-slate-800 text-center">
-            v2.5.4 Verified Company Engine
+            v2.6.1 Safe-Click Engine
         </div>
     </aside>
 
@@ -299,7 +299,7 @@
                 chip.className = "flex items-center gap-1 bg-white border border-gray-300 rounded-md pl-2 pr-1 py-0.5 text-[11px] font-medium text-gray-700 shadow-2xs";
                 chip.innerHTML = `
                     <span onclick="clickKeywordToSearch('${keyword}')" class="cursor-pointer hover:text-blue-600">${keyword}</span>
-                    <button onclick="deleteKeyword(${index})" class="p-0.5 text-gray-400 hover:text-red-500 cursor-pointer"><i data-lucide="x" class="w-3 h-3"></i></button>
+                    <button onclick="deleteKeyword(${index}, '${keyword}')" class="p-0.5 text-gray-400 hover:text-red-500 cursor-pointer"><i data-lucide="x" class="w-3 h-3"></i></button>
                 `;
                 container.appendChild(chip);
             });
@@ -315,9 +315,14 @@
             }
         }
 
-        function deleteKeyword(index) {
-            let saved = JSON.parse(localStorage.getItem('stock_custom_keywords')) || ["MR", "BY", "EU"];
-            saved.splice(index, 1); localStorage.setItem('stock_custom_keywords', JSON.stringify(saved)); renderKeywordsManager();
+        // 🎯 [แก้ไขตามสั่ง] เพิ่มหน้าต่างยืนยันการลบคำค้นหาเพื่อแก้ปัญหามือลั่นบนหน้าจอมือถือ
+        function deleteKeyword(index, keywordName) {
+            if (confirm(`❓ คุณต้องการลบคำค้นหา "${keywordName}" ที่บันทึกไว้ใช่หรือไม่?`)) {
+                let saved = JSON.parse(localStorage.getItem('stock_custom_keywords')) || ["MR", "BY", "EU"];
+                saved.splice(index, 1); 
+                localStorage.setItem('stock_custom_keywords', JSON.stringify(saved)); 
+                renderKeywordsManager();
+            }
         }
 
         function clickKeywordToSearch(val) { document.getElementById('custom-search-input').value = val; performCustomSearch(); }
@@ -366,7 +371,9 @@
                     const content = decodeURIComponent(atob(data.content).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
                     categoryDatabase = JSON.parse(content);
                 }
-            } catch (err) {}
+            } catch (err) {
+                console.log("ดาวน์โหลดหมวดหมู่ขัดข้อง ใช้โครงสร้างฐานข้อมูลปัจจุบัน");
+            }
         }
 
         async function saveCategoriesToGitHub() {
@@ -410,7 +417,6 @@
             } catch(e){}
         }
 
-        // ─── PROCESS EXCEL DATA (ล็อกเฉพาะข้อมูล อุปกรณ์ปะยาง และ อุปกรณ์ปะยาง MR ตามเดิม 100%) ───
         function processExcelData(arrayBuffer) {
             const workbook = XLSX.read(new Uint8Array(arrayBuffer), { type: 'array' });
             const worksheet = workbook.Sheets[workbook.SheetNames[0]];
@@ -421,11 +427,10 @@
             }
             if (startIndex === -1) startIndex = 8; 
 
-            // ล็อกเฉพาะหมวดหมู่ของบริษัทอุปกรณ์ปะยางเท่านั้นตามเจตนารมณ์ดั้งเดิม
             const targetCategories = ["อุปกรณ์ปะยาง", "อุปกรณ์ปะยาง MR"]; 
             allCleanData = rawData.slice(startIndex)
                 .filter(row => row[1] && row[2]) 
-                .filter(row => row[6] && targetCategories.includes(row[6].toString().trim())) // เช็กคอลัมน์ G (หมวดหมู่สินค้าใน Excel)
+                .filter(row => row[6] && targetCategories.includes(row[6].toString().trim())) 
                 .map(row => {
                     const pluCode = row[1] ? row[1].toString().trim() : ""; 
                     const name = row[2] ? row[2].toString().trim() : "";    
@@ -664,11 +669,19 @@
             } catch (error) { document.getElementById('update-status').innerText = "❌ สั่งรันบอทล้มเหลว"; }
         }
 
-        function fetchActualExcelData() {
+        async function fetchActualExcelData() {
             document.getElementById('update-status').innerText = "⏳ กำลังโหลดข้อมูล...";
-            fetch(FILE_NAME + "?t=" + new Date().getTime()) 
-                .then(res => { if (!res.ok) throw new Error(); return res.arrayBuffer(); }).then(async (buffer) => { await loadCategoriesFromGitHub(); processExcelData(buffer); })
-                .catch(() => { document.getElementById('update-status').innerText = "⚠️ ไม่พบไฟล์ SKU.xlsx"; });
+            try {
+                await loadCategoriesFromGitHub(); 
+                
+                const res = await fetch(FILE_NAME + "?t=" + new Date().getTime());
+                if (!res.ok) throw new Error();
+                
+                const buffer = await res.arrayBuffer();
+                processExcelData(buffer); 
+            } catch (error) {
+                document.getElementById('update-status').innerText = "⚠️ โหลดข้อมูลคลังไม่สำเร็จ";
+            }
         }
 
         function fetchFileLastCommitTime() {
