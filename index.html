@@ -78,7 +78,7 @@
         </nav>
         
         <div class="p-4 text-xs text-slate-600 border-t border-slate-800 text-center">
-            v2.5.0 Mobile Optimized Engine
+            v2.5.1 Fixed Data Alignment Engine
         </div>
     </aside>
 
@@ -410,6 +410,7 @@
             } catch(e){}
         }
 
+        // ─── PROCESS EXCEL DATA (แก้ไขการดึงคอลัมน์ไม่ให้สลับตำแหน่งกันแล้ว) ───
         function processExcelData(arrayBuffer) {
             const workbook = XLSX.read(new Uint8Array(arrayBuffer), { type: 'array' });
             const worksheet = workbook.Sheets[workbook.SheetNames[0]];
@@ -421,13 +422,14 @@
             if (startIndex === -1) startIndex = 7;
             const targetCategories = ["อุปกรณ์ปะยาง", "อุปกรณ์ปะยาง MR"];
             allCleanData = rawData.slice(startIndex)
-                .filter(row => row[1] && row[2]) 
+                .filter(row => row[0] && row[1]) // ต้องมีทั้งรหัสสินค้าและชื่อสินค้า
                 .filter(row => row[6] && targetCategories.includes(row[6].toString().trim())) 
                 .map(row => {
-                    const name = row[1].toString().trim();
+                    const pluCode = row[0].toString().trim(); // คอลัมน์ที่ 0 คือ PLU
+                    const name = row[1].toString().trim();    // คอลัมน์ที่ 1 คือ ชื่อสินค้าจริง
                     const safeName = name.replace(/[^a-zA-Z0-9ก-๙_-]/g, '_');
                     return [
-                        row[1] ? row[1].toString().trim() : "", 
+                        pluCode, 
                         name, 
                         row[3] ? row[3].toString().trim() : "0", 
                         row[5] ? row[5].toString().trim() : "",  
@@ -480,7 +482,6 @@
         function adjustLogDate(daysOffset) { const currentDate = new Date(currentSelectedLogDate); currentDate.setDate(currentDate.getDate() + daysOffset); const yyyy = currentDate.getFullYear(); const mm = String(currentDate.getMonth() + 1).padStart(2, '0'); const dd = String(currentDate.getDate()).padStart(2, '0'); handleLogDateChange(`${yyyy}-${mm}-${dd}`); document.getElementById('log-date-picker').value = currentSelectedLogDate; }
         function resetLogDateToToday() { const today = new Date(); const yyyy = today.getFullYear(); const mm = String(today.getMonth() + 1).padStart(2, '0'); const dd = String(today.getDate()).padStart(2, '0'); handleLogDateChange(`${yyyy}-${mm}-${dd}`); document.getElementById('log-date-picker').value = currentSelectedLogDate; }
 
-        // 🎯 บีบย่อกล่องกวาดสายตาให้กระชับจิ๋ว และดึงรูปภาพตรงตามชื่อสินค้า
         function renderDashboardCategoryShowcase() {
             const container = document.getElementById('dashboard-category-showcase'); if(!container) return; container.innerHTML = "";
             Object.keys(categoryDatabase).forEach(catName => {
@@ -581,7 +582,7 @@
                 imgElement.onload = function() { statusText.innerHTML = `<span class="text-emerald-600">🟢 มีรูปภาพแล้ว (.png)</span>`; };
                 imgElement.onerror = function() {
                     this.onerror = null; this.src = excelInfo[5] + ".jpg"; 
-                    imgElement.onload = function() { statusText.innerHTML = `<span class="text-emerald-600">🟢 有รูปภาพแล้ว (.jpg)</span>`; };
+                    imgElement.onload = function() { statusText.innerHTML = `<span class="text-emerald-600">🟢 มีรูปภาพแล้ว (.jpg)</span>`; };
                     this.onerror = function() { this.classList.add('hidden'); placeholderText.classList.remove('hidden'); statusText.innerHTML = `<span class="text-red-500">🔴 ยังไม่มีรูปภาพบน GitHub</span>`; }
                 };
             }
@@ -612,7 +613,6 @@
         function filterCatProdDropdown() { const query = document.getElementById('search-cat-prod').value.toLowerCase(); const select = document.getElementById('cat-product-select'); if(!select) return; select.innerHTML = ""; allCleanData.forEach(item => { if(item[1].toLowerCase().includes(query)) { const opt = document.createElement('option'); opt.value = item[1]; opt.text = item[1]; select.appendChild(opt); } }); }
         function filterProductDropdown() { const filterText = document.getElementById('search-product-name').value.toLowerCase(); const select = document.getElementById('product-select'); if(!select) return; select.innerHTML = ""; allCleanData.forEach(item => { if (item[1].toLowerCase().includes(filterText)) { const option = document.createElement('option'); option.value = item[1]; option.text = item[1]; select.appendChild(option); } }); loadProductImage(); }
 
-        // 📑 [ปรับปรุงสำคัญ] เรนเดอร์ตารางคลังใหญ่ตัดแถวคอลลัมน์และห้ามเลื่อนขวาบนมือถือเด็ดขาด
         function renderAutomaticTable() {
             if (allCleanData.length === 0) return;
             const searchQuery = document.getElementById('custom-search-input').value.trim().toLowerCase();
@@ -627,7 +627,6 @@
             
             const isMobile = window.innerWidth < 640;
             
-            // 🎯 กำหนดหัวตาราง: ถ้าเปิดในมือถือ บังคับเหลือแค่ "ชื่อสินค้า | ราคา | คงเหลือ"
             const tableColumns = isMobile ? [
                 { name: "ชื่อสินค้า" }, 
                 { name: "ราคา", width: "70px", formatter: (cell) => `${cell} บ.` }, 
