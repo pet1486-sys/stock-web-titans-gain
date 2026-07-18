@@ -160,7 +160,7 @@ try:
     # เปิดอ่านไส้ในไฟล์ Excel ด้วยคัดกรองแบบเดียวกับหน้าเว็บ
     df = pd.read_excel(target_excel_path, header=7)
     target_categories = ["อุปกรณ์ปะยาง", "อุปกรณ์ปะยาง MR"]
-    df_filtered = df[df.iloc[:, 6].astype(str).str.trim().isin(target_categories)]
+    df_filtered = df[df.iloc[:, 6].astype(str).str.strip().isin(target_categories)]
     
     # ดึงข้อมูลยอดคงเหลือสต็อกของรอบที่แล้วมาเปรียบเทียบ
     previous_stock = {}
