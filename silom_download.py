@@ -178,14 +178,13 @@ try:
             sales_logs = existing_data.get("sales_logs", [])
 
     current_stock = {}
-    has_changes = False
     
     for _, row in df_filtered.iterrows():
         plu = str(row.iloc[0]).strip()
         name = str(row.iloc[1]).strip()
         
-        # 🌟 จุดแก้ไข: ล้างอักขระพิเศษสำหรับใช้เรียกรูปภาพ (แปลง < > เป็น ( ) และ ช่องว่าง เป็น _)
-        image_name = name.replace("<", "(").replace(">", ")").replace(" ", "_") + ".png"
+        # 🌟 จุดแก้ไข: ล้างอักขระพิเศษและรองรับนามสกุลภาพดั้งเดิมจากระบบของสินค้า (ไม่ฟิกซ์นามสกุลท้ายโค้ด)
+        image_name = name.replace("<", "(").replace(">", ")").replace(" ", "_")
         
         try:
             qty = int(row.iloc[7])
@@ -199,23 +198,18 @@ try:
             diff = qty - previous_stock[plu]
             if diff > 0:
                 fill_logs.insert(0, [full_timestamp, plu, name, f"+{diff} ชิ้น"])
-                has_changes = True
             elif diff < 0:
                 sales_logs.insert(0, [full_timestamp, plu, name, f"{abs(diff)} ชิ้น"])
-                has_changes = True
 
     # เซฟยอด On Hand ล่าสุดเก็บไว้เทียบกับวันถัดไป
     with open(balance_history_path, 'w', encoding='utf-8') as f:
         json.dump(current_stock, f, ensure_ascii=False, indent=2)
         
-    # หากมีการขยับของเลข On Hand ให้ทำการเซฟและดันเข้าไฟล์ Log ประจำเดือนนั้นๆ
-    if has_changes or not os.path.exists(monthly_log_path):
-        log_data = {"fill_logs": fill_logs, "sales_logs": sales_logs}
-        with open(monthly_log_path, 'w', encoding='utf-8') as f:
-            json.dump(log_data, f, ensure_ascii=False, indent=2)
-        print(f"📝 อัปเดตไฟล์บันทึกประวัติสำเร็จที่: {monthly_log_path}")
-    else:
-        print("✅ ยอดคงเหลือเท่าเดิมไม่มีการขยับตัว ไม่ต้องอัปเดตไฟล์ Log เพิ่มเติม")
+    # 🌟 จุดแก้ไข: บังคับสร้างและบันทึกไฟล์คลังรายงานประวัติรายเดือนเสมอในทุกรอบที่บอทรัน เพื่อแก้บั๊ก 404
+    log_data = {"fill_logs": fill_logs, "sales_logs": sales_logs}
+    with open(monthly_log_path, 'w', encoding='utf-8') as f:
+        json.dump(log_data, f, ensure_ascii=False, indent=2)
+    print(f"📝 อัปเดตและบันทึกไฟล์ประวัติเรียบร้อยที่: {monthly_log_path}")
 
 except Exception as log_err:
     print(f"⚠️ เกิดปัญหาในระบบการคำนวณเขียนไฟล์ประวัติ: {str(log_err)}")
