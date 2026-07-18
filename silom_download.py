@@ -59,7 +59,7 @@ try:
     
     print("กำลังกรอกข้อมูลเข้าสู่ระบบ...")
     username_input = wait.until(EC.presence_of_element_located((
-        By.開設, "//input[@type='text' or @type='email' or @autocomplete='username']"
+        By.XPATH, "//input[@type='text' or @type='email' or @autocomplete='username']"
     )))
     username_input.clear()
     username_input.send_keys(USERNAME)
