@@ -259,6 +259,9 @@
         const FILE_NAME = "stock_data/SKU.xlsx"; 
         const CAT_JSON_PATH = "stock_data/categories.json"; 
 
+        // 🌟 เพิ่มจุดนี้: กำหนดค่าคงที่สำหรับดึงข้อมูลผ่าน Raw URL ตรงๆ เพื่อแก้ปัญหา Error 403 Forbidden
+        const RAW_REPO_URL = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main`;
+
         let allCleanData = [];
         let gridInstance = null;
         let logGridInstance = null;
@@ -271,6 +274,15 @@
         let categoryDatabase = {}; 
 
         function getGitHubToken() { return localStorage.getItem('user_github_token') || ""; }
+
+        // 🌟 เพิ่มฟังก์ชันล้างอักขระพิเศษสำหรับภาพให้สอดคล้องกับ Python Bot
+        function getSanitizedImageBaseUrl(productName) {
+            const sanitized = productName
+                .replace(/</g, "(")
+                .replace(/>/g, ")")
+                .replace(/ /g, "_");
+            return `${RAW_REPO_URL}/stock_data/images/${sanitized}`;
+        }
 
         function renderKeywordsManager() {
             const saved = JSON.parse(localStorage.getItem('stock_custom_keywords')) || ["MR", "BY", "EU"];
@@ -296,7 +308,6 @@
             if(!saved.includes(inputVal)) { saved.push(inputVal); localStorage.setItem('stock_custom_keywords', JSON.stringify(saved)); renderKeywordsManager(); }
         }
 
-        // ป๊อปอัพยืนยันการลบคีย์เวิร์ด
         function deleteKeyword(index, keywordName) {
             if (confirm(`❓ คุณต้องการลบคำค้นหา "${keywordName}" ใช่หรือไม่?`)) {
                 let saved = JSON.parse(localStorage.getItem('stock_custom_keywords')) || ["MR", "BY", "EU"];
@@ -344,16 +355,14 @@
             renderDashboardCategoryShowcase();
         }
 
-        // ─── 📥 แก้ไขระบบดึงไฟล์ JSON: บังคับให้อ่านไฟล์จริงจาก GitHub มาเก็บไว้ก่อนเสมอ ───
         async function loadCategoriesFromGitHub() {
             try {
-                const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${CAT_JSON_PATH}?t=${new Date().getTime()}`;
+                // 🌟 ปรับปรุงจุดนี้: ดึงไฟล์ผ่าน Raw URL ตรงๆ เพื่อลดปัญหาการติด 403 Forbidden
+                const url = `${RAW_REPO_URL}/${CAT_JSON_PATH}?t=${new Date().getTime()}`;
                 const res = await fetch(url);
                 if (res.ok) {
-                    const data = await res.json();
-                    const content = decodeURIComponent(atob(data.content).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
-                    categoryDatabase = JSON.parse(content);
-                    console.log("📥 โหลดโครงสร้างหมวดหมู่จาก GitHub สำเร็จ:", categoryDatabase);
+                    categoryDatabase = await res.json();
+                    console.log("📥 โหลดโครงสร้างหมวดหมู่สำเร็จ:", categoryDatabase);
                 }
             } catch (err) {
                 console.error("❌ โหลดไฟล์หมวดหมู่ล้มเหลว:", err);
@@ -421,8 +430,10 @@
                     const price = row[3] ? row[3].toString().trim() : "0";  
                     const unit = row[5] ? row[5].toString().trim() : "";    
                     const qty = parseInt(row[7]) || 0;                      
-                    const safeName = name.replace(/[^a-zA-Z0-9ก-๙_-]/g, '_');
-                    return [pluCode, name, price, unit, qty, `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/image/products/${safeName}`];
+                    
+                    // 🌟 ปรับปรุงจุดนี้: ให้เรียกฟังก์ชันคำนวณชื่อภาพที่คลีนอักขระพิเศษเรียบร้อยแล้ว
+                    const imgUrl = getSanitizedImageBaseUrl(name);
+                    return [pluCode, name, price, unit, qty, imgUrl];
                 });
 
             if (!currentSelectedLogDate) {
@@ -435,7 +446,9 @@
         async function loadMonthlyLogsFromGitHub() {
             if(!currentSelectedLogDate) return;
             const dateParts = currentSelectedLogDate.split('-');
-            const logUrl = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/stock_data/logs_${dateParts[0]}_${dateParts[1]}.json?t=${new Date().getTime()}`;
+            
+            // 🌟 แก้ไขจุดนี้: ปรับการดึงข้อมูลล็อกประจำเดือนจากเดิมที่เป็นช่องว่างให้เป็นขีดล่าง (_) เช่น logs_2026_07.json
+            const logUrl = `${RAW_REPO_URL}/stock_data/logs_${dateParts[0]}_${dateParts[1]}.json?t=${new Date().getTime()}`;
             try { const response = await fetch(logUrl); if (response.ok) globalMonthlyLogs = await response.json(); else globalMonthlyLogs = { fill_logs: [], sales_logs: [] }; } catch (err) { globalMonthlyLogs = { fill_logs: [], sales_logs: [] }; }
             filterAndRenderLogs();
         }
@@ -469,23 +482,20 @@
         function adjustLogDate(daysOffset) { const currentDate = new Date(currentSelectedLogDate); currentDate.setDate(currentDate.getDate() + daysOffset); const yyyy = currentDate.getFullYear(); const mm = String(currentDate.getMonth() + 1).padStart(2, '0'); const dd = String(currentDate.getDate()).padStart(2, '0'); handleLogDateChange(`${yyyy}-${mm}-${dd}`); document.getElementById('log-date-picker').value = currentSelectedLogDate; }
         function resetLogDateToToday() { const today = new Date(); const yyyy = today.getFullYear(); const mm = String(today.getMonth() + 1).padStart(2, '0'); const dd = String(today.getDate()).padStart(2, '0'); handleLogDateChange(`${yyyy}-${mm}-${dd}`); document.getElementById('log-date-picker').value = currentSelectedLogDate; }
 
-        // ─── 📊 แดชบอร์ดภาพรวมบริษัท (แก้ไข: แสดงหมวดหมู่เสมอ แม้ยังไม่มีข้อมูลจาก Excel มาแมตช์) ───
         function renderDashboardCategoryShowcase() {
             const container = document.getElementById('dashboard-category-showcase'); if(!container) return; container.innerHTML = "";
             Object.keys(categoryDatabase).forEach(catName => {
                 const productList = categoryDatabase[catName] || [];
 
-                // เดิม: ถ้าสินค้าตัวไหนไม่เจอใน allCleanData (Excel) จะถูกข้ามไปเลย ทำให้ทั้งหมวดหมู่หายถ้าไม่มีตัวไหนแมตช์เลย
-                // ใหม่: แสดงสินค้าทุกตัวที่ถูกจัดไว้ใน categories.json เสมอ ถ้ายังไม่เจอข้อมูลจาก Excel ให้ทำเครื่องหมาย noData ไว้ก่อน รอ Excel มาเติมทีหลัง
                 const matchedProducts = productList.map(prodName => {
                     const excelInfo = allCleanData.find(row => row[1] === prodName);
                     if (excelInfo) {
                         return { name: prodName, baseLink: excelInfo[5], qty: excelInfo[4], noData: false };
                     }
-                    const safeName = prodName.replace(/[^a-zA-Z0-9ก-๙_-]/g, '_');
+                    const imgUrl = getSanitizedImageBaseUrl(prodName);
                     return {
                         name: prodName,
-                        baseLink: `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/image/products/${safeName}`,
+                        baseLink: imgUrl,
                         qty: 0,
                         noData: true
                     };
@@ -496,7 +506,6 @@
 
                 let cardsHtml = "";
                 if (matchedProducts.length === 0) {
-                    // หมวดหมู่นี้ยังไม่มีสินค้าถูกจัดเข้ามาเลย แต่ยังคงแสดงชื่อหมวดหมู่ไว้
                     cardsHtml = `<p class="text-[10px] text-gray-400 col-span-full py-2 text-center">ยังไม่มีสินค้าในหมวดหมู่นี้</p>`;
                 } else {
                     matchedProducts.forEach(prod => {
@@ -557,7 +566,7 @@
                     categoryDatabase[catName].forEach((prodName, prodIdx) => { 
                         const excelInfo = allCleanData.find(row => row[1] === prodName); 
                         if(excelInfo) mappedTableData.push({ idx: prodIdx, name: prodName, link: excelInfo[5], qty: excelInfo[4] }); 
-                        else mappedTableData.push({ idx: prodIdx, name: prodName, link: "", qty: 0 }); // แสดงแม้ไม่มีรูป
+                        else mappedTableData.push({ idx: prodIdx, name: prodName, link: getSanitizedImageBaseUrl(prodName), qty: 0 });
                     });
                 }
 
@@ -614,15 +623,59 @@
             
             if (!selectedProduct) { imgElement.classList.add('hidden'); placeholderText.classList.remove('hidden'); statusContainer.classList.add('hidden'); return; }
             const excelInfo = allCleanData.find(row => row[1] === selectedProduct);
-            if(excelInfo) {
-                statusContainer.classList.remove('hidden'); imgElement.src = excelInfo[5] + ".png"; imgElement.classList.remove('hidden'); placeholderText.classList.add('hidden');
-                imgElement.onload = function() { statusText.innerHTML = `<span class="text-emerald-600">🟢 มีรูปภาพแล้ว (.png)</span>`; };
-                imgElement.onerror = function() {
-                    this.onerror = null; this.src = excelInfo[5] + ".jpg"; 
-                    imgElement.onload = function() { statusText.innerHTML = `<span class="text-emerald-600">🟢 มีรูปภาพแล้ว (.jpg)</span>`; };
-                    this.onerror = function() { this.classList.add('hidden'); placeholderText.classList.remove('hidden'); statusText.innerHTML = `<span class="text-red-500">🔴 ยังไม่มีรูปภาพบน GitHub</span>`; }
+            
+            // 🌟 แก้ไขจุดนี้: คำนวณหาลิงก์ของรูปสินค้าให้ถูกต้องตามระบบใหม่
+            const baseImgUrl = excelInfo ? excelInfo[5] : getSanitizedImageBaseUrl(selectedProduct);
+            
+            statusContainer.classList.remove('hidden'); 
+            imgElement.src = baseImgUrl + ".png"; 
+            imgElement.classList.remove('hidden'); 
+            placeholderText.classList.add('hidden');
+            
+            imgElement.onload = function() { statusText.innerHTML = `<span class="text-emerald-600">🟢 มีรูปภาพแล้ว (.png)</span>`; };
+            imgElement.onerror = function() {
+                this.onerror = null; this.src = baseImgUrl + ".jpg"; 
+                imgElement.onload = function() { statusText.innerHTML = `<span class="text-emerald-600">🟢 มีรูปภาพแล้ว (.jpg)</span>`; };
+                this.onerror = function() { this.classList.add('hidden'); placeholderText.classList.remove('hidden'); statusText.innerHTML = `<span class="text-red-500">🔴 ยังไม่มีรูปภาพบน GitHub</span>`; }
+            };
+        }
+
+        // 🌟 แก้ไขการบันทึกภาพขึ้นคลังเก็บภาพหลัก GitHub ให้ไปเก็บในโฟลเดอร์ stock_data/images/
+        async function uploadImageToGitHub(productName, fileBlob) {
+            const token = getGitHubToken(); if(!token) { openTokenModal(); return; }
+            const sanitized = productName.replace(/</g, "(").replace(/>/g, ")").replace(/ /g, "_");
+            const ext = currentImageExtension || ".png";
+            const uploadUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/stock_data/images/${sanitized}${ext}`;
+            
+            let sha = null;
+            try { const resCheck = await fetch(uploadUrl, { headers: { "Authorization": `token ${token}` } }); if (resCheck.ok) { const dataCheck = await resCheck.json(); sha = dataCheck.sha; } } catch(e){}
+            
+            const reader = new FileReader();
+            return new Promise((resolve, reject) => {
+                reader.onload = async function(e) {
+                    const base64Content = e.target.result.split(',')[1];
+                    const body = { message: `🖼️ Upload image for ${productName}`, content: base64Content };
+                    if (sha) body.sha = sha;
+                    const res = await fetch(uploadUrl, { method: "PUT", headers: { "Authorization": `token ${token}`, "Content-Type": "application/json" }, body: JSON.stringify(body) });
+                    if (res.ok) resolve(); else reject();
                 };
-            }
+                reader.readAsDataURL(fileBlob);
+            });
+        }
+
+        async function deleteImageFromGitHub(fullImageUrl) {
+            const token = getGitHubToken(); if(!token) return;
+            // ดึงเฉพาะตำแหน่ง Path ท้ายสุดออกมาลบ
+            const relativePath = fullImageUrl.replace(RAW_REPO_URL + "/", "").split('?')[0];
+            const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${relativePath}`;
+            try {
+                const resCheck = await fetch(url, { headers: { "Authorization": `token ${token}` } });
+                if (resCheck.ok) {
+                    const dataCheck = await resCheck.json();
+                    const body = { message: `🗑️ Delete image`, sha: dataCheck.sha };
+                    await fetch(url, { method: "DELETE", headers: { "Authorization": `token ${token}`, "Content-Type": "application/json" }, body: JSON.stringify(body) });
+                }
+            } catch(e){}
         }
 
         async function saveProductImage() {
@@ -632,9 +685,12 @@
         }
 
         async function deleteProductImage() {
-            const selectedProduct = document.getElementById('product-select').value; const excelInfo = allCleanData.find(row => row[1] === selectedProduct); if (!excelInfo) return;
+            const selectedProduct = document.getElementById('product-select').value;
             if (confirm(`ลบรูปภาพระบบกลาง?`)) {
-                await deleteImageFromGitHub(excelInfo[5] + ".png"); await deleteImageFromGitHub(excelInfo[5] + ".jpg"); alert("ลบสำเร็จ"); loadProductImage(); renderAllCategoryTables(); renderDashboardCategoryShowcase();
+                const baseImgUrl = getSanitizedImageBaseUrl(selectedProduct);
+                await deleteImageFromGitHub(baseImgUrl + ".png"); 
+                await deleteImageFromGitHub(baseImgUrl + ".jpg"); 
+                alert("ลบสำเร็จ"); loadProductImage(); renderAllCategoryTables(); renderDashboardCategoryShowcase();
             }
         }
 
@@ -694,23 +750,20 @@
             } catch (error) { document.getElementById('update-status').innerText = "❌ สั่งรันบอทล้มเหลว"; }
         }
 
-        // ─── 🎯 ล็อกลำดับความปลอดภัย: โหลดไฟล์ JSON จนเสร็จสมบูรณ์ก่อน ค่อยอ่าน Excel และดึงประวัติการขาย ───
         async function fetchActualExcelData() {
             document.getElementById('update-status').innerText = "⏳ กำลังโหลดโครงสร้างหมวดหมู่...";
             try {
-                // 1. บังคับรอโหลดโครงสร้างก้อนหิน categories.json จาก GitHub ให้เรียบร้อย 100%
                 await loadCategoriesFromGitHub(); 
-                // 1.1 แสดงหมวดหมู่ทันทีหลังโหลด JSON เสร็จ แม้ยังไม่มีข้อมูล Excel มาแมตช์ (จะขึ้นเป็น "รอข้อมูล Excel")
                 renderDashboardCategoryShowcase();
                 renderAllCategoryTables();
                 
                 document.getElementById('update-status').innerText = "⏳ กำลังดึงไฟล์คลังสินค้าดิบ...";
-                // 2. โหลด Excel ต่อเนื่อง
-                const res = await fetch(FILE_NAME + "?t=" + new Date().getTime());
+                
+                // 🌟 ปรับปรุงจุดนี้: ดึงไฟล์ Excel ตรงๆ ผ่าน Raw URL ไม่ดึงผ่าน GitHub API เพื่อเลี่ยงปัญหา Error 403
+                const res = await fetch(RAW_REPO_URL + "/" + FILE_NAME + "?t=" + new Date().getTime());
                 if (!res.ok) throw new Error();
                 const buffer = await res.arrayBuffer();
                 
-                // 3. ประมวลผลและกระจายคำสั่งเรนเดอร์ตารางทั้งหมดพร้อมกันแบบปลอดภัย
                 processExcelData(buffer); 
             } catch (error) { 
                 document.getElementById('update-status').innerText = "⚠️ ระบบขัดข้อง โหลดข้อมูลไม่สำเร็จ"; 
