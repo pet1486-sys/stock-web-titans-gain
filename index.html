@@ -444,7 +444,7 @@
             if(!currentSelectedLogDate) return;
             const dateParts = currentSelectedLogDate.split('-');
             
-            // 🌟 ล็อคความถูกต้อง: ดึงไฟล์ล็อกแบบต่อสตริงด้วยขีดล่าง (_) เสมอ
+            // 🌟 แก้ไขจุดสำคัญ: เปลี่ยนพาธโฟลเดอร์จาก 'stock data' เป็น 'stock_data' ให้ตรงกับระบบคลังบน GitHub
             const logUrl = `${RAW_REPO_URL}/stock_data/logs_${dateParts[0]}_${dateParts[1]}.json?t=${new Date().getTime()}`;
             try { const response = await fetch(logUrl); if (response.ok) globalMonthlyLogs = await response.json(); else globalMonthlyLogs = { fill_logs: [], sales_logs: [] }; } catch (err) { globalMonthlyLogs = { fill_logs: [], sales_logs: [] }; }
             filterAndRenderLogs();
@@ -518,7 +518,6 @@
                             badgeText = `เหลือ ${prod.qty}`;
                         }
                         
-                        // 🌟 ปรับปรุงจุดนี้: ให้ระบบสลับลองดึงไฟล์ .jpg ก่อน (เนื่องจากในคลังของคุณเป็น .jpg ซะส่วนใหญ่) หากไม่เจอจึงเปลี่ยนไปหา .png
                         cardsHtml += `
                             <div class="bg-slate-50 border border-gray-200 rounded p-1 flex flex-col justify-between">
                                 <div class="w-full h-10 bg-white rounded flex items-center justify-center overflow-hidden mb-0.5">
@@ -589,7 +588,6 @@
                 
                 new gridjs.Grid({
                     columns: [
-                        // 🌟 ปรับปรุงจุดนี้: ให้โหลดภาพ .jpg เป็นหลักเช่นกันในหน้าจัดหมวดหมู่ตาราง
                         { name: "สินค้า", formatter: (cell, row) => gridjs.html(`<div class="flex items-center gap-1"><div class="w-7 h-7 bg-white rounded flex items-center justify-center overflow-hidden"><img src="${cell}.jpg" onerror="this.onerror=null; this.src='${cell}.png'; this.onerror=function(){this.parentElement.innerHTML='📦'}" class="w-full h-full object-contain"/></div><span class="text-xs font-medium">${row.cells[3].data}</span></div>`) },
                         { name: "คงเหลือ", formatter: (cell) => cell <= 0 ? gridjs.html(`<span class="text-red-600 font-bold">หมด/ไม่พบข้อมูลคลัง</span>`) : gridjs.html(`<span class="text-emerald-600 font-bold">${cell} ชิ้น</span>`) },
                         { name: "เรียงลำดับสินค้า", formatter: (cell, row) => {
@@ -639,7 +637,6 @@
             };
         }
 
-        // 🌟 แก้ไขฟังก์ชันอัปโหลดให้อัปขึ้นไปที่โฟลเดอร์ image/products/ ให้ตรงเป้าหมาย
         async function uploadImageToGitHub(productName, fileBlob) {
             const token = getGitHubToken(); if(!token) { openTokenModal(); return; }
             const sanitized = productName.replace(/</g, "(").replace(/>/g, ")").replace(/ /g, "_");
