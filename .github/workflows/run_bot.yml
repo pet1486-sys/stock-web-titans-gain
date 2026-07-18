@@ -13,6 +13,8 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0 # ดึงประวัติ Commit ทั้งหมดมาด้วยเพื่อป้องกันปัญหาตอน Push
 
     - name: Set up Python
       uses: actions/setup-python@v5
@@ -21,27 +23,32 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install selenium
+        python -m pip install --upgrade pip
+        pip install selenium pandas openpyxl  # 🌟 เพิ่มโมดูลสำหรับจัดการ Excel เรียบร้อยแล้ว
 
     - name: Run Silom POS Bot
       run: python silom_download.py
-
-    - name: Move File to Stock Data Folder
-      run: |
-        mkdir -p stock_data
-        ls -la /home/runner/Downloads
-        mv /home/runner/Downloads/*.xlsx stock_data/SKU.xlsx
 
     - name: Commit and Push to GitHub
       run: |
         git config --global user.name "GitHub Actions Bot"
         git config --global user.email "actions@github.com"
-        git add stock_data/SKU.xlsx
-        git diff --quiet && git diff --staged --quiet || (git commit -m "Hourly Auto-update stock data: SKU.xlsx" && git push)
+        
+        # ดึงไฟล์ที่โค้ด Python สร้างและอัปเดตทั้งหมด (รวมถึงไฟล์ logs รายเดือนด้วย)
+        git add stock_data/
+        
+        # ตรวจสอบความเปลี่ยนแปลงก่อน Commit
+        if ! git diff --cached --quiet; then
+          git commit -m "Hourly Auto-update stock data and logs"
+          git pull origin main --rebase # ป้องกัน non-fast-forward ล็อกสิทธิ์
+          git push origin main
+        else
+          echo "ไม่มีการเปลี่ยนแปลงในสต็อก ไม่ต้อง Commit"
+        fi
 
-    # 🛠️ เพิ่มใหม่: สั่งให้ส่งรูปภาพหน้าจอออกมาแสดงให้เราเปิดดู ไม่ว่าจะรันผ่านหรือล้มเหลวก็ตาม
+    # 🛠️ ส่งรูปภาพหน้าจอออกมาแสดงให้เราเปิดดู ไม่ว่าจะรันผ่านหรือล้มเหลวก็ตาม
     - name: Upload Screenshots for Debugging
-      if: always() # สั่งให้รันขั้นตอนนี้เสมอแม้บอทจะเออเร่อ
+      if: always()
       uses: actions/upload-artifact@v4
       with:
         name: bot-screenshots
