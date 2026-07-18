@@ -59,7 +59,7 @@ try:
     
     print("กำลังกรอกข้อมูลเข้าสู่ระบบ...")
     username_input = wait.until(EC.presence_of_element_located((
-        By.XPATH, "//input[@type='text' or @type='email' or @autocomplete='username']"
+        By.開設, "//input[@type='text' or @type='email' or @autocomplete='username']"
     )))
     username_input.clear()
     username_input.send_keys(USERNAME)
@@ -183,6 +183,10 @@ try:
     for _, row in df_filtered.iterrows():
         plu = str(row.iloc[0]).strip()
         name = str(row.iloc[1]).strip()
+        
+        # 🌟 จุดแก้ไข: ล้างอักขระพิเศษสำหรับใช้เรียกรูปภาพ (แปลง < > เป็น ( ) และ ช่องว่าง เป็น _)
+        image_name = name.replace("<", "(").replace(">", ")").replace(" ", "_") + ".png"
+        
         try:
             qty = int(row.iloc[7])
         except:
