@@ -259,7 +259,6 @@
         const FILE_NAME = "stock_data/SKU.xlsx"; 
         const CAT_JSON_PATH = "stock_data/categories.json"; 
 
-        // 🌟 เพิ่มจุดนี้: กำหนดค่าคงที่สำหรับดึงข้อมูลผ่าน Raw URL ตรงๆ เพื่อแก้ปัญหา Error 403 Forbidden
         const RAW_REPO_URL = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main`;
 
         let allCleanData = [];
@@ -275,13 +274,13 @@
 
         function getGitHubToken() { return localStorage.getItem('user_github_token') || ""; }
 
-        // 🌟 เพิ่มฟังก์ชันล้างอักขระพิเศษสำหรับภาพให้สอดคล้องกับ Python Bot
+        // 🌟 แก้ไขจุดสำคัญ: ปรับให้วิ่งไปหาโฟลเดอร์ image/products/ ตามโครงสร้างจริงของคุณบน GitHub
         function getSanitizedImageBaseUrl(productName) {
             const sanitized = productName
                 .replace(/</g, "(")
                 .replace(/>/g, ")")
                 .replace(/ /g, "_");
-            return `${RAW_REPO_URL}/stock_data/images/${sanitized}`;
+            return `${RAW_REPO_URL}/image/products/${sanitized}`;
         }
 
         function renderKeywordsManager() {
@@ -357,7 +356,6 @@
 
         async function loadCategoriesFromGitHub() {
             try {
-                // 🌟 ปรับปรุงจุดนี้: ดึงไฟล์ผ่าน Raw URL ตรงๆ เพื่อลดปัญหาการติด 403 Forbidden
                 const url = `${RAW_REPO_URL}/${CAT_JSON_PATH}?t=${new Date().getTime()}`;
                 const res = await fetch(url);
                 if (res.ok) {
@@ -431,7 +429,6 @@
                     const unit = row[5] ? row[5].toString().trim() : "";    
                     const qty = parseInt(row[7]) || 0;                      
                     
-                    // 🌟 ปรับปรุงจุดนี้: ให้เรียกฟังก์ชันคำนวณชื่อภาพที่คลีนอักขระพิเศษเรียบร้อยแล้ว
                     const imgUrl = getSanitizedImageBaseUrl(name);
                     return [pluCode, name, price, unit, qty, imgUrl];
                 });
@@ -447,7 +444,7 @@
             if(!currentSelectedLogDate) return;
             const dateParts = currentSelectedLogDate.split('-');
             
-            // 🌟 แก้ไขจุดนี้: ปรับการดึงข้อมูลล็อกประจำเดือนจากเดิมที่เป็นช่องว่างให้เป็นขีดล่าง (_) เช่น logs_2026_07.json
+            // 🌟 ล็อคความถูกต้อง: ดึงไฟล์ล็อกแบบต่อสตริงด้วยขีดล่าง (_) เสมอ
             const logUrl = `${RAW_REPO_URL}/stock_data/logs_${dateParts[0]}_${dateParts[1]}.json?t=${new Date().getTime()}`;
             try { const response = await fetch(logUrl); if (response.ok) globalMonthlyLogs = await response.json(); else globalMonthlyLogs = { fill_logs: [], sales_logs: [] }; } catch (err) { globalMonthlyLogs = { fill_logs: [], sales_logs: [] }; }
             filterAndRenderLogs();
@@ -520,10 +517,12 @@
                             badgeClass = "bg-emerald-50 text-emerald-600 font-bold text-[8px]";
                             badgeText = `เหลือ ${prod.qty}`;
                         }
+                        
+                        // 🌟 ปรับปรุงจุดนี้: ให้ระบบสลับลองดึงไฟล์ .jpg ก่อน (เนื่องจากในคลังของคุณเป็น .jpg ซะส่วนใหญ่) หากไม่เจอจึงเปลี่ยนไปหา .png
                         cardsHtml += `
                             <div class="bg-slate-50 border border-gray-200 rounded p-1 flex flex-col justify-between">
                                 <div class="w-full h-10 bg-white rounded flex items-center justify-center overflow-hidden mb-0.5">
-                                    <img src="${prod.baseLink}.png" onerror="this.onerror=null; this.src='${prod.baseLink}.jpg'; this.onerror=function(){this.parentElement.innerHTML='📦'}" class="w-full h-full object-contain" />
+                                    <img src="${prod.baseLink}.jpg" onerror="this.onerror=null; this.src='${prod.baseLink}.png'; this.onerror=function(){this.parentElement.innerHTML='📦'}" class="w-full h-full object-contain" />
                                 </div>
                                 <p class="text-[8px] font-bold text-gray-700 truncate text-center leading-none mb-0.5" title="${prod.name}">${prod.name}</p>
                                 <div class="py-0.5 text-center leading-none rounded ${badgeClass}">${badgeText}</div>
@@ -590,7 +589,8 @@
                 
                 new gridjs.Grid({
                     columns: [
-                        { name: "สินค้า", formatter: (cell, row) => gridjs.html(`<div class="flex items-center gap-1"><div class="w-7 h-7 bg-white rounded flex items-center justify-center overflow-hidden"><img src="${cell}.png" onerror="this.onerror=null; this.src='${cell}.jpg'; this.onerror=function(){this.parentElement.innerHTML='📦'}" class="w-full h-full object-contain"/></div><span class="text-xs font-medium">${row.cells[3].data}</span></div>`) },
+                        // 🌟 ปรับปรุงจุดนี้: ให้โหลดภาพ .jpg เป็นหลักเช่นกันในหน้าจัดหมวดหมู่ตาราง
+                        { name: "สินค้า", formatter: (cell, row) => gridjs.html(`<div class="flex items-center gap-1"><div class="w-7 h-7 bg-white rounded flex items-center justify-center overflow-hidden"><img src="${cell}.jpg" onerror="this.onerror=null; this.src='${cell}.png'; this.onerror=function(){this.parentElement.innerHTML='📦'}" class="w-full h-full object-contain"/></div><span class="text-xs font-medium">${row.cells[3].data}</span></div>`) },
                         { name: "คงเหลือ", formatter: (cell) => cell <= 0 ? gridjs.html(`<span class="text-red-600 font-bold">หมด/ไม่พบข้อมูลคลัง</span>`) : gridjs.html(`<span class="text-emerald-600 font-bold">${cell} ชิ้น</span>`) },
                         { name: "เรียงลำดับสินค้า", formatter: (cell, row) => {
                             const pIdx = parseInt(row.cells[2].data);
@@ -624,28 +624,27 @@
             if (!selectedProduct) { imgElement.classList.add('hidden'); placeholderText.classList.remove('hidden'); statusContainer.classList.add('hidden'); return; }
             const excelInfo = allCleanData.find(row => row[1] === selectedProduct);
             
-            // 🌟 แก้ไขจุดนี้: คำนวณหาลิงก์ของรูปสินค้าให้ถูกต้องตามระบบใหม่
             const baseImgUrl = excelInfo ? excelInfo[5] : getSanitizedImageBaseUrl(selectedProduct);
             
             statusContainer.classList.remove('hidden'); 
-            imgElement.src = baseImgUrl + ".png"; 
+            imgElement.src = baseImgUrl + ".jpg"; 
             imgElement.classList.remove('hidden'); 
             placeholderText.classList.add('hidden');
             
-            imgElement.onload = function() { statusText.innerHTML = `<span class="text-emerald-600">🟢 มีรูปภาพแล้ว (.png)</span>`; };
+            imgElement.onload = function() { statusText.innerHTML = `<span class="text-emerald-600">🟢 มีรูปภาพแล้ว (.jpg)</span>`; };
             imgElement.onerror = function() {
-                this.onerror = null; this.src = baseImgUrl + ".jpg"; 
-                imgElement.onload = function() { statusText.innerHTML = `<span class="text-emerald-600">🟢 มีรูปภาพแล้ว (.jpg)</span>`; };
+                this.onerror = null; this.src = baseImgUrl + ".png"; 
+                imgElement.onload = function() { statusText.innerHTML = `<span class="text-emerald-600">🟢 มีรูปภาพแล้ว (.png)</span>`; };
                 this.onerror = function() { this.classList.add('hidden'); placeholderText.classList.remove('hidden'); statusText.innerHTML = `<span class="text-red-500">🔴 ยังไม่มีรูปภาพบน GitHub</span>`; }
             };
         }
 
-        // 🌟 แก้ไขการบันทึกภาพขึ้นคลังเก็บภาพหลัก GitHub ให้ไปเก็บในโฟลเดอร์ stock_data/images/
+        // 🌟 แก้ไขฟังก์ชันอัปโหลดให้อัปขึ้นไปที่โฟลเดอร์ image/products/ ให้ตรงเป้าหมาย
         async function uploadImageToGitHub(productName, fileBlob) {
             const token = getGitHubToken(); if(!token) { openTokenModal(); return; }
             const sanitized = productName.replace(/</g, "(").replace(/>/g, ")").replace(/ /g, "_");
-            const ext = currentImageExtension || ".png";
-            const uploadUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/stock_data/images/${sanitized}${ext}`;
+            const ext = currentImageExtension || ".jpg";
+            const uploadUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/image/products/${sanitized}${ext}`;
             
             let sha = null;
             try { const resCheck = await fetch(uploadUrl, { headers: { "Authorization": `token ${token}` } }); if (resCheck.ok) { const dataCheck = await resCheck.json(); sha = dataCheck.sha; } } catch(e){}
@@ -665,7 +664,6 @@
 
         async function deleteImageFromGitHub(fullImageUrl) {
             const token = getGitHubToken(); if(!token) return;
-            // ดึงเฉพาะตำแหน่ง Path ท้ายสุดออกมาลบ
             const relativePath = fullImageUrl.replace(RAW_REPO_URL + "/", "").split('?')[0];
             const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${relativePath}`;
             try {
@@ -759,7 +757,6 @@
                 
                 document.getElementById('update-status').innerText = "⏳ กำลังดึงไฟล์คลังสินค้าดิบ...";
                 
-                // 🌟 ปรับปรุงจุดนี้: ดึงไฟล์ Excel ตรงๆ ผ่าน Raw URL ไม่ดึงผ่าน GitHub API เพื่อเลี่ยงปัญหา Error 403
                 const res = await fetch(RAW_REPO_URL + "/" + FILE_NAME + "?t=" + new Date().getTime());
                 if (!res.ok) throw new Error();
                 const buffer = await res.arrayBuffer();
