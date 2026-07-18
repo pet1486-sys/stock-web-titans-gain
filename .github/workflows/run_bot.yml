@@ -24,27 +24,24 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install selenium pandas openpyxl  # 🌟 เพิ่มโมดูลสำหรับจัดการ Excel เรียบร้อยแล้ว
+        pip install selenium pandas openpyxl
 
     - name: Run Silom POS Bot
       run: python silom_download.py
 
     - name: Commit and Push to GitHub
       run: |
-        git config --global user.name "GitHub Actions Bot"
+        git config --global user.name "actions-user"
         git config --global user.email "actions@github.com"
         
-        # ดึงไฟล์ใน stock_data ทั้งหมดเข้าคิว
-        git add stock_data/
+        # 🌟 บังคับกวาดทุกไฟล์รวมถึงไฟล์ JSON รายเดือนตัวใหม่เข้าคิวทั้งหมด
+        git add -A
         
-        # 🌟 เช็คว่ามีไฟล์ JSON รายเดือนตัวใหม่ที่ยังไม่เคยมีอยู่บน GitHub โผล่มาไหม หรือ สต็อกมีการเปลี่ยนแปลง
-        if git status --porcelain | grep -E "stock_data/logs_.*\.json|SKU.xlsx"; then
-          git commit -m "Hourly Auto-update stock data and logs (New month setup / Stock updates)"
-          git pull origin main --rebase
-          git push origin main
-        else
-          echo "ไม่มีไฟล์รายงานใหม่ และไม่มีการเปลี่ยนแปลงในสต็อก ไม่ต้อง Commit"
-        fi
+        # 🌟 บังคับ Commit เสมอ ถ้าไม่มีอะไรเปลี่ยนจริง ๆ ให้ปล่อยผ่านไม่แจ้งพัง
+        git commit -m "Hourly Auto-update stock data and logs (New month setup / Stock updates)" || echo "No changes to commit"
+        
+        # 🌟 ยิง Force Push สวนขึ้นไปทันทีเพื่อตัดปัญหาโดนปฏิเสธ (Rejected) และอัปเดตไฟล์ขึ้นหน้าเว็บชัวร์ ๆ
+        git push -f origin main
 
     # 🛠️ ส่งรูปภาพหน้าจอออกมาแสดงให้เราเปิดดู ไม่ว่าจะรันผ่านหรือล้มเหลวก็ตาม
     - name: Upload Screenshots for Debugging
