@@ -38,8 +38,9 @@
                     <img src="image/logo ti-Photoroom.png" alt="Logo" class="w-full h-full object-cover">
                 </div>
             </a>
-            <button onclick="toggleSidebar()" class="md:hidden text-slate-400 hover:text-white cursor-pointer ml-2">
-                <i data-lucide="x" class="w-5 h-5"></i>
+            <!-- ปุ่ม X แก้ให้ปิดแน่ๆ บนมือถือ -->
+            <button onclick="closeSidebar()" class="md:hidden text-slate-400 hover:text-white cursor-pointer ml-2 p-1">
+                <i data-lucide="x" class="w-6 h-6"></i>
             </button>
         </div>
 
@@ -71,16 +72,15 @@
         </nav>
         
         <div class="p-4 text-xs text-slate-600 border-t border-slate-800 text-center">
-            v2.8.5 Clean Mobile Layout
+            v2.9.0 Fixed Pin & Mobile Sidebar
         </div>
     </aside>
 
-    <div id="sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/50 z-40 hidden md:hidden transition-opacity duration-300 opacity-0"></div>
+    <div id="sidebar-overlay" onclick="closeSidebar()" class="fixed inset-0 bg-black/50 z-40 hidden md:hidden transition-opacity duration-300 opacity-0"></div>
 
     <!-- ─── MAIN CONTENT AREA ─── -->
     <div id="main-content" class="flex-1 md:pl-64 min-h-screen flex flex-col transition-all duration-300 w-full">
         
-        <!-- Header หลัก: สะอาด เป็นระเบียบ ไม่ตกขอบ -->
         <header class="bg-white border-b border-gray-200 py-2.5 px-3 sm:px-6 sticky top-0 z-40 shadow-xs">
             <div class="flex items-center justify-between gap-2">
                 <div class="flex items-center gap-2 truncate">
@@ -103,21 +103,17 @@
 
             <!-- ================= หน้าแดชบอร์ดภาพรวมแยกแท็บ ================= -->
             <div id="dashboard-page" class="page-content block">
-                <!-- 🌟 แถบเครื่องมือลอยติดจอ (Sticky Bar) รวม ดรอปดาวน์หมวดหมู่, ปุ่มล้างดัมมี่, และปุ่มกลับบนสุดไว้ที่เดียว -->
                 <div class="sticky top-[49px] sm:top-[57px] z-30 bg-slate-50/95 backdrop-blur-md py-2 px-1 mb-3 border-b border-slate-200 flex items-center justify-between gap-1.5">
-                    <!-- ดรอปดาวน์เลือกหมวดหมู่ -->
                     <div class="flex-1 flex items-center gap-1 min-w-0">
                         <select id="dashboard-category-select" onchange="scrollToCategory(this.value)" class="w-full text-xs font-bold bg-white text-blue-700 border border-blue-300 rounded-lg px-2 py-1.5 shadow-xs focus:ring-2 focus:ring-blue-500 focus:outline-none cursor-pointer truncate">
                             <option value="all">🌐 แสดงทุกหมวดหมู่</option>
                         </select>
                     </div>
                     
-                    <!-- ปุ่มล้างดัมมี่ -->
                     <button onclick="clearAllDummySales()" class="text-[10px] bg-amber-50 hover:bg-amber-100 text-amber-700 font-bold px-2 py-1.5 rounded-lg border border-amber-200 cursor-pointer whitespace-nowrap shrink-0">
                         🔄 ล้างดัมมี่
                     </button>
 
-                    <!-- ปุ่มกลับขึ้นบนสุด -->
                     <button onclick="scrollToTop()" class="text-[10px] bg-slate-800 hover:bg-slate-900 text-white font-bold px-2 py-1.5 rounded-lg shadow-xs cursor-pointer whitespace-nowrap shrink-0">
                         ⬆️ บนสุด
                     </button>
@@ -392,11 +388,25 @@
             localStorage.setItem('user_github_token', tokenValue); alert("🔒 บันทึกสำเร็จ"); closeTokenModal();
         }
 
+        // 🌟 ปรับปรุงการเปิด/ปิด Sidebar ป้องกันเปิดค้างบนมือถือ
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebar-overlay');
-            if (sidebar.classList.contains('-translate-x-full')) { sidebar.classList.remove('-translate-x-full'); overlay.classList.remove('hidden', 'opacity-0'); overlay.classList.add('opacity-100'); } 
-            else { sidebar.classList.add('-translate-x-full'); overlay.classList.add('hidden'); }
+            if (sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+                setTimeout(() => overlay.classList.add('opacity-100'), 10);
+            } else {
+                closeSidebar();
+            }
+        }
+
+        function closeSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            sidebar.classList.add('-translate-x-full');
+            overlay.classList.remove('opacity-100');
+            setTimeout(() => overlay.classList.add('hidden'), 300);
         }
 
         function switchTab(element, pageId) {
@@ -408,7 +418,8 @@
 
             document.querySelectorAll('.tab-item').forEach(btn => btn.className = "tab-item w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl text-slate-400 hover:bg-slate-800");
             element.className = "tab-item w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl bg-blue-600 text-white shadow-sm";
-            if (window.innerWidth < 768) { document.getElementById('sidebar').classList.add('-translate-x-full'); document.getElementById('sidebar-overlay').classList.add('hidden'); }
+            
+            closeSidebar(); // ปิด Sidebar ทุกครั้งที่เปลี่ยนแท็บ
             
             renderAllCategoryTables(); 
             renderDashboardCategoryShowcase();
@@ -537,13 +548,37 @@
         function adjustLogDate(daysOffset) { const currentDate = new Date(currentSelectedLogDate); currentDate.setDate(currentDate.getDate() + daysOffset); const yyyy = currentDate.getFullYear(); const mm = String(currentDate.getMonth() + 1).padStart(2, '0'); const dd = String(currentDate.getDate()).padStart(2, '0'); handleLogDateChange(`${yyyy}-${mm}-${dd}`); document.getElementById('log-date-picker').value = currentSelectedLogDate; }
         function resetLogDateToToday() { const today = new Date(); const yyyy = today.getFullYear(); const mm = String(today.getMonth() + 1).padStart(2, '0'); const dd = String(today.getDate()).padStart(2, '0'); handleLogDateChange(`${yyyy}-${mm}-${dd}`); document.getElementById('log-date-picker').value = currentSelectedLogDate; }
 
+        // 🌟 ดึงบล็อกปักหมุด "🔥 รายการที่มีการขายวันนี้" กลับมา + แสดงป้ายดัมมี่ชั่วคราว
         function renderDashboardCategoryShowcase() {
             const container = document.getElementById('dashboard-category-showcase'); if(!container) return; container.innerHTML = "";
             const catSelect = document.getElementById('dashboard-category-select');
+            const dummySales = getDummyDeductions();
 
+            // ค้นหาสินค้าที่มีการกดตัดสต็อกดัมมี่ไว้ทั้งหมด
+            const activeDummyProducts = [];
+            Object.keys(dummySales).forEach(pName => {
+                if (dummySales[pName] > 0) {
+                    const excelInfo = allCleanData.find(row => row[1] === pName);
+                    activeDummyProducts.push({
+                        name: pName,
+                        baseLink: excelInfo ? excelInfo[5] : getSanitizedImageBaseUrl(pName),
+                        realQty: excelInfo ? excelInfo[4] : 0,
+                        deducted: dummySales[pName],
+                        noData: !excelInfo
+                    });
+                }
+            });
+
+            // อัปเดตตัวเลือกใน Dropdown หมวดหมู่
             if (catSelect) {
                 const currentVal = catSelect.value;
                 catSelect.innerHTML = '<option value="all">🌐 แสดงทุกหมวดหมู่</option>';
+                if (activeDummyProducts.length > 0) {
+                    const optPinned = document.createElement('option');
+                    optPinned.value = "🔥 รายการที่มีการขายวันนี้";
+                    optPinned.text = `🔥 รายการที่มีการขายวันนี้ (${activeDummyProducts.length})`;
+                    catSelect.appendChild(optPinned);
+                }
                 Object.keys(categoryDatabase).forEach(catName => {
                     const opt = document.createElement('option');
                     opt.value = catName;
@@ -553,8 +588,45 @@
                 catSelect.value = currentVal || "all";
             }
 
-            const dummySales = getDummyDeductions();
+            // 📌 1. สร้างหมวดปักหมุดพิเศษ (ถ้ามีสินค้าขายชั่วคราววันนี้)
+            if (activeDummyProducts.length > 0) {
+                const pinnedBlock = document.createElement('div');
+                pinnedBlock.id = `cat-block-🔥-รายการที่มีการขายวันนี้`;
+                pinnedBlock.className = "bg-amber-50/70 p-2 rounded-lg shadow-2xs border-l-4 border-l-amber-500 border border-amber-200 scroll-mt-28 mb-3";
 
+                let pinnedCardsHtml = "";
+                activeDummyProducts.forEach(prod => {
+                    let badgeClass = prod.realQty <= 0 ? "bg-red-50 text-red-600 font-bold text-[8px]" : "bg-emerald-50 text-emerald-600 font-bold text-[8px]";
+                    let badgeText = `เหลือ ${prod.realQty}`;
+
+                    pinnedCardsHtml += `
+                        <div class="bg-white border border-amber-200 rounded p-1 flex flex-col justify-between shadow-2xs">
+                            <div class="w-full h-10 bg-white rounded flex items-center justify-center overflow-hidden mb-0.5 relative">
+                                <img src="${prod.baseLink}.jpg" onerror="this.onerror=null; this.src='${prod.baseLink}.png'; this.onerror=function(){this.parentElement.innerHTML='📦'}" class="w-full h-full object-contain" />
+                            </div>
+                            <p class="text-[8px] font-bold text-gray-700 truncate text-center leading-none mb-0.5" title="${prod.name}">${prod.name}</p>
+                            
+                            <div class="py-0.5 text-center leading-none rounded ${badgeClass} flex items-center justify-center">
+                                <span>${badgeText}</span>
+                                <span class="bg-amber-500 text-white font-extrabold text-[9px] px-1 py-0.2 rounded ml-1 animate-pulse">-${prod.deducted}</span>
+                            </div>
+
+                            <div class="flex gap-1 mt-1">
+                                <button onclick="adjustDummyStock('${prod.name}', 1)" class="flex-1 bg-red-500 hover:bg-red-600 text-white font-bold text-[9px] py-0.5 rounded cursor-pointer">-1</button>
+                                <button onclick="adjustDummyStock('${prod.name}', -1)" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold text-[9px] px-1 py-0.5 rounded cursor-pointer">คืน</button>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                pinnedBlock.innerHTML = `
+                    <div class="flex items-center gap-1 mb-1 border-b border-amber-200/60 pb-0.5"><h3 class="text-[11px] font-bold text-amber-900">🔥 รายการที่มีการขายวันนี้ (${activeDummyProducts.length})</h3></div>
+                    <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-1">${pinnedCardsHtml}</div>
+                `;
+                container.appendChild(pinnedBlock);
+            }
+
+            // 📂 2. แสดงหมวดหมู่ปรกติตามปกติ
             Object.keys(categoryDatabase).forEach(catName => {
                 const productList = categoryDatabase[catName] || [];
 
