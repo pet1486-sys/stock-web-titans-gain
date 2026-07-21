@@ -71,7 +71,7 @@
         </nav>
         
         <div class="p-4 text-xs text-slate-600 border-t border-slate-800 text-center">
-            v2.7.5 Permanent Storage Engine
+            v2.8.0 Smart Local Deduction
         </div>
     </aside>
 
@@ -102,7 +102,6 @@
                 <div class="mb-4">
                     <div class="flex justify-between items-center mb-2">
                         <h3 class="text-xs font-bold text-gray-900">⭐ หมวดหมู่แนะนำและจำแนกหน้าร้าน</h3>
-                        <!-- 🌟 เพิ่มปุ่มรีเซ็ตดัมมี่ชั่วคราว -->
                         <button onclick="clearAllDummySales()" class="text-[10px] bg-amber-50 hover:bg-amber-100 text-amber-700 font-bold px-2 py-1 rounded-lg border border-amber-200 cursor-pointer flex items-center gap-1">
                             🔄 ล้างยอดตัดดัมมี่วันนี้
                         </button>
@@ -288,7 +287,7 @@
             return `${RAW_REPO_URL}/image/products/${sanitized}`;
         }
 
-        // 🌟 ดึง/ปรับ ยอดดัมมี่ชั่วคราว
+        // 🌟 ดึงข้อมูลและหักลบยอดดัมมี่ชั่วคราว
         function getDummyDeductions() {
             return JSON.parse(localStorage.getItem('dummy_sales_today')) || {};
         }
@@ -307,6 +306,18 @@
             if (confirm("❓ ล้างยอดดัมมี่ชั่วคราววันนี้ทั้งหมดใช่หรือไม่?")) {
                 localStorage.removeItem('dummy_sales_today');
                 renderDashboardCategoryShowcase();
+            }
+        }
+
+        function scrollToCategory(catName) {
+            if (catName === 'all') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            }
+            const targetId = `dash-cat-${catName.replace(/\s+/g, '-')}`;
+            const element = document.getElementById(targetId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         }
 
@@ -505,13 +516,84 @@
         function adjustLogDate(daysOffset) { const currentDate = new Date(currentSelectedLogDate); currentDate.setDate(currentDate.getDate() + daysOffset); const yyyy = currentDate.getFullYear(); const mm = String(currentDate.getMonth() + 1).padStart(2, '0'); const dd = String(currentDate.getDate()).padStart(2, '0'); handleLogDateChange(`${yyyy}-${mm}-${dd}`); document.getElementById('log-date-picker').value = currentSelectedLogDate; }
         function resetLogDateToToday() { const today = new Date(); const yyyy = today.getFullYear(); const mm = String(today.getMonth() + 1).padStart(2, '0'); const dd = String(today.getDate()).padStart(2, '0'); handleLogDateChange(`${yyyy}-${mm}-${dd}`); document.getElementById('log-date-picker').value = currentSelectedLogDate; }
 
-        // 🌟 ปรับแต่งการแสดงผลหน้าแดชบอร์ด (ไม่แตะยอดสต็อกจริง แสดง -1 แยกต่างหากข้างๆ)
+        // 🌟 แสดงผลหน้าแดชบอร์ดหลัก (เพิ่มปุ่มสกรอลล์หาหมวดหมู่ + การ์ดสรุปรายการดัมมี่ด้านบนสุด)
         function renderDashboardCategoryShowcase() {
-            const container = document.getElementById('dashboard-category-showcase'); if(!container) return; container.innerHTML = "";
+            const container = document.getElementById('dashboard-category-showcase'); 
+            if(!container) return; 
+            container.innerHTML = "";
 
             const dummySales = getDummyDeductions();
+            const categories = Object.keys(categoryDatabase);
 
-            Object.keys(categoryDatabase).forEach(catName => {
+            // --- 1. แถบปุ่มฟิลเตอร์เลือกหมวดหมู่ (Category Scroll Bar) ---
+            let filterButtonsHtml = `<button onclick="scrollToCategory('all')" class="bg-slate-800 text-white font-bold text-[10px] px-2.5 py-1 rounded-lg shrink-0 cursor-pointer">ทั้งหมด</button>`;
+            categories.forEach(catName => {
+                filterButtonsHtml += `
+                    <button onclick="scrollToCategory('${catName}')" class="bg-white hover:bg-slate-100 text-slate-700 font-bold text-[10px] px-2.5 py-1 rounded-lg border border-gray-200 shrink-0 shadow-2xs cursor-pointer">
+                        ${catName}
+                    </button>
+                `;
+            });
+
+            const filterBar = document.createElement('div');
+            filterBar.className = "flex gap-1.5 overflow-x-auto pb-2 mb-3 no-scrollbar sticky top-14 bg-slate-50/90 backdrop-blur-xs z-30 pt-1";
+            filterBar.innerHTML = filterButtonsHtml;
+            container.appendChild(filterBar);
+
+            // --- 2. การ์ดสรุปรายการดัมมี่วันนี้ (ปักหมุดด้านบนสุด) ---
+            const activeDummyItems = [];
+            categories.forEach(catName => {
+                (categoryDatabase[catName] || []).forEach(prodName => {
+                    if (dummySales[prodName] && dummySales[prodName] > 0) {
+                        const excelInfo = allCleanData.find(row => row[1] === prodName);
+                        activeDummyItems.push({
+                            name: prodName,
+                            count: dummySales[prodName],
+                            realQty: excelInfo ? excelInfo[4] : 0,
+                            link: excelInfo ? excelInfo[5] : getSanitizedImageBaseUrl(prodName)
+                        });
+                    }
+                });
+            });
+
+            if (activeDummyItems.length > 0) {
+                const summaryCard = document.createElement('div');
+                summaryCard.className = "bg-amber-50 border-2 border-amber-300 rounded-xl p-3 mb-4 shadow-xs";
+                
+                let dummyListHtml = activeDummyItems.map(item => `
+                    <div class="flex items-center justify-between bg-white p-1.5 rounded-lg border border-amber-200 shadow-2xs">
+                        <div class="flex items-center gap-2 overflow-hidden">
+                            <div class="w-6 h-6 bg-slate-50 rounded flex items-center justify-center overflow-hidden shrink-0">
+                                <img src="${item.link}.jpg" onerror="this.onerror=null; this.src='${item.link}.png'; this.onerror=function(){this.parentElement.innerHTML='📦'}" class="w-full h-full object-contain" />
+                            </div>
+                            <span class="text-[10px] font-bold text-gray-800 truncate" title="${item.name}">${item.name}</span>
+                        </div>
+                        <div class="flex items-center gap-1.5 shrink-0">
+                            <span class="text-[9px] text-gray-500">(คลังคงเหลือ: ${item.realQty})</span>
+                            <span class="bg-amber-500 text-white font-extrabold text-[10px] px-1.5 py-0.5 rounded-md">- ${item.count}</span>
+                            <button onclick="adjustDummyStock('${item.name}', -1)" class="text-[9px] bg-gray-100 hover:bg-gray-200 text-gray-600 px-1.5 py-0.5 rounded cursor-pointer">คืน</button>
+                        </div>
+                    </div>
+                `).join('');
+
+                summaryCard.innerHTML = `
+                    <div class="flex items-center justify-between mb-2 pb-1 border-b border-amber-200">
+                        <h4 class="text-xs font-bold text-amber-900 flex items-center gap-1">
+                            📌 รายการขายดัมมี่วันนี้ (รวม ${activeDummyItems.length} รายการ)
+                        </h4>
+                        <button onclick="clearAllDummySales()" class="text-[9px] bg-amber-200 hover:bg-amber-300 text-amber-900 font-bold px-2 py-0.5 rounded cursor-pointer">
+                            ล้างทั้งหมด
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1.5">
+                        ${dummyListHtml}
+                    </div>
+                `;
+                container.appendChild(summaryCard);
+            }
+
+            // --- 3. หมวดหมู่สินค้าทั้งหมด ---
+            categories.forEach(catName => {
                 const productList = categoryDatabase[catName] || [];
 
                 const matchedProducts = productList.map(prodName => {
@@ -532,7 +614,8 @@
                 });
 
                 const catBlock = document.createElement('div');
-                catBlock.className = "bg-white p-2 rounded-lg shadow-2xs border-l-4 border-l-blue-600 border border-gray-100";
+                catBlock.id = `dash-cat-${catName.replace(/\s+/g, '-')}`; 
+                catBlock.className = "bg-white p-2 rounded-lg shadow-2xs border-l-4 border-l-blue-600 border border-gray-100 mb-3 scroll-mt-24";
 
                 let cardsHtml = "";
                 if (matchedProducts.length === 0) {
@@ -551,7 +634,6 @@
                             badgeText = `เหลือ ${prod.realQty}`;
                         }
                         
-                        // แสดงป้ายดัมมี่ข้างๆ สต็อกจริง
                         let dummyBadge = prod.deducted > 0 
                             ? `<span class="bg-amber-500 text-white font-extrabold text-[9px] px-1 py-0.2 rounded ml-1 animate-pulse">-${prod.deducted}</span>` 
                             : '';
