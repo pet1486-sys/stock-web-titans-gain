@@ -2,6 +2,7 @@ import os
 import sys
 import time
 import json
+import re  # 🌟 เพิ่ม import re เพื่อใช้งานลบอักขระพิเศษ
 from datetime import datetime, timedelta
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -183,8 +184,9 @@ try:
         plu = str(row.iloc[0]).strip()
         name = str(row.iloc[1]).strip()
         
-        # 🌟 จุดแก้ไข: ล้างอักขระพิเศษและรองรับนามสกุลภาพดั้งเดิมจากระบบของสินค้า (ไม่ฟิกซ์นามสกุลท้ายโค้ด)
-        image_name = name.replace("<", "(").replace(">", ")").replace(" ", "_")
+        # 🌟 แก้ไข: Sanitize ลบอักขระพิเศษ < > " ' : ? * | \ / ( ) และแปลงเว้นวรรคเป็น _ ให้ตรงกับ JS หน้าเว็บ
+        sanitized_name = re.sub(r'[<>"\':?*|\\/()]', '', name.strip())
+        image_name = re.sub(r'\s+', '_', sanitized_name)
         
         try:
             qty = int(row.iloc[7])
@@ -205,7 +207,7 @@ try:
     with open(balance_history_path, 'w', encoding='utf-8') as f:
         json.dump(current_stock, f, ensure_ascii=False, indent=2)
         
-    # 🌟 จุดแก้ไข: บังคับสร้างและบันทึกไฟล์คลังรายงานประวัติรายเดือนเสมอในทุกรอบที่บอทรัน เพื่อแก้บั๊ก 404
+    # 🌟 บังคับสร้างและบันทึกไฟล์คลังรายงานประวัติรายเดือนเสมอในทุกรอบที่บอทรัน
     log_data = {"fill_logs": fill_logs, "sales_logs": sales_logs}
     with open(monthly_log_path, 'w', encoding='utf-8') as f:
         json.dump(log_data, f, ensure_ascii=False, indent=2)

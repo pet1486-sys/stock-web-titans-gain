@@ -274,12 +274,12 @@
 
         function getGitHubToken() { return localStorage.getItem('user_github_token') || ""; }
 
-        // 🌟 แก้ไขจุดสำคัญ: ปรับให้วิ่งไปหาโฟลเดอร์ image/products/ ตามโครงสร้างจริงของคุณบน GitHub
+        // 🌟 แก้ไข: Sanitize ลบอักขระพิเศษ < > " ' : ? * | \ / ( ) และแปลงเว้นวรรคเป็น _
         function getSanitizedImageBaseUrl(productName) {
             const sanitized = productName
-                .replace(/</g, "(")
-                .replace(/>/g, ")")
-                .replace(/ /g, "_");
+                .trim()
+                .replace(/[<>"':?*|\\\/()]/g, "")
+                .replace(/\s+/g, "_");
             return `${RAW_REPO_URL}/image/products/${sanitized}`;
         }
 
@@ -444,7 +444,6 @@
             if(!currentSelectedLogDate) return;
             const dateParts = currentSelectedLogDate.split('-');
             
-            // 🌟 แก้ไขจุดสำคัญ: เปลี่ยนพาธโฟลเดอร์จาก 'stock data' เป็น 'stock_data' ให้ตรงกับระบบคลังบน GitHub
             const logUrl = `${RAW_REPO_URL}/stock_data/logs_${dateParts[0]}_${dateParts[1]}.json?t=${new Date().getTime()}`;
             try { const response = await fetch(logUrl); if (response.ok) globalMonthlyLogs = await response.json(); else globalMonthlyLogs = { fill_logs: [], sales_logs: [] }; } catch (err) { globalMonthlyLogs = { fill_logs: [], sales_logs: [] }; }
             filterAndRenderLogs();
@@ -637,9 +636,13 @@
             };
         }
 
+        // 🌟 แก้ไข: Sanitize ลบอักขระพิเศษในการอัปโหลดรูปให้ตรงกับ getSanitizedImageBaseUrl
         async function uploadImageToGitHub(productName, fileBlob) {
             const token = getGitHubToken(); if(!token) { openTokenModal(); return; }
-            const sanitized = productName.replace(/</g, "(").replace(/>/g, ")").replace(/ /g, "_");
+            const sanitized = productName
+                .trim()
+                .replace(/[<>"':?*|\\\/()]/g, "")
+                .replace(/\s+/g, "_");
             const ext = currentImageExtension || ".jpg";
             const uploadUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/image/products/${sanitized}${ext}`;
             
