@@ -71,7 +71,7 @@
         </nav>
         
         <div class="p-4 text-xs text-slate-600 border-t border-slate-800 text-center">
-            v3.5.0 Multi-Dummy Batch Manager
+            v3.6.0 Total Combined Dummy Display
         </div>
     </aside>
 
@@ -109,7 +109,7 @@
                     <!-- แถวที่ 1: จัดการชุดดัมมี่ (Batch Selector) -->
                     <div class="flex items-center justify-between gap-1.5 bg-amber-100/70 p-1.5 rounded-lg border border-amber-200">
                         <div class="flex items-center gap-1 min-w-0 flex-1">
-                            <span class="text-[11px] font-bold text-amber-900 whitespace-nowrap">📝 ชุดดัมมี่:</span>
+                            <span class="text-[11px] font-bold text-amber-900 whitespace-nowrap">📝 ป้อนเข้าชุด:</span>
                             <select id="dummy-batch-select" onchange="switchDummyBatch(this.value)" class="w-full text-xs font-bold bg-white text-amber-800 border border-amber-300 rounded-md px-2 py-1 focus:outline-none cursor-pointer truncate">
                                 <option value="batch_1">📌 ชุดที่ 1 (ดัมมี่ 1)</option>
                                 <option value="batch_2">📌 ชุดที่ 2 (ดัมมี่ 2)</option>
@@ -334,24 +334,38 @@
             return `${RAW_REPO_URL}/image/products/${sanitized}`;
         }
 
-        // 🌟 ดึงชื่อชุดดัมมี่ปัจจุบันที่เลือกอยู่ (Default: batch_1)
         function getCurrentBatchKey() {
             return localStorage.getItem('active_dummy_batch') || "batch_1";
         }
 
-        // 🌟 ดึงข้อมูลดัมมี่ของชุดปัจจุบัน
+        // 🌟 ดึงข้อมูลดัมมี่เฉพาะชุดปัจจุบัน
         function getDummyDeductions() {
             const allBatches = JSON.parse(localStorage.getItem('dummy_sales_batches')) || {};
             return allBatches[getCurrentBatchKey()] || {};
         }
 
-        // 🌟 สลับชุดดัมมี่
+        // 🌟 ดึงยอดดัมมี่ "รวมกันทุกชุด" (สำหรับแสดงผลที่หน้าปักหมุด)
+        function getTotalDummyDeductionsAllBatches() {
+            const allBatches = JSON.parse(localStorage.getItem('dummy_sales_batches')) || {};
+            const totalDeductions = {};
+
+            Object.keys(allBatches).forEach(bKey => {
+                const batchData = allBatches[bKey] || {};
+                Object.keys(batchData).forEach(pName => {
+                    const qty = batchData[pName] || 0;
+                    if (qty > 0) {
+                        totalDeductions[pName] = (totalDeductions[pName] || 0) + qty;
+                    }
+                });
+            });
+            return totalDeductions;
+        }
+
         function switchDummyBatch(batchKey) {
             localStorage.setItem('active_dummy_batch', batchKey);
             renderDashboardCategoryShowcase();
         }
 
-        // 🌟 บันทึกการหักสต็อกลงในชุดดัมมี่ปัจจุบัน
         function adjustDummyStock(productName, amount) {
             const batchKey = getCurrentBatchKey();
             let allBatches = JSON.parse(localStorage.getItem('dummy_sales_batches')) || {};
@@ -366,7 +380,6 @@
             renderDashboardCategoryShowcase();
         }
 
-        // 🌟 ลบดัมมี่ "ยกชุด" เฉพาะชุดที่เลือกอยู่เท่านั้น!
         function clearCurrentBatchSales() {
             const batchKey = getCurrentBatchKey();
             const selectEl = document.getElementById('dummy-batch-select');
@@ -597,18 +610,22 @@
                 batchSelect.value = getCurrentBatchKey();
             }
 
-            const dummySales = getDummyDeductions();
+            // 🌟 ดึงยอดดัมมี่เฉพาะชุดปัจจุบันมาใช้ตอนกดปุ่ม -1 / คืน
+            const dummySalesCurrentBatch = getDummyDeductions();
 
-            // สินค้าที่ถูกหักสต็อกในชุดดัมมี่ปัจจุบัน
-            const activeDummyProducts = [];
-            Object.keys(dummySales).forEach(pName => {
-                if (dummySales[pName] > 0) {
+            // 🌟 ดึงยอดดัมมี่ "รวมทุกชุด" มาใช้แสดงในบล็อกปักหมุด
+            const totalDummyAllBatches = getTotalDummyDeductionsAllBatches();
+
+            const allActiveDummyProducts = [];
+            Object.keys(totalDummyAllBatches).forEach(pName => {
+                const totalDeducted = totalDummyAllBatches[pName];
+                if (totalDeducted > 0) {
                     const excelInfo = allCleanData.find(row => row[1] === pName);
-                    activeDummyProducts.push({
+                    allActiveDummyProducts.push({
                         name: pName,
                         baseLink: excelInfo ? excelInfo[5] : getSanitizedImageBaseUrl(pName),
                         realQty: excelInfo ? excelInfo[4] : 0,
-                        deducted: dummySales[pName],
+                        deducted: totalDeducted,
                         noData: !excelInfo
                     });
                 }
@@ -617,10 +634,10 @@
             if (catSelect) {
                 const currentVal = catSelect.value;
                 catSelect.innerHTML = '<option value="all">🌐 แสดงทุกหมวดหมู่</option>';
-                if (activeDummyProducts.length > 0) {
+                if (allActiveDummyProducts.length > 0) {
                     const optPinned = document.createElement('option');
-                    optPinned.value = "🔥 รายการที่มีการขายในชุดนี้";
-                    optPinned.text = `🔥 รายการที่มีการขายในชุดนี้ (${activeDummyProducts.length})`;
+                    optPinned.value = "🔥 รายการที่มีการขายรวมดัมมี่ทั้งหมด";
+                    optPinned.text = `🔥 รายการที่มีการขายรวมทั้งหมด (${allActiveDummyProducts.length})`;
                     catSelect.appendChild(optPinned);
                 }
                 Object.keys(categoryDatabase).forEach(catName => {
@@ -632,14 +649,14 @@
                 catSelect.value = currentVal || "all";
             }
 
-            // 📌 1. บล็อกปักหมุดประจำชุดดัมมี่ปัจจุบัน
-            if (activeDummyProducts.length > 0) {
+            // 📌 1. บล็อกปักหมุดด้านบนสุด: แสดงยอดดัมมี่รวมจาก "ทุกชุด"
+            if (allActiveDummyProducts.length > 0) {
                 const pinnedBlock = document.createElement('div');
-                pinnedBlock.id = `cat-block-🔥-รายการที่มีการขายในชุดนี้`;
+                pinnedBlock.id = `cat-block-🔥-รายการที่มีการขายรวมดัมมี่ทั้งหมด`;
                 pinnedBlock.className = "bg-amber-50/70 p-2 rounded-lg shadow-2xs border-l-4 border-l-amber-500 border border-amber-200 scroll-mt-36 mb-3";
 
                 let pinnedCardsHtml = "";
-                activeDummyProducts.forEach(prod => {
+                allActiveDummyProducts.forEach(prod => {
                     let badgeClass = prod.realQty <= 0 ? "bg-red-50 text-red-600 font-bold text-[8px]" : "bg-emerald-50 text-emerald-600 font-bold text-[8px]";
                     let badgeText = `เหลือ ${prod.realQty}`;
 
@@ -664,19 +681,20 @@
                 });
 
                 pinnedBlock.innerHTML = `
-                    <div class="flex items-center gap-1 mb-1 border-b border-amber-200/60 pb-0.5"><h3 class="text-[11px] font-bold text-amber-900">🔥 รายการที่มีการขายในชุดนี้ (${activeDummyProducts.length})</h3></div>
+                    <div class="flex items-center gap-1 mb-1 border-b border-amber-200/60 pb-0.5"><h3 class="text-[11px] font-bold text-amber-900">🔥 รายการที่มีการขายรวมทั้งหมด (${allActiveDummyProducts.length})</h3></div>
                     <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-1">${pinnedCardsHtml}</div>
                 `;
                 container.appendChild(pinnedBlock);
             }
 
-            // 📂 2. หมวดหมู่ปรกติ
+            // 📂 2. หมวดหมู่ปรกติตามหมวด
             Object.keys(categoryDatabase).forEach(catName => {
                 const productList = categoryDatabase[catName] || [];
 
                 const matchedProducts = productList.map(prodName => {
                     const excelInfo = allCleanData.find(row => row[1] === prodName);
-                    const deductedQty = dummySales[prodName] || 0;
+                    // ยอดที่ตัดดัมมี่ในชุดที่เลือกอยู่
+                    const deductedQty = dummySalesCurrentBatch[prodName] || 0;
 
                     if (excelInfo) {
                         return { 
