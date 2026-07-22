@@ -38,7 +38,6 @@
                     <img src="image/logo ti-Photoroom.png" alt="Logo" class="w-full h-full object-cover">
                 </div>
             </a>
-            <!-- ปุ่ม X แก้ให้ปิดแน่ๆ บนมือถือ -->
             <button onclick="closeSidebar()" class="md:hidden text-slate-400 hover:text-white cursor-pointer ml-2 p-1">
                 <i data-lucide="x" class="w-6 h-6"></i>
             </button>
@@ -72,7 +71,7 @@
         </nav>
         
         <div class="p-4 text-xs text-slate-600 border-t border-slate-800 text-center">
-            v2.9.0 Fixed Pin & Mobile Sidebar
+            v3.5.0 Multi-Dummy Batch Manager
         </div>
     </aside>
 
@@ -103,20 +102,37 @@
 
             <!-- ================= หน้าแดชบอร์ดภาพรวมแยกแท็บ ================= -->
             <div id="dashboard-page" class="page-content block">
-                <div class="sticky top-[49px] sm:top-[57px] z-30 bg-slate-50/95 backdrop-blur-md py-2 px-1 mb-3 border-b border-slate-200 flex items-center justify-between gap-1.5">
-                    <div class="flex-1 flex items-center gap-1 min-w-0">
-                        <select id="dashboard-category-select" onchange="scrollToCategory(this.value)" class="w-full text-xs font-bold bg-white text-blue-700 border border-blue-300 rounded-lg px-2 py-1.5 shadow-xs focus:ring-2 focus:ring-blue-500 focus:outline-none cursor-pointer truncate">
-                            <option value="all">🌐 แสดงทุกหมวดหมู่</option>
-                        </select>
-                    </div>
+                
+                <!-- 🌟 แถบเลือก "ชุดดัมมี่" และ "หมวดหมู่" ลอยติดจอ (Sticky Control Bar) -->
+                <div class="sticky top-[49px] sm:top-[57px] z-30 bg-slate-50/95 backdrop-blur-md py-2 px-1 mb-3 border-b border-slate-200 flex flex-col gap-2">
                     
-                    <button onclick="clearAllDummySales()" class="text-[10px] bg-amber-50 hover:bg-amber-100 text-amber-700 font-bold px-2 py-1.5 rounded-lg border border-amber-200 cursor-pointer whitespace-nowrap shrink-0">
-                        🔄 ล้างดัมมี่
-                    </button>
+                    <!-- แถวที่ 1: จัดการชุดดัมมี่ (Batch Selector) -->
+                    <div class="flex items-center justify-between gap-1.5 bg-amber-100/70 p-1.5 rounded-lg border border-amber-200">
+                        <div class="flex items-center gap-1 min-w-0 flex-1">
+                            <span class="text-[11px] font-bold text-amber-900 whitespace-nowrap">📝 ชุดดัมมี่:</span>
+                            <select id="dummy-batch-select" onchange="switchDummyBatch(this.value)" class="w-full text-xs font-bold bg-white text-amber-800 border border-amber-300 rounded-md px-2 py-1 focus:outline-none cursor-pointer truncate">
+                                <option value="batch_1">📌 ชุดที่ 1 (ดัมมี่ 1)</option>
+                                <option value="batch_2">📌 ชุดที่ 2 (ดัมมี่ 2)</option>
+                                <option value="batch_3">📌 ชุดที่ 3 (ดัมมี่ 3)</option>
+                            </select>
+                        </div>
+                        <button onclick="clearCurrentBatchSales()" class="text-[10px] bg-red-500 hover:bg-red-600 text-white font-bold px-2 py-1 rounded-md shadow-2xs cursor-pointer whitespace-nowrap shrink-0">
+                            🗑️ ลบทั้งชุดนี้
+                        </button>
+                    </div>
 
-                    <button onclick="scrollToTop()" class="text-[10px] bg-slate-800 hover:bg-slate-900 text-white font-bold px-2 py-1.5 rounded-lg shadow-xs cursor-pointer whitespace-nowrap shrink-0">
-                        ⬆️ บนสุด
-                    </button>
+                    <!-- แถวที่ 2: ดรอปดาวน์หมวดหมู่ + ปุ่มขึ้นบนสุด -->
+                    <div class="flex items-center justify-between gap-1.5">
+                        <div class="flex-1 flex items-center gap-1 min-w-0">
+                            <select id="dashboard-category-select" onchange="scrollToCategory(this.value)" class="w-full text-xs font-bold bg-white text-blue-700 border border-blue-300 rounded-lg px-2 py-1.5 shadow-xs focus:ring-2 focus:ring-blue-500 focus:outline-none cursor-pointer truncate">
+                                <option value="all">🌐 แสดงทุกหมวดหมู่</option>
+                            </select>
+                        </div>
+
+                        <button onclick="scrollToTop()" class="text-[10px] bg-slate-800 hover:bg-slate-900 text-white font-bold px-2.5 py-1.5 rounded-lg shadow-xs cursor-pointer whitespace-nowrap shrink-0">
+                            ⬆️ บนสุด
+                        </button>
+                    </div>
                 </div>
 
                 <div id="dashboard-category-showcase" class="space-y-4"></div>
@@ -303,7 +319,7 @@
             const targetId = `cat-block-${catName.replace(/\s+/g, '-')}`;
             const targetEl = document.getElementById(targetId);
             if (targetEl) {
-                const headerOffset = 100;
+                const headerOffset = 120;
                 const elementPosition = targetEl.getBoundingClientRect().top;
                 const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
                 window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
@@ -318,23 +334,48 @@
             return `${RAW_REPO_URL}/image/products/${sanitized}`;
         }
 
-        function getDummyDeductions() {
-            return JSON.parse(localStorage.getItem('dummy_sales_today')) || {};
+        // 🌟 ดึงชื่อชุดดัมมี่ปัจจุบันที่เลือกอยู่ (Default: batch_1)
+        function getCurrentBatchKey() {
+            return localStorage.getItem('active_dummy_batch') || "batch_1";
         }
 
-        function adjustDummyStock(productName, amount) {
-            let dummySales = getDummyDeductions();
-            let currentDeduction = dummySales[productName] || 0;
-            let newDeduction = currentDeduction + amount;
-            if (newDeduction < 0) newDeduction = 0;
-            dummySales[productName] = newDeduction;
-            localStorage.setItem('dummy_sales_today', JSON.stringify(dummySales));
+        // 🌟 ดึงข้อมูลดัมมี่ของชุดปัจจุบัน
+        function getDummyDeductions() {
+            const allBatches = JSON.parse(localStorage.getItem('dummy_sales_batches')) || {};
+            return allBatches[getCurrentBatchKey()] || {};
+        }
+
+        // 🌟 สลับชุดดัมมี่
+        function switchDummyBatch(batchKey) {
+            localStorage.setItem('active_dummy_batch', batchKey);
             renderDashboardCategoryShowcase();
         }
 
-        function clearAllDummySales() {
-            if (confirm("❓ ล้างยอดดัมมี่ชั่วคราววันนี้ทั้งหมดใช่หรือไม่?")) {
-                localStorage.removeItem('dummy_sales_today');
+        // 🌟 บันทึกการหักสต็อกลงในชุดดัมมี่ปัจจุบัน
+        function adjustDummyStock(productName, amount) {
+            const batchKey = getCurrentBatchKey();
+            let allBatches = JSON.parse(localStorage.getItem('dummy_sales_batches')) || {};
+            if (!allBatches[batchKey]) allBatches[batchKey] = {};
+
+            let currentDeduction = allBatches[batchKey][productName] || 0;
+            let newDeduction = currentDeduction + amount;
+            if (newDeduction < 0) newDeduction = 0;
+
+            allBatches[batchKey][productName] = newDeduction;
+            localStorage.setItem('dummy_sales_batches', JSON.stringify(allBatches));
+            renderDashboardCategoryShowcase();
+        }
+
+        // 🌟 ลบดัมมี่ "ยกชุด" เฉพาะชุดที่เลือกอยู่เท่านั้น!
+        function clearCurrentBatchSales() {
+            const batchKey = getCurrentBatchKey();
+            const selectEl = document.getElementById('dummy-batch-select');
+            const batchName = selectEl ? selectEl.options[selectEl.selectedIndex].text : batchKey;
+
+            if (confirm(`❓ ต้องการลบข้อมูลดัมมี่ทั้งหมดใน "${batchName}" ใช่หรือไม่?\n(ชุดอื่นๆ จะไม่โดนลบ)`)) {
+                let allBatches = JSON.parse(localStorage.getItem('dummy_sales_batches')) || {};
+                delete allBatches[batchKey];
+                localStorage.setItem('dummy_sales_batches', JSON.stringify(allBatches));
                 renderDashboardCategoryShowcase();
             }
         }
@@ -388,7 +429,6 @@
             localStorage.setItem('user_github_token', tokenValue); alert("🔒 บันทึกสำเร็จ"); closeTokenModal();
         }
 
-        // 🌟 ปรับปรุงการเปิด/ปิด Sidebar ป้องกันเปิดค้างบนมือถือ
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebar-overlay');
@@ -419,7 +459,7 @@
             document.querySelectorAll('.tab-item').forEach(btn => btn.className = "tab-item w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl text-slate-400 hover:bg-slate-800");
             element.className = "tab-item w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl bg-blue-600 text-white shadow-sm";
             
-            closeSidebar(); // ปิด Sidebar ทุกครั้งที่เปลี่ยนแท็บ
+            closeSidebar();
             
             renderAllCategoryTables(); 
             renderDashboardCategoryShowcase();
@@ -548,13 +588,18 @@
         function adjustLogDate(daysOffset) { const currentDate = new Date(currentSelectedLogDate); currentDate.setDate(currentDate.getDate() + daysOffset); const yyyy = currentDate.getFullYear(); const mm = String(currentDate.getMonth() + 1).padStart(2, '0'); const dd = String(currentDate.getDate()).padStart(2, '0'); handleLogDateChange(`${yyyy}-${mm}-${dd}`); document.getElementById('log-date-picker').value = currentSelectedLogDate; }
         function resetLogDateToToday() { const today = new Date(); const yyyy = today.getFullYear(); const mm = String(today.getMonth() + 1).padStart(2, '0'); const dd = String(today.getDate()).padStart(2, '0'); handleLogDateChange(`${yyyy}-${mm}-${dd}`); document.getElementById('log-date-picker').value = currentSelectedLogDate; }
 
-        // 🌟 ดึงบล็อกปักหมุด "🔥 รายการที่มีการขายวันนี้" กลับมา + แสดงป้ายดัมมี่ชั่วคราว
         function renderDashboardCategoryShowcase() {
             const container = document.getElementById('dashboard-category-showcase'); if(!container) return; container.innerHTML = "";
             const catSelect = document.getElementById('dashboard-category-select');
+            const batchSelect = document.getElementById('dummy-batch-select');
+
+            if (batchSelect) {
+                batchSelect.value = getCurrentBatchKey();
+            }
+
             const dummySales = getDummyDeductions();
 
-            // ค้นหาสินค้าที่มีการกดตัดสต็อกดัมมี่ไว้ทั้งหมด
+            // สินค้าที่ถูกหักสต็อกในชุดดัมมี่ปัจจุบัน
             const activeDummyProducts = [];
             Object.keys(dummySales).forEach(pName => {
                 if (dummySales[pName] > 0) {
@@ -569,14 +614,13 @@
                 }
             });
 
-            // อัปเดตตัวเลือกใน Dropdown หมวดหมู่
             if (catSelect) {
                 const currentVal = catSelect.value;
                 catSelect.innerHTML = '<option value="all">🌐 แสดงทุกหมวดหมู่</option>';
                 if (activeDummyProducts.length > 0) {
                     const optPinned = document.createElement('option');
-                    optPinned.value = "🔥 รายการที่มีการขายวันนี้";
-                    optPinned.text = `🔥 รายการที่มีการขายวันนี้ (${activeDummyProducts.length})`;
+                    optPinned.value = "🔥 รายการที่มีการขายในชุดนี้";
+                    optPinned.text = `🔥 รายการที่มีการขายในชุดนี้ (${activeDummyProducts.length})`;
                     catSelect.appendChild(optPinned);
                 }
                 Object.keys(categoryDatabase).forEach(catName => {
@@ -588,11 +632,11 @@
                 catSelect.value = currentVal || "all";
             }
 
-            // 📌 1. สร้างหมวดปักหมุดพิเศษ (ถ้ามีสินค้าขายชั่วคราววันนี้)
+            // 📌 1. บล็อกปักหมุดประจำชุดดัมมี่ปัจจุบัน
             if (activeDummyProducts.length > 0) {
                 const pinnedBlock = document.createElement('div');
-                pinnedBlock.id = `cat-block-🔥-รายการที่มีการขายวันนี้`;
-                pinnedBlock.className = "bg-amber-50/70 p-2 rounded-lg shadow-2xs border-l-4 border-l-amber-500 border border-amber-200 scroll-mt-28 mb-3";
+                pinnedBlock.id = `cat-block-🔥-รายการที่มีการขายในชุดนี้`;
+                pinnedBlock.className = "bg-amber-50/70 p-2 rounded-lg shadow-2xs border-l-4 border-l-amber-500 border border-amber-200 scroll-mt-36 mb-3";
 
                 let pinnedCardsHtml = "";
                 activeDummyProducts.forEach(prod => {
@@ -620,13 +664,13 @@
                 });
 
                 pinnedBlock.innerHTML = `
-                    <div class="flex items-center gap-1 mb-1 border-b border-amber-200/60 pb-0.5"><h3 class="text-[11px] font-bold text-amber-900">🔥 รายการที่มีการขายวันนี้ (${activeDummyProducts.length})</h3></div>
+                    <div class="flex items-center gap-1 mb-1 border-b border-amber-200/60 pb-0.5"><h3 class="text-[11px] font-bold text-amber-900">🔥 รายการที่มีการขายในชุดนี้ (${activeDummyProducts.length})</h3></div>
                     <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-1">${pinnedCardsHtml}</div>
                 `;
                 container.appendChild(pinnedBlock);
             }
 
-            // 📂 2. แสดงหมวดหมู่ปรกติตามปกติ
+            // 📂 2. หมวดหมู่ปรกติ
             Object.keys(categoryDatabase).forEach(catName => {
                 const productList = categoryDatabase[catName] || [];
 
@@ -649,7 +693,7 @@
 
                 const catBlock = document.createElement('div');
                 catBlock.id = `cat-block-${catName.replace(/\s+/g, '-')}`;
-                catBlock.className = "bg-white p-2 rounded-lg shadow-2xs border-l-4 border-l-blue-600 border border-gray-100 scroll-mt-28";
+                catBlock.className = "bg-white p-2 rounded-lg shadow-2xs border-l-4 border-l-blue-600 border border-gray-100 scroll-mt-36";
 
                 let cardsHtml = "";
                 if (matchedProducts.length === 0) {
