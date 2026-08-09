@@ -51,7 +51,7 @@
         "discount": 0,
         "shipping": 0,
         "total": 2900,
-        "isMyOrderCreated": false,
+        "isMyOrderCreated": true,
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "วงกลม L3<52มม> x10 =2900\n\nจัดส่งฟรี\nรวม 2900 บ\nเก็บเงินปลายทาง"
