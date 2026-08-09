@@ -35,6 +35,26 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "US 58 มม =320\nจุ๊บเลสงอ90องศา x10 =250\nจุ๊บขันในสั้น x10 =150\nจุ๊บขันในยาว x10 =150\n\nค่าจัดส่ง 50 บ\nรวม 920 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786268701104",
+        "timestamp": 1786268701104,
+        "time": "16:45",
+        "customer": "nong",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "วงกลม L3<52มม>",
+            "qty": 10
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 2900,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "วงกลม L3<52มม> x10 =2900\n\nจัดส่งฟรี\nรวม 2900 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
