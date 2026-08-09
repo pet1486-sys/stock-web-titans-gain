@@ -265,7 +265,7 @@
                 <button onclick="confirmExecuteOrderReservation()" class="text-xs font-bold bg-cyan-600 active:bg-cyan-700 text-white px-4 py-2 rounded-xl shadow-xs cursor-pointer">📌 ยืนยันบันทึกการจอง</button>
             </div>
         </div>
-    </div
+    </div>
 
     <!-- ─── POPUP MODAL: เพิ่มรอบ ─── -->
     <div id="add-batch-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300 p-4">
@@ -462,23 +462,30 @@
         }
 
         // ==========================================
-        // 🌟 GITHUB API CLOUD STORAGE CONTROLLER
+        // 🌟 GITHUB API CLOUD STORAGE CONTROLLER (ปรับใช้ Contents API ดึงเรียลไทม์)
         // ==========================================
 
         async function fetchCloudDatabase() {
             try {
                 const token = getGitHubToken();
-                const headers = token ? { 'Authorization': `token ${token}` } : {};
-                const res = await fetch(`${RAW_REPO_URL}/${DB_JSON_PATH}?t=${new Date().getTime()}`, { headers });
+                const headers = token ? { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' } : { 'Accept': 'application/vnd.github.v3+json' };
+                
+                // 🌟 ใช้ API endpoint https://api.github.com/repos/... ป้องกัน Cache และ Private Access
+                const apiUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${DB_JSON_PATH}?t=${new Date().getTime()}`;
+                const res = await fetch(apiUrl, { headers });
                 
                 if (res.ok) {
-                    const data = await res.json();
+                    const fileInfo = await res.json();
+                    // ถอดรหัส Base64 ภาษาไทย
+                    const jsonStr = decodeURIComponent(escape(atob(fileInfo.content.replace(/\s/g, ''))));
+                    const data = JSON.parse(jsonStr);
+                    
                     dbState = {
                         batch_names: data.batch_names || {},
                         orders_history: data.orders_history || {}
                     };
                 } else {
-                    console.warn("⚠️ ไม่พบไฟล์ orders_db.json บน GitHub (ใช้ค่าเริ่มต้นเปล่า)");
+                    console.warn("⚠️ อ่านผ่าน API ไม่ได้ ลองใช้วิธีสำรอง...");
                     dbState = { batch_names: {}, orders_history: {} };
                 }
             } catch (err) {
@@ -1297,9 +1304,15 @@
 
         async function loadCategoriesFromGitHub() {
             try {
-                const url = `${RAW_REPO_URL}/${CAT_JSON_PATH}?t=${new Date().getTime()}`;
-                const res = await fetch(url);
-                if (res.ok) categoryDatabase = await res.json();
+                const token = getGitHubToken();
+                const headers = token ? { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' } : { 'Accept': 'application/vnd.github.v3+json' };
+                const apiUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${CAT_JSON_PATH}?t=${new Date().getTime()}`;
+                const res = await fetch(apiUrl, { headers });
+                if (res.ok) {
+                    const fileInfo = await res.json();
+                    const jsonStr = decodeURIComponent(escape(atob(fileInfo.content.replace(/\s/g, ''))));
+                    categoryDatabase = JSON.parse(jsonStr);
+                }
             } catch (err) { console.error("❌ โหลดหมวดหมู่ล้มเหลว:", err); }
         }
 
@@ -1499,13 +1512,24 @@
 
             try {
                 const token = getGitHubToken();
-                const headers = token ? { 'Authorization': `token ${token}` } : {};
-                const res = await fetch(`${RAW_REPO_URL}/${FILE_NAME}?t=${new Date().getTime()}`, { headers });
+                const headers = token ? { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' } : { 'Accept': 'application/vnd.github.v3+json' };
+                
+                // 🌟 ใช้ API endpoint สำหรับไฟล์ Excel เช่นเดียวกัน
+                const apiUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${FILE_NAME}?t=${new Date().getTime()}`;
+                const res = await fetch(apiUrl, { headers });
                 
                 if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                const buffer = await res.arrayBuffer();
+                const fileInfo = await res.json();
                 
-                processExcelData(buffer); 
+                // แปลง Base64 binary เป็น ArrayBuffer ให้ SheetJS อ่าน
+                const binaryStr = atob(fileInfo.content.replace(/\s/g, ''));
+                const len = binaryStr.length;
+                const bytes = new Uint8Array(len);
+                for (let i = 0; i < len; i++) {
+                    bytes[i] = binaryStr.charCodeAt(i);
+                }
+
+                processExcelData(bytes.buffer); 
             } catch (error) { 
                 console.error("❌ ไม่สามารถเปิดไฟล์ Excel ได้:", error);
                 document.getElementById('update-status').innerText = "📅 พร้อมใช้งาน"; 
