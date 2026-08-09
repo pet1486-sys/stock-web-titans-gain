@@ -39,7 +39,7 @@
         <div class="max-w-7xl mx-auto flex items-center justify-between gap-2">
             <div class="flex items-center gap-2 min-w-0">
                 <div class="bg-slate-800 h-8 px-2 rounded-lg flex items-center justify-center border border-slate-700 shrink-0">
-                    <img src="image/logo ti-Photoroom.png" alt="Logo" class="h-5 object-contain">
+                    <img src="image/logo ti-Photoroom.png" alt="Logo" class="h-5 object-contain" onerror="this.style.display='none'">
                 </div>
                 <h1 class="text-xs sm:text-sm font-bold text-slate-100 truncate">📦 คลังสินค้า & บันทึกออเดอร์</h1>
             </div>
@@ -50,7 +50,7 @@
                     ⚡ ดึงสต็อก
                 </button>
                 <button onclick="openTokenModal()" title="ตั้งค่า GitHub Token" class="text-[10px] bg-slate-800 active:bg-slate-700 text-amber-400 p-1.5 rounded-md border border-slate-700 cursor-pointer">
-                    ⚙️
+                    ⚙️ Token
                 </button>
             </div>
         </div>
@@ -139,7 +139,7 @@
                     <h2 class="text-xs sm:text-sm font-bold text-blue-950 flex items-center gap-1">
                         🛒 วางข้อความบันทึกออเดอร์ตัดสต็อก
                     </h2>
-                    <span class="text-[9px] bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full font-semibold border border-blue-100">ขยายความสูงอัตโนมัติ</span>
+                    <span class="text-[9px] bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full font-semibold border border-blue-100">บันทึกตรงเข้า GitHub</span>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-2.5 items-stretch">
@@ -165,8 +165,8 @@
                             </div>
                         </div>
 
-                        <button onclick="processOrderAndDeductStock()" class="w-full bg-blue-600 active:bg-blue-700 text-white font-bold text-xs py-2.5 px-3 rounded-lg shadow-sm cursor-pointer flex items-center justify-center gap-1 transition-all mt-1">
-                            ⚡ บันทึกออเดอร์ตัดสต็อกลงชุดรอบนี้
+                        <button id="btn-save-order" onclick="processOrderAndDeductStock()" class="w-full bg-blue-600 active:bg-blue-700 text-white font-bold text-xs py-2.5 px-3 rounded-lg shadow-sm cursor-pointer flex items-center justify-center gap-1 transition-all mt-1">
+                            ⚡ บันทึกออเดอร์ลง GitHub
                         </button>
                     </div>
                 </div>
@@ -221,6 +221,29 @@
         </section>
 
     </main>
+
+    <!-- ─── POPUP MODAL: เลือกรอบสำหรับการยกเลิกจองสินค้า ─── -->
+    <div id="unreserve-target-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300 p-4">
+        <div class="bg-white p-4 sm:p-5 rounded-2xl max-w-sm w-full shadow-xl transform scale-95 transition-transform duration-300">
+            <h3 class="text-xs sm:text-sm font-bold text-blue-900 mb-2 flex items-center gap-1 border-b border-blue-100 pb-2">
+                ↩️ ย้ายออเดอร์จองเข้าสู่รอบตัดสต็อก
+            </h3>
+            <p class="text-[11px] text-gray-600 mb-3">เลือกชุดรอบที่ต้องการย้ายออเดอร์นี้กลับไปตัดยอดสต็อกจริง:</p>
+            <input type="hidden" id="unreserve-source-batch-key" />
+            <input type="hidden" id="unreserve-target-order-id" />
+            
+            <div class="mb-4">
+                <label class="font-bold text-xs text-gray-700 block mb-1">📝 เลือกรอบปลายทาง:</label>
+                <select id="unreserve-destination-batch-select" class="w-full p-2.5 text-xs font-bold border border-blue-300 rounded-xl bg-blue-50/50 focus:ring-2 focus:ring-blue-500 focus:outline-none text-blue-950 cursor-pointer">
+                </select>
+            </div>
+
+            <div class="flex gap-2 justify-end pt-2 border-t border-gray-100">
+                <button onclick="closeUnreserveTargetModal()" class="text-xs text-gray-500 px-3 py-2 cursor-pointer">ยกเลิก</button>
+                <button onclick="confirmExecuteOrderUnreservation()" class="text-xs font-bold bg-blue-600 active:bg-blue-700 text-white px-4 py-2 rounded-xl shadow-xs cursor-pointer">⚡ ยืนยันย้ายเข้าสต็อกจริง</button>
+            </div>
+        </div>
+    </div>
 
     <!-- ─── POPUP MODAL: ระบุวันส่งของสำหรับการจองสินค้า ─── -->
     <div id="reserve-date-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300 p-4">
@@ -359,11 +382,12 @@
     <!-- ─── POPUP MODAL TOKEN ─── -->
     <div id="token-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300 p-4">
         <div class="bg-white p-5 rounded-2xl max-w-md w-full shadow-xl transform scale-95 transition-transform duration-300">
-            <h3 class="text-sm font-bold text-gray-950 mb-2">ตั้งค่ารหัส GitHub Token บนเครื่อง</h3>
-            <input type="password" id="input-token-value" placeholder="วางรหัส ghp_... ตรงนี้" class="w-full text-xs p-2.5 border border-gray-300 rounded-xl" />
+            <h3 class="text-sm font-bold text-gray-950 mb-2">🔑 ตั้งค่า GitHub Token (สิทธิ์ Write)</h3>
+            <p class="text-[11px] text-gray-500 mb-3">จำเป็นต้องใช้ Token เพื่อให้ระบบเขียนบันทึกข้อมูลย้อนกลับไปยัง GitHub Repo ได้ครับ</p>
+            <input type="password" id="input-token-value" placeholder="วางรหัส ghp_... ตรงนี้" class="w-full text-xs p-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" />
             <div class="flex gap-2 justify-end pt-3">
                 <button onclick="closeTokenModal()" class="text-xs text-gray-500 px-3 py-2">ยกเลิก</button>
-                <button onclick="saveTokenToLocal()" class="text-xs font-bold bg-blue-600 text-white px-4 py-2 rounded-xl">💾 บันทึก</button>
+                <button onclick="saveTokenToLocal()" class="text-xs font-bold bg-blue-600 text-white px-4 py-2 rounded-xl">💾 บันทึก Token</button>
             </div>
         </div>
     </div>
@@ -374,47 +398,38 @@
         const GITHUB_REPO = "stock-web-titans-gain"; 
         const FILE_NAME = "stock_data/SKU.xlsx"; 
         const CAT_JSON_PATH = "stock_data/categories.json"; 
+        const DB_JSON_PATH = "stock_data/orders_db.json"; // 🌟 ไฟล์สำหรับเก็บข้อมูลทุกอย่าง
 
         const RAW_REPO_URL = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main`;
 
         let allCleanData = [];
         let categoryDatabase = {}; 
 
+        // 🌟 DATABASE STATE (โกลบอลวัตถุเก็บข้อมูลหลัก)
+        let dbState = {
+            batch_names: {},
+            orders_history: {}
+        };
+
         function getGitHubToken() { return localStorage.getItem('user_github_token') || ""; }
 
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function scrollToSection(sectionId) {
-            const targetEl = document.getElementById(sectionId);
-            if (targetEl) {
-                targetEl.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-
-        function autoAdjustTextareaHeight(el) {
-            el.style.height = 'auto';
-            el.style.height = (el.scrollHeight + 2) + 'px';
-        }
+        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+        function scrollToSection(sectionId) { const targetEl = document.getElementById(sectionId); if (targetEl) targetEl.scrollIntoView({ behavior: 'smooth' }); }
+        function autoAdjustTextareaHeight(el) { el.style.height = 'auto'; el.style.height = (el.scrollHeight + 2) + 'px'; }
 
         function toggleCategoryDrawer() {
             const drawer = document.getElementById('category-drawer');
             const backdrop = document.getElementById('category-drawer-backdrop');
-
             if (drawer.classList.contains('-translate-x-full')) {
                 backdrop.classList.remove('hidden');
                 setTimeout(() => { backdrop.classList.add('opacity-100'); }, 10);
                 drawer.classList.remove('-translate-x-full');
-            } else {
-                closeCategoryDrawer();
-            }
+            } else { closeCategoryDrawer(); }
         }
 
         function closeCategoryDrawer() {
             const drawer = document.getElementById('category-drawer');
             const backdrop = document.getElementById('category-drawer-backdrop');
-
             drawer.classList.add('-translate-x-full');
             backdrop.classList.remove('opacity-100');
             setTimeout(() => { backdrop.classList.add('hidden'); }, 300);
@@ -422,22 +437,15 @@
 
         function scrollToCategory(catName) {
             closeCategoryDrawer();
-            
-            if (catName === 'all') {
-                scrollToSection('sec-stock-showcase');
-                return;
-            }
+            if (catName === 'all') { scrollToSection('sec-stock-showcase'); return; }
             const targetId = `cat-block-${catName.replace(/\s+/g, '-')}`;
             const targetEl = document.getElementById(targetId);
-            if (targetEl) {
-                targetEl.scrollIntoView({ behavior: 'smooth' });
-            }
+            if (targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
         }
 
         function jumpToProductCardInStock(productName) {
             const sanitizedId = `product-card-${productName.trim().replace(/[<>"':?*|\\\/()]/g, "").replace(/\s+/g, "_")}`;
             const targetCard = document.getElementById(sanitizedId);
-
             if (targetCard) {
                 targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 targetCard.classList.remove('highlight-product-target');
@@ -449,11 +457,91 @@
         }
 
         function getSanitizedImageBaseUrl(productName) {
-            const sanitized = productName
-                .trim()
-                .replace(/[<>"':?*|\\\/()]/g, "")
-                .replace(/\s+/g, "_");
+            const sanitized = productName.trim().replace(/[<>"':?*|\\\/()]/g, "").replace(/\s+/g, "_");
             return `${RAW_REPO_URL}/image/products/${sanitized}`;
+        }
+
+        // ==========================================
+        // 🌟 GITHUB API CLOUD STORAGE CONTROLLER
+        // ==========================================
+
+        async function fetchCloudDatabase() {
+            try {
+                const token = getGitHubToken();
+                const headers = token ? { 'Authorization': `token ${token}` } : {};
+                const res = await fetch(`${RAW_REPO_URL}/${DB_JSON_PATH}?t=${new Date().getTime()}`, { headers });
+                
+                if (res.ok) {
+                    const data = await res.json();
+                    dbState = {
+                        batch_names: data.batch_names || {},
+                        orders_history: data.orders_history || {}
+                    };
+                }
+            } catch (err) {
+                console.warn("⚠️ อ่านไฟล์ orders_db.json จาก GitHub ไม่สำเร็จ:", err);
+            }
+        }
+
+        async function syncDatabaseToGitHub(commitMsg = "Update orders & batches") {
+            const token = getGitHubToken();
+            if (!token) {
+                alert("⚠️ ไม่พบ GitHub Token! กรุณากดปุ่ม ⚙️ Token เพื่อใส่รหัสผ่านก่อนบันทึกครับ");
+                openTokenModal();
+                return false;
+            }
+
+            document.getElementById('update-status').innerText = "⏳ กำลังบันทึกลง GitHub...";
+
+            try {
+                // 1. ดึง SHA ของไฟล์เดิมก่อน
+                const getFileUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${DB_JSON_PATH}`;
+                const getRes = await fetch(getFileUrl, {
+                    headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
+                });
+
+                let sha = "";
+                if (getRes.ok) {
+                    const fileData = await getRes.json();
+                    sha = fileData.sha;
+                }
+
+                // 2. แปลง JSON เป็น Base64 (รองรับ ภาษาไทย UTF-8)
+                const jsonString = JSON.stringify(dbState, null, 2);
+                const utf8Bytes = new TextEncoder().encode(jsonString);
+                let binaryStr = "";
+                utf8Bytes.forEach(b => binaryStr += String.fromCharCode(b));
+                const contentBase64 = btoa(binaryStr);
+
+                // 3. ยิง PUT Request ไปบันทึกทับไฟล์บน GitHub
+                const bodyData = {
+                    message: commitMsg,
+                    content: contentBase64,
+                    sha: sha !== "" ? sha : undefined
+                };
+
+                const putRes = await fetch(getFileUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(bodyData)
+                });
+
+                if (putRes.ok) {
+                    document.getElementById('update-status').innerText = "✅ บันทึกลง Cloud แล้ว";
+                    return true;
+                } else {
+                    const errErr = await putRes.json();
+                    throw new Error(errErr.message || "บันทึกล้มเหลว");
+                }
+            } catch (err) {
+                alert(`❌ บันทึกลง GitHub ไม่สำเร็จ: ${err.message}`);
+                document.getElementById('update-status').innerText = "⚠️ บันทึกล้มเหลว";
+                return false;
+            }
         }
 
         // ==========================================
@@ -461,12 +549,7 @@
         // ==========================================
 
         function getSortedDummyBatchList() {
-            let names = JSON.parse(localStorage.getItem('dummy_batch_names'));
-            if (!names) {
-                names = {};
-                localStorage.setItem('dummy_batch_names', JSON.stringify(names));
-            }
-
+            const names = dbState.batch_names || {};
             const sortedKeys = Object.keys(names).sort((a, b) => {
                 const nameA = names[a].toLowerCase();
                 const nameB = names[b].toLowerCase();
@@ -557,19 +640,15 @@
             modal.classList.remove('opacity-100'); modal.querySelector('div').classList.replace('scale-100', 'scale-95'); setTimeout(() => modal.classList.add('hidden'), 300);
         }
 
-        function saveNewCustomBatch() {
+        async function saveNewCustomBatch() {
             const dateVal = document.getElementById('batch-date-picker').value;
             const hourVal = document.getElementById('batch-hour-select').value;
             const roundVal = document.getElementById('batch-round-select').value;
 
-            if (!dateVal) {
-                alert("⚠️ กรุณาเลือกวันที่ก่อนครับ!");
-                return;
-            }
+            if (!dateVal) { alert("⚠️ กรุณาเลือกวันที่ก่อนครับ!"); return; }
 
             const [yyyy, mm, dd] = dateVal.split('-');
             const formattedName = `${dd}-${mm}-${yyyy}-${roundVal}[${hourVal}:00]`;
-            const batchNames = getSortedDummyBatchList();
 
             if (isBatchNameExists(formattedName)) {
                 alert(`❌ รอบเวลา "${formattedName}" มีอยู่ในระบบแล้ว!`);
@@ -577,50 +656,36 @@
             }
 
             const newKey = "batch_" + Date.now();
-            batchNames[newKey] = formattedName;
-            localStorage.setItem('dummy_batch_names', JSON.stringify(batchNames));
+            dbState.batch_names[newKey] = formattedName;
             localStorage.setItem('active_dummy_batch', newKey);
 
             closeAddBatchModal();
-            renderDashboardCategoryShowcase();
+            const success = await syncDatabaseToGitHub(`Create batch: ${formattedName}`);
+            if (success) renderDashboardCategoryShowcase();
         }
 
-        function renameCurrentBatch() {
+        async function renameCurrentBatch() {
             const currentKey = getCurrentBatchKey();
-            if (!currentKey) {
-                alert("⚠️ ยังไม่มีชุดรอบให้แก้ไข กรุณากดเพิ่มรอบก่อนครับ");
-                return;
-            }
+            if (!currentKey) { alert("⚠️ ยังไม่มีชุดรอบให้แก้ไข"); return; }
 
-            const batchNames = getSortedDummyBatchList();
-            const currentName = batchNames[currentKey] || currentKey;
-
+            const currentName = dbState.batch_names[currentKey] || currentKey;
             let newName = prompt(`✏️ เปลี่ยนชื่อชุดดัมมี่ "${currentName}" เป็น:`, currentName);
+            
             if (newName !== null) {
                 newName = newName.trim();
-                if (!newName) {
-                    alert("⚠️ กรุณาระบุชื่อชุด!");
-                    return;
-                }
-                if (isBatchNameExists(newName, currentKey)) {
-                    alert(`❌ ชื่อชุด "${newName}" มีอยู่แล้วในระบบ!`);
-                    return;
-                }
+                if (!newName) { alert("⚠️ กรุณาระบุชื่อชุด!"); return; }
+                if (isBatchNameExists(newName, currentKey)) { alert(`❌ ชื่อชุด "${newName}" มีอยู่แล้ว!`); return; }
 
-                batchNames[currentKey] = newName;
-                localStorage.setItem('dummy_batch_names', JSON.stringify(batchNames));
-                renderDashboardCategoryShowcase();
+                dbState.batch_names[currentKey] = newName;
+                const success = await syncDatabaseToGitHub(`Rename batch to: ${newName}`);
+                if (success) renderDashboardCategoryShowcase();
             }
         }
 
         function openMultiDeleteModal() {
             const batchNames = getSortedDummyBatchList();
             const keys = Object.keys(batchNames);
-
-            if (keys.length === 0) {
-                alert("⚠️ ไม่มีชุดดัมมี่ให้ลบในระบบ");
-                return;
-            }
+            if (keys.length === 0) { alert("⚠️ ไม่มีชุดดัมมี่ให้ลบในระบบ"); return; }
 
             const wrapper = document.getElementById('multi-delete-list-wrapper');
             wrapper.innerHTML = "";
@@ -649,55 +714,38 @@
             const checkboxes = document.querySelectorAll('.batch-delete-checkbox');
             const btn = document.getElementById('select-all-batches-btn');
             const isAllChecked = Array.from(checkboxes).every(cb => cb.checked);
-
             checkboxes.forEach(cb => cb.checked = !isAllChecked);
             btn.innerText = !isAllChecked ? "ยกเลิกทั้งหมด" : "เลือกทั้งหมด";
         }
 
-        function confirmExecuteMultiDelete() {
+        async function confirmExecuteMultiDelete() {
             const checkboxes = document.querySelectorAll('.batch-delete-checkbox:checked');
             const selectedKeys = Array.from(checkboxes).map(cb => cb.value);
 
-            if (selectedKeys.length === 0) {
-                alert("⚠️ กรุณาติ๊กเลือกชุดดัมมี่ที่ต้องการลบอย่างน้อย 1 รายการ");
-                return;
-            }
+            if (selectedKeys.length === 0) { alert("⚠️ กรุณาติ๊กเลือกชุดดัมมี่ที่ต้องการลบ"); return; }
 
-            if (confirm(`❓ คุณแน่ใจหรือไม่ว่าต้องการลบชุดดัมมี่จำนวน ${selectedKeys.length} ชุดที่เลือก?`)) {
-                let batchNames = getSortedDummyBatchList();
-                let allBatches = JSON.parse(localStorage.getItem('dummy_sales_batches')) || {};
-                let allOrders = JSON.parse(localStorage.getItem('dummy_orders_history')) || {};
-
+            if (confirm(`❓ ยืนยันลบชุดดัมมี่จำนวน ${selectedKeys.length} ชุดที่เลือก?`)) {
                 selectedKeys.forEach(k => {
-                    delete batchNames[k];
-                    delete allBatches[k];
-                    delete allOrders[k];
+                    delete dbState.batch_names[k];
+                    delete dbState.orders_history[k];
                 });
 
-                localStorage.setItem('dummy_batch_names', JSON.stringify(batchNames));
-                localStorage.setItem('dummy_sales_batches', JSON.stringify(allBatches));
-                localStorage.setItem('dummy_orders_history', JSON.stringify(allOrders));
-
                 const remainingKeys = Object.keys(getSortedDummyBatchList());
-                if (remainingKeys.length > 0) {
-                    localStorage.setItem('active_dummy_batch', remainingKeys[0]);
-                } else {
-                    localStorage.removeItem('active_dummy_batch');
-                }
+                if (remainingKeys.length > 0) localStorage.setItem('active_dummy_batch', remainingKeys[0]);
+                else localStorage.removeItem('active_dummy_batch');
 
                 closeMultiDeleteModal();
-                renderDashboardCategoryShowcase();
+                const success = await syncDatabaseToGitHub(`Delete ${selectedKeys.length} batches`);
+                if (success) renderDashboardCategoryShowcase();
             }
         }
 
-        // คำนวณเฉพาะออเดอร์ตัดสต็อกจริง (ไม่รวมออเดอร์จอง)
         function getTotalDummyDetailsAllBatches() {
-            const allBatches = JSON.parse(localStorage.getItem('dummy_sales_batches')) || {};
-            const allOrdersHistory = JSON.parse(localStorage.getItem('dummy_orders_history')) || {};
+            const allOrdersHistory = dbState.orders_history || {};
             const batchNames = getSortedDummyBatchList();
             
             const productDetails = {};
-            const reservedProductTotals = {}; // สะสมยอดจอง
+            const reservedProductTotals = {}; 
 
             Object.keys(batchNames).forEach(bKey => {
                 const orders = allOrdersHistory[bKey] || [];
@@ -705,12 +753,10 @@
 
                 orders.forEach(ord => {
                     if (ord.isReserved) {
-                        // สะสมยอดการจองสินค้าไว้แสดงแยก
                         ord.items.forEach(item => {
                             reservedProductTotals[item.name] = (reservedProductTotals[item.name] || 0) + item.qty;
                         });
                     } else {
-                        // ออเดอร์ปกติ นำไปหักสต็อกจริง
                         ord.items.forEach(item => {
                             if (!productDetails[item.name]) {
                                 productDetails[item.name] = { totalDeducted: 0, breakdown: [] };
@@ -765,14 +811,10 @@
         }
 
         function parseOrderSummaryValues(rawText) {
-            let discount = 0;
-            let shipping = 0;
-            let total = 0;
-
+            let discount = 0, shipping = 0, total = 0;
             const lines = rawText.split('\n');
             lines.forEach(line => {
                 const str = line.trim();
-                
                 const discMatch = str.match(/(ส่วนลด|ลด)\s*:?\s*(\d+)/i);
                 if (discMatch) discount += parseInt(discMatch[2]) || 0;
 
@@ -782,7 +824,6 @@
                 const totalMatch = str.match(/(ยอดรวม|รวม)\s*:?\s*(\d+)/i);
                 if (totalMatch) total = parseInt(totalMatch[2]) || 0;
             });
-
             return { discount, shipping, total };
         }
 
@@ -791,36 +832,21 @@
             return /\(C\d+\)/i.test(customerName.trim());
         }
 
-        function processOrderAndDeductStock() {
+        async function processOrderAndDeductStock() {
             const currentKey = getCurrentBatchKey();
-            if (!currentKey) {
-                alert("⚠️ ยังไม่มีชุดรอบในระบบ กรุณากด '+ เพิ่มรอบ' ด้านบนก่อนครับ");
-                return;
-            }
+            if (!currentKey) { alert("⚠️ กรุณากด '+ เพิ่มรอบ' ด้านบนก่อนครับ"); return; }
 
             const inputEl = document.getElementById('quick-order-input');
             const textVal = inputEl.value.trim();
             const customerName = document.getElementById('order-customer-input').value.trim() || "ทั่วไป / ไม่ระบุ";
             const channelName = document.getElementById('order-channel-select').value;
 
-            if (!textVal) {
-                alert("⚠️ กรุณาใส่ออเดอร์ลงในกล่องข้อความก่อนครับ");
-                return;
-            }
+            if (!textVal) { alert("⚠️ กรุณาใส่ออเดอร์ลงในกล่องข้อความก่อนครับ"); return; }
+            if (allCleanData.length === 0) { alert("⚠️ ไม่พบข้อมูลสต็อกสินค้า กรุณากดดึงข้อมูลก่อนครับ"); return; }
 
-            if (allCleanData.length === 0) {
-                alert("⚠️ ไม่พบข้อมูลสต็อกสินค้า กรุณากดดึงข้อมูลก่อนครับ");
-                return;
-            }
-
-            let allBatches = JSON.parse(localStorage.getItem('dummy_sales_batches')) || {};
-            if (!allBatches[currentKey]) allBatches[currentKey] = {};
-
-            let allOrdersHistory = JSON.parse(localStorage.getItem('dummy_orders_history')) || {};
-            if (!allOrdersHistory[currentKey]) allOrdersHistory[currentKey] = [];
+            if (!dbState.orders_history[currentKey]) dbState.orders_history[currentKey] = [];
 
             const summaryValues = parseOrderSummaryValues(textVal);
-
             const lines = textVal.split('\n');
             let matchedItemsForOrder = [];
             let unmatchedLines = [];
@@ -831,25 +857,14 @@
 
                 let qty = 1;
                 const qtyXMatch = trimmed.match(/x\s*(\d+)/i);
-                if (qtyXMatch) {
-                    qty = parseInt(qtyXMatch[1]) || 1;
-                }
+                if (qtyXMatch) qty = parseInt(qtyXMatch[1]) || 1;
 
                 const matchedProduct = findExactProductMatch(trimmed);
-
-                if (matchedProduct) {
-                    const productName = matchedProduct[1];
-                    const currentDeduction = allBatches[currentKey][productName] || 0;
-                    allBatches[currentKey][productName] = currentDeduction + qty;
-                    matchedItemsForOrder.push({ name: productName, qty: qty });
-                } else {
-                    unmatchedLines.push(trimmed);
-                }
+                if (matchedProduct) matchedItemsForOrder.push({ name: matchedProduct[1], qty: qty });
+                else unmatchedLines.push(trimmed);
             });
 
             if (matchedItemsForOrder.length > 0) {
-                localStorage.setItem('dummy_sales_batches', JSON.stringify(allBatches));
-
                 const now = new Date();
                 const newOrderRecord = {
                     id: "ord_" + Date.now(),
@@ -862,35 +877,33 @@
                     shipping: summaryValues.shipping,
                     total: summaryValues.total,
                     isMyOrderCreated: false,
-                    isReserved: false, // สถานะการจอง
+                    isReserved: false, 
                     dispatchDate: "",
                     rawText: textVal
                 };
 
-                allOrdersHistory[currentKey].push(newOrderRecord);
-                localStorage.setItem('dummy_orders_history', JSON.stringify(allOrdersHistory));
+                dbState.orders_history[currentKey].push(newOrderRecord);
 
-                inputEl.value = "";
-                inputEl.style.height = 'auto'; 
-                document.getElementById('order-customer-input').value = "";
+                const success = await syncDatabaseToGitHub(`Add order for ${customerName}`);
+                if (success) {
+                    inputEl.value = "";
+                    inputEl.style.height = 'auto'; 
+                    document.getElementById('order-customer-input').value = "";
+                    renderDashboardCategoryShowcase();
 
-                renderDashboardCategoryShowcase();
-
-                if (unmatchedLines.length > 0) {
-                    alert(`🎉 บันทึกออเดอร์สำเร็จ!\n\n⚠️ บรรทัดที่ไม่พบชื่อสินค้าเป๊ะๆ ในระบบ:\n${unmatchedLines.map(l => '• ' + l).join('\n')}`);
+                    if (unmatchedLines.length > 0) {
+                        alert(`🎉 บันทึกออเดอร์สำเร็จ!\n\n⚠️ บรรทัดที่ไม่พบชื่อสินค้าในระบบ:\n${unmatchedLines.map(l => '• ' + l).join('\n')}`);
+                    }
                 }
             } else {
-                alert("⚠️ ไม่พบชื่อสินค้าที่ตรงกันเป๊ะในระบบ กรุณาตรวจสอบชื่อสินค้าอีกครั้งครับ");
+                alert("⚠️ ไม่พบชื่อสินค้าที่ตรงกันในระบบ กรุณาตรวจสอบอีกครั้ง");
             }
         }
 
-        // 🌟 เปิด Popup เลือกวันที่จะส่งสินค้าเพื่อเปลี่ยนเป็นออเดอร์จอง
         function openReserveDateModal(batchKey, orderId) {
             document.getElementById('reserve-target-batch-key').value = batchKey;
             document.getElementById('reserve-target-order-id').value = orderId;
-            
-            const todayStr = new Date().toISOString().split('T')[0];
-            document.getElementById('reserve-dispatch-date-input').value = todayStr;
+            document.getElementById('reserve-dispatch-date-input').value = new Date().toISOString().split('T')[0];
 
             const modal = document.getElementById('reserve-date-modal');
             modal.classList.remove('hidden');
@@ -902,50 +915,83 @@
             modal.classList.remove('opacity-100'); modal.querySelector('div').classList.replace('scale-100', 'scale-95'); setTimeout(() => modal.classList.add('hidden'), 300);
         }
 
-        // ยืนยันย้ายออเดอร์ไปสถานะจองสินค้า (ไฮไลท์สีฟ้า)
-        function confirmExecuteOrderReservation() {
+        async function confirmExecuteOrderReservation() {
             const batchKey = document.getElementById('reserve-target-batch-key').value;
             const orderId = document.getElementById('reserve-target-order-id').value;
             const dispatchDate = document.getElementById('reserve-dispatch-date-input').value;
 
-            if (!dispatchDate) {
-                alert("⚠️ กรุณาระบุวันที่คาดว่าจะส่งสินค้าก่อนครับ!");
-                return;
-            }
+            if (!dispatchDate) { alert("⚠️ กรุณาระบุวันที่ก่อนครับ!"); return; }
 
-            let allOrdersHistory = JSON.parse(localStorage.getItem('dummy_orders_history')) || {};
-            let orderList = allOrdersHistory[batchKey] || [];
-
+            let orderList = dbState.orders_history[batchKey] || [];
             const targetOrder = orderList.find(o => o.id === orderId);
+            
             if (targetOrder) {
                 targetOrder.isReserved = true;
                 targetOrder.dispatchDate = dispatchDate;
 
-                localStorage.setItem('dummy_orders_history', JSON.stringify(allOrdersHistory));
                 closeReserveDateModal();
-                renderDashboardCategoryShowcase();
+                const success = await syncDatabaseToGitHub(`Reserve order ${orderId}`);
+                if (success) renderDashboardCategoryShowcase();
             }
         }
 
-        // ยกเลิกสถานะจอง คืนกลับมาเป็นออเดอร์ปกติ
-        function unreserveOrderRecord(batchKey, orderId) {
-            let allOrdersHistory = JSON.parse(localStorage.getItem('dummy_orders_history')) || {};
-            let orderList = allOrdersHistory[batchKey] || [];
+        function openUnreserveTargetModal(sourceBatchKey, orderId) {
+            const batchNames = getSortedDummyBatchList();
+            const keys = Object.keys(batchNames);
+            if (keys.length === 0) { alert("⚠️ ไม่พบชุดรอบในระบบ"); return; }
 
-            const targetOrder = orderList.find(o => o.id === orderId);
-            if (targetOrder) {
+            document.getElementById('unreserve-source-batch-key').value = sourceBatchKey;
+            document.getElementById('unreserve-target-order-id').value = orderId;
+
+            const selectEl = document.getElementById('unreserve-destination-batch-select');
+            selectEl.innerHTML = "";
+            const currentActiveKey = getCurrentBatchKey();
+
+            keys.forEach(k => {
+                const opt = document.createElement('option');
+                opt.value = k;
+                opt.text = batchNames[k];
+                if (k === currentActiveKey) opt.selected = true;
+                selectEl.appendChild(opt);
+            });
+
+            const modal = document.getElementById('unreserve-target-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => { modal.classList.add('opacity-100'); modal.querySelector('div').classList.replace('scale-95', 'scale-100'); }, 10);
+        }
+
+        function closeUnreserveTargetModal() {
+            const modal = document.getElementById('unreserve-target-modal');
+            modal.classList.remove('opacity-100'); modal.querySelector('div').classList.replace('scale-100', 'scale-95'); setTimeout(() => modal.classList.add('hidden'), 300);
+        }
+
+        async function confirmExecuteOrderUnreservation() {
+            const sourceBatchKey = document.getElementById('unreserve-source-batch-key').value;
+            const orderId = document.getElementById('unreserve-target-order-id').value;
+            const destBatchKey = document.getElementById('unreserve-destination-batch-select').value;
+
+            if (!destBatchKey) { alert("⚠️ กรุณาเลือกรอบปลายทาง!"); return; }
+
+            let sourceList = dbState.orders_history[sourceBatchKey] || [];
+            const targetOrderIndex = sourceList.findIndex(o => o.id === orderId);
+
+            if (targetOrderIndex !== -1) {
+                const [targetOrder] = sourceList.splice(targetOrderIndex, 1);
                 targetOrder.isReserved = false;
                 targetOrder.dispatchDate = "";
 
-                localStorage.setItem('dummy_orders_history', JSON.stringify(allOrdersHistory));
-                renderDashboardCategoryShowcase();
+                if (!dbState.orders_history[destBatchKey]) dbState.orders_history[destBatchKey] = [];
+                dbState.orders_history[destBatchKey].push(targetOrder);
+
+                closeUnreserveTargetModal();
+                const success = await syncDatabaseToGitHub(`Unreserve order ${orderId}`);
+                if (success) renderDashboardCategoryShowcase();
             }
         }
 
-        // 🌟 แสดงรายการออเดอร์แยกเป็น "ออเดอร์ปกติ" และ "ออเดอร์จองสินค้า (ไฮไลท์ฟ้าด้านล่าง)"
         function renderSavedOrdersHistory() {
             const batchNames = getSortedDummyBatchList();
-            const allOrdersHistory = JSON.parse(localStorage.getItem('dummy_orders_history')) || {};
+            const allOrdersHistory = dbState.orders_history || {};
             
             const wrapperNormal = document.getElementById('saved-orders-cards-wrapper');
             const placeholderNormal = document.getElementById('empty-orders-placeholder');
@@ -1023,7 +1069,6 @@
                                             <span class="text-[10px] font-bold text-blue-950 truncate">👤 ${ord.customer}</span>
                                         </div>
                                         
-                                        <!-- 📌 ปุ่มกดจองสินค้า -->
                                         <button onclick="openReserveDateModal('${bKey}', '${ord.id}')" title="เปลี่ยนเป็นออเดอร์จองสินค้า" class="text-[8px] bg-cyan-600 active:bg-cyan-700 text-white font-bold px-1.5 py-0.5 rounded cursor-pointer shrink-0 shadow-2xs">
                                             📌 จอง
                                         </button>
@@ -1063,7 +1108,7 @@
                     wrapperNormal.appendChild(batchSection);
                 }
 
-                // 2. การ์ดออเดอร์จองสินค้า (ไฮไลท์ฟ้า แสดงในกรอบล่าง)
+                // 2. การ์ดออเดอร์จองสินค้า
                 if (reservedOrders.length > 0) {
                     reservedOrders.forEach(ord => {
                         let itemsHtml = ord.items.map(i => {
@@ -1093,7 +1138,7 @@
 
                                 <div class="flex items-center justify-between gap-1 mb-1">
                                     <span class="text-[10px] font-bold text-cyan-950 truncate">👤 ${ord.customer}</span>
-                                    <button onclick="unreserveOrderRecord('${bKey}', '${ord.id}')" title="ยกเลิกจอง คืนกลับเป็นออเดอร์ตัดสต็อกปกติ" class="text-[8px] bg-slate-200 active:bg-slate-300 text-slate-800 font-bold px-1.5 py-0.5 rounded cursor-pointer shrink-0">
+                                    <button onclick="openUnreserveTargetModal('${bKey}', '${ord.id}')" title="เลิกจองและเลือกรอบเพื่อย้ายไปตัดสต็อกจริง" class="text-[8px] bg-blue-600 active:bg-blue-700 text-white font-bold px-1.5 py-0.5 rounded cursor-pointer shrink-0 shadow-2xs">
                                         ↩️ เลิกจอง
                                     </button>
                                 </div>
@@ -1125,22 +1170,18 @@
             else placeholderReserved.classList.add('hidden');
         }
 
-        function toggleMyOrderStatus(batchKey, orderId) {
-            let allOrdersHistory = JSON.parse(localStorage.getItem('dummy_orders_history')) || {};
-            let orderList = allOrdersHistory[batchKey] || [];
-
+        async function toggleMyOrderStatus(batchKey, orderId) {
+            let orderList = dbState.orders_history[batchKey] || [];
             const targetOrder = orderList.find(o => o.id === orderId);
             if (targetOrder) {
                 targetOrder.isMyOrderCreated = !targetOrder.isMyOrderCreated;
-                localStorage.setItem('dummy_orders_history', JSON.stringify(allOrdersHistory));
-                renderSavedOrdersHistory();
+                const success = await syncDatabaseToGitHub(`Toggle MyOrder status`);
+                if (success) renderSavedOrdersHistory();
             }
         }
 
         function openEditOrderModal(batchKey, orderId) {
-            let allOrdersHistory = JSON.parse(localStorage.getItem('dummy_orders_history')) || {};
-            let orderList = allOrdersHistory[batchKey] || [];
-
+            let orderList = dbState.orders_history[batchKey] || [];
             const targetOrder = orderList.find(o => o.id === orderId);
             if (!targetOrder) return;
 
@@ -1172,13 +1213,11 @@
             modal.classList.remove('opacity-100'); modal.querySelector('div').classList.replace('scale-100', 'scale-95'); setTimeout(() => modal.classList.add('hidden'), 300);
         }
 
-        function saveEditedOrderData() {
+        async function saveEditedOrderData() {
             const orderId = document.getElementById('edit-order-id').value;
             const batchKey = document.getElementById('edit-order-batch-key').value;
 
-            let allOrdersHistory = JSON.parse(localStorage.getItem('dummy_orders_history')) || {};
-            let orderList = allOrdersHistory[batchKey] || [];
-
+            let orderList = dbState.orders_history[batchKey] || [];
             const targetOrder = orderList.find(o => o.id === orderId);
             if (!targetOrder) return;
 
@@ -1211,9 +1250,7 @@
                 if (qtyXMatch) qty = parseInt(qtyXMatch[1]) || 1;
 
                 const matchedProduct = findExactProductMatch(trimmed);
-                if (matchedProduct) {
-                    newMatchedItems.push({ name: matchedProduct[1], qty: qty });
-                }
+                if (matchedProduct) newMatchedItems.push({ name: matchedProduct[1], qty: qty });
             });
 
             targetOrder.timestamp = newTimestamp;
@@ -1226,22 +1263,19 @@
             targetOrder.rawText = newRawText;
             targetOrder.items = newMatchedItems;
 
-            localStorage.setItem('dummy_orders_history', JSON.stringify(allOrdersHistory));
-
             closeEditOrderModal();
-            renderDashboardCategoryShowcase();
+            const success = await syncDatabaseToGitHub(`Edit order ${orderId}`);
+            if (success) renderDashboardCategoryShowcase();
         }
 
-        function deleteSingleOrderRecord(batchKey, orderId) {
+        async function deleteSingleOrderRecord(batchKey, orderId) {
             if (!confirm("❓ ต้องการลบออเดอร์นี้หรือไม่?")) return;
 
-            let allOrdersHistory = JSON.parse(localStorage.getItem('dummy_orders_history')) || {};
-            let orderList = allOrdersHistory[batchKey] || [];
+            let orderList = dbState.orders_history[batchKey] || [];
+            dbState.orders_history[batchKey] = orderList.filter(o => o.id !== orderId);
 
-            allOrdersHistory[batchKey] = orderList.filter(o => o.id !== orderId);
-            localStorage.setItem('dummy_orders_history', JSON.stringify(allOrdersHistory));
-
-            renderDashboardCategoryShowcase();
+            const success = await syncDatabaseToGitHub(`Delete order ${orderId}`);
+            if (success) renderDashboardCategoryShowcase();
         }
 
         function openTokenModal() {
@@ -1257,46 +1291,49 @@
             const tokenValue = document.getElementById('input-token-value').value.trim();
             if(!tokenValue) { localStorage.removeItem('user_github_token'); closeTokenModal(); return; }
             localStorage.setItem('user_github_token', tokenValue); alert("🔒 บันทึกสำเร็จ"); closeTokenModal();
+            fetchActualExcelData();
         }
 
         async function loadCategoriesFromGitHub() {
             try {
                 const url = `${RAW_REPO_URL}/${CAT_JSON_PATH}?t=${new Date().getTime()}`;
                 const res = await fetch(url);
-                if (res.ok) {
-                    categoryDatabase = await res.json();
-                }
-            } catch (err) {
-                console.error("❌ โหลดไฟล์หมวดหมู่ล้มเหลว:", err);
-            }
+                if (res.ok) categoryDatabase = await res.json();
+            } catch (err) { console.error("❌ โหลดหมวดหมู่ล้มเหลว:", err); }
         }
 
         function processExcelData(arrayBuffer) {
-            const workbook = XLSX.read(new Uint8Array(arrayBuffer), { type: 'array' });
-            const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-            const rawData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-            let startIndex = -1;
-            for (let i = 0; i < rawData.length; i++) {
-                if (rawData[i] && rawData[i].some(cell => cell && cell.toString().toLowerCase().replace(/\s+/g, '') === 'plucode')) { startIndex = i + 1; break; }
+            try {
+                const workbook = XLSX.read(new Uint8Array(arrayBuffer), { type: 'array' });
+                const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+                const rawData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+                let startIndex = -1;
+                for (let i = 0; i < rawData.length; i++) {
+                    if (rawData[i] && rawData[i].some(cell => cell && cell.toString().toLowerCase().replace(/\s+/g, '') === 'plucode')) { startIndex = i + 1; break; }
+                }
+                if (startIndex === -1) startIndex = 8; 
+
+                const targetCategories = ["อุปกรณ์ปะยาง", "อุปกรณ์ปะยาง MR"]; 
+                allCleanData = rawData.slice(startIndex)
+                    .filter(row => row[1] && row[2]) 
+                    .filter(row => row[6] && targetCategories.includes(row[6].toString().trim())) 
+                    .map(row => {
+                        const pluCode = row[1] ? row[1].toString().trim() : ""; 
+                        const name = row[2] ? row[2].toString().trim() : "";    
+                        const price = row[3] ? row[3].toString().trim() : "0";  
+                        const unit = row[5] ? row[5].toString().trim() : "";    
+                        const qty = parseInt(row[7]) || 0;                      
+                        
+                        const imgUrl = getSanitizedImageBaseUrl(name);
+                        return [pluCode, name, price, unit, qty, imgUrl];
+                    });
+
+                renderDashboardCategoryShowcase(); 
+                fetchFileLastCommitTime();
+            } catch (err) {
+                console.error("❌ เกิดข้อผิดพลาดในการอ่านไฟล์ Excel:", err);
+                renderDashboardCategoryShowcase();
             }
-            if (startIndex === -1) startIndex = 8; 
-
-            const targetCategories = ["อุปกรณ์ปะยาง", "อุปกรณ์ปะยาง MR"]; 
-            allCleanData = rawData.slice(startIndex)
-                .filter(row => row[1] && row[2]) 
-                .filter(row => row[6] && targetCategories.includes(row[6].toString().trim())) 
-                .map(row => {
-                    const pluCode = row[1] ? row[1].toString().trim() : ""; 
-                    const name = row[2] ? row[2].toString().trim() : "";    
-                    const price = row[3] ? row[3].toString().trim() : "0";  
-                    const unit = row[5] ? row[5].toString().trim() : "";    
-                    const qty = parseInt(row[7]) || 0;                      
-                    
-                    const imgUrl = getSanitizedImageBaseUrl(name);
-                    return [pluCode, name, price, unit, qty, imgUrl];
-                });
-
-            renderDashboardCategoryShowcase(); fetchFileLastCommitTime();
         }
 
         function renderDashboardCategoryShowcase() {
@@ -1306,7 +1343,6 @@
 
             updateDummyBatchSelectUI();
 
-            // ดึงข้อมูลการตัดยอดสต็อกจริง และยอดการจองสินค้า
             const { actualDetails, reservedTotals } = getTotalDummyDetailsAllBatches();
             const catNames = Object.keys(categoryDatabase);
 
@@ -1314,7 +1350,6 @@
 
             if (sidebarList) {
                 sidebarList.innerHTML = "";
-                
                 const btnAll = document.createElement('button');
                 btnAll.onclick = () => scrollToCategory('all');
                 btnAll.className = "w-full text-left px-3 py-2.5 rounded-xl text-xs font-bold bg-slate-100 active:bg-blue-50 text-slate-700 active:text-blue-700 transition-all border border-slate-200 shrink-0 cursor-pointer flex items-center justify-between group whitespace-nowrap";
@@ -1326,17 +1361,13 @@
                     const btn = document.createElement('button');
                     btn.onclick = () => scrollToCategory(catName);
                     btn.className = "w-full text-left px-3 py-2.5 rounded-xl text-xs font-semibold bg-white active:bg-blue-50 text-slate-800 active:text-blue-700 transition-all border border-slate-200/80 shrink-0 cursor-pointer flex items-center justify-between shadow-2xs group whitespace-nowrap";
-                    btn.innerHTML = `
-                        <span class="truncate pr-1">📁 ${catName}</span>
-                        <span class="text-[9.5px] bg-slate-100 text-slate-600 group-hover:bg-blue-100 group-hover:text-blue-800 px-1.5 py-0.2 rounded-full font-bold shrink-0">${count}</span>
-                    `;
+                    btn.innerHTML = `<span class="truncate pr-1">📁 ${catName}</span><span class="text-[9.5px] bg-slate-100 text-slate-600 group-hover:bg-blue-100 group-hover:text-blue-800 px-1.5 py-0.2 rounded-full font-bold shrink-0">${count}</span>`;
                     sidebarList.appendChild(btn);
                 });
             }
 
             catNames.forEach(catName => {
                 const productList = categoryDatabase[catName] || [];
-
                 const matchedProducts = productList.map(prodName => {
                     const excelInfo = allCleanData.find(row => row[1] === prodName);
                     const excelQty = excelInfo ? excelInfo[4] : 0;
@@ -1345,9 +1376,8 @@
                     const totalDeducted = itemTotalDetail.totalDeducted;
                     const breakdown = itemTotalDetail.breakdown || [];
 
-                    // 🌟 ปล่อยให้แสดงยอดติดลบได้ตามปกติ ไม่ล็อกที่ 0
                     let netQty = excelQty - totalDeducted;
-                    let reservedQty = reservedTotals[prodName] || 0; // ยอดจองจริงสะสม
+                    let reservedQty = reservedTotals[prodName] || 0; 
 
                     if (excelInfo) {
                         return { 
@@ -1362,7 +1392,7 @@
                         };
                     }
                     const imgUrl = getSanitizedImageBaseUrl(prodName);
-                    return { name: prodName, baseLink: imgUrl, excelQty: 0, netQty: 0, reservedQty: 0, deducted: 0, breakdown: [], noData: true };
+                    return { name: prodName, baseLink: imgUrl, excelQty: 0, netQty: netQty, reservedQty: reservedQty, deducted: totalDeducted, breakdown: breakdown, noData: allCleanData.length === 0 };
                 });
 
                 const catBlock = document.createElement('div');
@@ -1375,21 +1405,14 @@
                 } else {
                     matchedProducts.forEach(prod => {
                         let netBadgeClass;
-                        if (prod.noData) {
-                            netBadgeClass = "bg-amber-50 text-amber-600 font-bold text-[8px]";
-                        } else if (prod.netQty < 0) {
-                            // ยอดติดลบ แสดงเป็นแถบสีแดงชัดเจน
-                            netBadgeClass = "bg-red-600 text-white font-extrabold text-[8px]";
-                        } else if (prod.netQty === 0) {
-                            netBadgeClass = "bg-red-500 text-white font-extrabold text-[8px]";
-                        } else {
-                            netBadgeClass = "bg-emerald-600 text-white font-bold text-[8px]";
-                        }
+                        if (prod.noData) netBadgeClass = "bg-amber-50 text-amber-600 font-bold text-[8px]";
+                        else if (prod.netQty < 0) netBadgeClass = "bg-red-600 text-white font-extrabold text-[8px]";
+                        else if (prod.netQty === 0) netBadgeClass = "bg-red-500 text-white font-extrabold text-[8px]";
+                        else netBadgeClass = "bg-emerald-600 text-white font-bold text-[8px]";
 
                         const cardSanitizedId = `product-card-${prod.name.trim().replace(/[<>"':?*|\\\/()]/g, "").replace(/\s+/g, "_")}`;
 
                         let stockDetailContentHtml = "";
-
                         if (prod.deducted > 0) {
                             let breakdownRowsHtml = "";
                             prod.breakdown.forEach(b => {
@@ -1425,7 +1448,6 @@
                             `;
                         }
 
-                        // แสดงยอดการจองบนการ์ดสินค้า
                         let reservedText = prod.reservedQty > 0 
                             ? `<p class="text-[7.5px] font-extrabold text-cyan-800 bg-cyan-100/80 border border-cyan-300 rounded text-center mt-0.5 py-0.2">📌 จอง ${prod.reservedQty} ชิ้น</p>` 
                             : '';
@@ -1438,7 +1460,6 @@
                                     </div>
                                     <p class="text-[8px] font-bold text-gray-700 truncate text-center leading-none mb-0.5" title="${prod.name}">${prod.name}</p>
                                 </div>
-                                
                                 <div>
                                     ${stockDetailContentHtml}
                                     ${reservedText}
@@ -1462,32 +1483,38 @@
             const token = getGitHubToken(); if(!token) { openTokenModal(); return; }
             if (!confirm("❓ รันบอทคลังเพื่อดึงข้อมูลสต็อกใหม่ล่าสุด?")) return;
             document.getElementById('update-status').innerText = "⏳ กำลังรันบอท...";
-            const url = `https://api.github.com/repos/${GITHUB_USER}/stock-web-titans-gain/actions/workflows/run_bot.yml/dispatches`;
+            const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/actions/workflows/run_bot.yml/dispatches`;
             try {
                 const response = await fetch(url, { method: 'POST', headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' }, body: JSON.stringify({ ref: 'main' }) });
                 if (response.status === 204) { alert("🚀 สั่งบอทรันสำเร็จ! อีกสักครู่ระบบจะรีเฟรชอัปเดตเอง"); setTimeout(async () => { fetchActualExcelData(); }, 10000); }
+                else throw new Error();
             } catch (error) { document.getElementById('update-status').innerText = "❌ สั่งรันบอทล้มเหลว"; }
         }
 
         async function fetchActualExcelData() {
             document.getElementById('update-status').innerText = "⏳ กำลังโหลด...";
+            await loadCategoriesFromGitHub(); 
+            await fetchCloudDatabase(); // 🌟 ดึงข้อมูลออเดอร์/รอบจาก GitHub Cloud DB
+
             try {
-                await loadCategoriesFromGitHub(); 
-                renderDashboardCategoryShowcase();
+                const token = getGitHubToken();
+                const headers = token ? { 'Authorization': `token ${token}` } : {};
+                const res = await fetch(`${RAW_REPO_URL}/${FILE_NAME}?t=${new Date().getTime()}`, { headers });
                 
-                const res = await fetch(RAW_REPO_URL + "/" + FILE_NAME + "?t=" + new Date().getTime());
-                if (!res.ok) throw new Error();
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
                 const buffer = await res.arrayBuffer();
                 
                 processExcelData(buffer); 
             } catch (error) { 
+                console.error("❌ ไม่สามารถเปิดไฟล์ Excel ได้:", error);
                 document.getElementById('update-status').innerText = "⚠️ ขัดข้อง"; 
+                renderDashboardCategoryShowcase();
             }
         }
 
         function fetchFileLastCommitTime() {
             fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/commits?path=${FILE_NAME}&per_page=1`)
-                .then(res => res.json()).then(data => { if(data && data.length > 0) document.getElementById('update-status').innerText = `📅 อัปเดต: ${new Date(data[0].commit.committer.date).toLocaleTimeString('th-TH')}`; });
+                .then(res => res.json()).then(data => { if(data && data.length > 0) document.getElementById('update-status').innerText = `📅 อัปเดต: ${new Date(data[0].commit.committer.date).toLocaleTimeString('th-TH')}`; }).catch(() => {});
         }
 
         fetchActualExcelData();
