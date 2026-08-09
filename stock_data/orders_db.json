@@ -2,5 +2,28 @@
   "batch_names": {
     "batch_1786266415564": "09-08-2026-รอบ 1[16:00]"
   },
-  "orders_history": {}
+  "orders_history": {
+    "batch_1786266415564": [
+      {
+        "id": "ord_1786267135486",
+        "timestamp": 1786267135486,
+        "time": "16:18",
+        "customer": "nong",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "วงกลม L3<52มม>",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 340,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "วงกลม L3<52มม> =290\n\nค่าจัดส่ง 50 บ\nรวม 340 บ\nเก็บเงินปลายทาง"
+      }
+    ]
+  }
 }
