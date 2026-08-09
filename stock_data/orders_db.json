@@ -2,5 +2,40 @@
   "batch_names": {
     "batch_1786267584038": "08-08-2026-รอบ 1[16:00]"
   },
-  "orders_history": {}
+  "orders_history": {
+    "batch_1786267584038": [
+      {
+        "id": "ord_1786267654222",
+        "timestamp": 1786267654222,
+        "time": "16:27",
+        "customer": "Abah",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "US 58 มม",
+            "qty": 1
+          },
+          {
+            "name": "จุ๊บเลสงอ90องศา",
+            "qty": 10
+          },
+          {
+            "name": "จุ๊บขันในสั้น",
+            "qty": 10
+          },
+          {
+            "name": "จุ๊บขันในยาว",
+            "qty": 10
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 920,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "US 58 มม =320\nจุ๊บเลสงอ90องศา x10 =250\nจุ๊บขันในสั้น x10 =150\nจุ๊บขันในยาว x10 =150\n\nค่าจัดส่ง 50 บ\nรวม 920 บ\nเก็บเงินปลายทาง"
+      }
+    ]
+  }
 }
