@@ -49,7 +49,7 @@
                 <button onclick="loadExcelFromServer()" class="text-[10px] sm:text-xs bg-emerald-600 active:bg-emerald-700 text-white font-bold py-1 px-2 rounded-md shadow-xs transition-all cursor-pointer whitespace-nowrap flex items-center gap-1">
                     ⚡ ดึงสต็อก
                 </button>
-                <button onclick="openTokenModal()" title="ตั้งค่า GitHub Token" class="text-[10px] bg-slate-800 active:bg-slate-700 text-amber-400 p-1.5 rounded-md border border-slate-700 cursor-pointer">
+                <button onclick="openTokenModal()" title="ตั้งค่า GitHub Token" class="text-[10px] bg-slate-800 active:bg-slate-700 text-amber-400 p-1.5 rounded-md border border-slate-700 cursor-pointer font-bold">
                     ⚙️ Token
                 </button>
             </div>
@@ -265,7 +265,7 @@
                 <button onclick="confirmExecuteOrderReservation()" class="text-xs font-bold bg-cyan-600 active:bg-cyan-700 text-white px-4 py-2 rounded-xl shadow-xs cursor-pointer">📌 ยืนยันบันทึกการจอง</button>
             </div>
         </div>
-    </div>
+    </div
 
     <!-- ─── POPUP MODAL: เพิ่มรอบ ─── -->
     <div id="add-batch-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300 p-4">
@@ -383,7 +383,7 @@
     <div id="token-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300 p-4">
         <div class="bg-white p-5 rounded-2xl max-w-md w-full shadow-xl transform scale-95 transition-transform duration-300">
             <h3 class="text-sm font-bold text-gray-950 mb-2">🔑 ตั้งค่า GitHub Token (สิทธิ์ Write)</h3>
-            <p class="text-[11px] text-gray-500 mb-3">จำเป็นต้องใช้ Token เพื่อให้ระบบเขียนบันทึกข้อมูลย้อนกลับไปยัง GitHub Repo ได้ครับ</p>
+            <p class="text-[11px] text-gray-500 mb-3">จำเป็นต้องใช้ Token เพื่ออ่าน/เขียนข้อมูลย้อนกลับไปยัง GitHub Repo ครับ</p>
             <input type="password" id="input-token-value" placeholder="วางรหัส ghp_... ตรงนี้" class="w-full text-xs p-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" />
             <div class="flex gap-2 justify-end pt-3">
                 <button onclick="closeTokenModal()" class="text-xs text-gray-500 px-3 py-2">ยกเลิก</button>
@@ -398,14 +398,14 @@
         const GITHUB_REPO = "stock-web-titans-gain"; 
         const FILE_NAME = "stock_data/SKU.xlsx"; 
         const CAT_JSON_PATH = "stock_data/categories.json"; 
-        const DB_JSON_PATH = "stock_data/orders_db.json"; // 🌟 ไฟล์สำหรับเก็บข้อมูลทุกอย่าง
+        const DB_JSON_PATH = "stock_data/orders_db.json"; 
 
         const RAW_REPO_URL = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main`;
 
         let allCleanData = [];
         let categoryDatabase = {}; 
 
-        // 🌟 DATABASE STATE (โกลบอลวัตถุเก็บข้อมูลหลัก)
+        // 🌟 DATABASE STATE
         let dbState = {
             batch_names: {},
             orders_history: {}
@@ -477,9 +477,13 @@
                         batch_names: data.batch_names || {},
                         orders_history: data.orders_history || {}
                     };
+                } else {
+                    console.warn("⚠️ ไม่พบไฟล์ orders_db.json บน GitHub (ใช้ค่าเริ่มต้นเปล่า)");
+                    dbState = { batch_names: {}, orders_history: {} };
                 }
             } catch (err) {
-                console.warn("⚠️ อ่านไฟล์ orders_db.json จาก GitHub ไม่สำเร็จ:", err);
+                console.warn("⚠️ โหลดไฟล์ orders_db.json ล้มเหลว:", err);
+                dbState = { batch_names: {}, orders_history: {} };
             }
         }
 
@@ -494,7 +498,6 @@
             document.getElementById('update-status').innerText = "⏳ กำลังบันทึกลง GitHub...";
 
             try {
-                // 1. ดึง SHA ของไฟล์เดิมก่อน
                 const getFileUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${DB_JSON_PATH}`;
                 const getRes = await fetch(getFileUrl, {
                     headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
@@ -506,14 +509,12 @@
                     sha = fileData.sha;
                 }
 
-                // 2. แปลง JSON เป็น Base64 (รองรับ ภาษาไทย UTF-8)
                 const jsonString = JSON.stringify(dbState, null, 2);
                 const utf8Bytes = new TextEncoder().encode(jsonString);
                 let binaryStr = "";
                 utf8Bytes.forEach(b => binaryStr += String.fromCharCode(b));
                 const contentBase64 = btoa(binaryStr);
 
-                // 3. ยิง PUT Request ไปบันทึกทับไฟล์บน GitHub
                 const bodyData = {
                     message: commitMsg,
                     content: contentBase64,
@@ -1494,7 +1495,7 @@
         async function fetchActualExcelData() {
             document.getElementById('update-status').innerText = "⏳ กำลังโหลด...";
             await loadCategoriesFromGitHub(); 
-            await fetchCloudDatabase(); // 🌟 ดึงข้อมูลออเดอร์/รอบจาก GitHub Cloud DB
+            await fetchCloudDatabase(); 
 
             try {
                 const token = getGitHubToken();
@@ -1507,7 +1508,7 @@
                 processExcelData(buffer); 
             } catch (error) { 
                 console.error("❌ ไม่สามารถเปิดไฟล์ Excel ได้:", error);
-                document.getElementById('update-status').innerText = "⚠️ ขัดข้อง"; 
+                document.getElementById('update-status').innerText = "📅 พร้อมใช้งาน"; 
                 renderDashboardCategoryShowcase();
             }
         }
