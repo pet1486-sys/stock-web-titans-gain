@@ -363,6 +363,26 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "หัวเติมเร็วมีเกจวัด =250\n\nค่าจัดส่ง 50 บ\nรวม 300 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786325726080",
+        "timestamp": 1786325726080,
+        "time": "08:35",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "กาวปะ MR",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 310,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "กาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 310 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
