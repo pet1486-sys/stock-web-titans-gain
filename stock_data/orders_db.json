@@ -147,6 +147,34 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "ตะกั่วแปะ 50แถว x4 =1200\n\nค่าจัดส่ง 50 บ\nรวม 1250 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786325308231",
+        "timestamp": 1786325308231,
+        "time": "08:28",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ดอกเห็ด4มม.",
+            "qty": 2
+          },
+          {
+            "name": "EU เบอร์ 10",
+            "qty": 2
+          },
+          {
+            "name": "กาวปะ MR",
+            "qty": 4
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 2440,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ดอกเห็ด4มม. x2 =800\nEU เบอร์ 10 x2 =600\nกาวปะ MR x4 =1040\n\nจัดส่งฟรี\nรวม 2440 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
