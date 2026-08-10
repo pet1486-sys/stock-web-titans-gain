@@ -295,6 +295,26 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "EU 52มิล =220\nEU 42มิล =220\nEU 73มิล =220\n\nค่าจัดส่ง 50 บ\nรวม 710 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786325566637",
+        "timestamp": 1786325566637,
+        "time": "08:32",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "EU เบอร์ 8",
+            "qty": 2
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 650,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU เบอร์ 8 x2 =600\n\nค่าจัดส่ง 50 บ\nรวม 650 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
