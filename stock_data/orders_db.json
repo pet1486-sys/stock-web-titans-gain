@@ -107,6 +107,26 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "จุ๊บยาง TR413-1แพ็ค =330\nตะกั่วแปะ 50แถว =300\n\nค่าจัดส่ง 50 บ\nรวม 680 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786362908904",
+        "timestamp": 1786362908904,
+        "time": "18:55",
+        "customer": "Kบอล",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ตะกั่วแปะ 50แถว",
+            "qty": 4
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 1100,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "กล่องแรก\nตะกั่วแปะ 50แถว x4 =1109\n\nค่าจัดส่งฟรี\nรวม 1100 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
