@@ -654,6 +654,26 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "EU เบอร์ 10 x2 =600\n\nค่าจัดส่ง 50 บ\nรวม 650 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786346145974",
+        "timestamp": 1786346145974,
+        "time": "14:15",
+        "customer": "ช่างเมา การยาง",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "วงกลม L3<52มม>",
+            "qty": 4
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 1210,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "วงกลม L3<52มม> x4 =1160\n\nค่าจัดส่ง 50 บ\nรวม 1210 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
