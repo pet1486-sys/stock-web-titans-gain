@@ -633,6 +633,28 @@
         "dispatchDate": "",
         "rawText": "จุ๊บทองเหลือง11ซม =50\nEU เบอร์ 12 =300\nEU เบอร์ 14 =300\nUS 58 มม =320\n\nค่าจัดส่ง 50 บ\nรวม 1020 บ\nเก็บเงินปลายทาง"
       }
+    ],
+    "batch_1786344848461": [
+      {
+        "id": "ord_1786345853473",
+        "timestamp": 1786345853473,
+        "time": "14:10",
+        "customer": "Champion",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "EU เบอร์ 10",
+            "qty": 2
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 650,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU เบอร์ 10 x2 =600\n\nค่าจัดส่ง 50 บ\nรวม 650 บ\nเก็บเงินปลายทาง"
+      }
     ]
   }
 }
