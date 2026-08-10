@@ -631,6 +631,30 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "จุ๊บทองเหลือง11ซม =50\nEU เบอร์ 12 =300\nEU เบอร์ 14 =300\nUS 58 มม =320\n\nค่าจัดส่ง 50 บ\nรวม 1020 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786334087060",
+        "timestamp": 1786334087060,
+        "time": "10:54",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ใยไหม",
+            "qty": 1
+          },
+          {
+            "name": "ครีมทาขอบยาง",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 370,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ใยไหม =170\nครีมทาขอบยาง =150\n\nค่าจัดส่ง 50 บ\nรวม 370 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
