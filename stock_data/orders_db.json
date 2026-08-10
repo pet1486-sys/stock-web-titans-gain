@@ -127,6 +127,30 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "กล่องแรก\nตะกั่วแปะ 50แถว x4 =1109\n\nค่าจัดส่งฟรี\nรวม 1100 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786362937051",
+        "timestamp": 1786362937051,
+        "time": "18:55",
+        "customer": "Kบอล",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ปลอกน๊อตล้อ L/เทา",
+            "qty": 20
+          },
+          {
+            "name": "ปลอกน๊อตล้อ R/เทา",
+            "qty": 20
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 2400,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "กล่องสอง\nปลอกน๊อตล้อ L/เทา x20 =1200\nปลอกน๊อตล้อ R/เทา x20 =1200\n\nจัดส่งฟรี\nรวม 2400 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
