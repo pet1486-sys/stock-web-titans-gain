@@ -315,6 +315,34 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "EU เบอร์ 8 x2 =600\n\nค่าจัดส่ง 50 บ\nรวม 650 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786325677792",
+        "timestamp": 1786325677792,
+        "time": "08:34",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "TJ-14HD",
+            "qty": 3
+          },
+          {
+            "name": "วงกลม MU-02<78มม>",
+            "qty": 1
+          },
+          {
+            "name": "สี่เหลี่ยม MR-10",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 2110,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "TJ-14HD x3 =1050\nวงกลม MU-02<78มม> =310\nสี่เหลี่ยม MR-10 =750\n\nจัดส่งฟรี\nรวม 2110 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
