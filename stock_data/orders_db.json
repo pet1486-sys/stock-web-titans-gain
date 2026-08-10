@@ -787,6 +787,34 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "EU 42มิล =220\n\nค่าจัดส่ง 50 บ\nรวม 270 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786343364277",
+        "timestamp": 1786343364277,
+        "time": "13:29",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "วงกลม MU-00<43มม>",
+            "qty": 2
+          },
+          {
+            "name": "วงกลม MU-02<78มม>",
+            "qty": 1
+          },
+          {
+            "name": "กาวปะ MR",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 1120,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "วงกลม MU-00<43มม> x2 =500\nวงกลม MU-02<78มม> =310\nกาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 1120 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
