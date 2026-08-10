@@ -739,6 +739,34 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "EU 42มิล =220\nTJ-10HD x2 =700\nTJ-12 =350\nTJ-14HD =350\nกาวปะ MR =260\n\nจัดส่งฟรี\nรวม 1880 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786342977075",
+        "timestamp": 1786342977075,
+        "time": "13:22",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "BY-18",
+            "qty": 3
+          },
+          {
+            "name": "ศรไส้ไก่50ตัว",
+            "qty": 8
+          },
+          {
+            "name": "จุ๊บทองเหลือง9ซม",
+            "qty": 10
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 1860,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "BY-18 x3 =960\nศรไส้ไก่50ตัว x8 =400\nจุ๊บทองเหลือง9ซม x10 =500\n\nจัดส่งฟรี\nรวม 1860 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
