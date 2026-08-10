@@ -127,6 +127,26 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "กาวปะ MR =260\nครีมทาขอบยาง =150\nใยไหม =170\n\nค่าจัดส่ง 50 บ\nรวม 630 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786325251144",
+        "timestamp": 1786325251144,
+        "time": "08:27",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ตะกั่วแปะ 50แถว",
+            "qty": 4
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 1250,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ตะกั่วแปะ 50แถว x4 =1200\n\nค่าจัดส่ง 50 บ\nรวม 1250 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
