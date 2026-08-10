@@ -491,6 +491,30 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "EU 42มิล =220\nใยไหม =170\n\nค่าจัดส่ง 50 บ\nรวม 440 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786326169022",
+        "timestamp": 1786326169022,
+        "time": "08:42",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ใยไหม",
+            "qty": 2
+          },
+          {
+            "name": "วงกลม MU-00<43มม>",
+            "qty": 2
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 890,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ใยไหม x2 =340\nวงกลม MU-00<43มม> x2 =500\n\nค่าจัดส่ง 50 บ\nรวม 890 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
