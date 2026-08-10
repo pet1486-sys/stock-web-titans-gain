@@ -714,6 +714,30 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "US 42 มม =320\n\nค่าจัดส่ง 50 บ\nรวม 370 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786357094709",
+        "timestamp": 1786357094709,
+        "time": "17:18",
+        "customer": "Fon yadpirun",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "จุ๊บยาง TR413-1แพ็ค",
+            "qty": 1
+          },
+          {
+            "name": "ตะกั่วแปะ 50แถว",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 680,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "จุ๊บยาง TR413-1แพ็ค =330\nตะกั่วแปะ 50แถว =300\n\nค่าจัดส่ง 50 บ\nรวม 680 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
