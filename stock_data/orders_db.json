@@ -655,6 +655,54 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "ใยไหม =170\nครีมทาขอบยาง =150\n\nค่าจัดส่ง 50 บ\nรวม 370 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786342280420",
+        "timestamp": 1786342280420,
+        "time": "13:11",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "TJ-10HD",
+            "qty": 1
+          },
+          {
+            "name": "จุ๊บรถไถหลัง ปะร้อน",
+            "qty": 5
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 650,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "TJ-10HD =350\nจุ๊บรถไถหลัง ปะร้อน x5 =250\n\nค่าจัดส่ง 50 บ\nรวม 650 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786342543567",
+        "timestamp": 1786342543567,
+        "time": "13:15",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ยางดิบ",
+            "qty": 2
+          },
+          {
+            "name": "วงกลม MU-00<43มม>",
+            "qty": 2
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 870,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ยางดิบ x2 =320\nวงกลม MU-00<43มม> x2 =500\n\nค่าจัดส่ง 50 บ\nรวม 870 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
