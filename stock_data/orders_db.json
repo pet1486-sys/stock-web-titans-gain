@@ -443,6 +443,30 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "TJ-10HD x2 =700\nTJ-14HD =350\nTJ-12 x2 =700\n\nจัดส่งฟรี\nรวม 1750 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786325822488",
+        "timestamp": 1786325822488,
+        "time": "08:37",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "กาวปะ MR",
+            "qty": 1
+          },
+          {
+            "name": "ใยไหม",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 480,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "กาวปะ MR =260\nใยไหม =170\n\nค่าจัดส่ง 50 บ\nรวม 480 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
