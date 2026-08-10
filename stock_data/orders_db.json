@@ -383,6 +383,38 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "กาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 310 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786325756235",
+        "timestamp": 1786325756235,
+        "time": "08:35",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "กาวปะ MR",
+            "qty": 1
+          },
+          {
+            "name": "พลาสติกกันขอบ",
+            "qty": 1
+          },
+          {
+            "name": "ขันศรยาว",
+            "qty": 1
+          },
+          {
+            "name": "EU 73มิล",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 570,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "กาวปะ MR =260\nพลาสติกกันขอบ =20\nขันศรยาว =20\nEU 73มิล =220\n\nค่าจัดส่ง 50 บ\nรวม 570 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
