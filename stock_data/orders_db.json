@@ -123,7 +123,7 @@
         "discount": 0,
         "shipping": 50,
         "total": 630,
-        "isMyOrderCreated": false,
+        "isMyOrderCreated": true,
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "กาวปะ MR =260\nครีมทาขอบยาง =150\nใยไหม =170\n\nค่าจัดส่ง 50 บ\nรวม 630 บ\nเก็บเงินปลายทาง"
