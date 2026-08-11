@@ -253,28 +253,28 @@
         "rawText": "EU 52มิล =220\n\nค่าจัดส่ง 50 บ\nรวม 270 บ\nเก็บเงินปลายทาง"
       },
       {
-        "id": "ord_1786413980289",
-        "timestamp": 1786413980289,
-        "time": "09:06",
+        "id": "ord_1786414189693",
+        "timestamp": 1786414189693,
+        "time": "09:09",
         "customer": "ทั่วไป / ไม่ระบุ",
         "channel": "Facebook",
         "items": [
           {
-            "name": "วงกลม MU-02<78มม>",
-            "qty": 1
+            "name": "TJ-10HD",
+            "qty": 3
           },
           {
-            "name": "วงกลม L3<52มม>",
+            "name": "กาวปะ MR",
             "qty": 1
           }
         ],
         "discount": 0,
         "shipping": 50,
-        "total": 650,
+        "total": 1360,
         "isMyOrderCreated": false,
         "isReserved": false,
         "dispatchDate": "",
-        "rawText": "วงกลม MU-02<78มม> =310\nวงกลม L3<52มม> =290\n\nค่าจัดส่ง 50 บ\nรวม 650 บ\nเก็บเงินปลายทาง"
+        "rawText": "TJ-10HD x3 =1050\nกาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 1360 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
