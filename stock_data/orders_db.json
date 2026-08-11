@@ -299,6 +299,50 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "จุ๊บยาง TR413-1แพ็ค x6 =1980\nEU 52มิล =220\n\nจัดส่งฟรี\nรวม 2200 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786417507557",
+        "timestamp": 1786417507557,
+        "time": "10:05",
+        "customer": "(C407)คุณต่าย",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "BY-14",
+            "qty": 20
+          },
+          {
+            "name": "US 42 มม",
+            "qty": 5
+          },
+          {
+            "name": "US 58 มม",
+            "qty": 5
+          },
+          {
+            "name": "EU 42มิล",
+            "qty": 5
+          },
+          {
+            "name": "จุ๊บทองเหลือง11ซม",
+            "qty": 200
+          },
+          {
+            "name": "จุ๊บทองเหลือง9ซม",
+            "qty": 100
+          },
+          {
+            "name": "ศรไส้ไก่50ตัว",
+            "qty": 40
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 27700,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "BY-14 x20 =6400\nUS 42 มม x5 =1600\nUS 58 มม x5 =1600\nEU 42มิล x5 =1100\nจุ๊บทองเหลือง11ซม x200 =10000\nจุ๊บทองเหลือง9ซม x100 =5000\nศรไส้ไก่50ตัว x40 =2000\n\nจัดส่งฟรี\nรวม 27700 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
