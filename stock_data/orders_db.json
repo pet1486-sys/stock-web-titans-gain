@@ -175,6 +175,38 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "EU 42มิล =220\nสี่เหลี่ยม MR-10 =750\n\nค่าจัดส่ง 50 บ\nรวม 1020 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786413425066",
+        "timestamp": 1786413425066,
+        "time": "08:57",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "วงกลม L3<52มม>",
+            "qty": 1
+          },
+          {
+            "name": "จุ๊บขันนอกใหญ่",
+            "qty": 5
+          },
+          {
+            "name": "จุ๊บขันนอก525AL",
+            "qty": 5
+          },
+          {
+            "name": "กาวดำ",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 835,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "วงกลม L3<52มม> =290\nจุ๊บขันนอกใหญ่ x5 =200\nจุ๊บขันนอก525AL x5 =75\nกาวดำ =220\n\nค่าจัดส่ง 50 บ\nรวม 835 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
