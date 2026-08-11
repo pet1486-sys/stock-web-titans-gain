@@ -446,27 +446,6 @@
         "rawText": "จุ๊บขันนอกใหญ่ x10 =400\nจุ๊บทาทา TR415 x2 =30\nกาวดำ =220\nใยไหม =170\nสเปรย์ทำความสะอาดยาง x3 =450\n\nค่าจัดส่ง 50 บ\nรวม 1320 บ\nเก็บเงินปลายทาง"
       }
     ],
-    "batch_1786431954890": [
-      {
-        "id": "ord_1786431985406",
-        "timestamp": 1786431985406,
-        "time": "14:06",
-        "customer": "Ting Chan",
-        "channel": "Facebook",
-        "items": [
-          {
-            "name": "จุ๊บยาง TR413TUV-1แพ็ค",
-            "qty": 1
-          }
-        ],
-        "discount": 0,
-        "shipping": 50,
-        "total": 430,
-        "isMyOrderCreated": false,
-        "isReserved": false,
-        "dispatchDate": "",
-        "rawText": "จุ๊บยาง TR413TUV-1แพ็ค =380\n\nค่าจัดส่ง 50 บ\nรวม 430 บ\nเก็บเงินปลายทาง"
-      }
-    ]
+    "batch_1786431954890": []
   }
 }
