@@ -323,6 +323,38 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "TJ-14HD =350\n\nค่าจัดส่ง 50 บ\nรวม 400 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786427587688",
+        "timestamp": 1786427587688,
+        "time": "12:53",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "BY-08",
+            "qty": 2
+          },
+          {
+            "name": "BY-10",
+            "qty": 1
+          },
+          {
+            "name": "กาวปะ MR",
+            "qty": 1
+          },
+          {
+            "name": "สติมผ้าใบกลาง",
+            "qty": 2
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 1860,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "BY-08 x2 =640\nBY-10 =320\nกาวปะ MR =260\nสติมผ้าใบกลาง x2 =640\n\nจัดส่งฟรี\nรวม 1860 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
