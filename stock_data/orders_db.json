@@ -383,6 +383,30 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "US 58 มม =320\nEU 42มิล =220\nยางซีลหัวเติมลม10ชิ้น =30\n\nค่าจัดส่ง 50 บ\nรวม 620 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786428263396",
+        "timestamp": 1786428263396,
+        "time": "13:04",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "EU 52มิล",
+            "qty": 2
+          },
+          {
+            "name": "กาวปะ MR",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 750,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU 52มิล x2 =440\nกาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 750 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
