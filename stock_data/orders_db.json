@@ -407,6 +407,42 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "EU 52มิล x2 =440\nกาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 750 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786428449627",
+        "timestamp": 1786428449627,
+        "time": "13:07",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "จุ๊บขันนอกใหญ่",
+            "qty": 10
+          },
+          {
+            "name": "จุ๊บทาทา TR415",
+            "qty": 2
+          },
+          {
+            "name": "กาวดำ",
+            "qty": 1
+          },
+          {
+            "name": "ใยไหม",
+            "qty": 1
+          },
+          {
+            "name": "สเปรย์ทำความสะอาดยาง",
+            "qty": 3
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 1320,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "จุ๊บขันนอกใหญ่ x10 =400\nจุ๊บทาทา TR415 x2 =30\nกาวดำ =220\nใยไหม =170\nสเปรย์ทำความสะอาดยาง x3 =450\n\nค่าจัดส่ง 50 บ\nรวม 1320 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
