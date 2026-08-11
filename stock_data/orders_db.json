@@ -303,6 +303,26 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "ศรไส้ไก่50ตัว x6 =300\nขันศรยาว x5 =100\nขันศรสั้น x5 =50\n\nค่าจัดส่ง 50 บ\nรวม 500 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786427379331",
+        "timestamp": 1786427379331,
+        "time": "12:49",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "TJ-14HD",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 400,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "TJ-14HD =350\n\nค่าจัดส่ง 50 บ\nรวม 400 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
