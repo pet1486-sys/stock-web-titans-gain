@@ -151,6 +151,30 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "กล่องสอง\nปลอกน๊อตล้อ L/เทา x20 =1200\nปลอกน๊อตล้อ R/เทา x20 =1200\n\nจัดส่งฟรี\nรวม 2400 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786413371202",
+        "timestamp": 1786413371202,
+        "time": "08:56",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "EU 42มิล",
+            "qty": 1
+          },
+          {
+            "name": "สี่เหลี่ยม MR-10",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 1020,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU 42มิล =220\nสี่เหลี่ยม MR-10 =750\n\nค่าจัดส่ง 50 บ\nรวม 1020 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
