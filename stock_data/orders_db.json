@@ -554,6 +554,26 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "กาวปะ MR x5 =1300\nวงกลม MU-00<43มม> x5 =1250\nวงกลม L3<52มม> x5 =1450\nจุ๊บรถไถเรเดียล TR618A x10 =700\n\nจัดส่งฟรี\nรวม 4700 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786611943170",
+        "timestamp": 1786611943170,
+        "time": "16:05",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ลูกบล๊อก 1 นิ้ว 27 mm.",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 400,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ลูกบล๊อก 1 นิ้ว 27 mm. =350\n\nค่าจัดส่ง 50 บ\nรวม 400 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
