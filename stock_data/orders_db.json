@@ -27,26 +27,6 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "หัวเติมลมยาว เกรด A =300\nยางซีลหัวเติมลม10ชิ้น =30\n\nค่าจัดส่ง 50 บ\nรวม 380 บ\nเก็บเงินปลายทาง"
-      },
-      {
-        "id": "ord_1786584886168",
-        "timestamp": 1786584886168,
-        "time": "08:34",
-        "customer": "ทั่วไป / ไม่ระบุ",
-        "channel": "Facebook",
-        "items": [
-          {
-            "name": "หัวต่อเติมลม15ซม.",
-            "qty": 1
-          }
-        ],
-        "discount": 0,
-        "shipping": 50,
-        "total": 150,
-        "isMyOrderCreated": false,
-        "isReserved": false,
-        "dispatchDate": "",
-        "rawText": "หัวต่อเติมลม15ซม. =100\n\nค่าจัดส่ง 50 บ\nรวม 150 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
