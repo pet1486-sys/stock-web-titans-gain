@@ -239,38 +239,6 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "วงกลม MU-00<43มม> =250\n\nค่าจัดส่ง 20 บ\nรวม 270 บ\nเก็บเงินปลายทาง"
-      },
-      {
-        "id": "ord_1786600285421",
-        "timestamp": 1786600285420,
-        "time": "12:51",
-        "customer": "ทั่วไป / ไม่ระบุ",
-        "channel": "Line Shopping",
-        "items": [
-          {
-            "name": "BY-08",
-            "qty": 1
-          },
-          {
-            "name": "BY-10",
-            "qty": 1
-          },
-          {
-            "name": "EU 42มิล",
-            "qty": 1
-          },
-          {
-            "name": "EU 52มิล",
-            "qty": 1
-          }
-        ],
-        "discount": 0,
-        "shipping": 50,
-        "total": 1130,
-        "isMyOrderCreated": false,
-        "isReserved": false,
-        "dispatchDate": "",
-        "rawText": "BY-08 =320\nBY-10 =320\nEU 42มิล =220\nEU 52มิล =220\n\nค่าจัดส่ง 50 บ\nรวม 1130 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
