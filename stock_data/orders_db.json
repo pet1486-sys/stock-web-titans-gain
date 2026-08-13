@@ -614,6 +614,38 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "วงกลม MU-00<43มม> x5 =1250\nสติมผ้าใบจัมโบ้ =370\nยางดิบ x3 =480\nจุ๊บยาง TR413-1แพ็ค x4 =1320\nใยไหม x2 =340\nจุ๊บขันในสั้น x20 =300\n\nจัดส่งฟรี\nรวม 4060 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786614337951",
+        "timestamp": 1786614337951,
+        "time": "16:45",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "EU 52มิล",
+            "qty": 1
+          },
+          {
+            "name": "EU 73มิล",
+            "qty": 1
+          },
+          {
+            "name": "วงกลม MU-02<78มม>",
+            "qty": 1
+          },
+          {
+            "name": "TJ-5",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 1200,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU 52มิล =220\nEU 73มิล =220\nวงกลม MU-02<78มม> =310\nTJ-5 =400\n\nค่าจัดส่ง 50 บ\nรวม 1200 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
