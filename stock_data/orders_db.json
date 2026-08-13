@@ -382,6 +382,34 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "แบ่ง จุ๊บลมยางTR413 x50 =250\nวงกลม MU-00<43มม> =250\nกาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 810 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786604969191",
+        "timestamp": 1786604969191,
+        "time": "14:09",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "กาวปะ MR",
+            "qty": 5
+          },
+          {
+            "name": "วงกลม MU-00<43มม>",
+            "qty": 5
+          },
+          {
+            "name": "วงกลม L3<52มม>",
+            "qty": 5
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 4000,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "กาวปะ MR x5 =1300\nวงกลม MU-00<43มม> x5 =1250\nวงกลม L3<52มม> x5 =1450\n\nจัดส่งฟรี\nรวม 4000 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
