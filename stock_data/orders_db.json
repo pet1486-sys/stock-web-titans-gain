@@ -478,6 +478,30 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "กาวปะ MR x5 =1300\nสี่เหลี่ยม MR-10 x2 =1500\n\nจัดส่งฟรี\nรวม 2800 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786611063020",
+        "timestamp": 1786611063020,
+        "time": "15:51",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "กาวปะ MR",
+            "qty": 2
+          },
+          {
+            "name": "สี่เหลี่ยม MR-10",
+            "qty": 2
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 2020,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "กาวปะ MR x2 =520\nสี่เหลี่ยม MR-10 x2 =1500\n\nจัดส่งฟรี\nรวม 2020 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
