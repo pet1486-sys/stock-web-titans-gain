@@ -303,6 +303,30 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "วงกลม MU-02<78มม> x2 =620\nกาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 930 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786601412347",
+        "timestamp": 1786601412347,
+        "time": "13:10",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "สี่เหลี่ยม MR-10",
+            "qty": 1
+          },
+          {
+            "name": "ลูกบล๊อก1นิ้ว 21mmล้อใน",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 1150,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "สี่เหลี่ยม MR-10 =750\nลูกบล๊อก1นิ้ว 21mmล้อใน =350\n\nค่าจัดส่ง 50 บ\nรวม 1150 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
