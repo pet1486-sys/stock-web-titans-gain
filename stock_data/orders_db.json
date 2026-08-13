@@ -430,6 +430,30 @@
         "isReserved": true,
         "dispatchDate": "2026-08-13",
         "rawText": "ใยไหม =170\n\nค่าจัดส่ง 50 บ\nรวม 220 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786606043598",
+        "timestamp": 1786606043598,
+        "time": "14:27",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "จุ๊บยาง TR413TUV-1แพ็ค",
+            "qty": 4
+          },
+          {
+            "name": "จุ๊บทาทา TR415",
+            "qty": 30
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 1820,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "จุ๊บยาง TR413TUV-1แพ็ค x4 =1520\nจุ๊บทาทา TR415 x30 =300\n\nจัดส่งฟรี\nรวม 1820 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
