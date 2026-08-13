@@ -259,6 +259,26 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "สติมผ้าใบเล็ก =220\n\nค่าจัดส่ง 50 บ\nรวม 270 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786600713370",
+        "timestamp": 1786600713370,
+        "time": "12:58",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "US 42 มม",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 370,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "US 42 มม =320\n\nค่าจัดส่ง 50 บ\nรวม 370 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
