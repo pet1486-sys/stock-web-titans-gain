@@ -502,6 +502,26 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "กาวปะ MR x2 =520\nสี่เหลี่ยม MR-10 x2 =1500\n\nจัดส่งฟรี\nรวม 2020 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786611228683",
+        "timestamp": 1786611228683,
+        "time": "15:53",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "จุ๊บยาง TR413TUV-1แพ็ค",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 430,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "จุ๊บยาง TR413TUV-1แพ็ค =380\n\nค่าจัดส่ง 50 บ\nรวม 430 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
