@@ -3,31 +3,6 @@
     "batch_1786442063229": "11-08-2026-รอบ 1[17:00]"
   },
   "orders_history": {
-    "batch_1786442063229": [
-      {
-        "id": "ord_1786583706307",
-        "timestamp": 1786583706307,
-        "time": "08:15",
-        "customer": "ทั่วไป / ไม่ระบุ",
-        "channel": "Line Shopping",
-        "items": [
-          {
-            "name": "หัวเติมลมยาว เกรด A",
-            "qty": 1
-          },
-          {
-            "name": "ยางซีลหัวเติมลม10ชิ้น",
-            "qty": 1
-          }
-        ],
-        "discount": 0,
-        "shipping": 50,
-        "total": 380,
-        "isMyOrderCreated": false,
-        "isReserved": false,
-        "dispatchDate": "",
-        "rawText": "หัวเติมลมยาว เกรด A =300\nยางซีลหัวเติมลม10ชิ้น =30\n\nค่าจัดส่ง 50 บ\nรวม 380 บ\nเก็บเงินปลายทาง"
-      }
-    ]
+    "batch_1786442063229": []
   }
 }
