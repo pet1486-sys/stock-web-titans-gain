@@ -51,6 +51,30 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "EU เบอร์ 14 x3 =900\nวงกลม MU-02<78มม> x3 =930\nวงกลม L3<52มม> x3 =870\n\nจัดส่งฟรี\nรวม 2700 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786583706307",
+        "timestamp": 1786583706307,
+        "time": "08:15",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "หัวเติมลมยาว เกรด A",
+            "qty": 1
+          },
+          {
+            "name": "ยางซีลหัวเติมลม10ชิ้น",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 380,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "หัวเติมลมยาว เกรด A =300\nยางซีลหัวเติมลม10ชิ้น =30\n\nค่าจัดส่ง 50 บ\nรวม 380 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
