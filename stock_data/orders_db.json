@@ -611,8 +611,8 @@
         "shipping": 0,
         "total": 4060,
         "isMyOrderCreated": false,
-        "isReserved": false,
-        "dispatchDate": "",
+        "isReserved": true,
+        "dispatchDate": "2026-08-13",
         "rawText": "วงกลม MU-00<43มม> x5 =1250\nสติมผ้าใบจัมโบ้ =370\nยางดิบ x3 =480\nจุ๊บยาง TR413-1แพ็ค x4 =1320\nใยไหม x2 =340\nจุ๊บขันในสั้น x20 =300\n\nจัดส่งฟรี\nรวม 4060 บ\nเก็บเงินปลายทาง"
       },
       {
