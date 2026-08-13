@@ -239,6 +239,26 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "วงกลม MU-00<43มม> =250\n\nค่าจัดส่ง 20 บ\nรวม 270 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786600583322",
+        "timestamp": 1786600583322,
+        "time": "12:56",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "สติมผ้าใบเล็ก",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 270,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "สติมผ้าใบเล็ก =220\n\nค่าจัดส่ง 50 บ\nรวม 270 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
