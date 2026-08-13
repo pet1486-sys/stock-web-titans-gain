@@ -5,34 +5,6 @@
   "orders_history": {
     "batch_1786442063229": [
       {
-        "id": "ord_1786583580151",
-        "timestamp": 1786583580151,
-        "time": "08:13",
-        "customer": "ทั่วไป / ไม่ระบุ",
-        "channel": "Line Shopping",
-        "items": [
-          {
-            "name": "EU เบอร์ 14",
-            "qty": 3
-          },
-          {
-            "name": "วงกลม MU-02<78มม>",
-            "qty": 3
-          },
-          {
-            "name": "วงกลม L3<52มม>",
-            "qty": 3
-          }
-        ],
-        "discount": 0,
-        "shipping": 0,
-        "total": 2700,
-        "isMyOrderCreated": false,
-        "isReserved": false,
-        "dispatchDate": "",
-        "rawText": "EU เบอร์ 14 x3 =900\nวงกลม MU-02<78มม> x3 =930\nวงกลม L3<52มม> x3 =870\n\nจัดส่งฟรี\nรวม 2700 บ\nเก็บเงินปลายทาง"
-      },
-      {
         "id": "ord_1786583706307",
         "timestamp": 1786583706307,
         "time": "08:15",
