@@ -219,6 +219,26 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "EU เบอร์ 14 =300\n\nค่าจัดส่ง 50 บ\nรวม 350 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786588549334",
+        "timestamp": 1786588549334,
+        "time": "09:35",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "วงกลม MU-00<43มม>",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 20,
+        "total": 270,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "วงกลม MU-00<43มม> =250\n\nค่าจัดส่ง 20 บ\nรวม 270 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
