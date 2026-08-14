@@ -30,6 +30,22 @@
             border-color: #2563eb !important;
             border-width: 2px !important;
         }
+
+        /* Custom Scrollbar สำหรับกล่องเลื่อนแนวนอน */
+        .custom-horizontal-scroll::-webkit-scrollbar {
+            height: 6px;
+        }
+        .custom-horizontal-scroll::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+        .custom-horizontal-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-horizontal-scroll::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
     </style>
 </head>
 <body class="bg-slate-100 min-h-screen text-gray-800 flex flex-col pb-6">
@@ -137,9 +153,9 @@
             <div>
                 <div class="flex items-center justify-between mb-1.5 pb-1 border-b border-blue-100">
                     <h2 class="text-xs sm:text-sm font-bold text-blue-950 flex items-center gap-1">
-                        🛒 วางข้อความบันทึกออเดอร์ตัดสต็อก
+                        🛒 วางข้อความบันทึกออเดอร์
                     </h2>
-                    <span class="text-[9px] bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full font-semibold border border-blue-100">บันทึกตรงเข้า GitHub</span>
+                    <span class="text-[9px] bg-amber-50 text-amber-700 px-2 py-0.5 rounded-full font-semibold border border-amber-200">ทดลองเช็คสต็อกก่อนได้</span>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-2.5 items-stretch">
@@ -165,9 +181,14 @@
                             </div>
                         </div>
 
-                        <button id="btn-save-order" onclick="processOrderAndDeductStock()" class="w-full bg-blue-600 active:bg-blue-700 text-white font-bold text-xs py-2.5 px-3 rounded-lg shadow-sm cursor-pointer flex items-center justify-center gap-1 transition-all mt-1">
-                            ⚡ บันทึกออเดอร์ลง GitHub
-                        </button>
+                        <div class="grid grid-cols-2 gap-1.5 mt-1">
+                            <button id="btn-save-local" onclick="processOrderAndDeductStock(true)" class="bg-amber-500 active:bg-amber-600 text-white font-bold text-[11px] py-2 px-2 rounded-lg shadow-2xs cursor-pointer flex items-center justify-center gap-1 transition-all">
+                                💾 บันทึกจำลอง (ดูสต็อก)
+                            </button>
+                            <button id="btn-save-order" onclick="processOrderAndDeductStock(false)" class="bg-blue-600 active:bg-blue-700 text-white font-bold text-[11px] py-2 px-2 rounded-lg shadow-2xs cursor-pointer flex items-center justify-center gap-1 transition-all">
+                                ⚡ บันทึกลง GitHub
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -183,7 +204,7 @@
                     📋 รายการออเดอร์ปกติ (ตัดสต็อกจริง) 
                     <span id="total-orders-count-badge" class="bg-amber-200 text-amber-900 font-extrabold text-[10px] px-2 py-0.5 rounded-full">0 ออเดอร์</span>
                 </h3>
-                <span class="text-[9px] text-amber-800 font-medium">*กดรูปเพื่อดูในคลัง</span>
+                <span class="text-[9px] text-amber-800 font-medium">*ออเดอร์ล่าสุดอยู่ซ้ายสุด / สามารถเลื่อนขวาดูเพิ่มเติมได้</span>
             </div>
 
             <div id="saved-orders-cards-wrapper" class="space-y-4"></div>
@@ -411,6 +432,13 @@
             orders_history: {}
         };
 
+        // 🌟 LOCAL STORAGE STATE
+        let localDraftOrders = JSON.parse(localStorage.getItem('local_draft_orders') || '{}');
+
+        function saveLocalDraftsToStorage() {
+            localStorage.setItem('local_draft_orders', JSON.stringify(localDraftOrders));
+        }
+
         function getGitHubToken() { return localStorage.getItem('user_github_token') || ""; }
 
         function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
@@ -462,7 +490,7 @@
         }
 
         // ==========================================
-        // 🌟 GITHUB API CLOUD STORAGE CONTROLLER (ปรับใช้ Contents API ดึงเรียลไทม์)
+        // 🌟 GITHUB API CLOUD STORAGE CONTROLLER
         // ==========================================
 
         async function fetchCloudDatabase() {
@@ -470,13 +498,11 @@
                 const token = getGitHubToken();
                 const headers = token ? { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' } : { 'Accept': 'application/vnd.github.v3+json' };
                 
-                // 🌟 ใช้ API endpoint https://api.github.com/repos/... ป้องกัน Cache และ Private Access
                 const apiUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${DB_JSON_PATH}?t=${new Date().getTime()}`;
                 const res = await fetch(apiUrl, { headers });
                 
                 if (res.ok) {
                     const fileInfo = await res.json();
-                    // ถอดรหัส Base64 ภาษาไทย
                     const jsonStr = decodeURIComponent(escape(atob(fileInfo.content.replace(/\s/g, ''))));
                     const data = JSON.parse(jsonStr);
                     
@@ -561,7 +587,7 @@
             const sortedKeys = Object.keys(names).sort((a, b) => {
                 const nameA = names[a].toLowerCase();
                 const nameB = names[b].toLowerCase();
-                return nameA.localeCompare(nameB, undefined, { numeric: true, sensitivity: 'base' });
+                return nameB.localeCompare(nameA, undefined, { numeric: true, sensitivity: 'base' });
             });
 
             const sortedObj = {};
@@ -736,8 +762,10 @@
                 selectedKeys.forEach(k => {
                     delete dbState.batch_names[k];
                     delete dbState.orders_history[k];
+                    delete localDraftOrders[k];
                 });
 
+                saveLocalDraftsToStorage();
                 const remainingKeys = Object.keys(getSortedDummyBatchList());
                 if (remainingKeys.length > 0) localStorage.setItem('active_dummy_batch', remainingKeys[0]);
                 else localStorage.removeItem('active_dummy_batch');
@@ -756,7 +784,9 @@
             const reservedProductTotals = {}; 
 
             Object.keys(batchNames).forEach(bKey => {
-                const orders = allOrdersHistory[bKey] || [];
+                const cloudOrders = allOrdersHistory[bKey] || [];
+                const draftOrders = localDraftOrders[bKey] || [];
+                const orders = [...cloudOrders, ...draftOrders];
                 const bName = batchNames[bKey] || bKey;
 
                 orders.forEach(ord => {
@@ -791,7 +821,7 @@
         }
 
         // ==========================================
-        // 🌟 ระบบค้นหาชื่อสินค้าแม่นยำ 100% (STRICT EXACT MATCH)
+        // 🌟 ระบบค้นหาชื่อสินค้าแม่นยำ 100%
         // ==========================================
         function findExactProductMatch(rawSearchText) {
             if (!rawSearchText || allCleanData.length === 0) return null;
@@ -840,7 +870,7 @@
             return /\(C\d+\)/i.test(customerName.trim());
         }
 
-        async function processOrderAndDeductStock() {
+        async function processOrderAndDeductStock(isLocalOnly = false) {
             const currentKey = getCurrentBatchKey();
             if (!currentKey) { alert("⚠️ กรุณากด '+ เพิ่มรอบ' ด้านบนก่อนครับ"); return; }
 
@@ -851,8 +881,6 @@
 
             if (!textVal) { alert("⚠️ กรุณาใส่ออเดอร์ลงในกล่องข้อความก่อนครับ"); return; }
             if (allCleanData.length === 0) { alert("⚠️ ไม่พบข้อมูลสต็อกสินค้า กรุณากดดึงข้อมูลก่อนครับ"); return; }
-
-            if (!dbState.orders_history[currentKey]) dbState.orders_history[currentKey] = [];
 
             const summaryValues = parseOrderSummaryValues(textVal);
             const lines = textVal.split('\n');
@@ -887,24 +915,55 @@
                     isMyOrderCreated: false,
                     isReserved: false, 
                     dispatchDate: "",
-                    rawText: textVal
+                    rawText: textVal,
+                    isLocalDraft: isLocalOnly
                 };
 
-                dbState.orders_history[currentKey].push(newOrderRecord);
+                if (isLocalOnly) {
+                    if (!localDraftOrders[currentKey]) localDraftOrders[currentKey] = [];
+                    localDraftOrders[currentKey].push(newOrderRecord);
+                    saveLocalDraftsToStorage();
 
-                const success = await syncDatabaseToGitHub(`Add order for ${customerName}`);
-                if (success) {
                     inputEl.value = "";
                     inputEl.style.height = 'auto'; 
                     document.getElementById('order-customer-input').value = "";
                     renderDashboardCategoryShowcase();
+                    alert("🧪 บันทึกร่างจำลองสำเร็จ!");
+                } else {
+                    if (!dbState.orders_history[currentKey]) dbState.orders_history[currentKey] = [];
+                    dbState.orders_history[currentKey].push(newOrderRecord);
 
-                    if (unmatchedLines.length > 0) {
-                        alert(`🎉 บันทึกออเดอร์สำเร็จ!\n\n⚠️ บรรทัดที่ไม่พบชื่อสินค้าในระบบ:\n${unmatchedLines.map(l => '• ' + l).join('\n')}`);
+                    const success = await syncDatabaseToGitHub(`Add order for ${customerName}`);
+                    if (success) {
+                        inputEl.value = "";
+                        inputEl.style.height = 'auto'; 
+                        document.getElementById('order-customer-input').value = "";
+                        renderDashboardCategoryShowcase();
+
+                        if (unmatchedLines.length > 0) {
+                            alert(`🎉 บันทึกออเดอร์สำเร็จ!\n\n⚠️ บรรทัดที่ไม่พบชื่อสินค้าในระบบ:\n${unmatchedLines.map(l => '• ' + l).join('\n')}`);
+                        }
                     }
                 }
             } else {
                 alert("⚠️ ไม่พบชื่อสินค้าที่ตรงกันในระบบ กรุณาตรวจสอบอีกครั้ง");
+            }
+        }
+
+        async function pushLocalDraftToGitHub(batchKey, orderId) {
+            let draftList = localDraftOrders[batchKey] || [];
+            const targetIndex = draftList.findIndex(o => o.id === orderId);
+
+            if (targetIndex !== -1) {
+                const [targetOrder] = draftList.splice(targetIndex, 1);
+                delete targetOrder.isLocalDraft;
+
+                if (!dbState.orders_history[batchKey]) dbState.orders_history[batchKey] = [];
+                dbState.orders_history[batchKey].push(targetOrder);
+
+                saveLocalDraftsToStorage();
+                const success = await syncDatabaseToGitHub(`Promote draft order ${orderId} to cloud`);
+                if (success) renderDashboardCategoryShowcase();
             }
         }
 
@@ -931,15 +990,27 @@
             if (!dispatchDate) { alert("⚠️ กรุณาระบุวันที่ก่อนครับ!"); return; }
 
             let orderList = dbState.orders_history[batchKey] || [];
-            const targetOrder = orderList.find(o => o.id === orderId);
+            let targetOrder = orderList.find(o => o.id === orderId);
+            let isLocal = false;
+
+            if (!targetOrder) {
+                orderList = localDraftOrders[batchKey] || [];
+                targetOrder = orderList.find(o => o.id === orderId);
+                isLocal = true;
+            }
             
             if (targetOrder) {
                 targetOrder.isReserved = true;
                 targetOrder.dispatchDate = dispatchDate;
 
                 closeReserveDateModal();
-                const success = await syncDatabaseToGitHub(`Reserve order ${orderId}`);
-                if (success) renderDashboardCategoryShowcase();
+                if (isLocal) {
+                    saveLocalDraftsToStorage();
+                    renderDashboardCategoryShowcase();
+                } else {
+                    const success = await syncDatabaseToGitHub(`Reserve order ${orderId}`);
+                    if (success) renderDashboardCategoryShowcase();
+                }
             }
         }
 
@@ -981,22 +1052,39 @@
             if (!destBatchKey) { alert("⚠️ กรุณาเลือกรอบปลายทาง!"); return; }
 
             let sourceList = dbState.orders_history[sourceBatchKey] || [];
-            const targetOrderIndex = sourceList.findIndex(o => o.id === orderId);
+            let targetOrderIndex = sourceList.findIndex(o => o.id === orderId);
+            let isLocal = false;
+
+            if (targetOrderIndex === -1) {
+                sourceList = localDraftOrders[sourceBatchKey] || [];
+                targetOrderIndex = sourceList.findIndex(o => o.id === orderId);
+                isLocal = true;
+            }
 
             if (targetOrderIndex !== -1) {
                 const [targetOrder] = sourceList.splice(targetOrderIndex, 1);
                 targetOrder.isReserved = false;
                 targetOrder.dispatchDate = "";
 
-                if (!dbState.orders_history[destBatchKey]) dbState.orders_history[destBatchKey] = [];
-                dbState.orders_history[destBatchKey].push(targetOrder);
-
-                closeUnreserveTargetModal();
-                const success = await syncDatabaseToGitHub(`Unreserve order ${orderId}`);
-                if (success) renderDashboardCategoryShowcase();
+                if (isLocal) {
+                    if (!localDraftOrders[destBatchKey]) localDraftOrders[destBatchKey] = [];
+                    localDraftOrders[destBatchKey].push(targetOrder);
+                    saveLocalDraftsToStorage();
+                    closeUnreserveTargetModal();
+                    renderDashboardCategoryShowcase();
+                } else {
+                    if (!dbState.orders_history[destBatchKey]) dbState.orders_history[destBatchKey] = [];
+                    dbState.orders_history[destBatchKey].push(targetOrder);
+                    closeUnreserveTargetModal();
+                    const success = await syncDatabaseToGitHub(`Unreserve order ${orderId}`);
+                    if (success) renderDashboardCategoryShowcase();
+                }
             }
         }
 
+        // ==========================================
+        // 🌟 RENDER SAVED ORDERS & BATCH SUMMARY
+        // ==========================================
         function renderSavedOrdersHistory() {
             const batchNames = getSortedDummyBatchList();
             const allOrdersHistory = dbState.orders_history || {};
@@ -1018,10 +1106,13 @@
             wrapperReserved.innerHTML = "";
 
             const activeBatchKeys = Object.keys(batchNames);
+            const { actualDetails } = getTotalDummyDetailsAllBatches();
 
             activeBatchKeys.forEach(bKey => {
                 const bName = batchNames[bKey] || bKey;
-                const orders = allOrdersHistory[bKey] || [];
+                const cloudOrders = allOrdersHistory[bKey] || [];
+                const draftOrders = localDraftOrders[bKey] || [];
+                const orders = [...cloudOrders, ...draftOrders];
 
                 const normalOrders = orders.filter(o => !o.isReserved);
                 const reservedOrders = orders.filter(o => o.isReserved);
@@ -1031,16 +1122,61 @@
 
                 // 1. บล็อกออเดอร์ปกติ
                 if (normalOrders.length > 0) {
-                    normalOrders.sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
+                    // 🌟 1. เอาออเดอร์ล่าสุดไว้บนสุด / ซ้ายสุด
+                    normalOrders.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
 
+                    // 🌟 2. คำนวณยอดสรุปประจำรอบนี้
+                    let batchTotalSales = 0;
+                    let batchProductSummary = {}; // สรุปสินค้าแต่ละชนิดในรอบนี้
+
+                    normalOrders.forEach(ord => {
+                        batchTotalSales += (ord.total || 0);
+                        ord.items.forEach(item => {
+                            batchProductSummary[item.name] = (batchProductSummary[item.name] || 0) + item.qty;
+                        });
+                    });
+
+                    // 🌟 3. จัดเรียงสินค้าตามยอดขายจากมากไปน้อย (Best Sellers First)
+                    const sortedProductNames = Object.keys(batchProductSummary).sort((a, b) => batchProductSummary[b] - batchProductSummary[a]);
+
+                    // สร้าง HTML สรุปสินค้าแนวตั้ง พร้อมรูปภาพสินค้าและปุ่มกดกระโดด
+                    let productSummaryHtml = sortedProductNames.map(prodName => {
+                        const qtySoldInBatch = batchProductSummary[prodName];
+                        const excelInfo = allCleanData.find(row => row[1] === prodName);
+                        const itemTotalDetail = actualDetails[prodName] || { totalDeducted: 0 };
+                        const stockRemain = excelInfo ? (excelInfo[4] - itemTotalDetail.totalDeducted) : '-';
+
+                        const imgBase = getSanitizedImageBaseUrl(prodName);
+                        const safeName = prodName.replace(/'/g, "\\'");
+
+                        return `
+                            <div class="flex items-center justify-between text-[10.5px] bg-white border border-amber-200/90 rounded-lg p-1.5 shadow-2xs hover:border-amber-400 transition-colors">
+                                <div class="flex items-center gap-2 min-w-0 flex-1">
+                                    <button onclick="jumpToProductCardInStock('${safeName}')" title="ดูสินค้า '${safeName}' ในคลัง" class="w-6 h-6 rounded border border-slate-300 bg-slate-50 flex items-center justify-center overflow-hidden shrink-0 cursor-pointer">
+                                        <img src="${imgBase}.jpg" onerror="this.onerror=null; this.src='${imgBase}.png'; this.onerror=function(){this.parentElement.innerHTML='📦'}" class="w-full h-full object-contain" />
+                                    </button>
+                                    <span class="font-bold text-slate-800 truncate cursor-pointer hover:text-blue-600" onclick="jumpToProductCardInStock('${safeName}')" title="${prodName}">${prodName}</span>
+                                </div>
+                                <div class="flex items-center gap-2 shrink-0 ml-2">
+                                    <span class="text-red-600 font-black text-[11px] bg-red-50 px-1.5 py-0.5 rounded border border-red-100">ขาย ${qtySoldInBatch}</span>
+                                    <span class="text-emerald-700 font-extrabold bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">(เหลือ ${stockRemain})</span>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+
+                    // สร้างการ์ดรายการออเดอร์แต่ละอัน
                     let cardsInBatchHtml = "";
                     normalOrders.forEach(ord => {
                         const isTaxInvoice = checkIsTaxInvoiceCustomer(ord.customer);
                         
-                        let cardBgAndBorder = ord.isMyOrderCreated 
-                            ? "bg-emerald-50/90 border-2 border-emerald-500 shadow-xs" 
-                            : (isTaxInvoice ? "bg-white border-2 border-amber-400 shadow-2xs" : "bg-white border border-slate-200 shadow-2xs");
+                        let cardBgAndBorder = ord.isLocalDraft
+                            ? "bg-amber-50/90 border-2 border-dashed border-amber-400 shadow-xs"
+                            : (ord.isMyOrderCreated 
+                                ? "bg-emerald-50/90 border-2 border-emerald-500 shadow-xs" 
+                                : (isTaxInvoice ? "bg-white border-2 border-amber-400 shadow-2xs" : "bg-white border border-slate-200 shadow-2xs"));
 
+                        let draftBadgeHtml = ord.isLocalDraft ? `<span class="bg-amber-500 text-white font-black text-[8px] px-1.5 py-0.2 rounded shrink-0">🧪 ร่าง</span>` : '';
                         let taxInvoiceAlertHtml = isTaxInvoice ? `<span class="bg-amber-500 text-white font-black text-[8px] px-1.5 py-0.2 rounded shrink-0">🧾 Tax</span>` : '';
                         let myOrderBtnClass = ord.isMyOrderCreated ? "bg-emerald-600 text-white font-black border border-emerald-700" : "bg-slate-200 active:bg-slate-300 text-slate-800 font-bold border border-slate-300";
                         let myOrderBtnText = ord.isMyOrderCreated ? "✓ MyOrder" : "MyOrder";
@@ -1048,6 +1184,11 @@
                         let itemsHtml = ord.items.map(i => {
                             const imgBase = getSanitizedImageBaseUrl(i.name);
                             const safeName = i.name.replace(/'/g, "\\'");
+                            
+                            const excelInfo = allCleanData.find(row => row[1] === i.name);
+                            const itemTotalDetail = actualDetails[i.name] || { totalDeducted: 0 };
+                            const stockRemain = excelInfo ? (excelInfo[4] - itemTotalDetail.totalDeducted) : '-';
+
                             return `
                                 <li class="flex items-center justify-between font-semibold text-[8.5px] leading-tight group py-0.5 border-b border-slate-100/80 last:border-none">
                                     <div class="flex items-center gap-1.5 min-w-0 flex-1">
@@ -1056,16 +1197,28 @@
                                         </button>
                                         <span class="truncate cursor-pointer hover:text-blue-600" onclick="jumpToProductCardInStock('${safeName}')" title="${i.name}">• ${i.name}</span>
                                     </div>
-                                    <b class="text-red-600 shrink-0 ml-1 font-extrabold text-[9px]">-${i.qty}</b>
+                                    <div class="shrink-0 ml-1 flex items-center gap-1">
+                                        <b class="text-red-600 font-extrabold text-[9px]">-${i.qty}</b>
+                                        <span class="text-emerald-700 font-bold text-[8.5px] bg-emerald-50 px-1 rounded border border-emerald-200" title="คงเหลือในคลัง">(เหลือ ${stockRemain})</span>
+                                    </div>
                                 </li>
                             `;
                         }).join('');
 
+                        let actionPushBtnHtml = ord.isLocalDraft ? `
+                            <button onclick="pushLocalDraftToGitHub('${bKey}', '${ord.id}')" title="ลูกค้ายืนยันแล้ว ส่งออเดอร์ลง GitHub" class="text-[8px] bg-emerald-600 active:bg-emerald-700 text-white font-black px-2 py-0.5 rounded cursor-pointer shrink-0 shadow-2xs">
+                                🚀 อัปเข้า GitHub
+                            </button>
+                        ` : '';
+
                         cardsInBatchHtml += `
-                            <div class="${cardBgAndBorder} rounded-xl p-2 flex flex-col justify-between transition-all relative">
+                            <div class="${cardBgAndBorder} min-w-[260px] max-w-[280px] rounded-xl p-2 flex flex-col justify-between transition-all relative shrink-0">
                                 <div>
                                     <div class="flex items-center justify-between gap-1 mb-1 pb-0.5 border-b border-slate-100">
-                                        <span class="text-[8.5px] bg-slate-100 text-slate-700 font-bold px-1.5 py-0.2 rounded">🕒 ${ord.time} น.</span>
+                                        <div class="flex items-center gap-1">
+                                            <span class="text-[8.5px] bg-slate-100 text-slate-700 font-bold px-1.5 py-0.2 rounded">🕒 ${ord.time} น.</span>
+                                            ${draftBadgeHtml}
+                                        </div>
                                         ${taxInvoiceAlertHtml}
                                     </div>
 
@@ -1077,9 +1230,12 @@
                                             <span class="text-[10px] font-bold text-blue-950 truncate">👤 ${ord.customer}</span>
                                         </div>
                                         
-                                        <button onclick="openReserveDateModal('${bKey}', '${ord.id}')" title="เปลี่ยนเป็นออเดอร์จองสินค้า" class="text-[8px] bg-cyan-600 active:bg-cyan-700 text-white font-bold px-1.5 py-0.5 rounded cursor-pointer shrink-0 shadow-2xs">
-                                            📌 จอง
-                                        </button>
+                                        <div class="flex items-center gap-1">
+                                            ${actionPushBtnHtml}
+                                            <button onclick="openReserveDateModal('${bKey}', '${ord.id}')" title="เปลี่ยนเป็นออเดอร์จองสินค้า" class="text-[8px] bg-cyan-600 active:bg-cyan-700 text-white font-bold px-1.5 py-0.5 rounded cursor-pointer shrink-0 shadow-2xs">
+                                                📌 จอง
+                                            </button>
+                                        </div>
                                     </div>
 
                                     <ul class="text-[8.5px] text-gray-800 space-y-0.5 bg-slate-50/90 p-1.5 rounded-md border border-slate-200/80 mb-1 max-h-28 overflow-y-auto no-scrollbar">
@@ -1104,14 +1260,36 @@
                         `;
                     });
 
+                    // ประกอบท่อน Batch Section
                     const batchSection = document.createElement('div');
-                    batchSection.className = "bg-white p-2.5 rounded-xl border border-amber-300 shadow-2xs space-y-2";
+                    batchSection.className = "bg-white p-2.5 rounded-xl border border-amber-300 shadow-2xs space-y-2.5";
                     batchSection.innerHTML = `
+                        <!-- หัวข้อชุดรอบ -->
                         <div class="flex items-center justify-between bg-amber-100/80 px-2.5 py-1 rounded-lg border border-amber-200">
                             <span class="text-xs font-black text-amber-950 flex items-center gap-1">📝 ชุดรอบ: <u class="no-underline text-blue-900">${bName}</u></span>
-                            <span class="text-[9.5px] bg-amber-200 text-amber-900 font-bold px-2 py-0.5 rounded-full">${normalOrders.length} ออเดอร์</span>
+                            <div class="flex items-center gap-2">
+                                <span class="text-[10px] bg-emerald-700 text-white font-extrabold px-2 py-0.5 rounded-full">ยอดรวม ${batchTotalSales.toLocaleString()} บ.</span>
+                                <span class="text-[9.5px] bg-amber-200 text-amber-900 font-bold px-2 py-0.5 rounded-full">${normalOrders.length} ออเดอร์</span>
+                            </div>
                         </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">${cardsInBatchHtml}</div>
+
+                        <!-- 🌟 กรอบสรุปสินค้าแนวตั้ง (เรียงตัวขายดีสุดไว้บนสุด + มีรูปกดได้) -->
+                        <div class="bg-amber-50/50 p-2 rounded-xl border border-amber-200 text-xs">
+                            <div class="flex items-center justify-between mb-1.5 pb-1 border-b border-amber-200/80">
+                                <span class="text-[11px] font-bold text-amber-950 flex items-center gap-1">
+                                    📦 สรุปสินค้าที่ขายไป & คงเหลือปัจจุบัน (เรียงตัวขายดีสุดอยู่บน):
+                                </span>
+                                <span class="text-[9px] text-amber-800 font-medium">*กดที่รูปเพื่อดูในคลัง</span>
+                            </div>
+                            <div class="space-y-1.5 max-h-48 overflow-y-auto pr-1">
+                                ${productSummaryHtml}
+                            </div>
+                        </div>
+
+                        <!-- 🌟 แถวการ์ดออเดอร์แนวนอน เลื่อนขวาได้ -->
+                        <div class="flex gap-2 overflow-x-auto pb-2 pt-1 custom-horizontal-scroll">
+                            ${cardsInBatchHtml}
+                        </div>
                     `;
                     wrapperNormal.appendChild(batchSection);
                 }
@@ -1180,17 +1358,36 @@
 
         async function toggleMyOrderStatus(batchKey, orderId) {
             let orderList = dbState.orders_history[batchKey] || [];
-            const targetOrder = orderList.find(o => o.id === orderId);
+            let targetOrder = orderList.find(o => o.id === orderId);
+            let isLocal = false;
+
+            if (!targetOrder) {
+                orderList = localDraftOrders[batchKey] || [];
+                targetOrder = orderList.find(o => o.id === orderId);
+                isLocal = true;
+            }
+
             if (targetOrder) {
                 targetOrder.isMyOrderCreated = !targetOrder.isMyOrderCreated;
-                const success = await syncDatabaseToGitHub(`Toggle MyOrder status`);
-                if (success) renderSavedOrdersHistory();
+                if (isLocal) {
+                    saveLocalDraftsToStorage();
+                    renderSavedOrdersHistory();
+                } else {
+                    const success = await syncDatabaseToGitHub(`Toggle MyOrder status`);
+                    if (success) renderSavedOrdersHistory();
+                }
             }
         }
 
         function openEditOrderModal(batchKey, orderId) {
             let orderList = dbState.orders_history[batchKey] || [];
-            const targetOrder = orderList.find(o => o.id === orderId);
+            let targetOrder = orderList.find(o => o.id === orderId);
+
+            if (!targetOrder) {
+                orderList = localDraftOrders[batchKey] || [];
+                targetOrder = orderList.find(o => o.id === orderId);
+            }
+
             if (!targetOrder) return;
 
             document.getElementById('edit-order-id').value = targetOrder.id;
@@ -1226,7 +1423,15 @@
             const batchKey = document.getElementById('edit-order-batch-key').value;
 
             let orderList = dbState.orders_history[batchKey] || [];
-            const targetOrder = orderList.find(o => o.id === orderId);
+            let targetOrder = orderList.find(o => o.id === orderId);
+            let isLocal = false;
+
+            if (!targetOrder) {
+                orderList = localDraftOrders[batchKey] || [];
+                targetOrder = orderList.find(o => o.id === orderId);
+                isLocal = true;
+            }
+
             if (!targetOrder) return;
 
             const newTimeVal = document.getElementById('edit-order-time-input').value;
@@ -1272,18 +1477,31 @@
             targetOrder.items = newMatchedItems;
 
             closeEditOrderModal();
-            const success = await syncDatabaseToGitHub(`Edit order ${orderId}`);
-            if (success) renderDashboardCategoryShowcase();
+            if (isLocal) {
+                saveLocalDraftsToStorage();
+                renderDashboardCategoryShowcase();
+            } else {
+                const success = await syncDatabaseToGitHub(`Edit order ${orderId}`);
+                if (success) renderDashboardCategoryShowcase();
+            }
         }
 
         async function deleteSingleOrderRecord(batchKey, orderId) {
             if (!confirm("❓ ต้องการลบออเดอร์นี้หรือไม่?")) return;
 
             let orderList = dbState.orders_history[batchKey] || [];
-            dbState.orders_history[batchKey] = orderList.filter(o => o.id !== orderId);
+            let targetOrder = orderList.find(o => o.id === orderId);
 
-            const success = await syncDatabaseToGitHub(`Delete order ${orderId}`);
-            if (success) renderDashboardCategoryShowcase();
+            if (targetOrder) {
+                dbState.orders_history[batchKey] = orderList.filter(o => o.id !== orderId);
+                const success = await syncDatabaseToGitHub(`Delete order ${orderId}`);
+                if (success) renderDashboardCategoryShowcase();
+            } else {
+                let draftList = localDraftOrders[batchKey] || [];
+                localDraftOrders[batchKey] = draftList.filter(o => o.id !== orderId);
+                saveLocalDraftsToStorage();
+                renderDashboardCategoryShowcase();
+            }
         }
 
         function openTokenModal() {
@@ -1514,14 +1732,12 @@
                 const token = getGitHubToken();
                 const headers = token ? { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' } : { 'Accept': 'application/vnd.github.v3+json' };
                 
-                // 🌟 ใช้ API endpoint สำหรับไฟล์ Excel เช่นเดียวกัน
                 const apiUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${FILE_NAME}?t=${new Date().getTime()}`;
                 const res = await fetch(apiUrl, { headers });
                 
                 if (!res.ok) throw new Error(`HTTP ${res.status}`);
                 const fileInfo = await res.json();
                 
-                // แปลง Base64 binary เป็น ArrayBuffer ให้ SheetJS อ่าน
                 const binaryStr = atob(fileInfo.content.replace(/\s/g, ''));
                 const len = binaryStr.length;
                 const bytes = new Uint8Array(len);
