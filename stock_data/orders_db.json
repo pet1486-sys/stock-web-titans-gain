@@ -367,6 +367,34 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "US 42 มม x2 =640\nตะกั่วแปะ 50แถว =300\nกาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 1250 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786672768670",
+        "timestamp": 1786672768670,
+        "time": "08:59",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ขันศรยาว",
+            "qty": 20
+          },
+          {
+            "name": "จุ๊บทองเหลือง11ซม",
+            "qty": 20
+          },
+          {
+            "name": "จุ๊บขันนอกใหญ่",
+            "qty": 20
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 2200,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ขันศรยาว x20 =400\nจุ๊บทองเหลือง11ซม x20 =1000\nจุ๊บขันนอกใหญ่ x20 =800\n\nจัดส่งฟรี\nรวม 2200 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
