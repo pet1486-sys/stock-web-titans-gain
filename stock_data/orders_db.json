@@ -436,8 +436,8 @@
         "shipping": 0,
         "total": 1670,
         "isMyOrderCreated": false,
-        "isReserved": false,
-        "dispatchDate": "",
+        "isReserved": true,
+        "dispatchDate": "2026-08-14",
         "rawText": "ใยไหม =170\nTJ-14HD =350\nTJ-10HD =350\nดอกเห็ด 6มิล =500\nกาวปะ MR =260\nขันศรสั้น x2 =20\nขันศรยาว =20\n\nจัดส่งฟรี\nรวม 1670 บ\nเก็บเงินปลายทาง"
       }
     ]
