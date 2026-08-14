@@ -86,26 +86,6 @@
         "rawText": "กาวปะ MR x5 =1300\nวงกลม MU-00<43มม> x5 =1250\nวงกลม L3<52มม> x5 =1450\n\nจัดส่งฟรี\nรวม 4000 บ\nเก็บเงินปลายทาง"
       },
       {
-        "id": "ord_1786605048301",
-        "timestamp": 1786605048301,
-        "time": "14:10",
-        "customer": "สุทิน แสงตะกรณ์",
-        "channel": "Facebook",
-        "items": [
-          {
-            "name": "ใยไหม",
-            "qty": 1
-          }
-        ],
-        "discount": 0,
-        "shipping": 50,
-        "total": 220,
-        "isMyOrderCreated": false,
-        "isReserved": true,
-        "dispatchDate": "2026-08-13",
-        "rawText": "ใยไหม =170\n\nค่าจัดส่ง 50 บ\nรวม 220 บ\nเก็บเงินปลายทาง"
-      },
-      {
         "id": "ord_1786606043598",
         "timestamp": 1786606043598,
         "time": "14:27",
@@ -584,6 +564,28 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "EU 52มิล =220\n\nค่าจัดส่ง 50 บ\nรวม 270 บ\nเก็บเงินปลายทาง"
+      }
+    ],
+    "batch_1786688439945": [
+      {
+        "id": "ord_1786605048301",
+        "timestamp": 1786605048301,
+        "time": "14:10",
+        "customer": "สุทิน แสงตะกรณ์",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ใยไหม",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 220,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ใยไหม =170\n\nค่าจัดส่ง 50 บ\nรวม 220 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
