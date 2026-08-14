@@ -31,7 +31,6 @@
             border-width: 2px !important;
         }
 
-        /* Custom Scrollbar สำหรับกล่องเลื่อนแนวนอน */
         .custom-horizontal-scroll::-webkit-scrollbar {
             height: 6px;
         }
@@ -204,7 +203,7 @@
                     📋 รายการออเดอร์ปกติ (ตัดสต็อกจริง) 
                     <span id="total-orders-count-badge" class="bg-amber-200 text-amber-900 font-extrabold text-[10px] px-2 py-0.5 rounded-full">0 ออเดอร์</span>
                 </h3>
-                <span class="text-[9px] text-amber-800 font-medium">*ออเดอร์ล่าสุดอยู่ซ้ายสุด / สามารถเลื่อนขวาดูเพิ่มเติมได้</span>
+                <span class="text-[9px] text-amber-800 font-medium">*คลิกที่การ์ดออเดอร์เพื่อเปิดดูรายการสินค้า</span>
             </div>
 
             <div id="saved-orders-cards-wrapper" class="space-y-4"></div>
@@ -242,6 +241,23 @@
         </section>
 
     </main>
+
+    <!-- ─── POPUP MODAL: แสดงรายละเอียดสินค้าเมื่อคลิกการ์ดออเดอร์ (ปรับแนวยาว ไม่ต้องสกอร์) ─── -->
+    <div id="order-detail-popup-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300 p-3 sm:p-4">
+        <div class="bg-white p-4 sm:p-5 rounded-2xl max-w-2xl w-full shadow-2xl transform scale-95 transition-transform duration-300 max-h-[95vh] overflow-y-auto">
+            <div class="flex items-center justify-between border-b border-gray-100 pb-2 mb-3">
+                <h3 id="popup-order-title" class="text-xs sm:text-sm font-bold text-slate-900 flex items-center gap-1">
+                    📦 รายละเอียดออเดอร์
+                </h3>
+                <button onclick="closeOrderDetailPopupModal()" class="text-gray-400 hover:text-gray-700 text-base p-1 rounded-lg">✕</button>
+            </div>
+
+            <div id="popup-order-body-content" class="space-y-3"></div>
+
+            <div class="flex gap-2 justify-end items-center pt-3 mt-3 border-t border-gray-100" id="popup-order-footer-actions">
+            </div>
+        </div>
+    </div>
 
     <!-- ─── POPUP MODAL: เลือกรอบสำหรับการยกเลิกจองสินค้า ─── -->
     <div id="unreserve-target-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300 p-4">
@@ -426,13 +442,11 @@
         let allCleanData = [];
         let categoryDatabase = {}; 
 
-        // 🌟 DATABASE STATE
         let dbState = {
             batch_names: {},
             orders_history: {}
         };
 
-        // 🌟 LOCAL STORAGE STATE
         let localDraftOrders = JSON.parse(localStorage.getItem('local_draft_orders') || '{}');
 
         function saveLocalDraftsToStorage() {
@@ -475,6 +489,7 @@
             const sanitizedId = `product-card-${productName.trim().replace(/[<>"':?*|\\\/()]/g, "").replace(/\s+/g, "_")}`;
             const targetCard = document.getElementById(sanitizedId);
             if (targetCard) {
+                closeOrderDetailPopupModal();
                 targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 targetCard.classList.remove('highlight-product-target');
                 void targetCard.offsetWidth; 
@@ -912,7 +927,6 @@
                     discount: summaryValues.discount,
                     shipping: summaryValues.shipping,
                     total: summaryValues.total,
-                    isMyOrderCreated: false,
                     isReserved: false, 
                     dispatchDate: "",
                     rawText: textVal,
@@ -962,12 +976,14 @@
                 dbState.orders_history[batchKey].push(targetOrder);
 
                 saveLocalDraftsToStorage();
+                closeOrderDetailPopupModal();
                 const success = await syncDatabaseToGitHub(`Promote draft order ${orderId} to cloud`);
                 if (success) renderDashboardCategoryShowcase();
             }
         }
 
         function openReserveDateModal(batchKey, orderId) {
+            closeOrderDetailPopupModal();
             document.getElementById('reserve-target-batch-key').value = batchKey;
             document.getElementById('reserve-target-order-id').value = orderId;
             document.getElementById('reserve-dispatch-date-input').value = new Date().toISOString().split('T')[0];
@@ -1083,6 +1099,122 @@
         }
 
         // ==========================================
+        // 🌟 POPUP DETAILS MODAL FOR SINGLE ORDER (เน้นรายละเอียดสินค้า แนวนอน 2 คอลัมน์ ไม่ต้องสกอร์)
+        // ==========================================
+        function openOrderDetailPopupModal(batchKey, orderId) {
+            let orderList = dbState.orders_history[batchKey] || [];
+            let targetOrder = orderList.find(o => o.id === orderId);
+
+            if (!targetOrder) {
+                orderList = localDraftOrders[batchKey] || [];
+                targetOrder = orderList.find(o => o.id === orderId);
+            }
+
+            if (!targetOrder) return;
+
+            const { actualDetails } = getTotalDummyDetailsAllBatches();
+            const isTaxInvoice = checkIsTaxInvoiceCustomer(targetOrder.customer);
+            const batchName = (dbState.batch_names || {})[batchKey] || batchKey;
+
+            const titleEl = document.getElementById('popup-order-title');
+            const bodyEl = document.getElementById('popup-order-body-content');
+            const actionsEl = document.getElementById('popup-order-footer-actions');
+
+            titleEl.innerHTML = `📦 ออเดอร์: <b class="text-blue-900 ml-1 text-sm sm:text-base">${targetOrder.customer}</b>`;
+
+            let itemsHtml = targetOrder.items.map(i => {
+                const imgBase = getSanitizedImageBaseUrl(i.name);
+                const safeName = i.name.replace(/'/g, "\\'");
+                
+                const excelInfo = allCleanData.find(row => row[1] === i.name);
+                const itemTotalDetail = actualDetails[i.name] || { totalDeducted: 0 };
+                const stockRemain = excelInfo ? (excelInfo[4] - itemTotalDetail.totalDeducted) : '-';
+
+                return `
+                    <div class="flex items-center justify-between p-2 bg-slate-50 border border-slate-200 rounded-lg hover:border-blue-400 transition-all">
+                        <div class="flex items-center gap-2 min-w-0 flex-1">
+                            <button onclick="jumpToProductCardInStock('${safeName}')" title="กระโดดไปสินค้าคลัง" class="w-7 h-7 rounded border border-slate-300 bg-white flex items-center justify-center overflow-hidden shrink-0 cursor-pointer">
+                                <img src="${imgBase}.jpg" onerror="this.onerror=null; this.src='${imgBase}.png'; this.onerror=function(){this.parentElement.innerHTML='📦'}" class="w-full h-full object-contain" />
+                            </button>
+                            <span class="text-xs font-bold text-slate-800 truncate hover:text-blue-600 cursor-pointer" onclick="jumpToProductCardInStock('${safeName}')" title="${i.name}">${i.name}</span>
+                        </div>
+                        <div class="flex items-center gap-1.5 shrink-0 ml-1.5">
+                            <span class="text-xs font-black text-red-600">-${i.qty}</span>
+                            <span class="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-1.5 py-0.5 rounded border border-emerald-300">(เหลือ ${stockRemain})</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            bodyEl.innerHTML = `
+                <div class="bg-amber-50 p-2.5 rounded-xl border border-amber-200 text-xs space-y-1">
+                    <div class="flex justify-between items-center text-amber-950 font-bold">
+                        <span>📝 รอบ: ${batchName}</span>
+                        <span>🕒 ${targetOrder.time} น.</span>
+                    </div>
+                    <div class="flex justify-between items-center text-slate-700">
+                        <span>🏪 ช่องทาง: <b class="text-blue-900">${targetOrder.channel}</b></span>
+                        ${isTaxInvoice ? '<span class="bg-amber-500 text-white font-bold text-[9px] px-1.5 py-0.5 rounded">🧾 ใบกำกับภาษี</span>' : ''}
+                    </div>
+                </div>
+
+                <!-- 🌟 แสดงรายการสินค้าแบบ Grid 2 คอลัมน์แนวยาว ไม่ต้องสกอร์ -->
+                <div class="space-y-1.5">
+                    <span class="text-xs font-bold text-gray-700 block">🛒 รายการสินค้าในออเดอร์ (${targetOrder.items.length} รายการ):</span>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                        ${itemsHtml}
+                    </div>
+                </div>
+
+                <div class="bg-slate-100 p-2.5 rounded-xl border border-slate-200 text-xs space-y-1">
+                    <div class="flex justify-between text-slate-600">
+                        <span>🏷️ ส่วนลด:</span>
+                        <span class="font-bold text-red-600">-${targetOrder.discount || 0} บ.</span>
+                    </div>
+                    <div class="flex justify-between text-slate-600">
+                        <span>🚚 ค่าจัดส่ง:</span>
+                        <span class="font-bold text-blue-600">+${targetOrder.shipping || 0} บ.</span>
+                    </div>
+                    <div class="flex justify-between text-slate-900 font-extrabold text-sm border-t border-slate-200 pt-1">
+                        <span>💰 ยอดรวมทั้งสิ้น:</span>
+                        <span class="text-emerald-700 text-base font-black">${(targetOrder.total || 0).toLocaleString()} บาท</span>
+                    </div>
+                </div>
+            `;
+
+            actionsEl.innerHTML = `
+                <div class="flex items-center gap-1.5">
+                    ${targetOrder.isLocalDraft ? `
+                        <button onclick="pushLocalDraftToGitHub('${batchKey}', '${targetOrder.id}')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-1.5 rounded-lg cursor-pointer shadow-2xs">
+                            🚀 อัปเข้า GitHub
+                        </button>
+                    ` : ''}
+                </div>
+                <div class="flex items-center gap-1.5">
+                    <button onclick="openReserveDateModal('${batchKey}', '${targetOrder.id}')" class="text-xs bg-cyan-600 hover:bg-cyan-700 text-white font-bold px-3 py-1.5 rounded-lg cursor-pointer shadow-2xs">
+                        📌 จอง
+                    </button>
+                    <button onclick="openEditOrderModal('${batchKey}', '${targetOrder.id}')" class="text-xs bg-blue-600 hover:bg-blue-700 text-white font-bold px-3 py-1.5 rounded-lg cursor-pointer shadow-2xs">
+                        ✏️ แก้ไข
+                    </button>
+                    <button onclick="deleteSingleOrderRecord('${batchKey}', '${targetOrder.id}')" class="text-xs bg-red-500 hover:bg-red-600 text-white font-bold px-3 py-1.5 rounded-lg cursor-pointer shadow-2xs">
+                        🗑️ ลบ
+                    </button>
+                </div>
+            `;
+
+            const modal = document.getElementById('order-detail-popup-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => { modal.classList.add('opacity-100'); modal.querySelector('div').classList.replace('scale-95', 'scale-100'); }, 10);
+        }
+
+        function closeOrderDetailPopupModal() {
+            const modal = document.getElementById('order-detail-popup-modal');
+            modal.classList.remove('opacity-100'); modal.querySelector('div').classList.replace('scale-100', 'scale-95'); setTimeout(() => modal.classList.add('hidden'), 300);
+        }
+
+
+        // ==========================================
         // 🌟 RENDER SAVED ORDERS & BATCH SUMMARY
         // ==========================================
         function renderSavedOrdersHistory() {
@@ -1108,6 +1240,14 @@
             const activeBatchKeys = Object.keys(batchNames);
             const { actualDetails } = getTotalDummyDetailsAllBatches();
 
+            const channelStyles = {
+                "Facebook": { label: "เพจ Facebook", icon: "📘", border: "border-blue-400", bg: "bg-blue-50/80", headerBg: "bg-blue-600 text-white" },
+                "Line Shopping": { label: "💚 Line Shopping", icon: "💚", border: "border-emerald-400", bg: "bg-emerald-50/80", headerBg: "bg-emerald-600 text-white" },
+                "Shopee": { label: "🧡 Shopee", icon: "🧡", border: "border-orange-400", bg: "bg-orange-50/80", headerBg: "bg-orange-500 text-white" },
+                "Lazada": { label: "💙 Lazada", icon: "💙", border: "border-cyan-400", bg: "bg-cyan-50/80", headerBg: "bg-cyan-600 text-white" },
+                "TikTok": { label: "🖤 TikTok", icon: "🖤", border: "border-slate-800", bg: "bg-slate-100/90", headerBg: "bg-slate-900 text-white" }
+            };
+
             activeBatchKeys.forEach(bKey => {
                 const bName = batchNames[bKey] || bKey;
                 const cloudOrders = allOrdersHistory[bKey] || [];
@@ -1122,12 +1262,10 @@
 
                 // 1. บล็อกออเดอร์ปกติ
                 if (normalOrders.length > 0) {
-                    // 🌟 1. เอาออเดอร์ล่าสุดไว้บนสุด / ซ้ายสุด
                     normalOrders.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
 
-                    // 🌟 2. คำนวณยอดสรุปประจำรอบนี้
                     let batchTotalSales = 0;
-                    let batchProductSummary = {}; // สรุปสินค้าแต่ละชนิดในรอบนี้
+                    let batchProductSummary = {}; 
 
                     normalOrders.forEach(ord => {
                         batchTotalSales += (ord.total || 0);
@@ -1136,10 +1274,20 @@
                         });
                     });
 
-                    // 🌟 3. จัดเรียงสินค้าตามยอดขายจากมากไปน้อย (Best Sellers First)
-                    const sortedProductNames = Object.keys(batchProductSummary).sort((a, b) => batchProductSummary[b] - batchProductSummary[a]);
+                    // 🌟 1. จัดเรียงสินค้าตามจำนวนที่เหลือน้อยที่สุดขึ้นก่อน (Lowest Stock First)
+                    const sortedProductNames = Object.keys(batchProductSummary).sort((a, b) => {
+                        const excelInfoA = allCleanData.find(row => row[1] === a);
+                        const excelInfoB = allCleanData.find(row => row[1] === b);
+                        
+                        const itemDetailA = actualDetails[a] || { totalDeducted: 0 };
+                        const itemDetailB = actualDetails[b] || { totalDeducted: 0 };
 
-                    // สร้าง HTML สรุปสินค้าแนวตั้ง พร้อมรูปภาพสินค้าและปุ่มกดกระโดด
+                        const remainA = excelInfoA ? (excelInfoA[4] - itemDetailA.totalDeducted) : -999;
+                        const remainB = excelInfoB ? (excelInfoB[4] - itemDetailB.totalDeducted) : -999;
+
+                        return remainA - remainB; // ค่าน้อยสุดอยู่บนสุด
+                    });
+
                     let productSummaryHtml = sortedProductNames.map(prodName => {
                         const qtySoldInBatch = batchProductSummary[prodName];
                         const excelInfo = allCleanData.find(row => row[1] === prodName);
@@ -1165,96 +1313,55 @@
                         `;
                     }).join('');
 
-                    // สร้างการ์ดรายการออเดอร์แต่ละอัน
-                    let cardsInBatchHtml = "";
+                    // จัดกลุ่มออเดอร์ตามช่องทางขาย
+                    const groupedByChannel = {};
                     normalOrders.forEach(ord => {
-                        const isTaxInvoice = checkIsTaxInvoiceCustomer(ord.customer);
-                        
-                        let cardBgAndBorder = ord.isLocalDraft
-                            ? "bg-amber-50/90 border-2 border-dashed border-amber-400 shadow-xs"
-                            : (ord.isMyOrderCreated 
-                                ? "bg-emerald-50/90 border-2 border-emerald-500 shadow-xs" 
-                                : (isTaxInvoice ? "bg-white border-2 border-amber-400 shadow-2xs" : "bg-white border border-slate-200 shadow-2xs"));
+                        const ch = ord.channel || "Facebook";
+                        if (!groupedByChannel[ch]) groupedByChannel[ch] = [];
+                        groupedByChannel[ch].push(ord);
+                    });
 
-                        let draftBadgeHtml = ord.isLocalDraft ? `<span class="bg-amber-500 text-white font-black text-[8px] px-1.5 py-0.2 rounded shrink-0">🧪 ร่าง</span>` : '';
-                        let taxInvoiceAlertHtml = isTaxInvoice ? `<span class="bg-amber-500 text-white font-black text-[8px] px-1.5 py-0.2 rounded shrink-0">🧾 Tax</span>` : '';
-                        let myOrderBtnClass = ord.isMyOrderCreated ? "bg-emerald-600 text-white font-black border border-emerald-700" : "bg-slate-200 active:bg-slate-300 text-slate-800 font-bold border border-slate-300";
-                        let myOrderBtnText = ord.isMyOrderCreated ? "✓ MyOrder" : "MyOrder";
+                    let channelSectionsHtml = "";
+                    Object.keys(groupedByChannel).forEach(chKey => {
+                        const ordersInCh = groupedByChannel[chKey];
+                        const style = channelStyles[chKey] || { label: chKey, icon: "🏪", border: "border-gray-300", bg: "bg-gray-50", headerBg: "bg-gray-700 text-white" };
 
-                        let itemsHtml = ord.items.map(i => {
-                            const imgBase = getSanitizedImageBaseUrl(i.name);
-                            const safeName = i.name.replace(/'/g, "\\'");
-                            
-                            const excelInfo = allCleanData.find(row => row[1] === i.name);
-                            const itemTotalDetail = actualDetails[i.name] || { totalDeducted: 0 };
-                            const stockRemain = excelInfo ? (excelInfo[4] - itemTotalDetail.totalDeducted) : '-';
+                        let cardsInChannelHtml = "";
+                        ordersInCh.forEach(ord => {
+                            const isTaxInvoice = checkIsTaxInvoiceCustomer(ord.customer);
+                            const batchDateStr = ord.timestamp ? new Date(ord.timestamp).toLocaleDateString('th-TH', { day: '2-digit', month: '2-digit' }) : '';
 
-                            return `
-                                <li class="flex items-center justify-between font-semibold text-[8.5px] leading-tight group py-0.5 border-b border-slate-100/80 last:border-none">
-                                    <div class="flex items-center gap-1.5 min-w-0 flex-1">
-                                        <button onclick="jumpToProductCardInStock('${safeName}')" title="ดูสินค้า '${safeName}' ในคลัง" class="w-5 h-5 rounded border border-slate-300 bg-white flex items-center justify-center overflow-hidden shrink-0 cursor-pointer">
-                                            <img src="${imgBase}.jpg" onerror="this.onerror=null; this.src='${imgBase}.png'; this.onerror=function(){this.parentElement.innerHTML='📦'}" class="w-full h-full object-contain" />
-                                        </button>
-                                        <span class="truncate cursor-pointer hover:text-blue-600" onclick="jumpToProductCardInStock('${safeName}')" title="${i.name}">• ${i.name}</span>
+                            let cardStatusBorder = ord.isLocalDraft 
+                                ? "border-amber-400 border-dashed bg-amber-50" 
+                                : "border-slate-300 bg-white";
+
+                            cardsInChannelHtml += `
+                                <div onclick="openOrderDetailPopupModal('${bKey}', '${ord.id}')" class="p-2 rounded-xl border ${cardStatusBorder} shadow-2xs hover:shadow-md cursor-pointer transition-all flex flex-col justify-between group relative">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="text-[9px] font-bold bg-slate-100 text-slate-700 px-1.5 py-0.2 rounded">🕒 ${batchDateStr} [${ord.time} น.]</span>
+                                        ${ord.isLocalDraft ? '<span class="text-[8px] bg-amber-500 text-white font-black px-1 rounded">🧪 ร่าง</span>' : ''}
+                                        ${isTaxInvoice ? '<span class="text-[8px] bg-amber-500 text-white font-black px-1 rounded">🧾 Tax</span>' : ''}
                                     </div>
-                                    <div class="shrink-0 ml-1 flex items-center gap-1">
-                                        <b class="text-red-600 font-extrabold text-[9px]">-${i.qty}</b>
-                                        <span class="text-emerald-700 font-bold text-[8.5px] bg-emerald-50 px-1 rounded border border-emerald-200" title="คงเหลือในคลัง">(เหลือ ${stockRemain})</span>
+                                    <div class="my-1">
+                                        <h4 class="text-xs font-black text-slate-900 group-hover:text-blue-600 truncate">👤 ${ord.customer}</h4>
+                                        <p class="text-[10px] font-extrabold text-emerald-700 mt-0.5">💰 ${(ord.total || 0).toLocaleString()} บ. <span class="text-[9px] font-normal text-slate-400">(${ord.items.length} รายการ)</span></p>
                                     </div>
-                                </li>
+                                    <div class="flex items-center justify-between border-t border-slate-100 pt-1 mt-1 text-[8.5px] text-slate-500 font-semibold">
+                                        <span>${style.icon} ${ord.channel}</span>
+                                        <span class="text-blue-600 font-bold group-hover:underline">เปิดดูรายละเอียด ➔</span>
+                                    </div>
+                                </div>
                             `;
-                        }).join('');
+                        });
 
-                        let actionPushBtnHtml = ord.isLocalDraft ? `
-                            <button onclick="pushLocalDraftToGitHub('${bKey}', '${ord.id}')" title="ลูกค้ายืนยันแล้ว ส่งออเดอร์ลง GitHub" class="text-[8px] bg-emerald-600 active:bg-emerald-700 text-white font-black px-2 py-0.5 rounded cursor-pointer shrink-0 shadow-2xs">
-                                🚀 อัปเข้า GitHub
-                            </button>
-                        ` : '';
-
-                        cardsInBatchHtml += `
-                            <div class="${cardBgAndBorder} min-w-[260px] max-w-[280px] rounded-xl p-2 flex flex-col justify-between transition-all relative shrink-0">
-                                <div>
-                                    <div class="flex items-center justify-between gap-1 mb-1 pb-0.5 border-b border-slate-100">
-                                        <div class="flex items-center gap-1">
-                                            <span class="text-[8.5px] bg-slate-100 text-slate-700 font-bold px-1.5 py-0.2 rounded">🕒 ${ord.time} น.</span>
-                                            ${draftBadgeHtml}
-                                        </div>
-                                        ${taxInvoiceAlertHtml}
-                                    </div>
-
-                                    <div class="flex items-center justify-between gap-1 mb-1">
-                                        <div class="flex items-center gap-1 min-w-0">
-                                            <button onclick="toggleMyOrderStatus('${bKey}', '${ord.id}')" title="ย้าย MyOrder" class="text-[8px] px-1.5 py-0.5 rounded cursor-pointer transition-all shrink-0 ${myOrderBtnClass}">
-                                                ${myOrderBtnText}
-                                            </button>
-                                            <span class="text-[10px] font-bold text-blue-950 truncate">👤 ${ord.customer}</span>
-                                        </div>
-                                        
-                                        <div class="flex items-center gap-1">
-                                            ${actionPushBtnHtml}
-                                            <button onclick="openReserveDateModal('${bKey}', '${ord.id}')" title="เปลี่ยนเป็นออเดอร์จองสินค้า" class="text-[8px] bg-cyan-600 active:bg-cyan-700 text-white font-bold px-1.5 py-0.5 rounded cursor-pointer shrink-0 shadow-2xs">
-                                                📌 จอง
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <ul class="text-[8.5px] text-gray-800 space-y-0.5 bg-slate-50/90 p-1.5 rounded-md border border-slate-200/80 mb-1 max-h-28 overflow-y-auto no-scrollbar">
-                                        ${itemsHtml}
-                                    </ul>
-
-                                    <div class="bg-slate-100/60 p-1 rounded-md border border-slate-200 text-[8px] space-y-0.2">
-                                        <div class="flex justify-between text-slate-600">
-                                            <span>ช่องทาง: <b class="text-slate-800">${ord.channel}</b></span>
-                                            <span>ส่ง: <b class="text-blue-600">+${ord.shipping || 0}</b></span>
-                                        </div>
-                                        <div class="flex justify-between items-center text-slate-900 font-bold border-t border-slate-200 pt-0.5 text-[9px]">
-                                            <span>ยอดรวม: <b class="text-emerald-700 font-extrabold">${ord.total || 0} บ.</b></span>
-                                            <div class="flex items-center gap-1.5 text-[8px]">
-                                                <button onclick="openEditOrderModal('${bKey}', '${ord.id}')" class="text-blue-600 hover:text-blue-800 font-bold cursor-pointer">✏️ แก้</button>
-                                                <button onclick="deleteSingleOrderRecord('${bKey}', '${ord.id}')" class="text-red-500 hover:text-red-700 font-bold cursor-pointer">🗑️ ลบ</button>
-                                            </div>
-                                        </div>
-                                    </div>
+                        channelSectionsHtml += `
+                            <div class="rounded-xl border ${style.border} ${style.bg} p-2 space-y-2">
+                                <div class="flex items-center justify-between ${style.headerBg} px-2.5 py-1 rounded-lg">
+                                    <span class="text-xs font-bold flex items-center gap-1">${style.icon} ${style.label}</span>
+                                    <span class="text-[10px] font-black bg-white/20 px-2 py-0.2 rounded-full">${ordersInCh.length} ออเดอร์</span>
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+                                    ${cardsInChannelHtml}
                                 </div>
                             </div>
                         `;
@@ -1273,22 +1380,22 @@
                             </div>
                         </div>
 
-                        <!-- 🌟 กรอบสรุปสินค้าแนวตั้ง (เรียงตัวขายดีสุดไว้บนสุด + มีรูปกดได้) -->
+                        <!-- 🌟 กรอบสรุปสินค้าแนวตั้ง (เรียงตัวเหลือน้อยสุดอยู่บนสุด) -->
                         <div class="bg-amber-50/50 p-2 rounded-xl border border-amber-200 text-xs">
                             <div class="flex items-center justify-between mb-1.5 pb-1 border-b border-amber-200/80">
                                 <span class="text-[11px] font-bold text-amber-950 flex items-center gap-1">
-                                    📦 สรุปสินค้าที่ขายไป & คงเหลือปัจจุบัน (เรียงตัวขายดีสุดอยู่บน):
+                                    📦 สรุปสินค้าที่ขายไป & คงเหลือปัจจุบัน (เรียงตัวเหลือน้อยที่สุดอยู่บน):
                                 </span>
                                 <span class="text-[9px] text-amber-800 font-medium">*กดที่รูปเพื่อดูในคลัง</span>
                             </div>
-                            <div class="space-y-1.5 max-h-48 overflow-y-auto pr-1">
+                            <div class="space-y-1.5 max-h-52 overflow-y-auto pr-1">
                                 ${productSummaryHtml}
                             </div>
                         </div>
 
-                        <!-- 🌟 แถวการ์ดออเดอร์แนวนอน เลื่อนขวาได้ -->
-                        <div class="flex gap-2 overflow-x-auto pb-2 pt-1 custom-horizontal-scroll">
-                            ${cardsInBatchHtml}
+                        <!-- กรอบออเดอร์แยกตามช่องทางขาย -->
+                        <div class="space-y-2.5 pt-1">
+                            ${channelSectionsHtml}
                         </div>
                     `;
                     wrapperNormal.appendChild(batchSection);
@@ -1356,30 +1463,8 @@
             else placeholderReserved.classList.add('hidden');
         }
 
-        async function toggleMyOrderStatus(batchKey, orderId) {
-            let orderList = dbState.orders_history[batchKey] || [];
-            let targetOrder = orderList.find(o => o.id === orderId);
-            let isLocal = false;
-
-            if (!targetOrder) {
-                orderList = localDraftOrders[batchKey] || [];
-                targetOrder = orderList.find(o => o.id === orderId);
-                isLocal = true;
-            }
-
-            if (targetOrder) {
-                targetOrder.isMyOrderCreated = !targetOrder.isMyOrderCreated;
-                if (isLocal) {
-                    saveLocalDraftsToStorage();
-                    renderSavedOrdersHistory();
-                } else {
-                    const success = await syncDatabaseToGitHub(`Toggle MyOrder status`);
-                    if (success) renderSavedOrdersHistory();
-                }
-            }
-        }
-
         function openEditOrderModal(batchKey, orderId) {
+            closeOrderDetailPopupModal();
             let orderList = dbState.orders_history[batchKey] || [];
             let targetOrder = orderList.find(o => o.id === orderId);
 
@@ -1487,6 +1572,7 @@
         }
 
         async function deleteSingleOrderRecord(batchKey, orderId) {
+            closeOrderDetailPopupModal();
             if (!confirm("❓ ต้องการลบออเดอร์นี้หรือไม่?")) return;
 
             let orderList = dbState.orders_history[batchKey] || [];
