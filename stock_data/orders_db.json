@@ -615,6 +615,34 @@
         "dispatchDate": "",
         "rawText": "ใยไหม =170\nไม้กลิ้งสติม 7mm x2 =200\nเครื่องมือขูดยางแผลยาง =120\n\nค่าจัดส่ง 50 บ\nรวม 540 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1786704298047",
+        "timestamp": 1786704298047,
+        "time": "17:44",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "EU 42มิล",
+            "qty": 2
+          },
+          {
+            "name": "ใยไหม",
+            "qty": 1
+          },
+          {
+            "name": "จุ๊บยางงอ 90 องศา PVR70",
+            "qty": 10
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 760,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU 42มิล x2 =440\nใยไหม =170\nจุ๊บยางงอ 90 องศา PVR70 x10 =100\n\nค่าจัดส่ง 50 บ\nรวม 760 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
