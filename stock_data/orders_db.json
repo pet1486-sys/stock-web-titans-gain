@@ -586,6 +586,35 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "ใยไหม =170\n\nค่าจัดส่ง 50 บ\nรวม 220 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786703862859",
+        "timestamp": 1786703862859,
+        "time": "17:37",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ใยไหม",
+            "qty": 1
+          },
+          {
+            "name": "ไม้กลิ้งสติม 7mm",
+            "qty": 2
+          },
+          {
+            "name": "เครื่องมือขูดยางแผลยาง",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 540,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ใยไหม =170\nไม้กลิ้งสติม 7mm x2 =200\nเครื่องมือขูดยางแผลยาง =120\n\nค่าจัดส่ง 50 บ\nรวม 540 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
