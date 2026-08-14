@@ -523,6 +523,26 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "EU เบอร์ 12 =300\nสี่เหลี่ยม MR-10 =750\nยางซีลหัวเติมลม10ชิ้น =30\nสติมผ้าใบเล็ก =220\n\nค่าจัดส่ง 50 บ\nรวม 1350 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786686100164",
+        "timestamp": 1786686100164,
+        "time": "12:41",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "ดอกเห็ด4มม.",
+            "qty": 2
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 850,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ดอกเห็ด4มม. x2 =800\n\nค่าจัดส่ง 50 บ\nรวม 850 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
