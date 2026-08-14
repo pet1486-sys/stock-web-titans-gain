@@ -543,6 +543,26 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "ดอกเห็ด4มม. x2 =800\n\nค่าจัดส่ง 50 บ\nรวม 850 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786686653205",
+        "timestamp": 1786686653205,
+        "time": "12:50",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ดอกเห็ด 6มิล",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 550,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ดอกเห็ด 6มิล =500\n\nค่าจัดส่ง 50 บ\nรวม 550 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
