@@ -491,6 +491,38 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "TJ-10HD x2 =700\n\nค่าจัดส่ง 50 บ\nรวม 750 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786676381601",
+        "timestamp": 1786676381601,
+        "time": "09:59",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "EU เบอร์ 12",
+            "qty": 1
+          },
+          {
+            "name": "สี่เหลี่ยม MR-10",
+            "qty": 1
+          },
+          {
+            "name": "ยางซีลหัวเติมลม10ชิ้น",
+            "qty": 1
+          },
+          {
+            "name": "สติมผ้าใบเล็ก",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 1350,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU เบอร์ 12 =300\nสี่เหลี่ยม MR-10 =750\nยางซีลหัวเติมลม10ชิ้น =30\nสติมผ้าใบเล็ก =220\n\nค่าจัดส่ง 50 บ\nรวม 1350 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
