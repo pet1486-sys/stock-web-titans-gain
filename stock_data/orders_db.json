@@ -319,6 +319,26 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "EU 52มิล =220\nEU 73มิล =220\nวงกลม MU-02<78มม> =310\nTJ-5 =400\n\nค่าจัดส่ง 50 บ\nรวม 1200 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786672635631",
+        "timestamp": 1786672635631,
+        "time": "08:57",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ผ้าใบท่อน",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 410,
+        "isMyOrderCreated": false,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ผ้าใบท่อน =360\n\nค่าจัดส่ง 50 บ\nรวม 410 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
