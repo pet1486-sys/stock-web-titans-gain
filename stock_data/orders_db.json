@@ -364,6 +364,54 @@
         "dispatchDate": "",
         "rawText": "กาวดำ =220\n\nค่าจัดส่ง 50 บ\nรวม 270 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1786762276659",
+        "timestamp": 1786762276659,
+        "time": "09:51",
+        "customer": "บุญสม",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "EU เบอร์ 8",
+            "qty": 1
+          },
+          {
+            "name": "EU เบอร์ 10",
+            "qty": 1
+          },
+          {
+            "name": "EU เบอร์ 12",
+            "qty": 1
+          },
+          {
+            "name": "EU เบอร์ 14",
+            "qty": 1
+          },
+          {
+            "name": "EU 52มิล",
+            "qty": 1
+          },
+          {
+            "name": "EU 73มิล",
+            "qty": 1
+          },
+          {
+            "name": "กาวดำ",
+            "qty": 2
+          },
+          {
+            "name": "กาวปะ MR",
+            "qty": 2
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 2600,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU เบอร์ 8 =300\nEU เบอร์ 10 =300\nEU เบอร์ 12 =300\nEU เบอร์ 14 =300\nEU 52มิล =220\nEU 73มิล =220\nกาวดำ x2 =440\nกาวปะ MR x2 =520\n\nจัดส่งฟรี\nรวม 2600 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
