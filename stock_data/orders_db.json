@@ -296,6 +296,26 @@
         "dispatchDate": "",
         "rawText": "กาวปะ MR x2 =520\nหัวเติมเร็วมีเกจวัด =250\nสติมผ้าใบจัมโบ้ =370\n\nค่าจัดส่ง 50 บ\nรวม 1190 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1786757469655",
+        "timestamp": 1786757469655,
+        "time": "08:31",
+        "customer": "อู่ สถาพร",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ดอกเห็ด 6มิล",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 550,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ดอกเห็ด 6มิล =500\n\nค่าจัดส่ง 50 บ\nรวม 550 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
