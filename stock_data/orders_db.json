@@ -576,6 +576,30 @@
         "dispatchDate": "",
         "rawText": "กาวปะ MR =260\nUS 42 มม =320\n\nค่าจัดส่ง 50 บ\nรวม 630 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1786788168876",
+        "timestamp": 1786788168876,
+        "time": "17:02",
+        "customer": "หจก. วีรวุฒิ ขนส่ง",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "กาวปะ MR",
+            "qty": 1
+          },
+          {
+            "name": "ยางซีลหัวเติมลม10ชิ้น",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 340,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "กาวปะ MR =260\nยางซีลหัวเติมลม10ชิ้น =30\n\nค่าจัดส่ง 50 บ\nรวม 340 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
