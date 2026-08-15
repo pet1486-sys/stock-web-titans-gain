@@ -268,6 +268,34 @@
         "dispatchDate": "",
         "rawText": "EU 42มิล =220\n\nค่าจัดส่ง 50 บ\nรวม 270 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1786757209046",
+        "timestamp": 1786757209046,
+        "time": "08:26",
+        "customer": "วรวิทย์",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "กาวปะ MR",
+            "qty": 2
+          },
+          {
+            "name": "หัวเติมเร็วมีเกจวัด",
+            "qty": 1
+          },
+          {
+            "name": "สติมผ้าใบจัมโบ้",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 1190,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "กาวปะ MR x2 =520\nหัวเติมเร็วมีเกจวัด =250\nสติมผ้าใบจัมโบ้ =370\n\nค่าจัดส่ง 50 บ\nรวม 1190 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
