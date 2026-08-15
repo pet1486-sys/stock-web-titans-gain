@@ -158,8 +158,8 @@
         "shipping": 50,
         "total": 1130,
         "isMyOrderCreated": false,
-        "isReserved": false,
-        "dispatchDate": "",
+        "isReserved": true,
+        "dispatchDate": "2026-08-16",
         "rawText": "ใยไหม =170\nBY-10 =320\nกาวปะ MR =260\nจุ๊บยาง TR413-1แพ็ค =330\n\nค่าจัดส่ง 50 บ\nรวม 1130 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
       },
