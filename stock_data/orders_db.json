@@ -20,8 +20,8 @@
         "shipping": 50,
         "total": 220,
         "isMyOrderCreated": false,
-        "isReserved": false,
-        "dispatchDate": "",
+        "isReserved": true,
+        "dispatchDate": "2026-08-16",
         "rawText": "ใยไหม =170\n\nค่าจัดส่ง 50 บ\nรวม 220 บ\nเก็บเงินปลายทาง"
       },
       {
