@@ -412,6 +412,30 @@
         "dispatchDate": "",
         "rawText": "EU เบอร์ 8 =300\nEU เบอร์ 10 =300\nEU เบอร์ 12 =300\nEU เบอร์ 14 =300\nEU 52มิล =220\nEU 73มิล =220\nกาวดำ x2 =440\nกาวปะ MR x2 =520\n\nจัดส่งฟรี\nรวม 2600 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1786762784761",
+        "timestamp": 1786762784761,
+        "time": "09:59",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Shopee",
+        "items": [
+          {
+            "name": "EU 52มิล",
+            "qty": 1
+          },
+          {
+            "name": "จุ๊บยาง TR413-1แพ็ค",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 600,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU 52มิล =220\nจุ๊บยาง TR413-1แพ็ค =330\n\nค่าจัดส่ง 50 บ\nรวม 600 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
