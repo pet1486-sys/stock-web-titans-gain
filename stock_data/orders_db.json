@@ -600,6 +600,25 @@
         "dispatchDate": "",
         "rawText": "กาวปะ MR =260\nยางซีลหัวเติมลม10ชิ้น =30\n\nค่าจัดส่ง 50 บ\nรวม 340 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1786788424762",
+        "timestamp": 1786788420000,
+        "time": "17:07",
+        "customer": "พิเนตร ปัถวี",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "หัวเติมลมยาว เกรด A",
+            "qty": 2
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 650,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "หัวเติมลมยาว เกรด A x2 =600\n\nค่าจัดส่ง 50 บ\nรวม 650 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
