@@ -436,6 +436,29 @@
         "dispatchDate": "",
         "rawText": "EU 52มิล =220\nจุ๊บยาง TR413-1แพ็ค =330\n\nค่าจัดส่ง 50 บ\nรวม 600 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1786776770430",
+        "timestamp": 1786776720000,
+        "time": "13:52",
+        "customer": "ชาตรี ลิ้มศิริสัมพันธ์",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "วงกลม MU-00<43มม>",
+            "qty": 4
+          },
+          {
+            "name": "กาวปะ MR",
+            "qty": 2
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 1520,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "วงกลม MU-00<43มม> x4 =1000\nกาวปะ MR x2 =520\n\nจัดส่งฟรี\nรวม 1520 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
