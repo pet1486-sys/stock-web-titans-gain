@@ -244,8 +244,8 @@
         "shipping": 0,
         "total": 3670,
         "isMyOrderCreated": false,
-        "isReserved": false,
-        "dispatchDate": "",
+        "isReserved": true,
+        "dispatchDate": "2026-08-16",
         "rawText": "US 42 มม x5 =1600\nUS 58 มม =320\nกาวปะ MR x5 =1300\nใยไหม =170\nยางดิบ =160\nเครื่องมือขูดยางแผลยาง =120\n\nจัดส่งฟรี\nรวม 3670 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
       },
