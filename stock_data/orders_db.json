@@ -619,6 +619,33 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "หัวเติมลมยาว เกรด A x2 =600\n\nค่าจัดส่ง 50 บ\nรวม 650 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786788689181",
+        "timestamp": 1786788689181,
+        "time": "17:11",
+        "customer": "สุภา สีนิน",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "TJ-10HD",
+            "qty": 2
+          },
+          {
+            "name": "TJ-12",
+            "qty": 2
+          },
+          {
+            "name": "กาวปะ MR",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 1760,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "TJ-10HD x2 =700\nTJ-12 x2 =700\nกาวปะ MR =260\nศรไส้ไก่100ตัว =100\n\nจัดส่งฟรี\nรวม 1760 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
