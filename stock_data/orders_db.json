@@ -81,8 +81,8 @@
         "shipping": 50,
         "total": 810,
         "isMyOrderCreated": false,
-        "isReserved": false,
-        "dispatchDate": "",
+        "isReserved": true,
+        "dispatchDate": "2026-08-16",
         "rawText": "EU 42มิล x2 =440\nใยไหม =170\nจุ๊บยางงอ 90 องศา PVR70 x10 =100\nหัวเจียรอมยิ้ม ใหญ่ =50\n\nค่าจัดส่ง 50 บ\nรวม 810 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
       },
