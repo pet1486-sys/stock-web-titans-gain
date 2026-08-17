@@ -439,6 +439,34 @@
         "dispatchDate": "",
         "rawText": "จุ๊บยาง TR413-1แพ็ค x2 =660\nEU เบอร์ 8 =300\nEU 42มิล x2 =440\nUS 80 มม =320\n\nจัดส่งฟรี\nรวม 1720 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1786935098861",
+        "timestamp": 1786935098861,
+        "time": "09:51",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Lazada",
+        "items": [
+          {
+            "name": "EU 42มิล",
+            "qty": 4
+          },
+          {
+            "name": "ใยไหม",
+            "qty": 1
+          },
+          {
+            "name": "EU 52มิล",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 1320,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU 42มิล x4 =880\nใยไหม =170\nEU 52มิล =220\n\nค่าจัดส่ง 50 บ\nรวม 1320 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
