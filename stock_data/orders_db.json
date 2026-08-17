@@ -359,6 +359,30 @@
         "dispatchDate": "",
         "rawText": "US 58 มม =320\nดอกเห็ด 6มิล =500\n\nค่าจัดส่ง 50 บ\nรวม 870 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1786934658366",
+        "timestamp": 1786934658366,
+        "time": "09:44",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "สี่เหลี่ยม MR-10",
+            "qty": 1
+          },
+          {
+            "name": "กาวปะ MR",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 1060,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "สี่เหลี่ยม MR-10 =750\nกาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 1060 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
