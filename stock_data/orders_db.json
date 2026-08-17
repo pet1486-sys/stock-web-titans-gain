@@ -251,6 +251,34 @@
         "dispatchDate": "",
         "rawText": "ดอกเจาะคาร์ไบด์ 6mm x2 =500\nดอกเจาะคาร์ไบด์ 4.5mm x2 =300\nดอกเจาะคาร์ไบด์10mm x2 =1100\nหัวเจียร ถ้วยบุ้ง x2 =400\n\nจัดส่งฟรี\nรวม 2300 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1786934044001",
+        "timestamp": 1786934044001,
+        "time": "09:34",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ใยไหม",
+            "qty": 1
+          },
+          {
+            "name": "ยางดิบ",
+            "qty": 1
+          },
+          {
+            "name": "จุ๊บยาง TR413TUV-1แพ็ค",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 760,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ใยไหม =170\nยางดิบ =160\nจุ๊บยาง TR413TUV-1แพ็ค =380\n\nค่าจัดส่ง 50 บ\nรวม 760 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
