@@ -27,6 +27,30 @@
         "dispatchDate": "",
         "rawText": "EU เบอร์ 10 =300\nUS 42 มม =320\n\nค่าจัดส่ง 50 บ\nรวม 670 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1786932235060",
+        "timestamp": 1786932235060,
+        "time": "09:03",
+        "customer": "สุพล ใจเอื้อ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "วงกลม L3<52มม>",
+            "qty": 1
+          },
+          {
+            "name": "EU เบอร์ 10",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 640,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "วงกลม L3<52มม> =290\nEU เบอร์ 10 =300\n\nค่าจัดส่ง 50 บ\nรวม 640 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
