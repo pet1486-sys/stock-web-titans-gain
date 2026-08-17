@@ -195,6 +195,30 @@
         "dispatchDate": "",
         "rawText": "TJ-5 x5 =2000\nTJ-10HD x4 =1400\nTJ-14HD =350\n\nจัดส่งฟรี\nรวม 3750 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1786933902796",
+        "timestamp": 1786933902796,
+        "time": "09:31",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "EU เบอร์ 10",
+            "qty": 2
+          },
+          {
+            "name": "EU เบอร์ 12",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 950,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU เบอร์ 10 x2 =600\nEU เบอร์ 12 =300\n\nค่าจัดส่ง 50 บ\nรวม 950 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
