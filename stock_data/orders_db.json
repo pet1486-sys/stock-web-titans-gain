@@ -303,6 +303,38 @@
         "dispatchDate": "",
         "rawText": "BY-10 =320\nEU เบอร์ 10 =300\n\nค่าจัดส่ง 50 บ\nรวม 670 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1786934258070",
+        "timestamp": 1786934258070,
+        "time": "09:37",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "จุ๊บยางใน TR13",
+            "qty": 15
+          },
+          {
+            "name": "จุ๊บยางใน TR15",
+            "qty": 15
+          },
+          {
+            "name": "ยางดิบ",
+            "qty": 1
+          },
+          {
+            "name": "จุ๊บยาง TR413-1แพ็ค",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 900,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "จุ๊บยางใน TR13 x15 =180\nจุ๊บยางใน TR15 x15 =180\nยางดิบ =160\nจุ๊บยาง TR413-1แพ็ค =330\n\nค่าจัดส่ง 50 บ\nรวม 900 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
