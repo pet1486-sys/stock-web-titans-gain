@@ -335,6 +335,30 @@
         "dispatchDate": "",
         "rawText": "จุ๊บยางใน TR13 x15 =180\nจุ๊บยางใน TR15 x15 =180\nยางดิบ =160\nจุ๊บยาง TR413-1แพ็ค =330\n\nค่าจัดส่ง 50 บ\nรวม 900 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1786934311596",
+        "timestamp": 1786934311596,
+        "time": "09:38",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "US 58 มม",
+            "qty": 1
+          },
+          {
+            "name": "ดอกเห็ด 6มิล",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 870,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "US 58 มม =320\nดอกเห็ด 6มิล =500\n\nค่าจัดส่ง 50 บ\nรวม 870 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
