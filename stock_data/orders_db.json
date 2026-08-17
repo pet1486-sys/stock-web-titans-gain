@@ -167,6 +167,34 @@
         "dispatchDate": "",
         "rawText": "จุ๊บเลสงอ90องศา x50 =1250\n\nค่าจัดส่ง 50 บ\nรวม 1300 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1786933839447",
+        "timestamp": 1786933839447,
+        "time": "09:30",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "TJ-5",
+            "qty": 5
+          },
+          {
+            "name": "TJ-10HD",
+            "qty": 4
+          },
+          {
+            "name": "TJ-14HD",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 3750,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "TJ-5 x5 =2000\nTJ-10HD x4 =1400\nTJ-14HD =350\n\nจัดส่งฟรี\nรวม 3750 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
