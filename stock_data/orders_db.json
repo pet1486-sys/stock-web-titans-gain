@@ -769,6 +769,26 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "US 42 มม x2 =640\nEU เบอร์ 8 =300\nขันศรสั้น x5 =50\n\nค่าจัดส่ง 50 บ\nรวม 1040 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1786967623287",
+        "timestamp": 1786967623287,
+        "time": "18:53",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "EU 42มิล",
+            "qty": 4
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 930,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU 42มิล x4 =880\n\nค่าจัดส่ง 50 บ\nรวม 930 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
