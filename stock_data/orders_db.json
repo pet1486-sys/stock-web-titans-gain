@@ -279,6 +279,30 @@
         "dispatchDate": "",
         "rawText": "ใยไหม =170\nยางดิบ =160\nจุ๊บยาง TR413TUV-1แพ็ค =380\n\nค่าจัดส่ง 50 บ\nรวม 760 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1786934076108",
+        "timestamp": 1786934076108,
+        "time": "09:34",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "BY-10",
+            "qty": 1
+          },
+          {
+            "name": "EU เบอร์ 10",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 670,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "BY-10 =320\nEU เบอร์ 10 =300\n\nค่าจัดส่ง 50 บ\nรวม 670 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
