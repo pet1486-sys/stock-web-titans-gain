@@ -789,6 +789,26 @@
         "dispatchDate": "",
         "rawText": "EU 42มิล x4 =880\n\nค่าจัดส่ง 50 บ\nรวม 930 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1786967706739",
+        "timestamp": 1786967706739,
+        "time": "18:55",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "วงกลม L3<52มม>",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 340,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "วงกลม L3<52มม> =290\n\nค่าจัดส่ง 50 บ\nรวม 340 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
