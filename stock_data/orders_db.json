@@ -678,6 +678,42 @@
         "dispatchDate": "",
         "rawText": "เหล็กงัดยาง 28นิ้ว =350\n\nค่าจัดส่ง 50 บ\nรวม 400 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1786954672356",
+        "timestamp": 1786954672356,
+        "time": "15:17",
+        "customer": "ไข่มุก",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ชุด บอสเจียรลม",
+            "qty": 1
+          },
+          {
+            "name": "BY-12",
+            "qty": 1
+          },
+          {
+            "name": "BY-14",
+            "qty": 1
+          },
+          {
+            "name": "BY-08",
+            "qty": 1
+          },
+          {
+            "name": "จุ๊บเรเดียลอัลลอย ตรง",
+            "qty": 5
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 1810,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ชุด บอสเจียรลม =550\nBY-12 =320\nBY-14 =320\nBY-08 =320\nจุ๊บเรเดียลอัลลอย ตรง x5 =300\n\nจัดส่งฟรี\nรวม 1810 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
