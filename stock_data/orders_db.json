@@ -742,6 +742,33 @@
         "dispatchDate": "",
         "rawText": "สี่เหลี่ยม MR-10 x3 =2250\nกาวปะ MR x3 =780\nวงกลม MU-00<43มม> x2 =500\n\nจัดส่งฟรี\nรวม 3530 บ\nโอนเงินผ่านบัญชี",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1786958541719",
+        "timestamp": 1786958541719,
+        "time": "16:22",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "US 42 มม",
+            "qty": 2
+          },
+          {
+            "name": "EU เบอร์ 8",
+            "qty": 1
+          },
+          {
+            "name": "ขันศรสั้น",
+            "qty": 5
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 1040,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "US 42 มม x2 =640\nEU เบอร์ 8 =300\nขันศรสั้น x5 =50\n\nค่าจัดส่ง 50 บ\nรวม 1040 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
