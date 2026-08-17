@@ -634,6 +634,30 @@
         "dispatchDate": "",
         "rawText": "กาวปะ MR =260\nวงกลม MU-02<78มม> x3 =930\n\nค่าจัดส่ง 50 บ\nรวม 1240 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1786953508410",
+        "timestamp": 1786953508410,
+        "time": "14:58",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "หัวเจียร ถ้วยบุ้ง",
+            "qty": 1
+          },
+          {
+            "name": "ตัวต้าปเกลียวใหญ่",
+            "qty": 3
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 295,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "หัวเจียร ถ้วยบุ้ง =200\nตัวต้าปเกลียวใหญ่ x3 =45\n\nค่าจัดส่ง 50 บ\nรวม 295 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
