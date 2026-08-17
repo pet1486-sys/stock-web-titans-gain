@@ -574,6 +574,38 @@
         "dispatchDate": "",
         "rawText": "วงกลม L3<52มม> x2 =580\n\nค่าจัดส่ง 50 บ\nรวม 630 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1786952248613",
+        "timestamp": 1786952248613,
+        "time": "14:37",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "กาวปะ MR",
+            "qty": 2
+          },
+          {
+            "name": "สติมผ้าใบกลาง",
+            "qty": 1
+          },
+          {
+            "name": "สติมผ้าใบจัมโบ้",
+            "qty": 2
+          },
+          {
+            "name": "ขันศรยาว",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 1700,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "กาวปะ MR x2 =520\nสติมผ้าใบกลาง =320\nสติมผ้าใบจัมโบ้ x2 =740\nขันศรยาว =20\nศรไส้ไก่ 50ตัว x2 =100\n\nจัดส่งฟรี\nรวม 1700 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
