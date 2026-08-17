@@ -714,6 +714,34 @@
         "dispatchDate": "2026-08-19",
         "rawText": "ชุด บอสเจียรลม =550\nBY-12 =320\nBY-14 =320\nBY-08 =320\nจุ๊บเรเดียลอัลลอย ตรง x5 =300\n\nจัดส่งฟรี\nรวม 1810 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1786955365424",
+        "timestamp": 1786955365424,
+        "time": "15:29",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "สี่เหลี่ยม MR-10",
+            "qty": 3
+          },
+          {
+            "name": "กาวปะ MR",
+            "qty": 3
+          },
+          {
+            "name": "วงกลม MU-00<43มม>",
+            "qty": 2
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 3530,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "สี่เหลี่ยม MR-10 x3 =2250\nกาวปะ MR x3 =780\nวงกลม MU-00<43มม> x2 =500\n\nจัดส่งฟรี\nรวม 3530 บ\nโอนเงินผ่านบัญชี",
+        "isLocalDraft": false
       }
     ]
   }
