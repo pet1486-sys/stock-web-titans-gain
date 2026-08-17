@@ -552,6 +552,26 @@
         "dispatchDate": "",
         "rawText": "EU เบอร์ 14 x4 =1200\n\nค่าจัดส่ง 50 บ\nรวม 1250 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1786951800228",
+        "timestamp": 1786951800227,
+        "time": "14:30",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "วงกลม L3<52มม>",
+            "qty": 2
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 630,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "วงกลม L3<52มม> x2 =580\n\nค่าจัดส่ง 50 บ\nรวม 630 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
