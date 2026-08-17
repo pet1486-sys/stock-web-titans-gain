@@ -467,6 +467,26 @@
         "dispatchDate": "",
         "rawText": "EU 42มิล x4 =880\nใยไหม =170\nEU 52มิล =220\n\nค่าจัดส่ง 50 บ\nรวม 1320 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1786935164734",
+        "timestamp": 1786935164734,
+        "time": "09:52",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "TikTok",
+        "items": [
+          {
+            "name": "EU 42มิล",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 270,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU 42มิล =220\n\nค่าจัดส่ง 50 บ\nรวม 270 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
