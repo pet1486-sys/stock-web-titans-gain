@@ -610,6 +610,30 @@
         "dispatchDate": "",
         "rawText": "กาวปะ MR x2 =520\nสติมผ้าใบกลาง =320\nสติมผ้าใบจัมโบ้ x2 =740\nขันศรยาว =20\nศรไส้ไก่50ตัว x2 =100\n\nจัดส่งฟรี\nรวม 1700 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1786952449432",
+        "timestamp": 1786952449432,
+        "time": "14:40",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "กาวปะ MR",
+            "qty": 1
+          },
+          {
+            "name": "วงกลม MU-02<78มม>",
+            "qty": 3
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 1240,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "กาวปะ MR =260\nวงกลม MU-02<78มม> x3 =930\n\nค่าจัดส่ง 50 บ\nรวม 1240 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
