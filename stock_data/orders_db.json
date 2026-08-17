@@ -487,6 +487,50 @@
         "dispatchDate": "",
         "rawText": "EU 42มิล =220\n\nค่าจัดส่ง 50 บ\nรวม 270 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1786944663758",
+        "timestamp": 1786944663758,
+        "time": "12:31",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "BY-10",
+            "qty": 2
+          },
+          {
+            "name": "BY-12",
+            "qty": 2
+          },
+          {
+            "name": "ศรไส้ไก่50ตัว",
+            "qty": 2
+          },
+          {
+            "name": "จุ๊บทองเหลือง v3-22-1",
+            "qty": 5
+          },
+          {
+            "name": "จุ๊บทองเหลือง9ซม",
+            "qty": 5
+          },
+          {
+            "name": "จุ๊บทองเหลือง11ซม",
+            "qty": 5
+          },
+          {
+            "name": "กาวปะ MR",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 2390,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "BY-10 x2 =640\nBY-12 x2 =640\nศรไส้ไก่50ตัว x2 =100\nจุ๊บทองเหลือง v3-22-1 x5 =250\nจุ๊บทองเหลือง9ซม x5 =250\nจุ๊บทองเหลือง11ซม x5 =250\nกาวปะ MR =260\n\nจัดส่งฟรี\nรวม 2390 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
