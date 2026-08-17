@@ -710,8 +710,8 @@
         "discount": 0,
         "shipping": 0,
         "total": 1810,
-        "isReserved": false,
-        "dispatchDate": "",
+        "isReserved": true,
+        "dispatchDate": "2026-08-19",
         "rawText": "ชุด บอสเจียรลม =550\nBY-12 =320\nBY-14 =320\nBY-08 =320\nจุ๊บเรเดียลอัลลอย ตรง x5 =300\n\nจัดส่งฟรี\nรวม 1810 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
       }
