@@ -2,5 +2,32 @@
   "batch_names": {
     "batch_1786932038299": "17-08-2026-รอบ 1[08:00]"
   },
-  "orders_history": {}
+  "orders_history": {
+    "batch_1786932038299": [
+      {
+        "id": "ord_1786932065736",
+        "timestamp": 1786932065736,
+        "time": "09:01",
+        "customer": "อ๊อด",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "EU เบอร์ 10",
+            "qty": 1
+          },
+          {
+            "name": "US 42 มม",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 670,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU เบอร์ 10 =300\nUS 42 มม =320\n\nค่าจัดส่ง 50 บ\nรวม 670 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
+      }
+    ]
+  }
 }
