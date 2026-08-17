@@ -242,7 +242,7 @@
 
     </main>
 
-    <!-- ─── POPUP MODAL: แสดงรายละเอียดสินค้าเมื่อคลิกการ์ดออเดอร์ (ปรับแนวยาว ไม่ต้องสกอร์) ─── -->
+    <!-- ─── POPUP MODAL: แสดงรายละเอียดสินค้าเมื่อคลิกการ์ดออเดอร์ ─── -->
     <div id="order-detail-popup-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300 p-3 sm:p-4">
         <div class="bg-white p-4 sm:p-5 rounded-2xl max-w-2xl w-full shadow-2xl transform scale-95 transition-transform duration-300 max-h-[95vh] overflow-y-auto">
             <div class="flex items-center justify-between border-b border-gray-100 pb-2 mb-3">
@@ -470,13 +470,12 @@
         }
 
         function closeCategoryDrawer() {
-            const drawer = document.getElementById('category-drawer');
-            const backdrop = document.getElementById('category-drawer-backdrop');
-            drawer.classList.add('-translate-x-full');
-            backdrop.classList.remove('opacity-100');
-            setTimeout(() => { backdrop.classList.add('hidden'); }, 300);
-        }
-
+    const drawer = document.getElementById('category-drawer');
+    const backdrop = document.getElementById('category-drawer-backdrop');
+    drawer.classList.add('-translate-x-full');
+    backdrop.classList.remove('opacity-100');
+    setTimeout(() => { backdrop.classList.add('hidden'); }, 300);
+}
         function scrollToCategory(catName) {
             closeCategoryDrawer();
             if (catName === 'all') { scrollToSection('sec-stock-showcase'); return; }
@@ -1099,7 +1098,7 @@
         }
 
         // ==========================================
-        // 🌟 POPUP DETAILS MODAL FOR SINGLE ORDER (เน้นรายละเอียดสินค้า แนวนอน 2 คอลัมน์ ไม่ต้องสกอร์)
+        // 🌟 POPUP DETAILS MODAL FOR SINGLE ORDER
         // ==========================================
         function openOrderDetailPopupModal(batchKey, orderId) {
             let orderList = dbState.orders_history[batchKey] || [];
@@ -1158,7 +1157,6 @@
                     </div>
                 </div>
 
-                <!-- 🌟 แสดงรายการสินค้าแบบ Grid 2 คอลัมน์แนวยาว ไม่ต้องสกอร์ -->
                 <div class="space-y-1.5">
                     <span class="text-xs font-bold text-gray-700 block">🛒 รายการสินค้าในออเดอร์ (${targetOrder.items.length} รายการ):</span>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
@@ -1215,7 +1213,7 @@
 
 
         // ==========================================
-        // 🌟 RENDER SAVED ORDERS & BATCH SUMMARY
+        // 🌟 RENDER SAVED ORDERS & CHANNEL SUMMARY
         // ==========================================
         function renderSavedOrdersHistory() {
             const batchNames = getSortedDummyBatchList();
@@ -1238,14 +1236,13 @@
             wrapperReserved.innerHTML = "";
 
             const activeBatchKeys = Object.keys(batchNames);
-            const { actualDetails } = getTotalDummyDetailsAllBatches();
 
             const channelStyles = {
-                "Facebook": { label: "เพจ Facebook", icon: "📘", border: "border-blue-400", bg: "bg-blue-50/80", headerBg: "bg-blue-600 text-white" },
-                "Line Shopping": { label: "💚 Line Shopping", icon: "💚", border: "border-emerald-400", bg: "bg-emerald-50/80", headerBg: "bg-emerald-600 text-white" },
-                "Shopee": { label: "🧡 Shopee", icon: "🧡", border: "border-orange-400", bg: "bg-orange-50/80", headerBg: "bg-orange-500 text-white" },
-                "Lazada": { label: "💙 Lazada", icon: "💙", border: "border-cyan-400", bg: "bg-cyan-50/80", headerBg: "bg-cyan-600 text-white" },
-                "TikTok": { label: "🖤 TikTok", icon: "🖤", border: "border-slate-800", bg: "bg-slate-100/90", headerBg: "bg-slate-900 text-white" }
+                "Facebook": { label: "เพจ Facebook", icon: "📘", border: "border-blue-400", bg: "bg-blue-50/80", headerBg: "bg-blue-600 text-white", badgeBg: "bg-blue-100 text-blue-900 border-blue-300" },
+                "Line Shopping": { label: "Line Shopping", icon: "💚", border: "border-emerald-400", bg: "bg-emerald-50/80", headerBg: "bg-emerald-600 text-white", badgeBg: "bg-emerald-100 text-emerald-900 border-emerald-300" },
+                "Shopee": { label: "Shopee", icon: "🧡", border: "border-orange-400", bg: "bg-orange-50/80", headerBg: "bg-orange-500 text-white", badgeBg: "bg-orange-100 text-orange-900 border-orange-300" },
+                "Lazada": { label: "Lazada", icon: "💙", border: "border-cyan-400", bg: "bg-cyan-50/80", headerBg: "bg-cyan-600 text-white", badgeBg: "bg-cyan-100 text-cyan-900 border-cyan-300" },
+                "TikTok": { label: "TikTok Shop", icon: "🖤", border: "border-slate-800", bg: "bg-slate-100/90", headerBg: "bg-slate-900 text-white", badgeBg: "bg-slate-200 text-slate-900 border-slate-400" }
             };
 
             activeBatchKeys.forEach(bKey => {
@@ -1265,55 +1262,48 @@
                     normalOrders.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
 
                     let batchTotalSales = 0;
-                    let batchProductSummary = {}; 
+                    const channelStats = {};
 
                     normalOrders.forEach(ord => {
-                        batchTotalSales += (ord.total || 0);
-                        ord.items.forEach(item => {
-                            batchProductSummary[item.name] = (batchProductSummary[item.name] || 0) + item.qty;
-                        });
+                        const total = ord.total || 0;
+                        batchTotalSales += total;
+                        const ch = ord.channel || "Facebook";
+
+                        if (!channelStats[ch]) {
+                            channelStats[ch] = { count: 0, totalSales: 0 };
+                        }
+                        channelStats[ch].count += 1;
+                        channelStats[ch].totalSales += total;
                     });
 
-                    // 🌟 1. จัดเรียงสินค้าตามจำนวนที่เหลือน้อยที่สุดขึ้นก่อน (Lowest Stock First)
-                    const sortedProductNames = Object.keys(batchProductSummary).sort((a, b) => {
-                        const excelInfoA = allCleanData.find(row => row[1] === a);
-                        const excelInfoB = allCleanData.find(row => row[1] === b);
-                        
-                        const itemDetailA = actualDetails[a] || { totalDeducted: 0 };
-                        const itemDetailB = actualDetails[b] || { totalDeducted: 0 };
-
-                        const remainA = excelInfoA ? (excelInfoA[4] - itemDetailA.totalDeducted) : -999;
-                        const remainB = excelInfoB ? (excelInfoB[4] - itemDetailB.totalDeducted) : -999;
-
-                        return remainA - remainB; // ค่าน้อยสุดอยู่บนสุด
+                    // 🌟 จัดเรียงสรุปช่องทางขายจาก "จำนวนออเดอร์มากสุดไปน้อยสุด"
+                    const sortedChannelsByVolume = Object.keys(channelStats).sort((a, b) => {
+                        if (channelStats[b].count !== channelStats[a].count) {
+                            return channelStats[b].count - channelStats[a].count; // เรียงตามจำนวนออเดอร์
+                        }
+                        return channelStats[b].totalSales - channelStats[a].totalSales; // ถ้ายอดออเดอร์เท่ากัน เรียงตามเงินยอดขาย
                     });
 
-                    let productSummaryHtml = sortedProductNames.map(prodName => {
-                        const qtySoldInBatch = batchProductSummary[prodName];
-                        const excelInfo = allCleanData.find(row => row[1] === prodName);
-                        const itemTotalDetail = actualDetails[prodName] || { totalDeducted: 0 };
-                        const stockRemain = excelInfo ? (excelInfo[4] - itemTotalDetail.totalDeducted) : '-';
-
-                        const imgBase = getSanitizedImageBaseUrl(prodName);
-                        const safeName = prodName.replace(/'/g, "\\'");
+                    // สร้าง HTML กรอบสรุปยอดช่องทางขายเรียงจากมากไปน้อย
+                    let channelSummaryHtml = sortedChannelsByVolume.map(chKey => {
+                        const stat = channelStats[chKey];
+                        const style = channelStyles[chKey] || { label: chKey, icon: "🏪", badgeBg: "bg-slate-100 text-slate-800 border-slate-300" };
 
                         return `
-                            <div class="flex items-center justify-between text-[10.5px] bg-white border border-amber-200/90 rounded-lg p-1.5 shadow-2xs hover:border-amber-400 transition-colors">
-                                <div class="flex items-center gap-2 min-w-0 flex-1">
-                                    <button onclick="jumpToProductCardInStock('${safeName}')" title="ดูสินค้า '${safeName}' ในคลัง" class="w-6 h-6 rounded border border-slate-300 bg-slate-50 flex items-center justify-center overflow-hidden shrink-0 cursor-pointer">
-                                        <img src="${imgBase}.jpg" onerror="this.onerror=null; this.src='${imgBase}.png'; this.onerror=function(){this.parentElement.innerHTML='📦'}" class="w-full h-full object-contain" />
-                                    </button>
-                                    <span class="font-bold text-slate-800 truncate cursor-pointer hover:text-blue-600" onclick="jumpToProductCardInStock('${safeName}')" title="${prodName}">${prodName}</span>
+                            <div class="flex items-center justify-between p-2 rounded-xl border ${style.badgeBg} shadow-2xs">
+                                <div class="flex items-center gap-1.5 font-bold text-xs truncate">
+                                    <span>${style.icon}</span>
+                                    <span class="truncate">${style.label}</span>
                                 </div>
-                                <div class="flex items-center gap-2 shrink-0 ml-2">
-                                    <span class="text-red-600 font-black text-[11px] bg-red-50 px-1.5 py-0.5 rounded border border-red-100">ขาย ${qtySoldInBatch}</span>
-                                    <span class="text-emerald-700 font-extrabold bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">(เหลือ ${stockRemain})</span>
+                                <div class="flex items-center gap-2 shrink-0 font-extrabold text-xs">
+                                    <span class="bg-white/80 px-2 py-0.5 rounded-lg border border-slate-200 text-slate-800">${stat.count} ออเดอร์</span>
+                                    <span class="text-emerald-700">${stat.totalSales.toLocaleString()} บ.</span>
                                 </div>
                             </div>
                         `;
                     }).join('');
 
-                    // จัดกลุ่มออเดอร์ตามช่องทางขาย
+                    // จัดกลุ่มการ์ดออเดอร์ตามช่องทางขาย
                     const groupedByChannel = {};
                     normalOrders.forEach(ord => {
                         const ch = ord.channel || "Facebook";
@@ -1322,8 +1312,11 @@
                     });
 
                     let channelSectionsHtml = "";
-                    Object.keys(groupedByChannel).forEach(chKey => {
-                        const ordersInCh = groupedByChannel[chKey];
+                    // เรียงบล็อกการ์ดออเดอร์ตามลำดับช่องทางที่ขายดีที่สุดด้วย
+                    sortedChannelsByVolume.forEach(chKey => {
+                        const ordersInCh = groupedByChannel[chKey] || [];
+                        if (ordersInCh.length === 0) return;
+
                         const style = channelStyles[chKey] || { label: chKey, icon: "🏪", border: "border-gray-300", bg: "bg-gray-50", headerBg: "bg-gray-700 text-white" };
 
                         let cardsInChannelHtml = "";
@@ -1380,16 +1373,15 @@
                             </div>
                         </div>
 
-                        <!-- 🌟 กรอบสรุปสินค้าแนวตั้ง (เรียงตัวเหลือน้อยสุดอยู่บนสุด) -->
-                        <div class="bg-amber-50/50 p-2 rounded-xl border border-amber-200 text-xs">
-                            <div class="flex items-center justify-between mb-1.5 pb-1 border-b border-amber-200/80">
+                        <!-- 🌟 กรอบสรุปช่องทางขาย (เรียงจากมากไปน้อย) -->
+                        <div class="bg-amber-50/50 p-2.5 rounded-xl border border-amber-200 text-xs">
+                            <div class="flex items-center justify-between mb-2 pb-1 border-b border-amber-200/80">
                                 <span class="text-[11px] font-bold text-amber-950 flex items-center gap-1">
-                                    📦 สรุปสินค้าที่ขายไป & คงเหลือปัจจุบัน (เรียงตัวเหลือน้อยที่สุดอยู่บน):
+                                    📊 สรุปยอดออเดอร์แยกตามช่องทาง (เรียงจากมากไปน้อย):
                                 </span>
-                                <span class="text-[9px] text-amber-800 font-medium">*กดที่รูปเพื่อดูในคลัง</span>
                             </div>
-                            <div class="space-y-1.5 max-h-52 overflow-y-auto pr-1">
-                                ${productSummaryHtml}
+                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+                                ${channelSummaryHtml}
                             </div>
                         </div>
 
