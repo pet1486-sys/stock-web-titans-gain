@@ -150,14 +150,14 @@
       },
       {
         "id": "ord_1786933646119",
-        "timestamp": 1786933646119,
+        "timestamp": 1786933620000,
         "time": "09:27",
         "customer": "ทั่วไป / ไม่ระบุ",
         "channel": "Facebook",
         "items": [
           {
             "name": "จุ๊บเลสงอ90องศา",
-            "qty": 50
+            "qty": 30
           }
         ],
         "discount": 0,
@@ -165,7 +165,7 @@
         "total": 1300,
         "isReserved": false,
         "dispatchDate": "",
-        "rawText": "จุ๊บเลสงอ90องศา x50 =1250\n\nค่าจัดส่ง 50 บ\nรวม 1300 บ\nเก็บเงินปลายทาง",
+        "rawText": "จุ๊บเลสงอ90องศา x30 =1250\n\nค่าจัดส่ง 50 บ\nรวม 1300 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
       },
       {
