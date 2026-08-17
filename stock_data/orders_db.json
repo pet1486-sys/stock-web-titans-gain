@@ -51,6 +51,30 @@
         "dispatchDate": "",
         "rawText": "วงกลม L3<52มม> =290\nEU เบอร์ 10 =300\n\nค่าจัดส่ง 50 บ\nรวม 640 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1786932400696",
+        "timestamp": 1786932400696,
+        "time": "09:06",
+        "customer": "โชคบัญชาการยาง",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "วงกลม MU-00<43มม>",
+            "qty": 1
+          },
+          {
+            "name": "EU เบอร์ 8",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 600,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "วงกลม MU-00<43มม> =250\nEU เบอร์ 8 =300\n\nค่าจัดส่ง 50 บ\nรวม 600 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
