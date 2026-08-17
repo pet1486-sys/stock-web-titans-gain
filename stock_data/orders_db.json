@@ -658,6 +658,26 @@
         "dispatchDate": "",
         "rawText": "หัวเจียร ถ้วยบุ้ง =200\nตัวต้าปเกลียวใหญ่ x3 =45\n\nค่าจัดส่ง 50 บ\nรวม 295 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1786954656013",
+        "timestamp": 1786954656013,
+        "time": "15:17",
+        "customer": "ไข่มุก",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "เหล็กงัดยาง 28นิ้ว",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 400,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "เหล็กงัดยาง 28นิ้ว =350\n\nค่าจัดส่ง 50 บ\nรวม 400 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
