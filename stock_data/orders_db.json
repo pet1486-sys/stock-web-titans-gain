@@ -407,6 +407,38 @@
         "dispatchDate": "",
         "rawText": "ลูกบล๊อก 1นิ้ว 41mm =350\nกาวปะ MR x3 =780\n\nค่าจัดส่ง 50 บ\nรวม 1180 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1786935004758",
+        "timestamp": 1786935004758,
+        "time": "09:50",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Shopee",
+        "items": [
+          {
+            "name": "จุ๊บยาง TR413-1แพ็ค",
+            "qty": 2
+          },
+          {
+            "name": "EU เบอร์ 8",
+            "qty": 1
+          },
+          {
+            "name": "EU 42มิล",
+            "qty": 2
+          },
+          {
+            "name": "US 80 มม",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 1720,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "จุ๊บยาง TR413-1แพ็ค x2 =660\nEU เบอร์ 8 =300\nEU 42มิล x2 =440\nUS 80 มม =320\n\nจัดส่งฟรี\nรวม 1720 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
