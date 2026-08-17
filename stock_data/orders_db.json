@@ -99,6 +99,26 @@
         "dispatchDate": "",
         "rawText": "วงกลม MU-00<43มม> =250\nUS 42 มม =320\n\nค่าจัดส่ง 50 บ\nรวม 620 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1786933260726",
+        "timestamp": 1786933260726,
+        "time": "09:21",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "EU 52มิล",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 270,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU 52มิล =220\n\nค่าจัดส่ง 50 บ\nรวม 270 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
