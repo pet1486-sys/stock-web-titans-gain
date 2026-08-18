@@ -338,6 +338,26 @@
         "dispatchDate": "",
         "rawText": "กาวดำ =220\nTJ-4 =350\nTJ-12 =350\nกาวปะ MR x2 =520\n\nจัดส่งฟรี\nรวม 1440 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787021488933",
+        "timestamp": 1787021488933,
+        "time": "09:51",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Lazada",
+        "items": [
+          {
+            "name": "US 42 มม",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 370,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "US 42 มม =320\n\nค่าจัดส่ง 50 บ\nรวม 370 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
