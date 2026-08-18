@@ -282,6 +282,30 @@
         "dispatchDate": "",
         "rawText": "วงกลม L3<52มม> =290\nBY-12 =320\n\nค่าจัดส่ง 50 บ\nรวม 660 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787019036836",
+        "timestamp": 1787019036836,
+        "time": "09:10",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "วงกลม MU-00<43มม>",
+            "qty": 1
+          },
+          {
+            "name": "กาวปะ MR",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 560,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "วงกลม MU-00<43มม> =250\nกาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 560 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
