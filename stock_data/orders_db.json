@@ -1038,7 +1038,7 @@
       },
       {
         "id": "ord_1787118449811",
-        "timestamp": 1787118449811,
+        "timestamp": 1787118420000,
         "time": "12:47",
         "customer": "ทั่วไป / ไม่ระบุ",
         "channel": "Facebook",
@@ -1046,6 +1046,10 @@
           {
             "name": "BY-10",
             "qty": 20
+          },
+          {
+            "name": "BY-08",
+            "qty": 10
           }
         ],
         "discount": 0,
@@ -1053,7 +1057,7 @@
         "total": 6400,
         "isReserved": false,
         "dispatchDate": "",
-        "rawText": "BY-10 x20 =6400\n\nจัดส่งฟรี\nรวม 6400 บ\nเก็บเงินปลายทาง",
+        "rawText": "BY-10 x20 =4400\nBY-08 x10 =2200\n\nจัดส่งฟรี\nรวม 6600 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
       },
       {
