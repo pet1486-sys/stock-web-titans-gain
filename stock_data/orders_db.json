@@ -1055,6 +1055,50 @@
         "dispatchDate": "",
         "rawText": "BY-10 x20 =6400\n\nจัดส่งฟรี\nรวม 6400 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787120668393",
+        "timestamp": 1787120668393,
+        "time": "13:24",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "TJ-10HD",
+            "qty": 3
+          },
+          {
+            "name": "TJ-12",
+            "qty": 3
+          },
+          {
+            "name": "TJ-14HD",
+            "qty": 3
+          },
+          {
+            "name": "TJ-3",
+            "qty": 1
+          },
+          {
+            "name": "วงกลม L3<52มม>",
+            "qty": 1
+          },
+          {
+            "name": "วงกลม MU-02<78มม>",
+            "qty": 2
+          },
+          {
+            "name": "เกจวัดลมดิจิตอล",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 4580,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "TJ-10HD x3 =1050\nTJ-12 x3 =1050\nTJ-14HD x3 =1050\nTJ-3 =200\nวงกลม L3<52มม> =290\nวงกลม MU-02<78มม> x2 =620\nเกจวัดลมดิจิตอล =320\n\nจัดส่งฟรี\nรวม 4580 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
