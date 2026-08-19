@@ -441,6 +441,30 @@
         "dispatchDate": "",
         "rawText": "TJ-10HD =350\nTJ-12 =350\nTJ-14HD =350\nกาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 1360 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787103586675",
+        "timestamp": 1787103586675,
+        "time": "08:39",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "US 42 มม",
+            "qty": 10
+          },
+          {
+            "name": "EU เบอร์ 10",
+            "qty": 10
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 5200,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "US 42 มม x10 =2700\nEU เบอร์ 10 x10 =2500\n\nจัดส่งฟรี\nรวม 5200 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
