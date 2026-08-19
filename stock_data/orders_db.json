@@ -906,10 +906,10 @@
     "batch_1787117738600": [
       {
         "id": "ord_1787117743015",
-        "timestamp": 1787117743015,
+        "timestamp": 1787117700000,
         "time": "12:35",
         "customer": "ทั่วไป / ไม่ระบุ",
-        "channel": "Facebook",
+        "channel": "Line Shopping",
         "items": [
           {
             "name": "กาวปะ MR",
