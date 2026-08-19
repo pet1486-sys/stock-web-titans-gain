@@ -935,6 +935,26 @@
         "dispatchDate": "",
         "rawText": "กาวปะ MR =260\nEU 52มิล =220\nวงกลม MU-02<78มม> =310\nหัวเจียรสามเหลี่ยม =50\n\nค่าจัดส่ง 50 บ\nรวม 890 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787117877166",
+        "timestamp": 1787117877166,
+        "time": "12:37",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "TJ-3",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 250,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "TJ-3 =200\n\nค่าจัดส่ง 50 บ\nรวม 250 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
