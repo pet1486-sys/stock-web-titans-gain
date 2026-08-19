@@ -465,6 +465,34 @@
         "dispatchDate": "",
         "rawText": "US 42 มม x10 =2700\nEU เบอร์ 10 x10 =2500\n\nจัดส่งฟรี\nรวม 5200 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787103724157",
+        "timestamp": 1787103724157,
+        "time": "08:42",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "หัวเติมลมยาว เกรด A",
+            "qty": 1
+          },
+          {
+            "name": "EU 42มิล",
+            "qty": 1
+          },
+          {
+            "name": "EU 52มิล",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 790,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "หัวเติมลมยาว เกรด A =300\nEU 42มิล =220\nEU 52มิล =220\n\nค่าจัดส่ง 50 บ\nรวม 790 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
