@@ -1222,6 +1222,30 @@
         "dispatchDate": "",
         "rawText": "กาวปะ MR =260\nยางดิบ =160\n\nค่าจัดส่ง 50 บ\nรวม 470 บ",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787137378280",
+        "timestamp": 1787137378280,
+        "time": "18:02",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "US 58 มม",
+            "qty": 1
+          },
+          {
+            "name": "กาวปะ MR",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 630,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "US 58 มม =320\nกาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 630 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
