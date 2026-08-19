@@ -1103,6 +1103,26 @@
         "dispatchDate": "",
         "rawText": "TJ-10HD x3 =1050\nTJ-12 x3 =1050\nTJ-14HD x3 =1050\nTJ-3 =200\nวงกลม L3<52มม> =290\nวงกลม MU-02<78มม> x2 =620\nเกจวัดลมดิจิตอล =320\n\nจัดส่งฟรี\nรวม 4580 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787121447569",
+        "timestamp": 1787121447569,
+        "time": "13:37",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ศรไส้ไก่50ตัว",
+            "qty": 6
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 350,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ศรไส้ไก่50ตัว x6 =300\n\nค่าจัดส่ง 50 บ\nรวม 350 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
