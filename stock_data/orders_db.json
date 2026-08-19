@@ -493,6 +493,34 @@
         "dispatchDate": "",
         "rawText": "หัวเติมลมยาว เกรด A =300\nEU 42มิล =220\nEU 52มิล =220\n\nค่าจัดส่ง 50 บ\nรวม 790 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787104702798",
+        "timestamp": 1787104702798,
+        "time": "08:58",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "จุ๊บยาง TR413-1แพ็ค",
+            "qty": 1
+          },
+          {
+            "name": "ใยไหม",
+            "qty": 1
+          },
+          {
+            "name": "ตะกั่วแปะ 50แถว",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 850,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "จุ๊บยาง TR413-1แพ็ค =330\nใยไหม =170\nตะกั่วแปะ 50แถว =300\n\nค่าจัดส่ง 50 บ\nรวม 850 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
