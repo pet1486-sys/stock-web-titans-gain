@@ -347,34 +347,6 @@
         "dispatchDate": "",
         "rawText": "จุ๊บยาง TR413-1แพ็ค x2 =660\nEU เบอร์ 14 =300\n\nค่าจัดส่ง 50 บ\nรวม 1010 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
-      },
-      {
-        "id": "ord_1787108632886",
-        "timestamp": 1787108632886,
-        "time": "10:03",
-        "customer": "ทั่วไป / ไม่ระบุ",
-        "channel": "Facebook",
-        "items": [
-          {
-            "name": "แปรงทาขอบยาง",
-            "qty": 1
-          },
-          {
-            "name": "ยางดิบ",
-            "qty": 1
-          },
-          {
-            "name": "ครีมทาขอบยาง",
-            "qty": 1
-          }
-        ],
-        "discount": 0,
-        "shipping": 50,
-        "total": 380,
-        "isReserved": false,
-        "dispatchDate": "",
-        "rawText": "แปรงทาขอบยาง =20\nยางดิบ =160\nครีมทาขอบยาง =150\n\nค่าจัดส่ง 50 บ\nรวม 380 บ\nเก็บเงินปลายทาง",
-        "isLocalDraft": false
       }
     ],
     "batch_1787102694197": [
