@@ -1198,6 +1198,30 @@
         "dispatchDate": "",
         "rawText": "หัวเติมเร็วมีเกจวัด =250\nไม้กลิ้งสติม 7mm =100\nกาวปะ MR =260\nวงกลม MU-00<43มม> =250\nกาวดำ =220\n\nค่าจัดส่ง 50 บ\nรวม 1130 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787133350789",
+        "timestamp": 1787133350789,
+        "time": "16:55",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "กาวปะ MR",
+            "qty": 1
+          },
+          {
+            "name": "ยางดิบ",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 470,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "กาวปะ MR =260\nยางดิบ =160\n\nค่าจัดส่ง 50 บ\nรวม 470 บ",
+        "isLocalDraft": false
       }
     ]
   }
