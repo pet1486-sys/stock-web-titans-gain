@@ -521,6 +521,30 @@
         "dispatchDate": "",
         "rawText": "จุ๊บยาง TR413-1แพ็ค =330\nใยไหม =170\nตะกั่วแปะ 50แถว =300\n\nค่าจัดส่ง 50 บ\nรวม 850 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787104922047",
+        "timestamp": 1787104922047,
+        "time": "09:02",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "EU 73มิล",
+            "qty": 1
+          },
+          {
+            "name": "สติมผ้าใบจัมโบ้",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 640,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU 73มิล =220\nสติมผ้าใบจัมโบ้ =370\n\nค่าจัดส่ง 50 บ\nรวม 640 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
