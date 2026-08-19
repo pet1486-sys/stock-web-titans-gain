@@ -545,6 +545,30 @@
         "dispatchDate": "",
         "rawText": "EU 73มิล =220\nสติมผ้าใบจัมโบ้ =370\n\nค่าจัดส่ง 50 บ\nรวม 640 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787105364858",
+        "timestamp": 1787105364858,
+        "time": "09:09",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "EU 42มิล",
+            "qty": 2
+          },
+          {
+            "name": "EU 52มิล",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 710,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU 42มิล x2 =440\nEU 52มิล =220\n\nค่าจัดส่ง 50 บ\nรวม 710 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
