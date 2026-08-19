@@ -1123,6 +1123,26 @@
         "dispatchDate": "",
         "rawText": "ศรไส้ไก่50ตัว x6 =300\n\nค่าจัดส่ง 50 บ\nรวม 350 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787124881829",
+        "timestamp": 1787124881829,
+        "time": "14:34",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "กาวปะ MR",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 310,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "กาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 310 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
