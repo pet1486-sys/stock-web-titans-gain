@@ -1143,6 +1143,25 @@
         "dispatchDate": "",
         "rawText": "กาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 310 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787129887733",
+        "timestamp": 1787129887733,
+        "time": "15:58",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ตัวดูดลม",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 300,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ตัวดูดลม =250\n\nค่าจัดส่ง 50 บ\nรวม 300 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
