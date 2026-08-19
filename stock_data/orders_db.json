@@ -704,6 +704,26 @@
         "dispatchDate": "",
         "rawText": "ยางดิบ =160\nกาวดำ =220\nไม้กลิ้งสติม 7mm =100\nกาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 790 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787108856764",
+        "timestamp": 1787108856764,
+        "time": "10:07",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "หัวหนีบเติมลม 6มม.",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 110,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "หัวหนีบเติมลม 6มม. =60\n\nค่าจัดส่ง 50 บ\nรวม 110 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
