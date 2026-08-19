@@ -724,6 +724,34 @@
         "dispatchDate": "",
         "rawText": "หัวหนีบเติมลม 6มม. =60\n\nค่าจัดส่ง 50 บ\nรวม 110 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787108897332",
+        "timestamp": 1787108897332,
+        "time": "10:08",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "กาวปะ MR",
+            "qty": 1
+          },
+          {
+            "name": "ครีมทาขอบยาง",
+            "qty": 1
+          },
+          {
+            "name": "ดอกเห็ด 9มิล",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 1160,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "กาวปะ MR =260\nครีมทาขอบยาง =150\nดอกเห็ด 9มิล =700\n\nค่าจัดส่ง 50 บ\nรวม 1160 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
