@@ -955,6 +955,30 @@
         "dispatchDate": "",
         "rawText": "TJ-3 =200\n\nค่าจัดส่ง 50 บ\nรวม 250 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787118043410",
+        "timestamp": 1787118043410,
+        "time": "12:40",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "TJ-10HD",
+            "qty": 3
+          },
+          {
+            "name": "วงกลม MU-02<78มม>",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 1410,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "TJ-10HD x3 =1050\nวงกลม MU-02<78มม> =310\n\nค่าจัดส่ง 50 บ\nรวม 1410 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
