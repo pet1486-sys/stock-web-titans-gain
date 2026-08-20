@@ -570,6 +570,26 @@
         "dispatchDate": "",
         "rawText": "ยางใน V stone 7.00-7.50-15 จุ๊บยาว =300\nยางรองคอ V stone ขอบ15 ปลีก1เส้น =180\n\nค่าจัดส่ง 50 บ\nรวม 530 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787194585446",
+        "timestamp": 1787194585446,
+        "time": "09:56",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "กาวปะ MR",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 310,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "กาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 310 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
