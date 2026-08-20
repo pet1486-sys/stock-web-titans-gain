@@ -613,6 +613,30 @@
         "dispatchDate": "",
         "rawText": "จุ๊บยาง TR413-1แพ็ค =330\n\nค่าจัดส่ง 50 บ\nรวม 380 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787194935204",
+        "timestamp": 1787194935204,
+        "time": "10:02",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Lazada",
+        "items": [
+          {
+            "name": "จุ๊บทองเหลือง11ซม",
+            "qty": 13
+          },
+          {
+            "name": "EU เบอร์ 14",
+            "qty": 2
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 1300,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "จุ๊บทองเหลือง11ซม x13 =650\nEU เบอร์ 14 x2 =600\n\nค่าจัดส่ง 50 บ\nรวม 1300 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
