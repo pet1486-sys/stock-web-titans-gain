@@ -386,6 +386,26 @@
         "dispatchDate": "",
         "rawText": "ดอกเห็ด 6มิล x3 =1500\n\nจัดส่งฟรี\nรวม 1500 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787189243207",
+        "timestamp": 1787189243207,
+        "time": "08:27",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "บริสโตน สายลมดำผิวริ้ว 3ชั้น(1/2)",
+            "qty": 20
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 2000,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "บริสโตน สายลมดำผิวริ้ว 3ชั้น(1/2) x20 =2000\n\nจัดส่งฟรี\nรวม 2000 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
