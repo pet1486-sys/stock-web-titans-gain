@@ -815,11 +815,15 @@
       },
       {
         "id": "ord_1787215336027",
-        "timestamp": 1787215336027,
+        "timestamp": 1787215320000,
         "time": "15:42",
         "customer": "ทั่วไป / ไม่ระบุ",
         "channel": "Line Shopping",
         "items": [
+          {
+            "name": "ศรไส้ไก่50ตัว",
+            "qty": 1
+          },
           {
             "name": "หัวคอปเปอร์ลม SH20 5/16 THB",
             "qty": 1
@@ -830,7 +834,7 @@
         "total": 270,
         "isReserved": false,
         "dispatchDate": "",
-        "rawText": "ศรไส้ไก่100ตัว  =100\nหัวคอปเปอร์ลม SH20 5/16 THB =120\n\nค่าจัดส่ง 50 บ\nรวม 270 บ",
+        "rawText": "ศรไส้ไก่50ตัว  =100\nหัวคอปเปอร์ลม SH20 5/16 THB =120\n\nค่าจัดส่ง 50 บ\nรวม 270 บ",
         "isLocalDraft": false
       }
     ]
