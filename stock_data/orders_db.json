@@ -888,6 +888,26 @@
         "dispatchDate": "",
         "rawText": "EU เบอร์ 8 =300\nยางดิบ =160\nกาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 770 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787223321064",
+        "timestamp": 1787223321064,
+        "time": "17:55",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ลูกบล๊อก 4หุน 19มม บาง",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 650,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "น็อตล้อ เบอร์19x1.5 x50 =500\nลูกบล๊อก 4หุน 19มม บาง =100\n\nค่าจัดส่ง 50 บ\nรวม 650 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
