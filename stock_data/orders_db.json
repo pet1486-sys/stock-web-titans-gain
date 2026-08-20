@@ -657,6 +657,37 @@
         "dispatchDate": "",
         "rawText": "US 42 มม =320\n\nค่าจัดส่ง 50 บ\nรวม 370 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787199953064",
+        "timestamp": 1787199953064,
+        "time": "11:25",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "หัวคอปเปอร์ลม SH40 1/2 THB",
+            "qty": 2
+          },
+          {
+            "name": "จุ๊บทาทา TR415",
+            "qty": 4
+          },
+          {
+            "name": "พลาสติกกันขอบ",
+            "qty": 2
+          },
+          {
+            "name": "ตะกั่วแปะ 50แถว",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 690,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "หัวคอปเปอร์ลม SH40 1/2 THB x2 =240\nจุ๊บทาทา TR415 x4 =60\nพลาสติกกันขอบ x2 =40\nตะกั่วแปะ 50แถว =300\n\nค่าจัดส่ง 50 บ\nรวม 690 บ\nเก็บเงินปลายทาง"
       }
     ]
   }
