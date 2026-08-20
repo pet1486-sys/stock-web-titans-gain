@@ -788,6 +788,30 @@
         "dispatchDate": "",
         "rawText": "EU เบอร์ 10 x2 =600\nEU เบอร์ 12 x2 =600\nEU เบอร์ 14 =300\nEU 42มิล =220\nกาวปะ MR x2 =520\nศรไส้ไก่50ตัว x2 =100\n\nจัดส่งฟรี\nรวม 2340 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787214508659",
+        "timestamp": 1787214508659,
+        "time": "15:28",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "US 58 มม",
+            "qty": 1
+          },
+          {
+            "name": "จุ๊บยาง TR413-1แพ็ค",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 700,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "US 58 มม =320\nจุ๊บยาง TR413-1แพ็ค =330\n\nค่าจัดส่ง 50 บ\nรวม 700 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
