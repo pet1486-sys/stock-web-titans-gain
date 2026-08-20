@@ -728,6 +728,26 @@
         "dispatchDate": "",
         "rawText": "กาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 310 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787203472603",
+        "timestamp": 1787203472603,
+        "time": "12:24",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "BY-08",
+            "qty": 4
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 1330,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "BY-08 x4 =1280\n\nค่าจัดส่ง 50 บ\nรวม 1330 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
