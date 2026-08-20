@@ -708,6 +708,26 @@
         "dispatchDate": "",
         "rawText": "EU 42มิล =220\n\nค่าจัดส่ง 50 บ\nรวม 270 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787202946554",
+        "timestamp": 1787202946554,
+        "time": "12:15",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "กาวปะ MR",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 310,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "กาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 310 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
