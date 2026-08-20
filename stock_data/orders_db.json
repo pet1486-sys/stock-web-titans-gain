@@ -860,6 +860,34 @@
         "dispatchDate": "",
         "rawText": "วงกลม MU-02<78มม> =310\nBY-10 =320\n\nค่าจัดส่ง 50 บ\nรวม 680 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787219689800",
+        "timestamp": 1787219689800,
+        "time": "16:54",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "EU เบอร์ 8",
+            "qty": 1
+          },
+          {
+            "name": "ยางดิบ",
+            "qty": 1
+          },
+          {
+            "name": "กาวปะ MR",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 770,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU เบอร์ 8 =300\nยางดิบ =160\nกาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 770 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
