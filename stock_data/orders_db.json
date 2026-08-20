@@ -526,6 +526,26 @@
         "dispatchDate": "",
         "rawText": "สติมผ้าใบเล็ก =220\nกาวปะ MR =260\nยางซีลหัวเติมลม10ชิ้น =30\nดอกเห็ด 6มิล =500\nสี่เหลี่ยม MR-10 =750\n\nจัดส่งฟรี\nรวม 1760 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787194515294",
+        "timestamp": 1787194515294,
+        "time": "09:55",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ผ้าใบท่อน",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 80,
+        "total": 440,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ผ้าใบท่อน =360\n\nค่าจัดส่ง 80 บ\nรวม 440 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
