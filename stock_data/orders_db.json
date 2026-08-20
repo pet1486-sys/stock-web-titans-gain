@@ -546,6 +546,30 @@
         "dispatchDate": "",
         "rawText": "ผ้าใบท่อน =360\n\nค่าจัดส่ง 80 บ\nรวม 440 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787194525621",
+        "timestamp": 1787194525621,
+        "time": "09:55",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ยางใน V stone 7.00-7.50-15 จุ๊บยาว",
+            "qty": 1
+          },
+          {
+            "name": "ยางรองคอ V stone ขอบ15 ปลีก1เส้น",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 530,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ยางใน V stone 7.00-7.50-15 จุ๊บยาว =300\nยางรองคอ V stone ขอบ15 ปลีก1เส้น =180\n\nค่าจัดส่ง 50 บ\nรวม 530 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
