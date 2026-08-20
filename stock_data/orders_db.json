@@ -368,26 +368,6 @@
         "isLocalDraft": false
       },
       {
-        "id": "ord_1787189200028",
-        "timestamp": 1787189200028,
-        "time": "08:26",
-        "customer": "ทั่วไป / ไม่ระบุ",
-        "channel": "Facebook",
-        "items": [
-          {
-            "name": "ดอกเห็ด 6มิล",
-            "qty": 3
-          }
-        ],
-        "discount": 0,
-        "shipping": 0,
-        "total": 1500,
-        "isReserved": false,
-        "dispatchDate": "",
-        "rawText": "ดอกเห็ด 6มิล x3 =1500\n\nจัดส่งฟรี\nรวม 1500 บ\nเก็บเงินปลายทาง",
-        "isLocalDraft": false
-      },
-      {
         "id": "ord_1787189243207",
         "timestamp": 1787189243207,
         "time": "08:27",
