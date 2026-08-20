@@ -748,6 +748,46 @@
         "dispatchDate": "",
         "rawText": "BY-08 x4 =1280\n\nค่าจัดส่ง 50 บ\nรวม 1330 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787205834641",
+        "timestamp": 1787205834641,
+        "time": "13:03",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "EU เบอร์ 10",
+            "qty": 2
+          },
+          {
+            "name": "EU เบอร์ 12",
+            "qty": 2
+          },
+          {
+            "name": "EU เบอร์ 14",
+            "qty": 1
+          },
+          {
+            "name": "EU 42มิล",
+            "qty": 1
+          },
+          {
+            "name": "กาวปะ MR",
+            "qty": 2
+          },
+          {
+            "name": "ศรไส้ไก่50ตัว",
+            "qty": 2
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 2340,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU เบอร์ 10 x2 =600\nEU เบอร์ 12 x2 =600\nEU เบอร์ 14 =300\nEU 42มิล =220\nกาวปะ MR x2 =520\nศรไส้ไก่50ตัว x2 =100\n\nจัดส่งฟรี\nรวม 2340 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
