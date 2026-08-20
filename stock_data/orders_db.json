@@ -486,6 +486,30 @@
         "dispatchDate": "",
         "rawText": "ดอกเห็ด 6มิล =500\nUS 58 มม =320\nกาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 1130 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787193812397",
+        "timestamp": 1787193812397,
+        "time": "09:43",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ยางดิบ",
+            "qty": 2
+          },
+          {
+            "name": "TJ-14HD",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 720,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ยางดิบ x2 =320\nTJ-14HD =350\n\nค่าจัดส่ง 50 บ\nรวม 720 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
