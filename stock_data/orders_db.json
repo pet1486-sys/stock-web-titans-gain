@@ -812,6 +812,26 @@
         "dispatchDate": "",
         "rawText": "US 58 มม =320\nจุ๊บยาง TR413-1แพ็ค =330\n\nค่าจัดส่ง 50 บ\nรวม 700 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787215336027",
+        "timestamp": 1787215336027,
+        "time": "15:42",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "หัวคอปเปอร์ลม SH20 5/16 THB",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 270,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ศรไส้ไก่100ตัว  =100\nหัวคอปเปอร์ลม SH20 5/16 THB =120\n\nค่าจัดส่ง 50 บ\nรวม 270 บ",
+        "isLocalDraft": false
       }
     ]
   }
