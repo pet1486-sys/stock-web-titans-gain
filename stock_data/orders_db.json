@@ -688,6 +688,26 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "หัวคอปเปอร์ลม SH40 1/2 THB x2 =240\nจุ๊บทาทา TR415 x4 =60\nพลาสติกกันขอบ x2 =40\nตะกั่วแปะ 50แถว =300\n\nค่าจัดส่ง 50 บ\nรวม 690 บ\nเก็บเงินปลายทาง"
+      },
+      {
+        "id": "ord_1787201132185",
+        "timestamp": 1787201132185,
+        "time": "11:45",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "EU 42มิล",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 270,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU 42มิล =220\n\nค่าจัดส่ง 50 บ\nรวม 270 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
