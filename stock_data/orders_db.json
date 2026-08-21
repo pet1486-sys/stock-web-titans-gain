@@ -603,8 +603,8 @@
         "discount": 0,
         "shipping": 50,
         "total": 1020,
-        "isReserved": false,
-        "dispatchDate": "",
+        "isReserved": true,
+        "dispatchDate": "2026-08-21",
         "rawText": "จุ๊บยาง TR413-1แพ็ค =330\nใยไหม x2 =340\nตะกั่วแปะ 50แถว =300\n\nค่าจัดส่ง 50 บ\nรวม 1020 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
       }
