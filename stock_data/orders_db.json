@@ -579,9 +579,7 @@
         "dispatchDate": "",
         "rawText": "ขันศรสั้น x4 =40\nตัวต้าปเกลียวใหญ่ x2 =30\n\nค่าจัดส่ง 50 บ\nรวม 120 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
-      }
-    ],
-    "batch_1787280484951": [
+      },
       {
         "id": "ord_1787281156657",
         "timestamp": 1787281156657,
@@ -597,11 +595,13 @@
         "discount": 0,
         "shipping": 50,
         "total": 380,
-        "isReserved": true,
-        "dispatchDate": "2026-08-21",
+        "isReserved": false,
+        "dispatchDate": "",
         "rawText": "จุ๊บยาง TR413-1แพ็ค =330\n\nค่าจัดส่ง 50 บ\nรวม 380 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
-      },
+      }
+    ],
+    "batch_1787280484951": [
       {
         "id": "ord_1787281179239",
         "timestamp": 1787281179239,
