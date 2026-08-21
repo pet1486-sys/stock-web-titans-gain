@@ -781,6 +781,30 @@
         "dispatchDate": "",
         "rawText": "EU เบอร์ 10 x4 =1200\nTJ-10HD =350\n\nจัดส่งฟรี\nรวม 1550 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787296345164",
+        "timestamp": 1787296345164,
+        "time": "14:12",
+        "customer": "(C391)",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "ดอกเห็ด 6มิล",
+            "qty": 10
+          },
+          {
+            "name": "กาวปะ MR",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 5260,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ดอกเห็ด 6มิล x10 =5000\nกาวปะ MR =260\n\nจัดส่งฟรี\nรวม 5260 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
