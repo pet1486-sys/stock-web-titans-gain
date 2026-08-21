@@ -554,6 +554,30 @@
         "dispatchDate": "",
         "rawText": "TJ-14HD =350\nBY-10 =320\nEU 42มิล =220\nจุ๊บขันนอก525AL x10 =150\nยางดิบ =160\n\nค่าจัดส่ง 50 บ\nรวม 1250 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787279510068",
+        "timestamp": 1787279510068,
+        "time": "09:31",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ขันศรสั้น",
+            "qty": 4
+          },
+          {
+            "name": "ตัวต้าปเกลียวใหญ่",
+            "qty": 2
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 120,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ขันศรสั้น x4 =40\nตัวต้าปเกลียวใหญ่ x2 =30\n\nค่าจัดส่ง 50 บ\nรวม 120 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
