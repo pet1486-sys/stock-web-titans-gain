@@ -877,6 +877,34 @@
         "dispatchDate": "",
         "rawText": "EU เบอร์ 8 x2 =600\nEU เบอร์ 10 x2 =600\nEU เบอร์ 12 x2 =600\n\nจัดส่งฟรี\nรวม 1800 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787304101361",
+        "timestamp": 1787304101361,
+        "time": "16:21",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "หัวเติมเร็วมีเกจวัด",
+            "qty": 1
+          },
+          {
+            "name": "ขันศรยาว",
+            "qty": 1
+          },
+          {
+            "name": "สี่เหลี่ยม MR-10",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 1070,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "หัวเติมเร็วมีเกจวัด =250\nขันศรยาว =20\nสี่เหลี่ยม MR-10 =750\n\nค่าจัดส่ง 50 บ\nรวม 1070 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
