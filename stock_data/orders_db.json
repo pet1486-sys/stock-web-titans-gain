@@ -623,6 +623,26 @@
         "dispatchDate": "",
         "rawText": "จุ๊บทองเหลือง11ซม x9 =450\nEU เบอร์ 14 =300\n\nค่าจัดส่ง 50 บ\nรวม 800 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787282528467",
+        "timestamp": 1787282528467,
+        "time": "10:22",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "จุ๊บยาง TR413-1แพ็ค",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 380,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "จุ๊บยาง TR413-1แพ็ค =330\n\nค่าจัดส่ง 50 บ\nรวม 380 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ],
     "batch_1787280484951": [
