@@ -418,6 +418,30 @@
         "dispatchDate": "",
         "rawText": "กาวปะ MR =260\nวงกลม MU-00<43มม> =250\nวงกลม L3<52มม> =290\nวงกลม MU-02<78มม> x2 =620\n\nค่าจัดส่ง 50 บ\nรวม 1470 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787277905205",
+        "timestamp": 1787277905205,
+        "time": "09:05",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "EU 42มิล",
+            "qty": 1
+          },
+          {
+            "name": "EU 52มิล",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 490,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU 42มิล =220\nEU 52มิล =220\n\nค่าจัดส่ง 50 บ\nรวม 490 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
