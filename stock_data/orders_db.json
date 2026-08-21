@@ -462,6 +462,38 @@
         "dispatchDate": "",
         "rawText": "จุ๊บยาง TR413-1แพ็ค =330\n\nค่าจัดส่ง 50 บ\nรวม 380 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787278137813",
+        "timestamp": 1787278137813,
+        "time": "09:08",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "BY-08",
+            "qty": 4
+          },
+          {
+            "name": "BY-10",
+            "qty": 4
+          },
+          {
+            "name": "BY-12",
+            "qty": 4
+          },
+          {
+            "name": "กาวปะ MR",
+            "qty": 4
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 4880,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "BY-08 x4 =1280\nBY-10 x4 =1280\nBY-12 x4 =1280\nกาวปะ MR x4 =1040\n\nจัดส่งฟรี\nรวม 4880 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
