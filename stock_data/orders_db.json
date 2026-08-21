@@ -342,6 +342,30 @@
         "dispatchDate": "",
         "rawText": "ขันศรยาว x30 =600\n\nค่าจัดส่ง 50 บ\nรวม 650 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787276761656",
+        "timestamp": 1787276761656,
+        "time": "08:46",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "จุ๊บยาง TR413TUV-1แพ็ค",
+            "qty": 10
+          },
+          {
+            "name": "EU 52มิล",
+            "qty": 2
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 4240,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "กล่องแรก\n\nจุ๊บยาง TR413TUV-1แพ็ค x10 =3800\nEU 52มิล x2 =440\n\nจัดส่งฟรี\nรวม 4240 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
