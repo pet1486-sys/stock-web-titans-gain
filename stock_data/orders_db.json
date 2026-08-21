@@ -494,6 +494,30 @@
         "dispatchDate": "",
         "rawText": "BY-08 x4 =1280\nBY-10 x4 =1280\nBY-12 x4 =1280\nกาวปะ MR x4 =1040\n\nจัดส่งฟรี\nรวม 4880 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787279150347",
+        "timestamp": 1787279150347,
+        "time": "09:25",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ใยไหม",
+            "qty": 1
+          },
+          {
+            "name": "SET แทงใยไหม",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 420,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ใยไหม =170\nSET แทงใยไหม =200\n\nค่าจัดส่ง 50 บ\nรวม 420 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
