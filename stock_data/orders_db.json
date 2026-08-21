@@ -1029,6 +1029,26 @@
         "dispatchDate": "",
         "rawText": "กาวปะ MR =260\nกาวดำ =220\n\nค่าจัดส่ง 50 บ\nรวม 530 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787309625574",
+        "timestamp": 1787309625574,
+        "time": "17:53",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ใยไหม",
+            "qty": 2
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 390,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ใยไหม x2 =340\n\nค่าจัดส่ง 50 บ\nรวม 390 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
