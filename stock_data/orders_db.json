@@ -274,6 +274,30 @@
         "dispatchDate": "",
         "rawText": "น็อตล้อ เบอร์19x1.5 x50 =500\nลูกบล๊อก 4หุน 19มม บาง =100\n\nค่าจัดส่ง 50 บ\nรวม 650 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787276152409",
+        "timestamp": 1787276152409,
+        "time": "08:35",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "ดอกเห็ด 6มิล",
+            "qty": 1
+          },
+          {
+            "name": "EU เบอร์ 10",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 850,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ดอกเห็ด 6มิล =500\nEU เบอร์ 10 =300\n\nค่าจัดส่ง 50 บ\nรวม 850 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
