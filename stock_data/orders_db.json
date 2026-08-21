@@ -1049,6 +1049,26 @@
         "dispatchDate": "",
         "rawText": "ใยไหม x2 =340\n\nค่าจัดส่ง 50 บ\nรวม 390 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787312037211",
+        "timestamp": 1787312037211,
+        "time": "18:33",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "เกจวัดลมดิจิตอล",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 370,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "เกจวัดลมดิจิตอล =320\n\nค่าจัดส่ง 50 บ\nรวม 370 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
