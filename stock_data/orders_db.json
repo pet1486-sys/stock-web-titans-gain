@@ -700,10 +700,10 @@
       },
       {
         "id": "ord_1787286651614",
-        "timestamp": 1787286651614,
+        "timestamp": 1787286600000,
         "time": "11:30",
-        "customer": "ทั่วไป / ไม่ระบุ",
-        "channel": "Facebook",
+        "customer": "(C480)",
+        "channel": "Line Shopping",
         "items": [
           {
             "name": "ดอกเห็ด 9มิล",
