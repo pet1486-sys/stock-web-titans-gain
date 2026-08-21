@@ -805,6 +805,26 @@
         "dispatchDate": "",
         "rawText": "ดอกเห็ด 6มิล x10 =5000\nกาวปะ MR =260\n\nจัดส่งฟรี\nรวม 5260 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787296371715",
+        "timestamp": 1787296371715,
+        "time": "14:12",
+        "customer": "(C391)",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "TAKARA สายลมดำผิวเรียบ 3ชั้น(5/16)",
+            "qty": 10
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 550,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "TAKARA สายลมดำผิวเรียบ 3ชั้น(5/16) x10 =500\n\nค่าจัดส่ง 50 บ\nรวม 550 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
