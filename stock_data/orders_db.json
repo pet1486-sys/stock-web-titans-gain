@@ -599,9 +599,7 @@
         "dispatchDate": "",
         "rawText": "จุ๊บยาง TR413-1แพ็ค =330\n\nค่าจัดส่ง 50 บ\nรวม 380 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
-      }
-    ],
-    "batch_1787280484951": [
+      },
       {
         "id": "ord_1787281179239",
         "timestamp": 1787281179239,
@@ -621,11 +619,13 @@
         "discount": 0,
         "shipping": 50,
         "total": 800,
-        "isReserved": true,
-        "dispatchDate": "2026-08-21",
+        "isReserved": false,
+        "dispatchDate": "",
         "rawText": "จุ๊บทองเหลือง11ซม x9 =450\nEU เบอร์ 14 =300\n\nค่าจัดส่ง 50 บ\nรวม 800 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
-      },
+      }
+    ],
+    "batch_1787280484951": [
       {
         "id": "ord_1787282200778",
         "timestamp": 1787282200778,
