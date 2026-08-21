@@ -322,6 +322,26 @@
         "dispatchDate": "",
         "rawText": "กาวปะ MR =260\nครีมทาขอบยาง =150\n\nค่าจัดส่ง 50 บ\nรวม 460 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787276594643",
+        "timestamp": 1787276594643,
+        "time": "08:43",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ขันศรยาว",
+            "qty": 30
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 650,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ขันศรยาว x30 =600\n\nค่าจัดส่ง 50 บ\nรวม 650 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
