@@ -757,6 +757,30 @@
         "dispatchDate": "",
         "rawText": "US 58 มม =320\nกาวปะ MR =260\nไม้กลิ้งสติม 7mm =100\nชุด บอสเจียรลม =550\nเกจวัดลมดิจิตอล =320\n\nจัดส่งฟรี\nรวม 1550 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787293843810",
+        "timestamp": 1787293843810,
+        "time": "13:30",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "EU เบอร์ 10",
+            "qty": 4
+          },
+          {
+            "name": "TJ-10HD",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 1550,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU เบอร์ 10 x4 =1200\nTJ-10HD =350\n\nจัดส่งฟรี\nรวม 1550 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
