@@ -366,6 +366,26 @@
         "dispatchDate": "",
         "rawText": "กล่องแรก\n\nจุ๊บยาง TR413TUV-1แพ็ค x10 =3800\nEU 52มิล x2 =440\n\nจัดส่งฟรี\nรวม 4240 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787276779094",
+        "timestamp": 1787276779094,
+        "time": "08:46",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ตะกั่วแปะ 50แถว",
+            "qty": 2
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 600,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "กล่องสอง\n\nตะกั่วแปะ 50แถว x2 =550\n\nค่าจัดส่ง 50 บ\nรวม 600 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
