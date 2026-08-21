@@ -386,6 +386,38 @@
         "dispatchDate": "",
         "rawText": "กล่องสอง\n\nตะกั่วแปะ 50แถว x2 =550\n\nค่าจัดส่ง 50 บ\nรวม 600 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787277347462",
+        "timestamp": 1787277347462,
+        "time": "08:55",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "กาวปะ MR",
+            "qty": 1
+          },
+          {
+            "name": "วงกลม MU-00<43มม>",
+            "qty": 1
+          },
+          {
+            "name": "วงกลม L3<52มม>",
+            "qty": 1
+          },
+          {
+            "name": "วงกลม MU-02<78มม>",
+            "qty": 2
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 1470,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "กาวปะ MR =260\nวงกลม MU-00<43มม> =250\nวงกลม L3<52มม> =290\nวงกลม MU-02<78มม> x2 =620\n\nค่าจัดส่ง 50 บ\nรวม 1470 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
