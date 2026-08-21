@@ -825,6 +825,30 @@
         "dispatchDate": "",
         "rawText": "TAKARA สายลมดำผิวเรียบ 3ชั้น(5/16) x10 =500\n\nค่าจัดส่ง 50 บ\nรวม 550 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787296657126",
+        "timestamp": 1787296657126,
+        "time": "14:17",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "EU 73มิล",
+            "qty": 3
+          },
+          {
+            "name": "กาวปะ MR",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 970,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU 73มิล x3 =660\nกาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 970 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
