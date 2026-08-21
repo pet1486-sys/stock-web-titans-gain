@@ -579,6 +579,34 @@
         "dispatchDate": "",
         "rawText": "ขันศรสั้น x4 =40\nตัวต้าปเกลียวใหญ่ x2 =30\n\nค่าจัดส่ง 50 บ\nรวม 120 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787282200778",
+        "timestamp": 1787282200778,
+        "time": "10:16",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "จุ๊บยาง TR413-1แพ็ค",
+            "qty": 1
+          },
+          {
+            "name": "ใยไหม",
+            "qty": 2
+          },
+          {
+            "name": "ตะกั่วแปะ 50แถว",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 1020,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "จุ๊บยาง TR413-1แพ็ค =330\nใยไหม x2 =340\nตะกั่วแปะ 50แถว =300\n\nค่าจัดส่ง 50 บ\nรวม 1020 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ],
     "batch_1787280484951": [
