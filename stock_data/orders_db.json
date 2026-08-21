@@ -721,6 +721,42 @@
         "dispatchDate": "",
         "rawText": "ดอกเห็ด 9มิล =700\nหัวเติมลมแบบเร็ว x2 =400\n\nค่าจัดส่ง 50 บ\nรวม 1150 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787291870295",
+        "timestamp": 1787291870295,
+        "time": "12:57",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "US 58 มม",
+            "qty": 1
+          },
+          {
+            "name": "กาวปะ MR",
+            "qty": 1
+          },
+          {
+            "name": "ไม้กลิ้งสติม 7mm",
+            "qty": 1
+          },
+          {
+            "name": "ชุด บอสเจียรลม",
+            "qty": 1
+          },
+          {
+            "name": "เกจวัดลมดิจิตอล",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 1550,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "US 58 มม =320\nกาวปะ MR =260\nไม้กลิ้งสติม 7mm =100\nชุด บอสเจียรลม =550\nเกจวัดลมดิจิตอล =320\n\nจัดส่งฟรี\nรวม 1550 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
