@@ -518,6 +518,42 @@
         "dispatchDate": "",
         "rawText": "ใยไหม =170\nSET แทงใยไหม =200\n\nค่าจัดส่ง 50 บ\nรวม 420 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787279246500",
+        "timestamp": 1787279246500,
+        "time": "09:27",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "TJ-14HD",
+            "qty": 1
+          },
+          {
+            "name": "BY-10",
+            "qty": 1
+          },
+          {
+            "name": "EU 42มิล",
+            "qty": 1
+          },
+          {
+            "name": "จุ๊บขันนอก525AL",
+            "qty": 10
+          },
+          {
+            "name": "ยางดิบ",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 1250,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "TJ-14HD =350\nBY-10 =320\nEU 42มิล =220\nจุ๊บขันนอก525AL x10 =150\nยางดิบ =160\n\nค่าจัดส่ง 50 บ\nรวม 1250 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
