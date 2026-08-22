@@ -569,6 +569,40 @@
         "rawText": "EU เบอร์ 10 =300\nEU 42มิล =220\n\nค่าจัดส่ง 50 บ\nรวม 570 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
       }
+    ],
+    "batch_1787365163780": [
+      {
+        "id": "ord_1787365757668",
+        "timestamp": 1787365757668,
+        "time": "09:29",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "EU เบอร์ 8",
+            "qty": 1
+          },
+          {
+            "name": "EU เบอร์ 12",
+            "qty": 1
+          },
+          {
+            "name": "เกจน้ำมัน 1/4 pt",
+            "qty": 1
+          },
+          {
+            "name": "เกจดิจิตอล 1/4 pt",
+            "qty": 2
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 1370,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU เบอร์ 8 =300\nEU เบอร์ 12 =300\nเกจน้ำมัน 1/4 pt =220\nเกจดิจิตอล 1/4 pt x2 =500\n\nค่าจัดส่ง 50 บ\nรวม 1370 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
+      }
     ]
   }
 }
