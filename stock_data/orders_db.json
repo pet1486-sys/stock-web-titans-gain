@@ -802,6 +802,42 @@
         "dispatchDate": "",
         "rawText": "กาวดำ =220\nเครื่องมือขูดยางแผลยาง =120\nหัวเจียรอมยิ้ม ใหญ่ =50\n\nค่าจัดส่ง 50 บ\nรวม 440 บ\nโอนเงินผ่านบัญชี",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787394995868",
+        "timestamp": 1787394995868,
+        "time": "17:36",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "สติมผ้าใบเล็ก",
+            "qty": 1
+          },
+          {
+            "name": "สติมผ้าใบกลาง",
+            "qty": 1
+          },
+          {
+            "name": "กาวปะ MR",
+            "qty": 1
+          },
+          {
+            "name": "US 58 มม",
+            "qty": 2
+          },
+          {
+            "name": "ใยไหม",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 1610,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "สติมผ้าใบเล็ก =220\nสติมผ้าใบกลาง =320\nกาวปะ MR =260\nUS 58 มม x2 =640\nใยไหม =170\n\nจัดส่งฟรี\nรวม 1610 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
