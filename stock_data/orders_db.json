@@ -543,6 +543,30 @@
         "dispatchDate": "",
         "rawText": "วงกลม MU-00<43มม> =250\nกาวปะ MR =260\nยางดิบ =160\nครีมทาขอบยาง =150\n\nค่าจัดส่ง 50 บ\nรวม 870 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787363263491",
+        "timestamp": 1787363263491,
+        "time": "08:47",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "EU เบอร์ 10",
+            "qty": 1
+          },
+          {
+            "name": "EU 42มิล",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 570,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU เบอร์ 10 =300\nEU 42มิล =220\n\nค่าจัดส่ง 50 บ\nรวม 570 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
