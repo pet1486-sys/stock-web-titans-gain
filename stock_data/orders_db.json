@@ -491,6 +491,26 @@
         "dispatchDate": "",
         "rawText": "ศรไส้ไก่50ตัว x2 =100\nหัวเติมเร็วมีเกจวัด x2 =500\nขันศรสั้น =10\nขันศรยาว =20\nตัวดูดลม =250\nหัวต่อเติมลม15ซม. =100\nตัวต้าปเกลียวใหญ่ =15\n\nค่าจัดส่ง 50 บ\nรวม 1045 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787362772952",
+        "timestamp": 1787362772952,
+        "time": "08:39",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "US 42 มม",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 370,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "US 42 มม =320\n\nค่าจัดส่ง 50 บ\nรวม 370 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
