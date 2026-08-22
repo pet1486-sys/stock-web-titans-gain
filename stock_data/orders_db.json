@@ -742,6 +742,38 @@
         "dispatchDate": "",
         "rawText": "EU 52มิล x2 =440\n\nค่าจัดส่ง 50 บ\nรวม 490 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787387082761",
+        "timestamp": 1787387082761,
+        "time": "15:24",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "EU เบอร์ 8",
+            "qty": 2
+          },
+          {
+            "name": "EU 52มิล",
+            "qty": 2
+          },
+          {
+            "name": "ขันศรยาว",
+            "qty": 2
+          },
+          {
+            "name": "กาวปะ MR",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 1390,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU เบอร์ 8 x2 =600\nEU 52มิล x2 =440\nขันศรยาว x2 =40\nกาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 1390 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
