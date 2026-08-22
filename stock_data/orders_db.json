@@ -605,10 +605,10 @@
     "batch_1787365163780": [
       {
         "id": "ord_1787377083449",
-        "timestamp": 1787377083449,
+        "timestamp": 1787377080000,
         "time": "12:38",
         "customer": "ทั่วไป / ไม่ระบุ",
-        "channel": "Line Shopping",
+        "channel": "Facebook",
         "items": [
           {
             "name": "จุ๊บยาง TR413-1แพ็ค",
