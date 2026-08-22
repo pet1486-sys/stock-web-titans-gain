@@ -774,6 +774,34 @@
         "dispatchDate": "",
         "rawText": "EU เบอร์ 8 x2 =600\nEU 52มิล x2 =440\nขันศรยาว x2 =40\nกาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 1390 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787392818179",
+        "timestamp": 1787392818179,
+        "time": "17:00",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "กาวดำ",
+            "qty": 1
+          },
+          {
+            "name": "เครื่องมือขูดยางแผลยาง",
+            "qty": 1
+          },
+          {
+            "name": "หัวเจียรอมยิ้ม ใหญ่",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 440,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "กาวดำ =220\nเครื่องมือขูดยางแผลยาง =120\nหัวเจียรอมยิ้ม ใหญ่ =50\n\nค่าจัดส่ง 50 บ\nรวม 440 บ\nโอนเงินผ่านบัญชี",
+        "isLocalDraft": false
       }
     ]
   }
