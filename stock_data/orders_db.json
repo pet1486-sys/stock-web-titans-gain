@@ -511,6 +511,38 @@
         "dispatchDate": "",
         "rawText": "US 42 มม =320\n\nค่าจัดส่ง 50 บ\nรวม 370 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787362892735",
+        "timestamp": 1787362892735,
+        "time": "08:41",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "วงกลม MU-00<43มม>",
+            "qty": 1
+          },
+          {
+            "name": "กาวปะ MR",
+            "qty": 1
+          },
+          {
+            "name": "ยางดิบ",
+            "qty": 1
+          },
+          {
+            "name": "ครีมทาขอบยาง",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 870,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "วงกลม MU-00<43มม> =250\nกาวปะ MR =260\nยางดิบ =160\nครีมทาขอบยาง =150\n\nค่าจัดส่ง 50 บ\nรวม 870 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
