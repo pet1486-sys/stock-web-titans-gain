@@ -568,34 +568,6 @@
         "dispatchDate": "",
         "rawText": "EU เบอร์ 10 =300\nEU 42มิล =220\n\nค่าจัดส่ง 50 บ\nรวม 570 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
-      },
-      {
-        "id": "ord_1787365117429",
-        "timestamp": 1787365117429,
-        "time": "09:18",
-        "customer": "ทั่วไป / ไม่ระบุ",
-        "channel": "Facebook",
-        "items": [
-          {
-            "name": "EU เบอร์ 8",
-            "qty": 1
-          },
-          {
-            "name": "EU เบอร์ 12",
-            "qty": 1
-          },
-          {
-            "name": "เกจดิจิตอล 1/4 pt",
-            "qty": 1
-          }
-        ],
-        "discount": 0,
-        "shipping": 50,
-        "total": 900,
-        "isReserved": false,
-        "dispatchDate": "",
-        "rawText": "EU เบอร์ 8 =300\nEU เบอร์ 12 =300\nเกจดิจิตอล 1/4 pt =250\n\nค่าจัดส่ง 50 บ\nรวม 900 บ\nเก็บเงินปลายทาง",
-        "isLocalDraft": false
       }
     ]
   }
