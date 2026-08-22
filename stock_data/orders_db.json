@@ -722,6 +722,26 @@
         "dispatchDate": "",
         "rawText": "จุ๊บขันในยาว x10 =150\nจุ๊บขันนอกใหญ่ x2 =80\nยางดิบ =160\nUS 58 มม =320\n\nค่าจัดส่ง 50 บ\nรวม 760 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787386825956",
+        "timestamp": 1787386825956,
+        "time": "15:20",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "EU 52มิล",
+            "qty": 2
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 490,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU 52มิล x2 =440\n\nค่าจัดส่ง 50 บ\nรวม 490 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
