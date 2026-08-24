@@ -718,6 +718,26 @@
         "dispatchDate": "",
         "rawText": "EU เบอร์ 10 =300\nEU 52มิล =220\n\nค่าจัดส่ง 50 บ\nรวม 570 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787563213900",
+        "timestamp": 1787563213900,
+        "time": "16:20",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "US 58 มม",
+            "qty": 2
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 690,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "US 58 มม x2 =640\n\nค่าจัดส่ง 50 บ\nรวม 690 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
