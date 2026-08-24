@@ -674,6 +674,26 @@
         "dispatchDate": "",
         "rawText": "ยางดิบ x2 =320\n\nค่าจัดส่ง 50 บ\nรวม 370 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787552023930",
+        "timestamp": 1787552023930,
+        "time": "13:13",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ใยไหม",
+            "qty": 2
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 390,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ใยไหม x2 =340\n\nค่าจัดส่ง 50 บ\nรวม 390 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
