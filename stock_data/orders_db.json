@@ -451,6 +451,30 @@
         "dispatchDate": "",
         "rawText": "บาร์เกจวัดลมหัวตรง 150psi =300\nจุ๊บทองเหลือง11ซม x5 =250\nจุ๊บยางใน TR15 x5 =60\n\nค่าจัดส่ง 50 บ\nรวม 660 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787539119116",
+        "timestamp": 1787539119116,
+        "time": "09:38",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "EU เบอร์ 10",
+            "qty": 1
+          },
+          {
+            "name": "EU เบอร์ 12",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 650,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU เบอร์ 10 =300\nEU เบอร์ 12 =300\n\nค่าจัดส่ง 50 บ\nรวม 650 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
