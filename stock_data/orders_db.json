@@ -654,6 +654,26 @@
         "dispatchDate": "2026-08-26",
         "rawText": "ตะกั่วแปะ 50แถว x2 =600\n\nค่าจัดส่ง 50 บ\nรวม 650 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787551960173",
+        "timestamp": 1787551960173,
+        "time": "13:12",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ยางดิบ",
+            "qty": 2
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 370,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ยางดิบ x2 =320\n\nค่าจัดส่ง 50 บ\nรวม 370 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
