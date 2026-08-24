@@ -267,6 +267,34 @@
         "dispatchDate": "",
         "rawText": "EU เบอร์ 12 =300\nTJ-5 =400\nEU 73มิล =220\n\nค่าจัดส่ง 50 บ\nรวม 970 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787538333978",
+        "timestamp": 1787538333978,
+        "time": "09:25",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "กาวดำ",
+            "qty": 1
+          },
+          {
+            "name": "สติมผ้าใบกลาง",
+            "qty": 1
+          },
+          {
+            "name": "สติมผ้าใบจัมโบ้",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 960,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "กาวดำ =220\nสติมผ้าใบกลาง =320\nสติมผ้าใบจัมโบ้ =370\n\nค่าจัดส่ง 50 บ\nรวม 960 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
