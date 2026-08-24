@@ -526,23 +526,35 @@
         "isLocalDraft": false
       },
       {
-        "id": "ord_1787539897165",
-        "timestamp": 1787539897165,
-        "time": "09:51",
+        "id": "ord_1787539992669",
+        "timestamp": 1787539992669,
+        "time": "09:53",
         "customer": "ทั่วไป / ไม่ระบุ",
-        "channel": "Facebook",
+        "channel": "Shopee",
         "items": [
           {
-            "name": "ใยไหม",
+            "name": "EU เบอร์ 8",
+            "qty": 1
+          },
+          {
+            "name": "EU เบอร์ 10",
+            "qty": 1
+          },
+          {
+            "name": "EU 42มิล",
+            "qty": 1
+          },
+          {
+            "name": "จุ๊บยาง TR413-1แพ็ค",
             "qty": 1
           }
         ],
         "discount": 0,
         "shipping": 50,
-        "total": 220,
+        "total": 1200,
         "isReserved": false,
         "dispatchDate": "",
-        "rawText": "ใยไหม =170\n\nค่าจัดส่ง 50 บ\nรวม 220 บ\nเก็บเงินปลายทาง",
+        "rawText": "EU เบอร์ 8 =300\nEU เบอร์ 10 =300\nEU 42มิล =220\nจุ๊บยาง TR413-1แพ็ค =330\n\nค่าจัดส่ง 50 บ\nรวม 1200 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
       }
     ]
