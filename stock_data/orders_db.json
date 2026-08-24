@@ -524,6 +524,26 @@
         "dispatchDate": "",
         "rawText": "ดอกเห็ด 6มิล =500\n\nค่าจัดส่ง 50 บ\nรวม 550 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787539897165",
+        "timestamp": 1787539897165,
+        "time": "09:51",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ใยไหม",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 220,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ใยไหม =170\n\nค่าจัดส่ง 50 บ\nรวม 220 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
