@@ -605,6 +605,36 @@
         "rawText": "EU 42มิล =220\nEU เบอร์ 10 =300\nEU 52มิล =220\n\nค่าจัดส่ง 50 บ\nรวม 790 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
       }
+    ],
+    "batch_1787539607868": [
+      {
+        "id": "ord_1787551052560",
+        "timestamp": 1787551052560,
+        "time": "12:57",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "จุ๊บยาง TR413-1แพ็ค",
+            "qty": 2
+          },
+          {
+            "name": "ใยไหม",
+            "qty": 1
+          },
+          {
+            "name": "ยางดิบ",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 990,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "จุ๊บยาง TR413-1แพ็ค x2 =660\nใยไหม =170\nยางดิบ =160\n\nค่าจัดส่ง 0 บ\nรวม 990 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
+      }
     ]
   }
 }
