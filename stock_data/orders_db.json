@@ -295,6 +295,26 @@
         "dispatchDate": "",
         "rawText": "กาวดำ =220\nสติมผ้าใบกลาง =320\nสติมผ้าใบจัมโบ้ =370\n\nค่าจัดส่ง 50 บ\nรวม 960 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787538411447",
+        "timestamp": 1787538411447,
+        "time": "09:26",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "เหล็กงัดยาง 38นิ้วเรเดียล แบบงอ",
+            "qty": 2
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 950,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "เหล็กงัดยาง 38นิ้วเรเดียล แบบงอ x2 =900\n\nค่าจัดส่ง 50 บ\nรวม 950 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
