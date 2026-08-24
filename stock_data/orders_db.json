@@ -650,8 +650,8 @@
         "discount": 0,
         "shipping": 50,
         "total": 650,
-        "isReserved": false,
-        "dispatchDate": "",
+        "isReserved": true,
+        "dispatchDate": "2026-08-26",
         "rawText": "ตะกั่วแปะ 50แถว x2 =600\n\nค่าจัดส่ง 50 บ\nรวม 650 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
       }
