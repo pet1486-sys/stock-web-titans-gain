@@ -694,6 +694,30 @@
         "dispatchDate": "",
         "rawText": "ใยไหม x2 =340\n\nค่าจัดส่ง 50 บ\nรวม 390 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787561572353",
+        "timestamp": 1787561572353,
+        "time": "15:52",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "EU เบอร์ 10",
+            "qty": 1
+          },
+          {
+            "name": "EU 52มิล",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 570,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU เบอร์ 10 =300\nEU 52มิล =220\n\nค่าจัดส่ง 50 บ\nรวม 570 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
