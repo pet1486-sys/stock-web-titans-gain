@@ -569,8 +569,8 @@
         "discount": 0,
         "shipping": 50,
         "total": 630,
-        "isReserved": false,
-        "dispatchDate": "",
+        "isReserved": true,
+        "dispatchDate": "2026-08-25",
         "rawText": "US 42 มม =320\nกาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 630 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
       }
