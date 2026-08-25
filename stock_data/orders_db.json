@@ -526,6 +526,26 @@
         "dispatchDate": "",
         "rawText": "ตะกั่วแปะ 50แถว x2 =550\nหัวเจียรสามเหลี่ยม =50\nหัวเจียรอมยิ้ม ใหญ่ =50\n\nค่าจัดส่ง 50 บ\nรวม 700 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787640422514",
+        "timestamp": 1787640422514,
+        "time": "13:47",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "วงกลม MU-02<78มม>",
+            "qty": 2
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 670,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "วงกลม MU-02<78มม> x2 =620\n\nค่าจัดส่ง 50 บ\nรวม 670 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
