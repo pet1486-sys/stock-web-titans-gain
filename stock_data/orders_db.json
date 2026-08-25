@@ -548,6 +548,32 @@
         "rawText": "วงกลม MU-02<78มม> x2 =620\n\nค่าจัดส่ง 50 บ\nรวม 670 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
       }
+    ],
+    "batch_1787640670694": [
+      {
+        "id": "ord_1787641052998",
+        "timestamp": 1787641052998,
+        "time": "13:57",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "US 42 มม",
+            "qty": 1
+          },
+          {
+            "name": "กาวปะ MR",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 630,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "US 42 มม =320\nกาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 630 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
+      }
     ]
   }
 }
