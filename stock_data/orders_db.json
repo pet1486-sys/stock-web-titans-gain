@@ -370,6 +370,26 @@
         "dispatchDate": "",
         "rawText": "ลูกบล๊อก 4หุน 17มม บาง x2 =200\nวงกลม L3<52มม> x2 =580\nUS 58 มม =320\n\nค่าจัดส่ง 50 บ\nรวม 1150 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787635739454",
+        "timestamp": 1787635739454,
+        "time": "12:28",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "ใยไหม",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 220,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ใยไหม =170\n\nค่าจัดส่ง 50 บ\nรวม 220 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
