@@ -33,26 +33,6 @@
         "isLocalDraft": false
       },
       {
-        "id": "ord_1787551071391",
-        "timestamp": 1787551071391,
-        "time": "12:57",
-        "customer": "ทั่วไป / ไม่ระบุ",
-        "channel": "Line Shopping",
-        "items": [
-          {
-            "name": "ตะกั่วแปะ 50แถว",
-            "qty": 2
-          }
-        ],
-        "discount": 0,
-        "shipping": 50,
-        "total": 650,
-        "isReserved": true,
-        "dispatchDate": "2026-08-26",
-        "rawText": "ตะกั่วแปะ 50แถว x2 =600\n\nค่าจัดส่ง 50 บ\nรวม 650 บ\nเก็บเงินปลายทาง",
-        "isLocalDraft": false
-      },
-      {
         "id": "ord_1787551960173",
         "timestamp": 1787551960173,
         "time": "13:12",
