@@ -307,6 +307,30 @@
         "dispatchDate": "",
         "rawText": "ใยไหม =170\n\nค่าจัดส่ง 50 บ\nรวม 220 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787634270530",
+        "timestamp": 1787634270530,
+        "time": "12:04",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "หัวเติมลมยาว เกรด A",
+            "qty": 1
+          },
+          {
+            "name": "ไม้กลิ้งสติม 7mm",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 450,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "หัวเติมลมยาว เกรด A =300\nไม้กลิ้งสติม 7mm =100\n\nค่าจัดส่ง 50 บ\nรวม 450 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
