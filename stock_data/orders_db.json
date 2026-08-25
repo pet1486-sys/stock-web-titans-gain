@@ -390,6 +390,26 @@
         "dispatchDate": "",
         "rawText": "ใยไหม =170\n\nค่าจัดส่ง 50 บ\nรวม 220 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787636308839",
+        "timestamp": 1787636308839,
+        "time": "12:38",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "สกรูล้อหลัง IS JUMBO/RH",
+            "qty": 16
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 1680,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "สกรูล้อหลัง IS JUMBO/RH x16 =1680\n\nจัดส่งฟรี\nรวม 1680 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
