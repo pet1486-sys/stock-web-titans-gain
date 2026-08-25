@@ -199,6 +199,26 @@
         "dispatchDate": "",
         "rawText": "ตะกั่วแปะ 50แถว x2 =600\n\nค่าจัดส่ง 50 บ\nรวม 650 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787633376234",
+        "timestamp": 1787633376234,
+        "time": "11:49",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "ศรไส้ไก่50ตัว",
+            "qty": 20
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 1050,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ศรไส้ไก่50ตัว x20 =1000\n\nค่าจัดส่ง 50 บ\nรวม 1050 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
