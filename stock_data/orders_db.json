@@ -135,6 +135,30 @@
         "dispatchDate": "",
         "rawText": "US 58 มม x2 =640\n\nค่าจัดส่ง 50 บ\nรวม 690 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787628156971",
+        "timestamp": 1787628156971,
+        "time": "10:22",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Lazada",
+        "items": [
+          {
+            "name": "EU 42มิล",
+            "qty": 1
+          },
+          {
+            "name": "EU 52มิล",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 490,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU 42มิล =220\nEU 52มิล =220\n\nค่าจัดส่ง 50 บ\nรวม 490 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
