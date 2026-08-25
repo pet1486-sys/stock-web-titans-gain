@@ -313,6 +313,36 @@
         "rawText": "หัวเติมลมยาว เกรด A =300\nไม้กลิ้งสติม 7mm =100\n\nค่าจัดส่ง 50 บ\nรวม 450 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
       }
+    ],
+    "batch_1787634716337": [
+      {
+        "id": "ord_1787634889897",
+        "timestamp": 1787634889897,
+        "time": "12:14",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "ลูกบล๊อก 4หุน 21มม บาง",
+            "qty": 1
+          },
+          {
+            "name": "US 58 มม",
+            "qty": 1
+          },
+          {
+            "name": "ใยไหม",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 640,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ลูกบล๊อก 4หุน 21มม บาง =100\nUS 58 มม =320\nใยไหม =170\n\nค่าจัดส่ง 50 บ\nรวม 640 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
+      }
     ]
   }
 }
