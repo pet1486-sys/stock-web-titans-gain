@@ -219,6 +219,26 @@
         "dispatchDate": "",
         "rawText": "ศรไส้ไก่50ตัว x20 =1000\n\nค่าจัดส่ง 50 บ\nรวม 1050 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787634019874",
+        "timestamp": 1787634019874,
+        "time": "12:00",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "เหล็กงัดยาง 28นิ้ว",
+            "qty": 2
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 750,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "เหล็กงัดยาง 28นิ้ว x2 =700\n\nค่าจัดส่ง 50 บ\nรวม 750 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
