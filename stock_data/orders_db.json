@@ -91,6 +91,26 @@
         "dispatchDate": "",
         "rawText": "BY-14 =320\nTJ-12 =350\n\nค่าจัดส่ง 50 บ\nรวม 720 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787709943974",
+        "timestamp": 1787709943974,
+        "time": "09:05",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "เหล็กงัดยาง 16นิ้ว",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 200,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "เหล็กงัดยาง 16นิ้ว =150\n\nค่าจัดส่ง 50 บ\nรวม 200 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
