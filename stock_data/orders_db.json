@@ -67,6 +67,30 @@
         "dispatchDate": "",
         "rawText": "TJ-14HD =350\nกาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 660 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787708908061",
+        "timestamp": 1787708908061,
+        "time": "08:48",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "BY-14",
+            "qty": 1
+          },
+          {
+            "name": "TJ-12",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 720,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "BY-14 =320\nTJ-12 =350\n\nค่าจัดส่ง 50 บ\nรวม 720 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
