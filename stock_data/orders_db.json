@@ -111,6 +111,30 @@
         "dispatchDate": "",
         "rawText": "เหล็กงัดยาง 16นิ้ว =150\n\nค่าจัดส่ง 50 บ\nรวม 200 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787711091374",
+        "timestamp": 1787711091374,
+        "time": "09:24",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "สเปรย์ทำความสะอาดยาง",
+            "qty": 2
+          },
+          {
+            "name": "จุ๊บยาง TR413-1แพ็ค",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 680,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "สเปรย์ทำความสะอาดยาง x2 =300\nจุ๊บยาง TR413-1แพ็ค =330\n\nค่าจัดส่ง 50 บ\nรวม 680 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
