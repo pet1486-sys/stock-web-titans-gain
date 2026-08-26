@@ -253,6 +253,32 @@
         "rawText": "จุ๊บยาง TR413-1แพ็ค =330\nEU เบอร์ 10 =300\nEU เบอร์ 12 =300\n\nค่าจัดส่ง 50 บ\nรวม 980 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
       }
+    ],
+    "batch_1787714356717": [
+      {
+        "id": "ord_1787714487470",
+        "timestamp": 1787714487470,
+        "time": "10:21",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "จุ๊บยาง TR413-1แพ็ค",
+            "qty": 2
+          },
+          {
+            "name": "EU 52มิล",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 930,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "จุ๊บยาง TR413-1แพ็ค x2 =660\nEU 52มิล =220\n\nค่าจัดส่ง 50 บ\nรวม 930 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
+      }
     ]
   }
 }
