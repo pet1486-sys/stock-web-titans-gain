@@ -366,6 +366,26 @@
         "dispatchDate": "",
         "rawText": "วงกลม MU-00<43มม> x3 =750\n\nค่าจัดส่ง 50 บ\nรวม 800 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787726155314",
+        "timestamp": 1787726155314,
+        "time": "13:35",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ตะกั่วแปะ 50แถว",
+            "qty": 10
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 2700,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ตะกั่วแปะ 50แถว x10 =2700\n\nจัดส่งฟรี\nรวม 2700 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
