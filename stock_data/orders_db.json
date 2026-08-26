@@ -223,6 +223,34 @@
         "dispatchDate": "",
         "rawText": "กาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 310 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787713421555",
+        "timestamp": 1787713421555,
+        "time": "10:03",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Shopee",
+        "items": [
+          {
+            "name": "จุ๊บยาง TR413-1แพ็ค",
+            "qty": 1
+          },
+          {
+            "name": "EU เบอร์ 10",
+            "qty": 1
+          },
+          {
+            "name": "EU เบอร์ 12",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 980,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "จุ๊บยาง TR413-1แพ็ค =330\nEU เบอร์ 10 =300\nEU เบอร์ 12 =300\n\nค่าจัดส่ง 50 บ\nรวม 980 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
