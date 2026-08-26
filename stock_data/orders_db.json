@@ -147,6 +147,42 @@
         "dispatchDate": "",
         "rawText": "สเปรย์ทำความสะอาดยาง x2 =300\nจุ๊บยาง TR413-1แพ็ค =330\nจุ๊บทาทา TR415 x10 =100\nจุ๊บขันในสั้น x10 =150\nจุ๊บขันในยาว x10 =150\n\nค่าจัดส่ง 50 บ\nรวม 1080 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787711517391",
+        "timestamp": 1787711517391,
+        "time": "09:31",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "TJ-10HD",
+            "qty": 4
+          },
+          {
+            "name": "TJ-12",
+            "qty": 3
+          },
+          {
+            "name": "กาวปะ MR",
+            "qty": 2
+          },
+          {
+            "name": "ลูกบล๊อก 1นิ้ว 41mm",
+            "qty": 1
+          },
+          {
+            "name": "ลูกบล๊อก 1 นิ้ว 27 mm.",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 3670,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "TJ-10HD x4 =1400\nTJ-12 x3 =1050\nกาวปะ MR x2 =520\nลูกบล๊อก 1นิ้ว 41mm =350\nลูกบล๊อก 1 นิ้ว 27 mm. =350\n\nจัดส่งฟรี\nรวม 3670 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
