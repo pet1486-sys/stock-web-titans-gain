@@ -445,6 +445,34 @@
         "dispatchDate": "",
         "rawText": "US 58 มม =320\nกาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 630 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787735864969",
+        "timestamp": 1787735864969,
+        "time": "16:17",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "EU เบอร์ 10",
+            "qty": 10
+          },
+          {
+            "name": "กาวปะ MR",
+            "qty": 5
+          },
+          {
+            "name": "ศรไส้ไก่50ตัว",
+            "qty": 4
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 4000,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU เบอร์ 10 x10 =2500\nกาวปะ MR x5 =1300\nศรไส้ไก่50ตัว x4 =200\n\nจัดส่งฟรี\nรวม 4000 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
