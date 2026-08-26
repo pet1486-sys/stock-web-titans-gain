@@ -613,6 +613,26 @@
         "dispatchDate": "",
         "rawText": "EU 42มิล x4 =880\nEU เบอร์ 10 =300\nใยไหม =170\nกาวปะ MR =260\nจุ๊บขันในยาว x10 =150\nจุ๊บขันนอกใหญ่ x10 =350\n\nจัดส่งฟรี\nรวม 2110 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787708212904",
+        "timestamp": 1787708212904,
+        "time": "08:36",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "กาวปะ MR",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 660,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "TJ-14 =350\nกาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 660 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
