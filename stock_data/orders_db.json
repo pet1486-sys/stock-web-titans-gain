@@ -246,14 +246,15 @@
       },
       {
         "id": "ord_1787799105883",
-        "timestamp": 1787799105883,
+        "timestamp": 1787799060000,
         "time": "09:51",
-        "customer": "ทั่วไป / ไม่ระบุ",
+        "customer": "ศราวุฒิ แมมอ๊อด",
         "channel": "Facebook",
         "items": [
           {
             "name": "เหล็กงัดยาง 28นิ้ว",
-            "qty": 2
+            "qty": 2,
+            "lineTotal": 700
           }
         ],
         "discount": 0,
