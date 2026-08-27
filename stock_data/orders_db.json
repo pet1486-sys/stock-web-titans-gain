@@ -328,6 +328,37 @@
         "dispatchDate": "",
         "rawText": "ตะกั่วแปะ 50แถว x2 =600\n\nค่าจัดส่ง 50 บ\nส่วนลด 50 บ\nรวม 600 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787830862755",
+        "timestamp": 1787830862755,
+        "time": "18:41",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "US 58 มม",
+            "qty": 10,
+            "lineTotal": 3200
+          },
+          {
+            "name": "ใยไหม",
+            "qty": 15,
+            "lineTotal": 2550
+          },
+          {
+            "name": "กาวปะ MR",
+            "qty": 10,
+            "lineTotal": 2600
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 8350,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "US 58 มม x10 =3200\nใยไหม x15 =2550\nกาวปะ MR x10 =2600\n\nจัดส่งฟรี\nรวม 8350 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ],
     "batch_1787823777871": [
