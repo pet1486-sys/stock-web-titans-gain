@@ -289,26 +289,6 @@
         "isLocalDraft": false
       },
       {
-        "id": "ord_1787799908403",
-        "timestamp": 1787799900000,
-        "time": "10:05",
-        "customer": "ทั่วไป / ไม่ระบุ",
-        "channel": "Shopee",
-        "items": [
-          {
-            "name": "จุ๊บยาง TR413-1แพ็ค",
-            "qty": 2
-          }
-        ],
-        "discount": 50,
-        "shipping": 50,
-        "total": 710,
-        "isReserved": false,
-        "dispatchDate": "",
-        "rawText": "จุ๊บยาง TR413-1แพ็ค x2 =660\n\nค่าจัดส่ง 50 บ\nรวม 710 บ\nเก็บเงินปลายทาง",
-        "isLocalDraft": false
-      },
-      {
         "id": "ord_1787812066373",
         "timestamp": 1787812066373,
         "time": "13:27",
