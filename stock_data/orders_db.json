@@ -390,6 +390,27 @@
         "dispatchDate": "",
         "rawText": "TJ-12 x2 =700\nUS 80 มม =320\nEU 52มิล =220\nกาวปะ MR =260\n\nจัดส่งฟรี\nรวม 1500 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787830584497",
+        "timestamp": 1787830584497,
+        "time": "18:36",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ตะกั่วแปะ 50แถว",
+            "qty": 5,
+            "lineTotal": 0
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 50,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ตะกั่วแปะ 50แถว x5 =0\n\nค่าจัดส่ง 50 บ\nรวม 50 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
