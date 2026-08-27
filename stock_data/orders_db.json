@@ -219,6 +219,30 @@
         "dispatchDate": "",
         "rawText": "EU เบอร์ 10 =300\nEU เบอร์ 14 =300\nกาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 910 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787798975272",
+        "timestamp": 1787798975272,
+        "time": "09:49",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "สี่เหลี่ยม MR-10",
+            "qty": 1
+          },
+          {
+            "name": "หัวต่อเติมลม15ซม.",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 900,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "สี่เหลี่ยม MR-10 =750\nหัวต่อเติมลม15ซม. =100\n\nค่าจัดส่ง 50 บ\nรวม 900 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
