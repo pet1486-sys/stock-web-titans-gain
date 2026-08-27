@@ -222,18 +222,20 @@
       },
       {
         "id": "ord_1787798975272",
-        "timestamp": 1787798975272,
+        "timestamp": 1787798940000,
         "time": "09:49",
-        "customer": "ทั่วไป / ไม่ระบุ",
+        "customer": "ภูมิพัฒน์ พิพัฒน์อำนวย",
         "channel": "Facebook",
         "items": [
           {
             "name": "สี่เหลี่ยม MR-10",
-            "qty": 1
+            "qty": 1,
+            "lineTotal": 750
           },
           {
             "name": "หัวต่อเติมลม15ซม.",
-            "qty": 1
+            "qty": 1,
+            "lineTotal": 100
           }
         ],
         "discount": 0,
