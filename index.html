@@ -31,19 +31,32 @@
             border-width: 2px !important;
         }
 
-        .custom-horizontal-scroll::-webkit-scrollbar {
-            height: 6px;
-        }
-        .custom-horizontal-scroll::-webkit-scrollbar-track {
-            background: #f1f5f9;
-            border-radius: 4px;
-        }
-        .custom-horizontal-scroll::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 4px;
-        }
-        .custom-horizontal-scroll::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
+        /* 🖨️ CSS พิมพ์บิลส่งของ A4 แผ่นเดียว 1 ออเดอร์ลูกค้าต่อ 1 หน้า */
+        @media print {
+            body * { visibility: hidden; }
+            #print-receipt-area, #print-receipt-area * { visibility: visible; }
+            #print-receipt-area {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                background: white;
+                padding: 0;
+                margin: 0;
+            }
+            .single-bill-page {
+                page-break-after: always !important;
+                min-height: 95vh;
+                box-sizing: border-box;
+                padding: 15mm 20mm;
+            }
+            .single-bill-page:last-child {
+                page-break-after: avoid !important;
+            }
+            @page {
+                size: A4 portrait;
+                margin: 0;
+            }
         }
     </style>
 </head>
@@ -125,9 +138,7 @@
     <!-- ─── MAIN CONTENT CONTAINER ─── -->
     <main class="max-w-7xl w-full mx-auto p-2 sm:p-4 flex-1 space-y-3 sm:space-y-4">
             
-        <!-- ==========================================
-             🟦 กรอบที่ 1: จัดการชุดรอบ + บันทึกออเดอร์ตัดสต็อกด่วน
-             ========================================== -->
+        <!-- 🟦 กรอบที่ 1: จัดการชุดรอบ + บันทึกออเดอร์ตัดสต็อกด่วน -->
         <section id="sec-quick-order" class="bg-white p-2.5 sm:p-3 rounded-2xl border-2 border-blue-200 shadow-xs scroll-mt-28 space-y-3">
             <div class="bg-amber-50/80 p-2 rounded-xl border border-amber-300 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2">
                 <div class="flex items-center gap-1.5 min-w-0 flex-1">
@@ -159,7 +170,7 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-2.5 items-stretch">
                     <div class="md:col-span-7 flex flex-col">
-                        <textarea id="quick-order-input" oninput="autoAdjustTextareaHeight(this)" rows="3" placeholder="วางข้อความออเดอร์ เช่น:&#10;US 32 มม =320&#10;US 42 มม x5 =1600&#10;จัดส่งฟรี" class="auto-expand-textarea w-full text-xs p-2.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none font-mono bg-slate-50/50 leading-normal transition-all"></textarea>
+                        <textarea id="quick-order-input" oninput="autoAdjustTextareaHeight(this)" rows="3" placeholder="วางข้อความออเดอร์ เช่น:&#10;สี่เหลี่ยม MR-10 =750&#10;หัวต่อเติมลม15ซม. =100&#10;ค่าจัดส่ง 50 บ&#10;รวม 900 บ" class="auto-expand-textarea w-full text-xs p-2.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none font-mono bg-slate-50/50 leading-normal transition-all"></textarea>
                     </div>
 
                     <div class="md:col-span-5 flex flex-col justify-between gap-2 bg-slate-50/80 p-2.5 rounded-xl border border-slate-200">
@@ -193,10 +204,7 @@
             </div>
         </section>
 
-
-        <!-- ==========================================
-             🟧 กรอบที่ 2: แสดงประวัติออเดอร์ปกติ (ตัดสต็อกจริง)
-             ========================================== -->
+        <!-- 🟧 กรอบที่ 2: แสดงประวัติออเดอร์ปกติ -->
         <section id="sec-saved-orders-block" class="bg-amber-50/50 p-2.5 sm:p-3 rounded-2xl border-2 border-amber-200 shadow-xs scroll-mt-28">
             <div class="flex items-center justify-between mb-2 px-1 pb-1 border-b border-amber-200/80">
                 <h3 class="text-xs font-bold text-amber-950 flex items-center gap-1.5">
@@ -213,10 +221,7 @@
             </div>
         </section>
 
-
-        <!-- ==========================================
-             🟦 กรอบที่ 3: รายการออเดอร์ "จองสินค้า" (สีฟ้า - ไม่ตัดสต็อกจริง)
-             ========================================== -->
+        <!-- 🟦 กรอบที่ 3: รายการออเดอร์ "จองสินค้า" -->
         <section id="sec-reserved-orders-block" class="bg-cyan-50/60 p-2.5 sm:p-3 rounded-2xl border-2 border-cyan-300 shadow-xs scroll-mt-28">
             <div class="flex items-center justify-between mb-2 px-1 pb-1 border-b border-cyan-200">
                 <h3 class="text-xs font-bold text-cyan-950 flex items-center gap-1.5">
@@ -232,17 +237,14 @@
             </div>
         </section>
 
-
-        <!-- ==========================================
-             🟩 กรอบที่ 4: รายการสินค้าคงคลัง
-             ========================================== -->
+        <!-- 🟩 กรอบที่ 4: รายการสินค้าคงคลัง -->
         <section id="sec-stock-showcase" class="scroll-mt-28 space-y-3">
             <div id="dashboard-category-showcase" class="space-y-3"></div>
         </section>
 
     </main>
 
-    <!-- ─── POPUP MODAL: แสดงรายละเอียดสินค้าเมื่อคลิกการ์ดออเดอร์ ─── -->
+    <!-- ─── POPUP MODALS ─── -->
     <div id="order-detail-popup-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300 p-3 sm:p-4">
         <div class="bg-white p-4 sm:p-5 rounded-2xl max-w-2xl w-full shadow-2xl transform scale-95 transition-transform duration-300 max-h-[95vh] overflow-y-auto">
             <div class="flex items-center justify-between border-b border-gray-100 pb-2 mb-3">
@@ -253,13 +255,10 @@
             </div>
 
             <div id="popup-order-body-content" class="space-y-3"></div>
-
-            <div class="flex gap-2 justify-end items-center pt-3 mt-3 border-t border-gray-100" id="popup-order-footer-actions">
-            </div>
+            <div class="flex gap-2 justify-end items-center pt-3 mt-3 border-t border-gray-100" id="popup-order-footer-actions"></div>
         </div>
     </div>
 
-    <!-- ─── POPUP MODAL: เลือกรอบสำหรับการยกเลิกจองสินค้า ─── -->
     <div id="unreserve-target-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300 p-4">
         <div class="bg-white p-4 sm:p-5 rounded-2xl max-w-sm w-full shadow-xl transform scale-95 transition-transform duration-300">
             <h3 class="text-xs sm:text-sm font-bold text-blue-900 mb-2 flex items-center gap-1 border-b border-blue-100 pb-2">
@@ -282,7 +281,6 @@
         </div>
     </div>
 
-    <!-- ─── POPUP MODAL: ระบุวันส่งของสำหรับการจองสินค้า ─── -->
     <div id="reserve-date-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300 p-4">
         <div class="bg-white p-4 sm:p-5 rounded-2xl max-w-sm w-full shadow-xl transform scale-95 transition-transform duration-300">
             <h3 class="text-xs sm:text-sm font-bold text-cyan-900 mb-2 flex items-center gap-1 border-b border-cyan-100 pb-2">
@@ -304,7 +302,6 @@
         </div>
     </div>
 
-    <!-- ─── POPUP MODAL: เพิ่มรอบ ─── -->
     <div id="add-batch-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300 p-4">
         <div class="bg-white p-4 sm:p-5 rounded-2xl max-w-sm w-full shadow-xl transform scale-95 transition-transform duration-300">
             <h3 class="text-xs sm:text-sm font-bold text-amber-900 mb-3 flex items-center gap-1 border-b border-amber-100 pb-2">
@@ -350,7 +347,6 @@
         </div>
     </div>
 
-    <!-- ─── POPUP MODAL MULTI DELETE ─── -->
     <div id="multi-delete-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300 p-4">
         <div class="bg-white p-4 sm:p-5 rounded-2xl max-w-md w-full shadow-xl transform scale-95 transition-transform duration-300 max-h-[85vh] overflow-y-auto">
             <div class="flex items-center justify-between mb-2 pb-1 border-b border-gray-100">
@@ -365,7 +361,6 @@
         </div>
     </div>
 
-    <!-- ─── POPUP MODAL EDIT ORDER ─── -->
     <div id="edit-order-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300 p-4">
         <div class="bg-white p-4 sm:p-5 rounded-2xl max-w-md w-full shadow-xl transform scale-95 transition-transform duration-300 max-h-[90vh] overflow-y-auto">
             <h3 class="text-xs font-bold text-gray-900 mb-2 flex items-center gap-1">✏️ แก้ไขข้อมูลออเดอร์</h3>
@@ -416,7 +411,6 @@
         </div>
     </div>
 
-    <!-- ─── POPUP MODAL TOKEN ─── -->
     <div id="token-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300 p-4">
         <div class="bg-white p-5 rounded-2xl max-w-md w-full shadow-xl transform scale-95 transition-transform duration-300">
             <h3 class="text-sm font-bold text-gray-950 mb-2">🔑 ตั้งค่า GitHub Token (สิทธิ์ Write)</h3>
@@ -428,6 +422,9 @@
             </div>
         </div>
     </div>
+
+    <!-- ─── CONTAINER สำหรับสั่งพิมพ์บิลส่งของ A4 ─── -->
+    <div id="print-receipt-area" class="hidden"></div>
 
     <!-- ─── SCRIPT LOGIC ─── -->
     <script>
@@ -470,12 +467,13 @@
         }
 
         function closeCategoryDrawer() {
-    const drawer = document.getElementById('category-drawer');
-    const backdrop = document.getElementById('category-drawer-backdrop');
-    drawer.classList.add('-translate-x-full');
-    backdrop.classList.remove('opacity-100');
-    setTimeout(() => { backdrop.classList.add('hidden'); }, 300);
-}
+            const drawer = document.getElementById('category-drawer');
+            const backdrop = document.getElementById('category-drawer-backdrop');
+            drawer.classList.add('-translate-x-full');
+            backdrop.classList.remove('opacity-100');
+            setTimeout(() => { backdrop.classList.add('hidden'); }, 300);
+        }
+
         function scrollToCategory(catName) {
             closeCategoryDrawer();
             if (catName === 'all') { scrollToSection('sec-stock-showcase'); return; }
@@ -906,12 +904,24 @@
                 if (!trimmed || trimmed.includes('ค่าจัดส่ง') || trimmed.includes('ค่าส่ง') || trimmed.includes('ส่วนลด') || trimmed.includes('ลด') || trimmed.includes('รวม') || trimmed.includes('ยอดรวม') || trimmed.includes('ปลายทาง') || trimmed.includes('โอน')) return;
 
                 let qty = 1;
+                let linePrice = 0;
+
                 const qtyXMatch = trimmed.match(/x\s*(\d+)/i);
                 if (qtyXMatch) qty = parseInt(qtyXMatch[1]) || 1;
 
+                const priceEqMatch = trimmed.match(/=\s*(\d+)/);
+                if (priceEqMatch) linePrice = parseInt(priceEqMatch[1]) || 0;
+
                 const matchedProduct = findExactProductMatch(trimmed);
-                if (matchedProduct) matchedItemsForOrder.push({ name: matchedProduct[1], qty: qty });
-                else unmatchedLines.push(trimmed);
+                if (matchedProduct) {
+                    matchedItemsForOrder.push({ 
+                        name: matchedProduct[1], 
+                        qty: qty,
+                        lineTotal: linePrice 
+                    });
+                } else {
+                    unmatchedLines.push(trimmed);
+                }
             });
 
             if (matchedItemsForOrder.length > 0) {
@@ -1128,6 +1138,8 @@
                 const excelInfo = allCleanData.find(row => row[1] === i.name);
                 const itemTotalDetail = actualDetails[i.name] || { totalDeducted: 0 };
                 const stockRemain = excelInfo ? (excelInfo[4] - itemTotalDetail.totalDeducted) : '-';
+                
+                const lineTotalText = (i.lineTotal && i.lineTotal > 0) ? ` = ${i.lineTotal.toLocaleString()} บ.` : '';
 
                 return `
                     <div class="flex items-center justify-between p-2 bg-slate-50 border border-slate-200 rounded-lg hover:border-blue-400 transition-all">
@@ -1139,6 +1151,7 @@
                         </div>
                         <div class="flex items-center gap-1.5 shrink-0 ml-1.5">
                             <span class="text-xs font-black text-red-600">-${i.qty}</span>
+                            <span class="text-[10px] font-bold text-blue-800 bg-blue-50 px-1.5 py-0.5 rounded border border-blue-200">${lineTotalText}</span>
                             <span class="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-1.5 py-0.5 rounded border border-emerald-300">(เหลือ ${stockRemain})</span>
                         </div>
                     </div>
@@ -1276,15 +1289,14 @@
                         channelStats[ch].totalSales += total;
                     });
 
-                    // 🌟 จัดเรียงสรุปช่องทางขายจาก "จำนวนออเดอร์มากสุดไปน้อยสุด"
+                    // จัดเรียงสรุปช่องทางขายจาก "จำนวนออเดอร์มากสุดไปน้อยสุด"
                     const sortedChannelsByVolume = Object.keys(channelStats).sort((a, b) => {
                         if (channelStats[b].count !== channelStats[a].count) {
-                            return channelStats[b].count - channelStats[a].count; // เรียงตามจำนวนออเดอร์
+                            return channelStats[b].count - channelStats[a].count;
                         }
-                        return channelStats[b].totalSales - channelStats[a].totalSales; // ถ้ายอดออเดอร์เท่ากัน เรียงตามเงินยอดขาย
+                        return channelStats[b].totalSales - channelStats[a].totalSales;
                     });
 
-                    // สร้าง HTML กรอบสรุปยอดช่องทางขายเรียงจากมากไปน้อย
                     let channelSummaryHtml = sortedChannelsByVolume.map(chKey => {
                         const stat = channelStats[chKey];
                         const style = channelStyles[chKey] || { label: chKey, icon: "🏪", badgeBg: "bg-slate-100 text-slate-800 border-slate-300" };
@@ -1303,7 +1315,6 @@
                         `;
                     }).join('');
 
-                    // จัดกลุ่มการ์ดออเดอร์ตามช่องทางขาย
                     const groupedByChannel = {};
                     normalOrders.forEach(ord => {
                         const ch = ord.channel || "Facebook";
@@ -1312,7 +1323,6 @@
                     });
 
                     let channelSectionsHtml = "";
-                    // เรียงบล็อกการ์ดออเดอร์ตามลำดับช่องทางที่ขายดีที่สุดด้วย
                     sortedChannelsByVolume.forEach(chKey => {
                         const ordersInCh = groupedByChannel[chKey] || [];
                         if (ordersInCh.length === 0) return;
@@ -1364,16 +1374,20 @@
                     const batchSection = document.createElement('div');
                     batchSection.className = "bg-white p-2.5 rounded-xl border border-amber-300 shadow-2xs space-y-2.5";
                     batchSection.innerHTML = `
-                        <!-- หัวข้อชุดรอบ -->
-                        <div class="flex items-center justify-between bg-amber-100/80 px-2.5 py-1 rounded-lg border border-amber-200">
+                        <!-- หัวข้อชุดรอบ + ปุ่มพิมพ์ใบเสร็จ -->
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between bg-amber-100/80 p-2 rounded-lg border border-amber-200 gap-2">
                             <span class="text-xs font-black text-amber-950 flex items-center gap-1">📝 ชุดรอบ: <u class="no-underline text-blue-900">${bName}</u></span>
-                            <div class="flex items-center gap-2">
-                                <span class="text-[10px] bg-emerald-700 text-white font-extrabold px-2 py-0.5 rounded-full">ยอดรวม ${batchTotalSales.toLocaleString()} บ.</span>
-                                <span class="text-[9.5px] bg-amber-200 text-amber-900 font-bold px-2 py-0.5 rounded-full">${normalOrders.length} ออเดอร์</span>
+                            <div class="flex items-center gap-1.5 flex-wrap justify-end">
+                                <span class="text-[10px] bg-emerald-700 text-white font-extrabold px-2 py-1 rounded-full">ยอดรวม ${batchTotalSales.toLocaleString()} บ.</span>
+                                
+                                <!-- 🖨️ ปุ่มสร้าง & พิมพ์บิลส่งของตามแบบต้นฉบับรูปภาพ -->
+                                <button onclick="printIndividualBoxSlips('${bKey}')" title="พิมพ์บิลส่งของใส่กล่องพัสดุตามแบบบริษัท (1 ออเดอร์ / 1 แผ่น A4)" class="text-[10px] bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-bold px-2.5 py-1 rounded-lg shadow-2xs cursor-pointer flex items-center gap-1 transition-all">
+                                    🧾 พิมพ์บิลส่งของ (1คน/1แผ่น A4)
+                                </button>
                             </div>
                         </div>
 
-                        <!-- 🌟 กรอบสรุปช่องทางขาย (เรียงจากมากไปน้อย) -->
+                        <!-- กรอบสรุปช่องทางขาย -->
                         <div class="bg-amber-50/50 p-2.5 rounded-xl border border-amber-200 text-xs">
                             <div class="flex items-center justify-between mb-2 pb-1 border-b border-amber-200/80">
                                 <span class="text-[11px] font-bold text-amber-950 flex items-center gap-1">
@@ -1536,11 +1550,22 @@
                 if (!trimmed || trimmed.includes('ค่าจัดส่ง') || trimmed.includes('ค่าส่ง') || trimmed.includes('ส่วนลด') || trimmed.includes('ลด') || trimmed.includes('รวม') || trimmed.includes('ยอดรวม') || trimmed.includes('ปลายทาง') || trimmed.includes('โอน')) return;
 
                 let qty = 1;
+                let linePrice = 0;
+
                 const qtyXMatch = trimmed.match(/x\s*(\d+)/i);
                 if (qtyXMatch) qty = parseInt(qtyXMatch[1]) || 1;
 
+                const priceEqMatch = trimmed.match(/=\s*(\d+)/);
+                if (priceEqMatch) linePrice = parseInt(priceEqMatch[1]) || 0;
+
                 const matchedProduct = findExactProductMatch(trimmed);
-                if (matchedProduct) newMatchedItems.push({ name: matchedProduct[1], qty: qty });
+                if (matchedProduct) {
+                    newMatchedItems.push({ 
+                        name: matchedProduct[1], 
+                        qty: qty,
+                        lineTotal: linePrice 
+                    });
+                }
             });
 
             targetOrder.timestamp = newTimestamp;
@@ -1630,7 +1655,7 @@
                     .map(row => {
                         const pluCode = row[1] ? row[1].toString().trim() : ""; 
                         const name = row[2] ? row[2].toString().trim() : "";    
-                        const price = row[3] ? row[3].toString().trim() : "0";  
+                        const price = parseFloat(row[3]) || 0;  
                         const unit = row[5] ? row[5].toString().trim() : "";    
                         const qty = parseInt(row[7]) || 0;                      
                         
@@ -1834,6 +1859,134 @@
         function fetchFileLastCommitTime() {
             fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/commits?path=${FILE_NAME}&per_page=1`)
                 .then(res => res.json()).then(data => { if(data && data.length > 0) document.getElementById('update-status').innerText = `📅 อัปเดต: ${new Date(data[0].commit.committer.date).toLocaleTimeString('th-TH')}`; }).catch(() => {});
+        }
+
+        // ==========================================
+        // 🖨️ ฟังก์ชันสั่งพิมพ์ "บิลส่งของ" (เพิ่มชื่อลูกค้าบนหัวกระดาษ)
+        // ==========================================
+        function printIndividualBoxSlips(batchKey) {
+            const cloudOrders = (dbState.orders_history || {})[batchKey] || [];
+            const draftOrders = localDraftOrders[batchKey] || [];
+            const orders = [...cloudOrders, ...draftOrders].filter(o => !o.isReserved);
+
+            if (orders.length === 0) {
+                alert("⚠️ ไม่มีรายการออเดอร์ปกติในรอบนี้สำหรับสร้างใบเสร็จ");
+                return;
+            }
+
+            const now = new Date();
+            const dd = String(now.getDate()).padStart(2, '0');
+            const mm = String(now.getMonth() + 1).padStart(2, '0');
+            const yyyy = now.getFullYear();
+            const todayStr = `${dd}/${mm}/${yyyy}`;
+
+            let slipsPagesHtml = orders.map((ord) => {
+                const rawLines = (ord.rawText || "").split('\n').map(l => l.trim());
+
+                let itemsRows = ord.items.map((i, idx) => {
+                    let calculatedRowTotal = 0;
+
+                    if (i.lineTotal && i.lineTotal > 0) {
+                        calculatedRowTotal = i.lineTotal;
+                    } else {
+                        const matchedLine = rawLines.find(line => line.toLowerCase().includes(i.name.toLowerCase()));
+                        if (matchedLine) {
+                            const eqMatch = matchedLine.match(/=\s*(\d+)/);
+                            if (eqMatch) {
+                                calculatedRowTotal = parseInt(eqMatch[1]) || 0;
+                            }
+                        }
+                    }
+
+                    const rowTotalStr = calculatedRowTotal > 0 ? calculatedRowTotal.toLocaleString() : '-';
+
+                    return `
+                        <tr style="border-bottom: 1px solid #f1f5f9;">
+                            <td style="padding: 10px 4px; font-size: 11pt; text-align: left; color: #334155; font-weight: bold;">${idx + 1}</td>
+                            <td style="padding: 10px 4px; font-size: 11pt; text-align: left; color: #0f172a; font-weight: bold;">${i.name}</td>
+                            <td style="padding: 10px 4px; font-size: 11pt; text-align: right; color: #0f172a; font-weight: bold;">x ${i.qty}</td>
+                            <td style="padding: 10px 4px; font-size: 11pt; text-align: right; color: #0f172a; font-weight: bold;">${rowTotalStr}</td>
+                        </tr>
+                    `;
+                }).join('');
+
+                return `
+                    <div class="single-bill-page">
+                        <!-- Header Bar -->
+                        <div style="text-align: center; margin-bottom: 15px; position: relative;">
+                            <div style="position: absolute; right: 0; top: 0; text-align: right;">
+                                <div style="font-size: 10pt; font-weight: bold; color: #0f172a;">วันที่ออกบิล</div>
+                                <div style="font-size: 10.5pt; font-weight: bold; color: #0f172a;">${todayStr}</div>
+                            </div>
+
+                            <div style="font-size: 24pt; font-weight: 800; color: #000; letter-spacing: 0.5px; margin-bottom: 4px;">บิลส่งของ</div>
+                            <div style="font-size: 11pt; font-weight: bold; color: #0f172a;">บริษัท ไททันส์เกน จำกัด</div>
+                            <div style="font-size: 10pt; font-weight: bold; color: #0f172a;">TITANS GAIN CO., LTD.</div>
+                            <div style="font-size: 10pt; color: #334155; margin-top: 2px;">21 ซอย 1 ถนนพหลโยธิน ตำบลปากเพรียว อำเภอเมืองสระบุรี จ.สระบุรี 18000</div>
+                        </div>
+
+                        <hr style="border: none; border-top: 1.5px solid #000; margin-bottom: 15px;" />
+
+                        <!-- Customer Info Box (เพิ่มชื่อลูกค้าที่นี่) -->
+                        <div style="border: 1px solid #cbd5e1; border-radius: 12px; padding: 14px 18px; margin-bottom: 20px; background: #fff; display: flex; justify-content: space-between; align-items: center;">
+                            <div style="font-size: 12pt; color: #0f172a; font-weight: bold;">
+                                👤 ลูกค้า: <span style="font-size: 13pt; color: #1e3a8a; font-weight: 900;">${ord.customer || 'ทั่วไป / ไม่ระบุ'}</span>
+                            </div>
+                            <div style="font-size: 11pt; color: #475569; font-weight: bold;">
+                                ช่องทางจัดจำหน่าย: <span style="color: #0f172a; font-size: 11.5pt;">${ord.channel}</span>
+                            </div>
+                        </div>
+
+                        <!-- Table Items -->
+                        <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid #cbd5e1;">
+                                    <th style="padding: 8px 4px; font-size: 11pt; text-align: left; color: #94a3b8; font-weight: bold; width: 8%;">#</th>
+                                    <th style="padding: 8px 4px; font-size: 11pt; text-align: left; color: #94a3b8; font-weight: bold;">รายการสินค้า</th>
+                                    <th style="padding: 8px 4px; font-size: 11pt; text-align: right; color: #94a3b8; font-weight: bold; width: 15%;">จำนวน</th>
+                                    <th style="padding: 8px 4px; font-size: 11pt; text-align: right; color: #94a3b8; font-weight: bold; width: 20%;">ราคารวม</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${itemsRows}
+                            </tbody>
+                        </table>
+
+                        <!-- Summary Block Right Aligned -->
+                        <div style="width: 48%; margin-left: auto; margin-top: 10px;">
+                            ${ord.discount ? `
+                                <div style="display: flex; justify-content: space-between; font-size: 11pt; font-weight: bold; color: #dc2626; margin-bottom: 6px; padding-right: 4px;">
+                                    <span>ส่วนลดรวม:</span>
+                                    <span>-${ord.discount.toLocaleString()} ฿</span>
+                                </div>
+                            ` : ''}
+
+                            ${ord.shipping ? `
+                                <div style="display: flex; justify-content: space-between; font-size: 11pt; font-weight: bold; color: #0284c7; margin-bottom: 8px; padding-right: 4px;">
+                                    <span>ค่าจัดส่ง:</span>
+                                    <span>+${ord.shipping.toLocaleString()} ฿</span>
+                                </div>
+                            ` : ''}
+
+                            <div style="border-top: 2px solid #0284c7; border-bottom: 4px double #0284c7; padding: 6px 4px; display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 13pt; font-weight: 800; color: #0369a1;">ยอดเก็บทั้งสิ้น:</span>
+                                <span style="font-size: 15pt; font-weight: 900; color: #0369a1;">${(ord.total || 0).toLocaleString()} ฿</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            const printArea = document.getElementById('print-receipt-area');
+            printArea.innerHTML = slipsPagesHtml;
+            printArea.classList.remove('hidden');
+
+            window.print();
+
+            setTimeout(() => {
+                printArea.classList.add('hidden');
+                printArea.innerHTML = '';
+            }, 1000);
         }
 
         fetchActualExcelData();
