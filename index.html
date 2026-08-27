@@ -1862,7 +1862,7 @@
         }
 
         // ==========================================
-        // 🖨️ ฟังก์ชันสั่งพิมพ์ "บิลส่งของ" (เพิ่มชื่อลูกค้าบนหัวกระดาษ)
+        // 🖨️ ฟังก์ชันสั่งพิมพ์ "บิลส่งของ" (เพิ่มราคาต่อหน่วยสองบรรทัด + เพิ่มเบอร์โทร)
         // ==========================================
         function printIndividualBoxSlips(batchKey) {
             const cloudOrders = (dbState.orders_history || {})[batchKey] || [];
@@ -1898,6 +1898,13 @@
                         }
                     }
 
+                    // คำนวณราคาต่อหน่วย(รวมหักส่วนลด) = ราคารวมรายการ / จำนวน
+                    let unitPriceStr = '-';
+                    if (calculatedRowTotal > 0 && i.qty > 0) {
+                        const unitPrice = calculatedRowTotal / i.qty;
+                        unitPriceStr = unitPrice.toLocaleString(undefined, { maximumFractionDigits: 2 });
+                    }
+
                     const rowTotalStr = calculatedRowTotal > 0 ? calculatedRowTotal.toLocaleString() : '-';
 
                     return `
@@ -1905,6 +1912,7 @@
                             <td style="padding: 10px 4px; font-size: 11pt; text-align: left; color: #334155; font-weight: bold;">${idx + 1}</td>
                             <td style="padding: 10px 4px; font-size: 11pt; text-align: left; color: #0f172a; font-weight: bold;">${i.name}</td>
                             <td style="padding: 10px 4px; font-size: 11pt; text-align: right; color: #0f172a; font-weight: bold;">x ${i.qty}</td>
+                            <td style="padding: 10px 4px; font-size: 11pt; text-align: right; color: #334155; font-weight: bold;">${unitPriceStr}</td>
                             <td style="padding: 10px 4px; font-size: 11pt; text-align: right; color: #0f172a; font-weight: bold;">${rowTotalStr}</td>
                         </tr>
                     `;
@@ -1923,11 +1931,12 @@
                             <div style="font-size: 11pt; font-weight: bold; color: #0f172a;">บริษัท ไททันส์เกน จำกัด</div>
                             <div style="font-size: 10pt; font-weight: bold; color: #0f172a;">TITANS GAIN CO., LTD.</div>
                             <div style="font-size: 10pt; color: #334155; margin-top: 2px;">21 ซอย 1 ถนนพหลโยธิน ตำบลปากเพรียว อำเภอเมืองสระบุรี จ.สระบุรี 18000</div>
+                            <div style="font-size: 10pt; font-weight: bold; color: #0f172a; margin-top: 1px;">โทร. 064-921-8415</div>
                         </div>
 
                         <hr style="border: none; border-top: 1.5px solid #000; margin-bottom: 15px;" />
 
-                        <!-- Customer Info Box (เพิ่มชื่อลูกค้าที่นี่) -->
+                        <!-- Customer Info Box -->
                         <div style="border: 1px solid #cbd5e1; border-radius: 12px; padding: 14px 18px; margin-bottom: 20px; background: #fff; display: flex; justify-content: space-between; align-items: center;">
                             <div style="font-size: 12pt; color: #0f172a; font-weight: bold;">
                                 👤 ลูกค้า: <span style="font-size: 13pt; color: #1e3a8a; font-weight: 900;">${ord.customer || 'ทั่วไป / ไม่ระบุ'}</span>
@@ -1941,10 +1950,14 @@
                         <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px;">
                             <thead>
                                 <tr style="border-bottom: 1px solid #cbd5e1;">
-                                    <th style="padding: 8px 4px; font-size: 11pt; text-align: left; color: #94a3b8; font-weight: bold; width: 8%;">#</th>
-                                    <th style="padding: 8px 4px; font-size: 11pt; text-align: left; color: #94a3b8; font-weight: bold;">รายการสินค้า</th>
-                                    <th style="padding: 8px 4px; font-size: 11pt; text-align: right; color: #94a3b8; font-weight: bold; width: 15%;">จำนวน</th>
-                                    <th style="padding: 8px 4px; font-size: 11pt; text-align: right; color: #94a3b8; font-weight: bold; width: 20%;">ราคารวม</th>
+                                    <th style="padding: 8px 4px; font-size: 10.5pt; text-align: left; color: #94a3b8; font-weight: bold; width: 6%;">#</th>
+                                    <th style="padding: 8px 4px; font-size: 10.5pt; text-align: left; color: #94a3b8; font-weight: bold;">รายการสินค้า</th>
+                                    <th style="padding: 8px 4px; font-size: 10.5pt; text-align: right; color: #94a3b8; font-weight: bold; width: 10%;">จำนวน</th>
+                                    <th style="padding: 8px 4px; font-size: 10.5pt; text-align: right; color: #94a3b8; font-weight: bold; width: 26%;">
+                                        ราคาต่อหน่วย<br>
+                                        <span style="font-size: 8.5pt; font-weight: normal; color: #64748b; font-style: italic;">(รวมหักส่วนลด)</span>
+                                    </th>
+                                    <th style="padding: 8px 4px; font-size: 10.5pt; text-align: right; color: #94a3b8; font-weight: bold; width: 16%;">ราคารวม</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -1954,13 +1967,6 @@
 
                         <!-- Summary Block Right Aligned -->
                         <div style="width: 48%; margin-left: auto; margin-top: 10px;">
-                            ${ord.discount ? `
-                                <div style="display: flex; justify-content: space-between; font-size: 11pt; font-weight: bold; color: #dc2626; margin-bottom: 6px; padding-right: 4px;">
-                                    <span>ส่วนลดรวม:</span>
-                                    <span>-${ord.discount.toLocaleString()} ฿</span>
-                                </div>
-                            ` : ''}
-
                             ${ord.shipping ? `
                                 <div style="display: flex; justify-content: space-between; font-size: 11pt; font-weight: bold; color: #0284c7; margin-bottom: 8px; padding-right: 4px;">
                                     <span>ค่าจัดส่ง:</span>
