@@ -296,7 +296,7 @@
             "qty": 2
           }
         ],
-        "discount": 0,
+        "discount": 50,
         "shipping": 50,
         "total": 710,
         "isReserved": false,
