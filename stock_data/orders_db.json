@@ -327,6 +327,30 @@
         "dispatchDate": "",
         "rawText": "ตะกั่วแปะ 50แถว x2 =600\n\nค่าจัดส่ง 50 บ\nส่วนลด 50 บ\nรวม 600 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787823762767",
+        "timestamp": 1787823762767,
+        "time": "16:42",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "แบ่ง จุ๊บลมยางTR413",
+            "qty": 20
+          },
+          {
+            "name": "TJ-10HD",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 500,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "แบ่ง จุ๊บลมยางTR413 x20 =100\nTJ-10HD =350\n\nค่าจัดส่ง 50 บ\nรวม 500 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
