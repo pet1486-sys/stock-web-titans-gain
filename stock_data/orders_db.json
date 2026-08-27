@@ -306,6 +306,27 @@
         "dispatchDate": "",
         "rawText": "จุ๊บยาง TR413-1แพ็ค x2 =660\n\nค่าจัดส่ง 50 บ\nรวม 710 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787812066373",
+        "timestamp": 1787812066373,
+        "time": "13:27",
+        "customer": "มานพ กันคำ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ตะกั่วแปะ 50แถว",
+            "qty": 2,
+            "lineTotal": 600
+          }
+        ],
+        "discount": 50,
+        "shipping": 50,
+        "total": 600,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ตะกั่วแปะ 50แถว x2 =600\n\nค่าจัดส่ง 50 บ\nส่วนลด 50 บ\nรวม 600 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
