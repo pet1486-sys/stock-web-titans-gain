@@ -354,6 +354,42 @@
         "dispatchDate": "",
         "rawText": "แบ่ง จุ๊บลมยางTR413 x20 =100\nTJ-10HD =350\n\nค่าจัดส่ง 50 บ\nรวม 500 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787829043605",
+        "timestamp": 1787829043604,
+        "time": "18:10",
+        "customer": "วิพัฒน์ ประดับวงศ์",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "TJ-12",
+            "qty": 2,
+            "lineTotal": 700
+          },
+          {
+            "name": "US 80 มม",
+            "qty": 1,
+            "lineTotal": 320
+          },
+          {
+            "name": "EU 52มิล",
+            "qty": 1,
+            "lineTotal": 220
+          },
+          {
+            "name": "กาวปะ MR",
+            "qty": 1,
+            "lineTotal": 260
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 1500,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "TJ-12 x2 =700\nUS 80 มม =320\nEU 52มิล =220\nกาวปะ MR =260\n\nจัดส่งฟรี\nรวม 1500 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
