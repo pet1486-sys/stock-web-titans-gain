@@ -269,26 +269,6 @@
         "isLocalDraft": false
       },
       {
-        "id": "ord_1787799877624",
-        "timestamp": 1787799877624,
-        "time": "10:04",
-        "customer": "ทั่วไป / ไม่ระบุ",
-        "channel": "Lazada",
-        "items": [
-          {
-            "name": "EU เบอร์ 14",
-            "qty": 10
-          }
-        ],
-        "discount": 0,
-        "shipping": 0,
-        "total": 3000,
-        "isReserved": false,
-        "dispatchDate": "",
-        "rawText": "EU เบอร์ 14 x10 =3000\n\nจัดส่งฟรี\nรวม 3000 บ\nเก็บเงินปลายทาง",
-        "isLocalDraft": false
-      },
-      {
         "id": "ord_1787812066373",
         "timestamp": 1787812066373,
         "time": "13:27",
