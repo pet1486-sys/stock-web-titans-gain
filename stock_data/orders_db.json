@@ -151,6 +151,46 @@
         "dispatchDate": "",
         "rawText": "เหล็กล็อคยาง หนา =220\nEU เบอร์ 10 =300\n\nค่าจัดส่ง 50 บ\nรวม 570 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787798727055",
+        "timestamp": 1787798727055,
+        "time": "09:45",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "US 58 มม",
+            "qty": 1
+          },
+          {
+            "name": "กาวปะ MR",
+            "qty": 1
+          },
+          {
+            "name": "จุ๊บยาง TR413TUV-1แพ็ค",
+            "qty": 1
+          },
+          {
+            "name": "ครีมทาขอบยาง",
+            "qty": 1
+          },
+          {
+            "name": "ไม้กลิ้งสติม 7mm",
+            "qty": 1
+          },
+          {
+            "name": "ชุด บอสเจียรลม",
+            "qty": 1
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 1760,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "US 58 มม =320\nกาวปะ MR =260\nจุ๊บยาง TR413TUV-1แพ็ค =380\nครีมทาขอบยาง =150\nไม้กลิ้งสติม 7mm =100\nชุด บอสเจียรลม =550\n\nจัดส่งฟรี\nรวม 1760 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
