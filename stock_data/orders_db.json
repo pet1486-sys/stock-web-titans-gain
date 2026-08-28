@@ -335,6 +335,37 @@
         "dispatchDate": "",
         "rawText": "กาวปะ MR x2 =520\nสี่เหลี่ยม MR-10 =750\nจุ๊บยาง TR413-1แพ็ค =330\n\nจัดส่งฟรี\nรวม 1600 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787889616296",
+        "timestamp": 1787889616293,
+        "time": "11:00",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "กาวปะ MR",
+            "qty": 1,
+            "lineTotal": 260
+          },
+          {
+            "name": "ดอกเห็ด4มม.",
+            "qty": 1,
+            "lineTotal": 400
+          },
+          {
+            "name": "ดอกเจาะคาร์ไบด์ 4.5mm",
+            "qty": 1,
+            "lineTotal": 150
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 860,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "กาวปะ MR =260\nดอกเห็ด4มม. =400\nดอกเจาะคาร์ไบด์ 4.5mm =150\n\nค่าจัดส่ง 50 บ\nรวม 860 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
