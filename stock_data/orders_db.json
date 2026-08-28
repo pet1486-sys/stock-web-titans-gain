@@ -387,27 +387,6 @@
         "dispatchDate": "",
         "rawText": "ยางดิบ =160\n\nค่าจัดส่ง 50 บ\nรวม 210 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
-      },
-      {
-        "id": "ord_1787904273194",
-        "timestamp": 1787904273194,
-        "time": "15:04",
-        "customer": "บวรรัตน์",
-        "channel": "Facebook",
-        "items": [
-          {
-            "name": "US 58 มม",
-            "qty": 2,
-            "lineTotal": 640
-          }
-        ],
-        "discount": 0,
-        "shipping": 50,
-        "total": 690,
-        "isReserved": false,
-        "dispatchDate": "",
-        "rawText": "US 58 มม x2 =640\n\nค่าจัดส่ง 50 บ\nรวม 690 บ\nเก็บเงินปลายทาง",
-        "isLocalDraft": false
       }
     ]
   }
