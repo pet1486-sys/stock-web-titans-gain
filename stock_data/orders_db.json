@@ -89,6 +89,32 @@
         "dispatchDate": "",
         "rawText": "EU 52มิล =220\nจุ๊บทองเหลือง9ซม x4 =200\n\nค่าจัดส่ง 50 บ\nรวม 470 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787885541810",
+        "timestamp": 1787885541810,
+        "time": "09:52",
+        "customer": "นายอิน พลอยทำ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "วงกลม MU-02<78มม>",
+            "qty": 1,
+            "lineTotal": 310
+          },
+          {
+            "name": "กาวปะ MR",
+            "qty": 1,
+            "lineTotal": 260
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 620,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "วงกลม MU-02<78มม> =310\nกาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 620 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
