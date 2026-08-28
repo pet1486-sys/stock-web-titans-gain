@@ -411,6 +411,37 @@
         "dispatchDate": "",
         "rawText": "US 58 มม x2 =640\n\nค่าจัดส่ง 50 บ\nรวม 690 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787904579115",
+        "timestamp": 1787904579115,
+        "time": "15:09",
+        "customer": "ไพศาล อุ่นเจริญ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ครีมทาขอบยาง",
+            "qty": 1,
+            "lineTotal": 150
+          },
+          {
+            "name": "จุ๊บยางงอ 90 องศา PVR40",
+            "qty": 5,
+            "lineTotal": 50
+          },
+          {
+            "name": "จุ๊บยางงอ 90 องศา PVR60",
+            "qty": 5,
+            "lineTotal": 50
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 300,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ครีมทาขอบยาง =150\nจุ๊บยางงอ 90 องศา PVR40 x5 =50\nจุ๊บยางงอ 90 องศา PVR60 x5 =50\n\nค่าจัดส่ง 50 บ\nรวม 300 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
