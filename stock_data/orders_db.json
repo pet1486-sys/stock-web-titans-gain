@@ -115,6 +115,37 @@
         "dispatchDate": "",
         "rawText": "วงกลม MU-02<78มม> =310\nกาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 620 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787885574354",
+        "timestamp": 1787885574354,
+        "time": "09:52",
+        "customer": "หอม ทองปาง",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "กาวปะ MR",
+            "qty": 1,
+            "lineTotal": 260
+          },
+          {
+            "name": "US 58 มม",
+            "qty": 1,
+            "lineTotal": 320
+          },
+          {
+            "name": "สติมผ้าใบเล็ก",
+            "qty": 1,
+            "lineTotal": 220
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 850,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "กาวปะ MR =260\nUS 58 มม =320\nสติมผ้าใบเล็ก =220\n\nค่าจัดส่ง 50 บ\nรวม 850 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
