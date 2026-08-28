@@ -303,6 +303,39 @@
         "rawText": "จุ๊บยาง TR413-1แพ็ค x4 =1320\nEU 52มิล =220\n\nจัดส่งฟรี\nรวม 1540 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
       }
+    ],
+    "batch_1787886972882": [
+      {
+        "id": "ord_1787887589295",
+        "timestamp": 1787887589295,
+        "time": "10:26",
+        "customer": "กัลยากร สาลี",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "กาวปะ MR",
+            "qty": 2,
+            "lineTotal": 520
+          },
+          {
+            "name": "สี่เหลี่ยม MR-10",
+            "qty": 1,
+            "lineTotal": 750
+          },
+          {
+            "name": "จุ๊บยาง TR413-1แพ็ค",
+            "qty": 1,
+            "lineTotal": 330
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 1600,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "กาวปะ MR x2 =520\nสี่เหลี่ยม MR-10 =750\nจุ๊บยาง TR413-1แพ็ค =330\n\nจัดส่งฟรี\nรวม 1600 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
+      }
     ]
   }
 }
