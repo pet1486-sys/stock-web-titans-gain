@@ -254,6 +254,27 @@
         "dispatchDate": "",
         "rawText": "วงกลม MU-00<43มม> =250\nจุ๊บยาง TR413-1แพ็ค =330\n\nค่าจัดส่ง 50 บ\nรวม 630 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787886271378",
+        "timestamp": 1787886271378,
+        "time": "10:04",
+        "customer": "ไพฑูรย์การยาง",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ผ้าใบท่อน",
+            "qty": 1,
+            "lineTotal": 360
+          }
+        ],
+        "discount": 0,
+        "shipping": 80,
+        "total": 440,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ผ้าใบท่อน =360\n\nค่าจัดส่ง 80 บ\nรวม 440 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
