@@ -192,6 +192,42 @@
         "dispatchDate": "",
         "rawText": "BY-10 =320\nกาวปะ MR =260\nไม้กลิ้งสติม 7mm =100\nหัวเติมลมยาว เกรด A =300\nครีมทาขอบยาง =150\nชุด บอสเจียรลม =550\n\nจัดส่งฟรี\nรวม 1680 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787885784043",
+        "timestamp": 1787885784043,
+        "time": "09:56",
+        "customer": "กรกช กลิ่นกุหลาบ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "TAKARA สายลมดำผิวเรียบ 3ชั้น(1/2)",
+            "qty": 30,
+            "lineTotal": 2400
+          },
+          {
+            "name": "หัวคอปเปอร์ลม SH40 1/2 THB",
+            "qty": 1,
+            "lineTotal": 120
+          },
+          {
+            "name": "หางคอปเปอร์ลม PH40 1/2 THB",
+            "qty": 1,
+            "lineTotal": 50
+          },
+          {
+            "name": "เข็มขัดสายรัดสายลม 16-22mm",
+            "qty": 2,
+            "lineTotal": 30
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 2600,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "TAKARA สายลมดำผิวเรียบ 3ชั้น(1/2) x30 =2400\nหัวคอปเปอร์ลม SH40 1/2 THB =120\nหางคอปเปอร์ลม PH40 1/2 THB =50\nเข็มขัดสายรัดสายลม 16-22mm x2 =30\n\nจัดส่งฟรี\nรวม 2600 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
