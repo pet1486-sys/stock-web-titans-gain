@@ -228,6 +228,32 @@
         "dispatchDate": "",
         "rawText": "TAKARA สายลมดำผิวเรียบ 3ชั้น(1/2) x30 =2400\nหัวคอปเปอร์ลม SH40 1/2 THB =120\nหางคอปเปอร์ลม PH40 1/2 THB =50\nเข็มขัดสายรัดสายลม 16-22mm x2 =30\n\nจัดส่งฟรี\nรวม 2600 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787886257202",
+        "timestamp": 1787886257202,
+        "time": "10:04",
+        "customer": "วิไลการยาง",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "วงกลม MU-00<43มม>",
+            "qty": 1,
+            "lineTotal": 250
+          },
+          {
+            "name": "จุ๊บยาง TR413-1แพ็ค",
+            "qty": 1,
+            "lineTotal": 330
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 630,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "วงกลม MU-00<43มม> =250\nจุ๊บยาง TR413-1แพ็ค =330\n\nค่าจัดส่ง 50 บ\nรวม 630 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
