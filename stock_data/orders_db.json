@@ -1,8 +1,7 @@
 {
   "batch_names": {
     "batch_1787823777871": "27-08-2026-รอบ 1[16:00]",
-    "batch_1787886972882": "28-08-2026-รอบ 1[11:00]",
-    "batch_1787899915979": "28-08-2026-รอบ 1[14:00]"
+    "batch_1787886972882": "28-08-2026-รอบ 1[11:00]"
   },
   "orders_history": {
     "batch_1787823777871": [
@@ -366,6 +365,27 @@
         "isReserved": false,
         "dispatchDate": "",
         "rawText": "กาวปะ MR =260\nดอกเห็ด4มม. =400\nดอกเจาะคาร์ไบด์ 4.5mm =150\n\nค่าจัดส่ง 50 บ\nรวม 860 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787899701156",
+        "timestamp": 1787899680000,
+        "time": "13:48",
+        "customer": "นันทวัช",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ยางดิบ",
+            "qty": 1,
+            "lineTotal": 160
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 210,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ยางดิบ =160\n\nค่าจัดส่ง 50 บ\nรวม 210 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
       }
     ]
