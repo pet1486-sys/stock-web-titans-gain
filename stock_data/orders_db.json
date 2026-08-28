@@ -555,6 +555,27 @@
         "dispatchDate": "",
         "rawText": "BY-08 =320\nBY-10 =320\nBY-12 =320\nBY-18 =320\nEU 52มิล =220\nEU 42มิล =220\n\nจัดส่งฟรี\nรวม 1720 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787914563041",
+        "timestamp": 1787914563041,
+        "time": "17:56",
+        "customer": "ไม่ต้องใส่",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "ครีมทาขอบยาง",
+            "qty": 1,
+            "lineTotal": 150
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 200,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ครีมทาขอบยาง =150\n\nค่าจัดส่ง 50 บ\nรวม 200 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
