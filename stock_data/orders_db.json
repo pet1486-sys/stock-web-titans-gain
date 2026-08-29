@@ -695,6 +695,27 @@
         "dispatchDate": "",
         "rawText": "กาวปะ MR = 260\nขันศรสั้น = 10\n\nค่าจัดส่งครั้งละ 50 บ\nรวม 320 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787967570451",
+        "timestamp": 1787967570451,
+        "time": "08:39",
+        "customer": "ป๊อกแป๊ก",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "US 42 มม",
+            "qty": 1,
+            "lineTotal": 320
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 370,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "US 42 มม =320\n\nค่าจัดส่ง 50 บ\nรวม 370 บ\nโอนเงินผ่านบัญชี",
+        "isLocalDraft": false
       }
     ]
   }
