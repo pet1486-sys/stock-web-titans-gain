@@ -571,6 +571,37 @@
         "dispatchDate": "",
         "rawText": "กาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 310 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787981370626",
+        "timestamp": 1787981370625,
+        "time": "12:29",
+        "customer": "วรรนชนะ วังสะพุงเครน",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "EU เบอร์ 12",
+            "qty": 1,
+            "lineTotal": 300
+          },
+          {
+            "name": "EU เบอร์ 14",
+            "qty": 1,
+            "lineTotal": 300
+          },
+          {
+            "name": "กาวปะ MR",
+            "qty": 2,
+            "lineTotal": 520
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 1170,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU เบอร์ 12 =300\nEU เบอร์ 14 =300\nกาวปะ MR x2 =520\n\nค่าจัดส่ง 50 บ\nรวม 1170 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
