@@ -576,6 +576,27 @@
         "dispatchDate": "",
         "rawText": "ครีมทาขอบยาง =150\n\nค่าจัดส่ง 50 บ\nรวม 200 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787965420138",
+        "timestamp": 1787965420138,
+        "time": "08:03",
+        "customer": "ร้านกิตติภาการยาง",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "EU เบอร์ 10",
+            "qty": 6,
+            "lineTotal": 1800
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 1800,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU เบอร์ 10 x6 =1800\n\nจัดส่งฟรี\nรวม 1800 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
