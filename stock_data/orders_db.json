@@ -550,6 +550,27 @@
         "dispatchDate": "",
         "rawText": "US 58 มม =320\nใยไหม =170\nจุ๊บยาง TR413TUV-1แพ็ค =380\nกาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 1180 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787980891370",
+        "timestamp": 1787980891370,
+        "time": "12:21",
+        "customer": "ชูศักดิ์",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "กาวปะ MR",
+            "qty": 1,
+            "lineTotal": 260
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 310,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "กาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 310 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
