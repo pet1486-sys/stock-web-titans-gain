@@ -409,6 +409,29 @@
         "rawText": "EU 52มิล =220\nEU เบอร์ 12 =300\n\nค่าจัดส่ง 50 บ\nรวม 570 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
       }
+    ],
+    "batch_1787971796738": [
+      {
+        "id": "ord_1787971803870",
+        "timestamp": 1787971803870,
+        "time": "09:50",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "บาร์เกจวัดลม รถยนต์150psi",
+            "qty": 1,
+            "lineTotal": 150
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 200,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "บาร์เกจวัดลม รถยนต์150psi =150\n\nค่าจัดส่ง 50 บ\nรวม 200 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
+      }
     ]
   }
 }
