@@ -618,6 +618,57 @@
         "dispatchDate": "",
         "rawText": "EU เบอร์ 10 x4 =1200\n\nค่าจัดส่ง 50 บ\nรวม 1250 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787966280663",
+        "timestamp": 1787966280663,
+        "time": "08:18",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ชุด DIY เกจน้ำมัน+คอปเปอร์THB",
+            "qty": 1,
+            "lineTotal": 500
+          },
+          {
+            "name": "หัวคอปเปอร์ลมเกลียวนอก SM20 1/4 THB",
+            "qty": 1,
+            "lineTotal": 120
+          },
+          {
+            "name": "หางคอปเปอร์ลมเกลียวนอก PM20 1/4 THB",
+            "qty": 1,
+            "lineTotal": 50
+          },
+          {
+            "name": "ลูกยางคอปเปอร์ 5 ชิ้น",
+            "qty": 1,
+            "lineTotal": 30
+          },
+          {
+            "name": "หัวเติมลมยาว เกรด A",
+            "qty": 1,
+            "lineTotal": 300
+          },
+          {
+            "name": "ศรไส้ไก่50ตัว",
+            "qty": 2,
+            "lineTotal": 100
+          },
+          {
+            "name": "ขันศรสั้น",
+            "qty": 1,
+            "lineTotal": 10
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 1160,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ชุด DIY เกจน้ำมัน+คอปเปอร์THB =500\nหัวคอปเปอร์ลมเกลียวนอก SM20 1/4 THB =120\nหางคอปเปอร์ลมเกลียวนอก PM20 1/4 THB =50\nลูกยางคอปเปอร์ 5 ชิ้น =30\nหัวเติมลมยาว เกรด A =300\nศรไส้ไก่50ตัว x2 =100\nขันศรสั้น =10\n\nค่าจัดส่ง 50 บ\nรวม 1160 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
