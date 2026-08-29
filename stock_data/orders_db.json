@@ -669,6 +669,32 @@
         "dispatchDate": "",
         "rawText": "ชุด DIY เกจน้ำมัน+คอปเปอร์THB =500\nหัวคอปเปอร์ลมเกลียวนอก SM20 1/4 THB =120\nหางคอปเปอร์ลมเกลียวนอก PM20 1/4 THB =50\nลูกยางคอปเปอร์ 5 ชิ้น =30\nหัวเติมลมยาว เกรด A =300\nศรไส้ไก่50ตัว x2 =100\nขันศรสั้น =10\n\nค่าจัดส่ง 50 บ\nรวม 1160 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787966700297",
+        "timestamp": 1787966700297,
+        "time": "08:25",
+        "customer": "สูเพียน กายี",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "กาวปะ MR",
+            "qty": 1,
+            "lineTotal": 260
+          },
+          {
+            "name": "ขันศรสั้น",
+            "qty": 1,
+            "lineTotal": 10
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 320,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "กาวปะ MR = 260\nขันศรสั้น = 10\n\nค่าจัดส่งครั้งละ 50 บ\nรวม 320 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
