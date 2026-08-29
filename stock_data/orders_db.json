@@ -452,6 +452,42 @@
         "dispatchDate": "",
         "rawText": "ดอกเจาะคาร์ไบด์ 4.5mm =0\n\nจัดส่งฟรี\nรวม 0 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787976237400",
+        "timestamp": 1787976180000,
+        "time": "11:03",
+        "customer": "ปองภพ จอมกัน",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "จุ๊บทองเหลือง v3-22-1",
+            "qty": 6,
+            "lineTotal": 300
+          },
+          {
+            "name": "TJ-12",
+            "qty": 1,
+            "lineTotal": 350
+          },
+          {
+            "name": "หัวเจียร ถ้วยบุ้ง",
+            "qty": 1,
+            "lineTotal": 200
+          },
+          {
+            "name": "ยางดิบ",
+            "qty": 1,
+            "lineTotal": 160
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 1060,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "จุ๊บทองเหลือง v3-22-1 x6 =300\nTJ-12 =350\nหัวเจียร ถ้วยบุ้ง =200\nยางดิบ =160\n\nค่าจัดส่ง 50 บ\nรวม 1060 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
