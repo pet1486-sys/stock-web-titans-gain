@@ -633,6 +633,32 @@
         "dispatchDate": "",
         "rawText": "EU 42มิล x2 =440\nใยไหม x5 =850\nครีมทาขอบยาง x2 =300\n\nจัดส่งฟรี\nรวม 1590 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787992848771",
+        "timestamp": 1787992848771,
+        "time": "15:40",
+        "customer": "โนรี สุขสายอ้น",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "US 32 มม",
+            "qty": 1,
+            "lineTotal": 320
+          },
+          {
+            "name": "US 42 มม",
+            "qty": 1,
+            "lineTotal": 320
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 690,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "US 32 มม =320\nUS 42 มม =320\n\nค่าจัดส่ง 50 บ\nรวม 690 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
