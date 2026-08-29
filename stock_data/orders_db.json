@@ -602,6 +602,37 @@
         "dispatchDate": "",
         "rawText": "EU เบอร์ 12 =300\nEU เบอร์ 14 =300\nกาวปะ MR x2 =520\n\nค่าจัดส่ง 50 บ\nรวม 1170 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787981783318",
+        "timestamp": 1787981783318,
+        "time": "12:36",
+        "customer": "ร้าน 1 หนึ่งมอเตอร์ โป่งไฝ่",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "EU 42มิล",
+            "qty": 2,
+            "lineTotal": 440
+          },
+          {
+            "name": "ใยไหม",
+            "qty": 5,
+            "lineTotal": 850
+          },
+          {
+            "name": "ครีมทาขอบยาง",
+            "qty": 2,
+            "lineTotal": 300
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 1590,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU 42มิล x2 =440\nใยไหม x5 =850\nครีมทาขอบยาง x2 =300\n\nจัดส่งฟรี\nรวม 1590 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
