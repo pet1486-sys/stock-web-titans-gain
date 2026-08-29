@@ -431,6 +431,27 @@
         "dispatchDate": "",
         "rawText": "บาร์เกจวัดลม รถยนต์150psi =150\n\nค่าจัดส่ง 50 บ\nรวม 200 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787973729335",
+        "timestamp": 1787973729335,
+        "time": "10:22",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ดอกเจาะคาร์ไบด์ 4.5mm",
+            "qty": 1,
+            "lineTotal": 0
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 0,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ดอกเจาะคาร์ไบด์ 4.5mm =0\n\nจัดส่งฟรี\nรวม 0 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
