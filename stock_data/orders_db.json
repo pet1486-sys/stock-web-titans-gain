@@ -330,6 +330,47 @@
         "dispatchDate": "",
         "rawText": "US 42 มม =320\n\nค่าจัดส่ง 50 บ\nรวม 370 บ\nโอนเงินผ่านบัญชี",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787968347402",
+        "timestamp": 1787968347402,
+        "time": "08:52",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "วงกลม MU-02<78มม>",
+            "qty": 2,
+            "lineTotal": 620
+          },
+          {
+            "name": "กาวปะ MR",
+            "qty": 2,
+            "lineTotal": 520
+          },
+          {
+            "name": "EU เบอร์ 8",
+            "qty": 2,
+            "lineTotal": 600
+          },
+          {
+            "name": "EU เบอร์ 10",
+            "qty": 2,
+            "lineTotal": 600
+          },
+          {
+            "name": "หัวเติมเร็วมีเกจวัด",
+            "qty": 2,
+            "lineTotal": 500
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 2840,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "วงกลม MU-02<78มม> x2 =620\nกาวปะ MR x2 =520\nEU เบอร์ 8 x2 =600\nEU เบอร์ 10 x2 =600\nหัวเติมเร็วมีเกจวัด x2 =500\n\nจัดส่งฟรี\nรวม 2840 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
