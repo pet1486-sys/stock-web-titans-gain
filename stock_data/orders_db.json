@@ -768,6 +768,32 @@
         "dispatchDate": "",
         "rawText": "EU 52มิล =220\nจุ๊บยาง TR413-1แพ็ค =330\n\nค่าจัดส่ง 50 บ\nรวม 600 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787968883192",
+        "timestamp": 1787968883192,
+        "time": "09:01",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Lazada",
+        "items": [
+          {
+            "name": "EU 52มิล",
+            "qty": 1,
+            "lineTotal": 220
+          },
+          {
+            "name": "EU เบอร์ 12",
+            "qty": 1,
+            "lineTotal": 300
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 570,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU 52มิล =220\nEU เบอร์ 12 =300\n\nค่าจัดส่ง 50 บ\nรวม 570 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
