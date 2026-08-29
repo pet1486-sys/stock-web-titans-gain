@@ -488,6 +488,32 @@
         "dispatchDate": "",
         "rawText": "จุ๊บทองเหลือง v3-22-1 x6 =300\nTJ-12 =350\nหัวเจียร ถ้วยบุ้ง =200\nยางดิบ =160\n\nค่าจัดส่ง 50 บ\nรวม 1060 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1787976685160",
+        "timestamp": 1787976685160,
+        "time": "11:11",
+        "customer": "สุคิริน",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "หัวเจียร ถ้วยบุ้ง",
+            "qty": 2,
+            "lineTotal": 400
+          },
+          {
+            "name": "US 58 มม",
+            "qty": 1,
+            "lineTotal": 320
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 770,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "หัวเจียร ถ้วยบุ้ง x2 =400\nUS 58 มม =320\n\nค่าจัดส่ง 50 บ\nรวม 770 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
