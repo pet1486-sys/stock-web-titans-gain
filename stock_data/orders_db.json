@@ -659,6 +659,32 @@
         "dispatchDate": "",
         "rawText": "US 32 มม =320\nUS 42 มม =320\n\nค่าจัดส่ง 50 บ\nรวม 690 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1788140258196",
+        "timestamp": 1788140258196,
+        "time": "08:37",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "EU 42มิล",
+            "qty": 1,
+            "lineTotal": 220
+          },
+          {
+            "name": "EU เบอร์ 8",
+            "qty": 1,
+            "lineTotal": 300
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 570,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU 42มิล =220\nEU เบอร์ 8 =300\n\nค่าจัดส่ง 50 บ\nรวม 570 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
