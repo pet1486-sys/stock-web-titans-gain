@@ -515,6 +515,27 @@
         "dispatchDate": "",
         "rawText": "TJ-5 =400\nสี่เหลี่ยม MR-10 =750\nหัวเติมลมยาว เกรด A =300\nหัวเติมลมแบบเร็ว =200\n\nจัดส่งฟรี\nรวม 1650 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1788141504552",
+        "timestamp": 1788141504552,
+        "time": "08:58",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "EU 52มิล",
+            "qty": 1,
+            "lineTotal": 220
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 270,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU 52มิล =220\n\nค่าจัดส่ง 50 บ\nรวม 270 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
