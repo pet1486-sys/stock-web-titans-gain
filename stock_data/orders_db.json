@@ -1064,6 +1064,37 @@
         "dispatchDate": "",
         "rawText": "กาวปะ MR x2 =520\nจุ๊บขันในยาว x20 =300\nตะกั่วแปะ 50แถว =300\n\nค่าจัดส่ง 50 บ\nรวม 1170 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1788170322421",
+        "timestamp": 1788170322421,
+        "time": "16:58",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "กาวปะ MR",
+            "qty": 1,
+            "lineTotal": 260
+          },
+          {
+            "name": "ขันศรสั้น",
+            "qty": 5,
+            "lineTotal": 50
+          },
+          {
+            "name": "ไม้กลิ้งสติม 7mm",
+            "qty": 1,
+            "lineTotal": 100
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 460,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "กาวปะ MR =260\nขันศรสั้น x5 =50\nไม้กลิ้งสติม 7mm =100\n\nค่าจัดส่ง 50 บ\nรวม 460 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
