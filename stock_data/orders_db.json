@@ -278,6 +278,37 @@
         "dispatchDate": "",
         "rawText": "EU 42มิล =220\nEU เบอร์ 8 =300\n\nค่าจัดส่ง 50 บ\nรวม 570 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1788140359716",
+        "timestamp": 1788140359716,
+        "time": "08:39",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ลูกบล๊อก1นิ้ว 21mmล้อใน",
+            "qty": 1,
+            "lineTotal": 350
+          },
+          {
+            "name": "ลูกบล๊อก1นิ้ว21mmสี่เหลี่ยม",
+            "qty": 1,
+            "lineTotal": 350
+          },
+          {
+            "name": "ลูกบล๊อก 1นิ้ว 41mm",
+            "qty": 1,
+            "lineTotal": 350
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 1100,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ลูกบล๊อก1นิ้ว 21mmล้อใน =350\nลูกบล๊อก1นิ้ว21mmสี่เหลี่ยม =350\nลูกบล๊อก 1นิ้ว 41mm =350\n\nค่าจัดส่ง 50 บ\nรวม 1100 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
