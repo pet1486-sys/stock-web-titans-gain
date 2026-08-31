@@ -655,6 +655,42 @@
         "dispatchDate": "",
         "rawText": "ดอกเห็ด 6มิล =500\n\nค่าจัดส่ง 50 บ\nรวม 550 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1788143359675",
+        "timestamp": 1788143359675,
+        "time": "09:29",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "EU 42มิล",
+            "qty": 2,
+            "lineTotal": 440
+          },
+          {
+            "name": "จุ๊บทาทา TR415",
+            "qty": 10,
+            "lineTotal": 100
+          },
+          {
+            "name": "ลูกบล๊อก 1นิ้ว 41mm",
+            "qty": 1,
+            "lineTotal": 350
+          },
+          {
+            "name": "สติมผ้าใบเล็ก",
+            "qty": 3,
+            "lineTotal": 660
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 1550,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU 42มิล x2 =440\nจุ๊บทาทา TR415 x10 =100\nลูกบล๊อก 1นิ้ว 41mm =350\nสติมผ้าใบเล็ก x3 =660\n\nจัดส่งฟรี\nรวม 1550 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
