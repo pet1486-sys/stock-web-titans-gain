@@ -407,6 +407,57 @@
         "dispatchDate": "",
         "rawText": "ใยไหม =170\n\nค่าจัดส่ง 50 บ\nรวม 220 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1788141059999",
+        "timestamp": 1788141059999,
+        "time": "08:50",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "กาวปะ MR",
+            "qty": 1,
+            "lineTotal": 260
+          },
+          {
+            "name": "วงกลม MU-00<43มม>",
+            "qty": 1,
+            "lineTotal": 250
+          },
+          {
+            "name": "สี่เหลี่ยม MR-10",
+            "qty": 1,
+            "lineTotal": 750
+          },
+          {
+            "name": "สติมผ้าใบเล็ก",
+            "qty": 1,
+            "lineTotal": 220
+          },
+          {
+            "name": "จุ๊บทองเหลือง9ซม",
+            "qty": 4,
+            "lineTotal": 200
+          },
+          {
+            "name": "จุ๊บทองเหลือง11ซม",
+            "qty": 4,
+            "lineTotal": 200
+          },
+          {
+            "name": "ตะกั่วแปะ 50แถว",
+            "qty": 1,
+            "lineTotal": 300
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 2180,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "กาวปะ MR =260\nวงกลม MU-00<43มม> =250\nสี่เหลี่ยม MR-10 =750\nสติมผ้าใบเล็ก =220\nจุ๊บทองเหลือง9ซม x4 =200\nจุ๊บทองเหลือง11ซม x4 =200\nตะกั่วแปะ 50แถว =300\n\nจัดส่งฟรี\nรวม 2180 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
