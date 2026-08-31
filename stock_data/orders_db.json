@@ -386,6 +386,27 @@
         "dispatchDate": "",
         "rawText": "BY-10 =320\nกาวปะ MR =260\nไม้กลิ้งสติม 7mm =100\nชุด บอสเจียรลม =550\n\nค่าจัดส่ง 50 บ\nรวม 1280 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1788140940925",
+        "timestamp": 1788140940925,
+        "time": "08:49",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ใยไหม",
+            "qty": 1,
+            "lineTotal": 170
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 220,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ใยไหม =170\n\nค่าจัดส่ง 50 บ\nรวม 220 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
