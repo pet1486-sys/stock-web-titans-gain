@@ -598,6 +598,42 @@
         "dispatchDate": "",
         "rawText": "สี่เหลี่ยม MR-10 x2 =1500\nหัวเติมเร็วมีเกจวัด =250\nกาวปะ MR =260\nจุ๊บทองเหลือง11ซม x5 =250\nจุ๊บทองเหลือง v3-22-1 x3= 150\n\nจัดส่งฟรี\nรวม 2410 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1788142760298",
+        "timestamp": 1788142760298,
+        "time": "09:19",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "US 42 มม",
+            "qty": 1,
+            "lineTotal": 320
+          },
+          {
+            "name": "US 58 มม",
+            "qty": 1,
+            "lineTotal": 320
+          },
+          {
+            "name": "กาวปะ MR",
+            "qty": 1,
+            "lineTotal": 260
+          },
+          {
+            "name": "จุ๊บยาง TR413-1แพ็ค",
+            "qty": 1,
+            "lineTotal": 330
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 1280,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "US 42 มม =320\nUS 58 มม =320\nกาวปะ MR =260\nจุ๊บยาง TR413-1แพ็ค =330\n\nค่าจัดส่ง 50 บ\nรวม 1280 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
