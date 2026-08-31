@@ -1117,8 +1117,8 @@
         "discount": 0,
         "shipping": 50,
         "total": 1100,
-        "isReserved": false,
-        "dispatchDate": "",
+        "isReserved": true,
+        "dispatchDate": "2026-08-31",
         "rawText": "TJ-14HD =350\nTJ-12 x2 =700\n\nค่าจัดส่ง 50 บ\nรวม 1100 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
       }
