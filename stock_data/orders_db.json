@@ -943,10 +943,10 @@
     "batch_1788157593646": [
       {
         "id": "ord_1788157600846",
-        "timestamp": 1788157600846,
+        "timestamp": 1788157560000,
         "time": "13:26",
         "customer": "ทั่วไป / ไม่ระบุ",
-        "channel": "Line Shopping",
+        "channel": "Facebook",
         "items": [
           {
             "name": "ดอกเห็ด 6มิล",
