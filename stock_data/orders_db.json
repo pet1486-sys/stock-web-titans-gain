@@ -536,6 +536,27 @@
         "dispatchDate": "",
         "rawText": "EU 52มิล =220\n\nค่าจัดส่ง 50 บ\nรวม 270 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1788141865966",
+        "timestamp": 1788141865966,
+        "time": "09:04",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "กาวดำ",
+            "qty": 1,
+            "lineTotal": 220
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 270,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "กาวดำ =220\n\nค่าจัดส่ง 50 บ\nรวม 270 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
