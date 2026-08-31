@@ -770,52 +770,6 @@
         "isLocalDraft": false
       },
       {
-        "id": "ord_1788146293779",
-        "timestamp": 1788146293778,
-        "time": "10:18",
-        "customer": "ทั่วไป / ไม่ระบุ",
-        "channel": "Line Shopping",
-        "items": [
-          {
-            "name": "จุ๊บขันในยาว",
-            "qty": 10,
-            "lineTotal": 150
-          },
-          {
-            "name": "แปรงทาขอบยาง",
-            "qty": 2,
-            "lineTotal": 40
-          },
-          {
-            "name": "จุ๊บยางใน TR15",
-            "qty": 10,
-            "lineTotal": 120
-          },
-          {
-            "name": "US 42 มม",
-            "qty": 1,
-            "lineTotal": 320
-          },
-          {
-            "name": "US 58 มม",
-            "qty": 1,
-            "lineTotal": 320
-          },
-          {
-            "name": "พลาสติกกันขอบ",
-            "qty": 2,
-            "lineTotal": 40
-          }
-        ],
-        "discount": 0,
-        "shipping": 50,
-        "total": 1040,
-        "isReserved": false,
-        "dispatchDate": "",
-        "rawText": "จุ๊บขันในยาว x10 =150\nแปรงทาขอบยาง x2 =40\nจุ๊บยางใน TR15 x10 =120\nUS 42 มม =320\nUS 58 มม =320\nพลาสติกกันขอบ x2 =40\n\nค่าจัดส่ง 50 บ\nรวม 1040 บ\nเก็บเงินปลายทาง",
-        "isLocalDraft": false
-      },
-      {
         "id": "ord_1788146565520",
         "timestamp": 1788146565520,
         "time": "10:22",
