@@ -458,6 +458,27 @@
         "dispatchDate": "",
         "rawText": "กาวปะ MR =260\nวงกลม MU-00<43มม> =250\nสี่เหลี่ยม MR-10 =750\nสติมผ้าใบเล็ก =220\nจุ๊บทองเหลือง9ซม x4 =200\nจุ๊บทองเหลือง11ซม x4 =200\nตะกั่วแปะ 50แถว =300\n\nจัดส่งฟรี\nรวม 2180 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1788141192192",
+        "timestamp": 1788141192192,
+        "time": "08:53",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "EU เบอร์ 8",
+            "qty": 3,
+            "lineTotal": 900
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 950,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU เบอร์ 8 x3 =900\n\nค่าจัดส่ง 50 บ\nรวม 950 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
