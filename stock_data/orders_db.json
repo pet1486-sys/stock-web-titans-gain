@@ -896,42 +896,6 @@
         "dispatchDate": "",
         "rawText": "จุ๊บขันในยาว x10 =150\nแปรงทาขอบยาง x2 =40\nUS 42 มม =320\nUS 58 มม =320\nพลาสติกกันขอบ x2 =40\nหัวเจียร ถ้วยบุ้ง =200\n\nค่าจัดส่ง 50 บ\nรวม 1120 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
-      },
-      {
-        "id": "ord_1788147648465",
-        "timestamp": 1788147648465,
-        "time": "10:40",
-        "customer": "ทั่วไป / ไม่ระบุ",
-        "channel": "Facebook",
-        "items": [
-          {
-            "name": "US 42 มม",
-            "qty": 1,
-            "lineTotal": 320
-          },
-          {
-            "name": "US 58 มม",
-            "qty": 1,
-            "lineTotal": 320
-          },
-          {
-            "name": "EU เบอร์ 8",
-            "qty": 1,
-            "lineTotal": 300
-          },
-          {
-            "name": "ดอกเห็ด 6มิล",
-            "qty": 1,
-            "lineTotal": 500
-          }
-        ],
-        "discount": 0,
-        "shipping": 50,
-        "total": 1490,
-        "isReserved": false,
-        "dispatchDate": "",
-        "rawText": "US 42 มม =320\nUS 58 มม =320\nEU เบอร์ 8 =300\nดอกเห็ด 6มิล =500\n\nค่าจัดส่ง 50 บ\nรวม 1490 บ\nเก็บเงินปลายทาง",
-        "isLocalDraft": false
       }
     ]
   }
