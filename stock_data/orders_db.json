@@ -1095,6 +1095,32 @@
         "dispatchDate": "",
         "rawText": "สี่เหลี่ยม MR-10 x2 =1500\nหัวเติมเร็วมีเกจวัด =250\nกาวปะ MR =260\nจุ๊บทองเหลือง11ซม x5 =250\nจุ๊บทองเหลือง v3-22-1 x3= 150\n\nจัดส่งฟรี\nรวม 2410 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1788170693268",
+        "timestamp": 1788170693268,
+        "time": "17:04",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "TJ-14HD",
+            "qty": 1,
+            "lineTotal": 350
+          },
+          {
+            "name": "TJ-12",
+            "qty": 2,
+            "lineTotal": 700
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 1100,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "TJ-14HD =350\nTJ-12 x2 =700\n\nค่าจัดส่ง 50 บ\nรวม 1100 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
