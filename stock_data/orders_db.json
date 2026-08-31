@@ -350,6 +350,42 @@
         "dispatchDate": "",
         "rawText": "กาวปะ MR =260\nวงกลม L3<52มม> =290\nใยไหม =170\nSET แทงใยไหม =200\nBY-12 =320\n\nค่าจัดส่ง 50 บ\nรวม 1290 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1788140644448",
+        "timestamp": 1788140644448,
+        "time": "08:44",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "BY-10",
+            "qty": 1,
+            "lineTotal": 320
+          },
+          {
+            "name": "กาวปะ MR",
+            "qty": 1,
+            "lineTotal": 260
+          },
+          {
+            "name": "ไม้กลิ้งสติม 7mm",
+            "qty": 1,
+            "lineTotal": 100
+          },
+          {
+            "name": "ชุด บอสเจียรลม",
+            "qty": 1,
+            "lineTotal": 550
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 1280,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "BY-10 =320\nกาวปะ MR =260\nไม้กลิ้งสติม 7mm =100\nชุด บอสเจียรลม =550\n\nค่าจัดส่ง 50 บ\nรวม 1280 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
