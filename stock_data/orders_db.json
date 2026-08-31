@@ -937,32 +937,6 @@
         "dispatchDate": "",
         "rawText": "US 42 มม =320\nUS 58 มม =320\nEU เบอร์ 8 =300\nดอกเห็ด 6มิล =500\nใยไหม x2 =340\n\nจัดส่งฟรี\nรวม 1780 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
-      },
-      {
-        "id": "ord_1788157580353",
-        "timestamp": 1788157580353,
-        "time": "13:26",
-        "customer": "ทั่วไป / ไม่ระบุ",
-        "channel": "Facebook",
-        "items": [
-          {
-            "name": "ดอกเห็ด 6มิล",
-            "qty": 2,
-            "lineTotal": 1000
-          },
-          {
-            "name": "ตะกั่วแปะ 50แถว",
-            "qty": 1,
-            "lineTotal": 300
-          }
-        ],
-        "discount": 0,
-        "shipping": 50,
-        "total": 1350,
-        "isReserved": false,
-        "dispatchDate": "",
-        "rawText": "ดอกเห็ด 6มิล x2 =1000\nตะกั่วแปะ 50แถว =300\n\nค่าจัดส่ง 50 บ\nรวม 1350 บ\nเก็บเงินปลายทาง",
-        "isLocalDraft": false
       }
     ]
   }
