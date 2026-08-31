@@ -1033,6 +1033,37 @@
         "dispatchDate": "2026-08-31",
         "rawText": "EU เบอร์ 10 x2 =600\nEU เบอร์ 12 x2 =600\nEU เบอร์ 14 =300\nกาวปะ MR x2 =520\nจุ๊บทองเหลือง11ซม x4 =200\n\nจัดส่งฟรี\nรวม 2220 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1788163105599",
+        "timestamp": 1788163105599,
+        "time": "14:58",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "กาวปะ MR",
+            "qty": 2,
+            "lineTotal": 520
+          },
+          {
+            "name": "จุ๊บขันในยาว",
+            "qty": 20,
+            "lineTotal": 300
+          },
+          {
+            "name": "ตะกั่วแปะ 50แถว",
+            "qty": 1,
+            "lineTotal": 300
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 1170,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "กาวปะ MR x2 =520\nจุ๊บขันในยาว x20 =300\nตะกั่วแปะ 50แถว =300\n\nค่าจัดส่ง 50 บ\nรวม 1170 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
