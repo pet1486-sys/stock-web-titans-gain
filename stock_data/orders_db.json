@@ -634,6 +634,27 @@
         "dispatchDate": "",
         "rawText": "US 42 มม =320\nUS 58 มม =320\nกาวปะ MR =260\nจุ๊บยาง TR413-1แพ็ค =330\n\nค่าจัดส่ง 50 บ\nรวม 1280 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1788142805865",
+        "timestamp": 1788142805865,
+        "time": "09:20",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ดอกเห็ด 6มิล",
+            "qty": 1,
+            "lineTotal": 500
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 550,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ดอกเห็ด 6มิล =500\n\nค่าจัดส่ง 50 บ\nรวม 550 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
