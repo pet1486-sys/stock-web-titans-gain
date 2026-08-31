@@ -966,6 +966,32 @@
         "dispatchDate": "",
         "rawText": "ดอกเห็ด 6มิล x2 =1000\nตะกั่วแปะ 50แถว =300\n\nค่าจัดส่ง 50 บ\nรวม 1350 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1788157855276",
+        "timestamp": 1788157855276,
+        "time": "13:30",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "BY-12",
+            "qty": 1,
+            "lineTotal": 320
+          },
+          {
+            "name": "EU 52มิล",
+            "qty": 1,
+            "lineTotal": 220
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 590,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "BY-12 =320\nEU 52มิล =220\n\nค่าจัดส่ง 50 บ\nรวม 590 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
