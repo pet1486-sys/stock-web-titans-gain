@@ -850,6 +850,52 @@
         "dispatchDate": "",
         "rawText": "EU 73มิล =220\nกาวปะ MR x2 =520\nจุ๊บขันในยาว x10 =150\nจุ๊บขันนอกใหญ่ x5 =200\nจุ๊บยาง TR413-1แพ็ค =330\n\nจัดส่งฟรี\nรวม 1420 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1788147200937",
+        "timestamp": 1788147200937,
+        "time": "10:33",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "จุ๊บขันในยาว",
+            "qty": 10,
+            "lineTotal": 150
+          },
+          {
+            "name": "แปรงทาขอบยาง",
+            "qty": 2,
+            "lineTotal": 40
+          },
+          {
+            "name": "US 42 มม",
+            "qty": 1,
+            "lineTotal": 320
+          },
+          {
+            "name": "US 58 มม",
+            "qty": 1,
+            "lineTotal": 320
+          },
+          {
+            "name": "พลาสติกกันขอบ",
+            "qty": 2,
+            "lineTotal": 40
+          },
+          {
+            "name": "หัวเจียร ถ้วยบุ้ง",
+            "qty": 1,
+            "lineTotal": 200
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 1120,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "จุ๊บขันในยาว x10 =150\nแปรงทาขอบยาง x2 =40\nUS 42 มม =320\nUS 58 มม =320\nพลาสติกกันขอบ x2 =40\nหัวเจียร ถ้วยบุ้ง =200\n\nค่าจัดส่ง 50 บ\nรวม 1120 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
