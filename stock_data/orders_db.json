@@ -737,6 +737,37 @@
         "dispatchDate": "",
         "rawText": "จุ๊บขันในยาว x10 =150\nจุ๊บขันนอกใหญ่ x10 =400\nหัวเติมลมยาว เกรด A =300\nEU เบอร์ 14 x2 =600\nTJ-12 =350\nหัวเติมลมแบบเร็ว =200\n\nจัดส่งฟรี\nส่วนลด 50 บ\nรวม 1950 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1788143549775",
+        "timestamp": 1788143549775,
+        "time": "09:32",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Shopee",
+        "items": [
+          {
+            "name": "EU เบอร์ 8",
+            "qty": 1,
+            "lineTotal": 300
+          },
+          {
+            "name": "EU เบอร์ 12",
+            "qty": 1,
+            "lineTotal": 300
+          },
+          {
+            "name": "จุ๊บยาง TR413-1แพ็ค",
+            "qty": 1,
+            "lineTotal": 330
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 980,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU เบอร์ 8 =300\nEU เบอร์ 12 =300\nจุ๊บยาง TR413-1แพ็ค =330\n\nค่าจัดส่ง 50 บ\nรวม 980 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
