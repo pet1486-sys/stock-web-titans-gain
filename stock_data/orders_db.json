@@ -691,6 +691,52 @@
         "dispatchDate": "",
         "rawText": "EU 42มิล x2 =440\nจุ๊บทาทา TR415 x10 =100\nลูกบล๊อก 1นิ้ว 41mm =350\nสติมผ้าใบเล็ก x3 =660\n\nจัดส่งฟรี\nรวม 1550 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1788143492179",
+        "timestamp": 1788143492179,
+        "time": "09:31",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Line Shopping",
+        "items": [
+          {
+            "name": "จุ๊บขันในยาว",
+            "qty": 10,
+            "lineTotal": 150
+          },
+          {
+            "name": "จุ๊บขันนอกใหญ่",
+            "qty": 10,
+            "lineTotal": 400
+          },
+          {
+            "name": "หัวเติมลมยาว เกรด A",
+            "qty": 1,
+            "lineTotal": 300
+          },
+          {
+            "name": "EU เบอร์ 14",
+            "qty": 2,
+            "lineTotal": 600
+          },
+          {
+            "name": "TJ-12",
+            "qty": 1,
+            "lineTotal": 350
+          },
+          {
+            "name": "หัวเติมลมแบบเร็ว",
+            "qty": 1,
+            "lineTotal": 200
+          }
+        ],
+        "discount": 50,
+        "shipping": 0,
+        "total": 1950,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "จุ๊บขันในยาว x10 =150\nจุ๊บขันนอกใหญ่ x10 =400\nหัวเติมลมยาว เกรด A =300\nEU เบอร์ 14 x2 =600\nTJ-12 =350\nหัวเติมลมแบบเร็ว =200\n\nจัดส่งฟรี\nส่วนลด 50 บ\nรวม 1950 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
