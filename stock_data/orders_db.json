@@ -225,6 +225,37 @@
         "dispatchDate": "2026-08-31",
         "rawText": "TJ-14HD =350\nTJ-12 x2 =700\n\nค่าจัดส่ง 50 บ\nรวม 1100 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1788229471539",
+        "timestamp": 1788229471539,
+        "time": "09:24",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "จุ๊บขันในยาว",
+            "qty": 6,
+            "lineTotal": 90
+          },
+          {
+            "name": "จุ๊บเรเดียลอัลลอย งอ",
+            "qty": 5,
+            "lineTotal": 300
+          },
+          {
+            "name": "จุ๊บทองเหลือง11ซม",
+            "qty": 6,
+            "lineTotal": 300
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 740,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "จุ๊บขันในยาว x6 =90\nจุ๊บเรเดียลอัลลอย งอ x5 =300\nจุ๊บทองเหลือง11ซม x6 =300\n\nค่าจัดส่ง 50 บ\nรวม 740 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
