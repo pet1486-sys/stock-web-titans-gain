@@ -256,6 +256,27 @@
         "dispatchDate": "",
         "rawText": "จุ๊บขันในยาว x6 =90\nจุ๊บเรเดียลอัลลอย งอ x5 =300\nจุ๊บทองเหลือง11ซม x6 =300\n\nค่าจัดส่ง 50 บ\nรวม 740 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1788229747816",
+        "timestamp": 1788229747815,
+        "time": "09:29",
+        "customer": "ปรีชา อิ่มอารมย์",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "จุ๊บยาง TR413TUV-1แพ็ค",
+            "qty": 1,
+            "lineTotal": 380
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 430,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "จุ๊บยาง TR413TUV-1แพ็ค =380\n\nค่าจัดส่ง 50 บ\nรวม 430 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
