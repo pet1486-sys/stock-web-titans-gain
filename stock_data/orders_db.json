@@ -381,6 +381,32 @@
         "dispatchDate": "",
         "rawText": "ชื่อ: ยงศ์การยาง\nเบอร์โทร: 086-055-1736\nที่อยู่: 91 ม.6 ต.ทุ่งหลวง อ.ละแม ชุมพร 8617\nหัวเจียร ถ้วยบุ้ง =200\nTJ-4 =350\n\nค่าจัดส่ง 50 บ\nรวม 600 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1788231777466",
+        "timestamp": 1788231777466,
+        "time": "10:02",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Shopee",
+        "items": [
+          {
+            "name": "จุ๊บยาง TR413-1แพ็ค",
+            "qty": 4,
+            "lineTotal": 1320
+          },
+          {
+            "name": "ใยไหม",
+            "qty": 2,
+            "lineTotal": 340
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 1660,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "จุ๊บยาง TR413-1แพ็ค x4 =1320\nใยไหม x2 =340\n\nจัดส่งฟรี\nรวม 1660 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
