@@ -692,6 +692,52 @@
         "dispatchDate": "",
         "rawText": "ไม้กลิ้งสติม 12mm =120\nหัวเติมลมยาว เกรด A =300\nบาร์เกจวัดลม รถยนต์150psi =150\nวงกลม L3<52มม> =290\n\nค่าจัดส่ง 50 บ\nรวม 910 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1788249052253",
+        "timestamp": 1788249052253,
+        "time": "14:50",
+        "customer": "ปัญญา อิ่มเอิบ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "BY-10",
+            "qty": 1,
+            "lineTotal": 320
+          },
+          {
+            "name": "BY-12",
+            "qty": 1,
+            "lineTotal": 320
+          },
+          {
+            "name": "TJ-10HD",
+            "qty": 1,
+            "lineTotal": 350
+          },
+          {
+            "name": "ดอกเจาะคาร์ไบด์ 4.5mm",
+            "qty": 1,
+            "lineTotal": 150
+          },
+          {
+            "name": "ดอกเจาะคาร์ไบด์ 6mm",
+            "qty": 1,
+            "lineTotal": 250
+          },
+          {
+            "name": "พลาสติกกันขอบ",
+            "qty": 2,
+            "lineTotal": 40
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 1480,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "BY-10 =320\nBY-12 =320\nTJ-10HD =350\nดอกเจาะคาร์ไบด์ 4.5mm =150\nดอกเจาะคาร์ไบด์ 6mm =250\nพลาสติกกันขอบ x2 =40\n\nค่าจัดส่ง 50 บ\nรวม 1480 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
