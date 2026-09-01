@@ -407,6 +407,27 @@
         "dispatchDate": "",
         "rawText": "จุ๊บยาง TR413-1แพ็ค x4 =1320\nใยไหม x2 =340\n\nจัดส่งฟรี\nรวม 1660 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1788231847674",
+        "timestamp": 1788231847674,
+        "time": "10:04",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Lazada",
+        "items": [
+          {
+            "name": "ใยไหม",
+            "qty": 2,
+            "lineTotal": 340
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 340,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ใยไหม x2 =340\n\nจัดส่งฟรี\nรวม 340 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
