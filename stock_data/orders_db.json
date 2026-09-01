@@ -518,9 +518,9 @@
     "batch_1788238431437": [
       {
         "id": "ord_1788238440787",
-        "timestamp": 1788238440787,
+        "timestamp": 1788238440000,
         "time": "11:54",
-        "customer": "ทั่วไป / ไม่ระบุ",
+        "customer": "บังการยาง",
         "channel": "Line Shopping",
         "items": [
           {
