@@ -615,6 +615,32 @@
         "dispatchDate": "",
         "rawText": "กาวปะ MR x2 =520\nวงกลม MU-00<43มม> =250\nวงกลม L3<52มม> =290\nEU 42มิล =220\n\nค่าจัดส่ง 50 บ\nรวม 1330 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1788320625751",
+        "timestamp": 1788320625751,
+        "time": "10:43",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "กาวปะ MR",
+            "qty": 2,
+            "lineTotal": 520
+          },
+          {
+            "name": "ครีมทาขอบยาง",
+            "qty": 2,
+            "lineTotal": 300
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 870,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "กาวปะ MR x2 =520\nครีมทาขอบยาง x2 =300\n\nค่าจัดส่ง 50 บ\nรวม 870 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
