@@ -937,7 +937,9 @@
                 let qty = 1;
                 let linePrice = 0;
 
-                const qtyXMatch = trimmed.match(/x\s*(\d+)/i);
+                // 🛠️ แก้ไขจุดนี้: ดึงเฉพาะ x ที่ใช้ระบุจำนวนชิ้น (แยกเว้นวรรคชัดเจน หรืออยู่ท้ายบรรทัด)
+                // ป้องกันไม่ให้โดนตัว x ในชื่อสเปก เช่น 19x1.25 หลอกว่าเป็นจำนวน 1 ชิ้น
+                const qtyXMatch = trimmed.match(/(?:\s+|^)x\s*(\d+)(?=\s+|$)/i);
                 if (qtyXMatch) qty = parseInt(qtyXMatch[1]) || 1;
 
                 const priceEqMatch = trimmed.match(/=\s*(\d+)/);
@@ -1583,7 +1585,7 @@
                 let qty = 1;
                 let linePrice = 0;
 
-                const qtyXMatch = trimmed.match(/x\s*(\d+)/i);
+                const qtyXMatch = trimmed.match(/(?:\s+|^)x\s*(\d+)(?=\s+|$)/i);
                 if (qtyXMatch) qty = parseInt(qtyXMatch[1]) || 1;
 
                 const priceEqMatch = trimmed.match(/=\s*(\d+)/);
