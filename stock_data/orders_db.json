@@ -641,6 +641,27 @@
         "dispatchDate": "",
         "rawText": "กาวปะ MR x2 =520\nครีมทาขอบยาง x2 =300\n\nค่าจัดส่ง 50 บ\nรวม 870 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1788328693846",
+        "timestamp": 1788328693845,
+        "time": "12:58",
+        "customer": "ลัดดาวัลย์ สอนสะอาด",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "BY-10",
+            "qty": 1,
+            "lineTotal": 320
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 370,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "BY-10 =320\n\nค่าจัดส่ง 50 บ\nรวม 370 บ\nเก็บเงินปลายทาง ที่อยู่จัดส่ง\nชื่อ ลัดดาวัลย์ สอนสะอาด\nโทร 065-597-5779\nที่อยู่ 26/15 ม.2 ตำบลเสาไห้ อำเภอเสาไห้ จังหวัดสระบุรี 18160",
+        "isLocalDraft": false
       }
     ]
   }
