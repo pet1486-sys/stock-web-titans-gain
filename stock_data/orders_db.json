@@ -463,42 +463,6 @@
         "dispatchDate": "",
         "rawText": "ชื่อ: ธนพล ศิริจันทร์\nเบอร์โทร: 089-771-0337\nที่อยู่: 24/8 ม.7 ต.คานหาม อ.อุทัย พระนครศรีอยุธยา 13210\nสเปรย์ทำความสะอาดยาง x3 =450\nแปรงทาขอบยาง x5 =100\n\nค่าจัดส่ง 50 บ\nรวม 600 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
-      },
-      {
-        "id": "ord_1788406625106",
-        "timestamp": 1788406625106,
-        "time": "10:37",
-        "customer": "ทั่วไป / ไม่ระบุ",
-        "channel": "Line Shopping",
-        "items": [
-          {
-            "name": "TJ-10HD",
-            "qty": 1,
-            "lineTotal": 350
-          },
-          {
-            "name": "TJ-12",
-            "qty": 1,
-            "lineTotal": 350
-          },
-          {
-            "name": "กาวปะ MR",
-            "qty": 1,
-            "lineTotal": 260
-          },
-          {
-            "name": "วาล์วลม บาซูก้าปุ่มกด",
-            "qty": 1,
-            "lineTotal": 550
-          }
-        ],
-        "discount": 0,
-        "shipping": 0,
-        "total": 1510,
-        "isReserved": false,
-        "dispatchDate": "",
-        "rawText": "TJ-10HD =350\nTJ-12 =350\nกาวปะ MR =260\nวาล์วลม บาซูก้าปุ่มกด =550\n\nจัดส่งฟรี\nรวม 1510 บ\nเก็บเงินปลายทาง",
-        "isLocalDraft": false
       }
     ]
   }
