@@ -551,6 +551,27 @@
         "dispatchDate": "",
         "rawText": "EU เบอร์ 8 =300\nEU เบอร์ 12 =300\nEU 42มิล =220\n\nค่าจัดส่ง 50 บ\nรวม 870 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1788407099955",
+        "timestamp": 1788407099955,
+        "time": "10:44",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Lazada",
+        "items": [
+          {
+            "name": "EU เบอร์ 14",
+            "qty": 1,
+            "lineTotal": 300
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 350,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU เบอร์ 14 =300\n\nค่าจัดส่ง 50 บ\nรวม 350 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
