@@ -302,6 +302,32 @@
         "dispatchDate": "",
         "rawText": "US 42 มม =320\n\nค่าจัดส่ง 50 บ\nรวม 370 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1788399574262",
+        "timestamp": 1788399574262,
+        "time": "08:39",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "ลูกบล๊อก 1นิ้ว 41mm",
+            "qty": 1,
+            "lineTotal": 350
+          },
+          {
+            "name": "ศรไส้ไก่50ตัว",
+            "qty": 2,
+            "lineTotal": 100
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 500,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "ลูกบล๊อก 1นิ้ว 41mm =350\nศรไส้ไก่50ตัว x2 =100\n\nค่าจัดส่ง 50 บ\nรวม 500 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
