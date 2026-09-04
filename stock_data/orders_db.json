@@ -481,8 +481,8 @@
         "discount": 0,
         "shipping": 0,
         "total": 660,
-        "isReserved": false,
-        "dispatchDate": "",
+        "isReserved": true,
+        "dispatchDate": "2026-09-04",
         "rawText": "จุ๊บยาง TR413-1แพ็ค x2 =660\n\nจัดส่งฟรี\nรวม 660 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
       },
