@@ -184,6 +184,47 @@
         "dispatchDate": "",
         "rawText": "กาวดำ =220\nTJ-3 =200\n\nค่าจัดส่ง 50 บ\nรวม 470 บ\nเก็บเงินปลายทาง\nชื่อ: ส การยาง\nเบอร์โทร: 089-216-2765\nที่อยู่: 53/4 ม.1 (ร้านปะยาง ใน ปั้ม PT) ถ.เอเชีย ต.นาหูกวาง อ.ทับสะแก ประจวบคีรีขันธ์ 77130",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1788489360514",
+        "timestamp": 1788489360514,
+        "time": "09:36",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "กาวปะ MR",
+            "qty": 1,
+            "lineTotal": 260
+          },
+          {
+            "name": "วงกลม MU-02<78มม>",
+            "qty": 1,
+            "lineTotal": 310
+          },
+          {
+            "name": "BY-14",
+            "qty": 1,
+            "lineTotal": 320
+          },
+          {
+            "name": "BY-10",
+            "qty": 1,
+            "lineTotal": 320
+          },
+          {
+            "name": "ใยไหม",
+            "qty": 1,
+            "lineTotal": 170
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 1430,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "กาวปะ MR =260\nวงกลม MU-02<78มม> =310\nBY-14 =320\nBY-10 =320\nใยไหม =170\n\nค่าจัดส่ง 50 บ\nรวม 1430 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
