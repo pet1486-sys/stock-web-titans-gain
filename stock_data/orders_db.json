@@ -272,6 +272,107 @@
         "dispatchDate": "",
         "rawText": "เหล็กงัดยาง 28นิ้ว x2 =700\nเหล็กงัดยาง 38นิ้วเรเดียล แบบงอ x2 =900\n\nจัดส่งฟรี\nรวม 1600 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1788491130518",
+        "timestamp": 1788491130518,
+        "time": "10:05",
+        "customer": "สุรชัย",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "จุ๊บยาง TR413-1แพ็ค",
+            "qty": 1,
+            "lineTotal": 330
+          },
+          {
+            "name": "BY-08",
+            "qty": 2,
+            "lineTotal": 640
+          },
+          {
+            "name": "US 58 มม",
+            "qty": 3,
+            "lineTotal": 960
+          },
+          {
+            "name": "กาวปะ MR",
+            "qty": 2,
+            "lineTotal": 520
+          },
+          {
+            "name": "ยางดิบ",
+            "qty": 2,
+            "lineTotal": 320
+          },
+          {
+            "name": "ไม้กลิ้งสติม 7mm",
+            "qty": 1,
+            "lineTotal": 100
+          },
+          {
+            "name": "หัวเติมลมยาว เกรด A",
+            "qty": 1,
+            "lineTotal": 300
+          },
+          {
+            "name": "บาร์เกจวัดลมหัวตรง 150psi",
+            "qty": 1,
+            "lineTotal": 300
+          },
+          {
+            "name": "ชุด บอสเจียรลม",
+            "qty": 1,
+            "lineTotal": 550
+          },
+          {
+            "name": "ขันศรยาว",
+            "qty": 1,
+            "lineTotal": 20
+          },
+          {
+            "name": "TJ-10HD",
+            "qty": 1,
+            "lineTotal": 350
+          },
+          {
+            "name": "TJ-14HD",
+            "qty": 1,
+            "lineTotal": 350
+          },
+          {
+            "name": "เซทเหล็กแทงใยไหมหนา 1 คู่",
+            "qty": 1,
+            "lineTotal": 450
+          },
+          {
+            "name": "ใยไหม",
+            "qty": 1,
+            "lineTotal": 170
+          },
+          {
+            "name": "เหล็กดึงจุ๊บ",
+            "qty": 1,
+            "lineTotal": 120
+          },
+          {
+            "name": "หัวเติมเร็วมีเกจวัด",
+            "qty": 1,
+            "lineTotal": 250
+          },
+          {
+            "name": "ไม้กลิ้งสติม 20mm",
+            "qty": 1,
+            "lineTotal": 180
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 5910,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "จุ๊บยาง TR413-1แพ็ค =330\nBY-08 x2 =640\nUS 58 มม x3 =960\nกาวปะ MR x2 =520\nยางดิบ x2 =320\nไม้กลิ้งสติม 7mm =100\nหัวเติมลมยาว เกรด A =300\nบาร์เกจวัดลมหัวตรง 150psi =300\nชุด บอสเจียรลม =550\nขันศรยาว =20\nTJ-10HD =350\nTJ-14HD =350\nเซทเหล็กแทงใยไหมหนา 1 คู่ =450\nใยไหม =170\nเหล็กดึงจุ๊บ =120\nหัวเติมเร็วมีเกจวัด =250\nไม้กลิ้งสติม 20mm =180\n\nจัดส่งฟรี\nรวม 5910 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
