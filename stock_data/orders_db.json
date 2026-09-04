@@ -547,6 +547,57 @@
         "dispatchDate": "",
         "rawText": "EU 42มิล =220\nEU 52มิล =220\nEU 73มิล =220\nกาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 970 บ\nเก็บเงินปลายทาง ที่อยู่จัดส่ง\nชื่อ ปฐมสิทธิ์. พงศ์สินภิญโญ\nโทร 098-468-0901\nที่อยู่ 4/37 ม.5 ตำบลชะแล อำเภอทองผาภูมิ จังหวัดกาญจนบุรี 71180",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1788503437104",
+        "timestamp": 1788503437104,
+        "time": "13:30",
+        "customer": "(C470) คุณต่าย",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "EU เบอร์ 8",
+            "qty": 10,
+            "lineTotal": 2500
+          },
+          {
+            "name": "EU เบอร์ 10",
+            "qty": 20,
+            "lineTotal": 5000
+          },
+          {
+            "name": "EU เบอร์ 14",
+            "qty": 10,
+            "lineTotal": 2500
+          },
+          {
+            "name": "EU 42มิล",
+            "qty": 5,
+            "lineTotal": 850
+          },
+          {
+            "name": "EU 52มิล",
+            "qty": 5,
+            "lineTotal": 850
+          },
+          {
+            "name": "จุ๊บทองเหลือง v3-22-1",
+            "qty": 50,
+            "lineTotal": 1500
+          },
+          {
+            "name": "US 58 มม",
+            "qty": 10,
+            "lineTotal": 2700
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 15900,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "EU เบอร์ 8 x10 =2500\nEU เบอร์ 10 x20 =5000\nEU เบอร์ 14 x10 =2500\nEU 42มิล x5 =850\nEU 52มิล x5 =850\nจุ๊บทองเหลือง v3-22-1 x50 =1500\nUS 58 มม x10 =2700\n\nจัดส่งฟรี\nรวม 15900 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
