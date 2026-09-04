@@ -507,8 +507,8 @@
         "discount": 0,
         "shipping": 0,
         "total": 550,
-        "isReserved": false,
-        "dispatchDate": "",
+        "isReserved": true,
+        "dispatchDate": "2026-09-04",
         "rawText": "จุ๊บยาง TR413-1แพ็ค =330\nEU 42มิล =220\n\nจัดส่งฟรี\nรวม 550 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
       }
