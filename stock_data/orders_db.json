@@ -351,6 +351,27 @@
         "dispatchDate": "",
         "rawText": "US 32 มม =320\n\nค่าจัดส่ง 50 บ\nรวม 370 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1788751441070",
+        "timestamp": 1788751441070,
+        "time": "10:24",
+        "customer": "ขวัญจันทร์ จันทร์สี",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "เหล็กงัดยาง 20นิ้ว",
+            "qty": 2,
+            "lineTotal": 460
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 510,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "เหล็กงัดยาง 20นิ้ว x2 =460\n\nค่าจัดส่ง 50 บ\nรวม 510 บ\nเก็บเงินปลายทาง\nชื่อ: ขวัญจันทร์ จันทร์สี\nที่อยู่: 9/2 หมู่ 3 ต.ชะอม อ.แก่งคอย จ.สระบุรี 18110\nเบอร์โทร: 098-876-6149",
+        "isLocalDraft": false
       }
     ]
   }
