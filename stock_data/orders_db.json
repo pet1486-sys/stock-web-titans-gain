@@ -851,6 +851,27 @@
         "dispatchDate": "",
         "rawText": "จุ๊บยาง TR413TUV-1แพ็ค =380\n\nค่าจัดส่ง 50 บ\nรวม 430 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1788776496332",
+        "timestamp": 1788776496332,
+        "time": "17:21",
+        "customer": "อมร   หมะจิ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "กาวปะ MR",
+            "qty": 1,
+            "lineTotal": 260
+          }
+        ],
+        "discount": 0,
+        "shipping": 50,
+        "total": 310,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "กาวปะ MR =260\n\nค่าจัดส่ง 50 บ\nรวม 310 บ\nเก็บเงินปลายทาง ที่อยู่จัดส่ง\nชื่อ อมร   หมะจิ\nโทร 065-104-3810\nที่อยู่ ร้านยางเปอร์เซ็นจะนะ(โกดังใหญ่) 34/9 ม.5 ตำบลบ้านนา อำเภอจะนะ จังหวัดสงขลา 90130",
+        "isLocalDraft": false
       }
     ]
   }
