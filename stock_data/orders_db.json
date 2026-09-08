@@ -1048,6 +1048,47 @@
         "dispatchDate": "",
         "rawText": "ชื่อ: บุญชัย คงพิรอด\nเบอร์โทร: 083-412-6912\nที่อยู่: 196 ม.10 ต.หนองกะท้าว อ.นครไทย พิษณุโลก 65120\nจุ๊บทองเหลือง7ซม x4 =200\n\nค่าจัดส่ง 50 บ\nรวม 250 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1788854106844",
+        "timestamp": 1788854106844,
+        "time": "14:55",
+        "customer": "สุภา สีนิน",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "TJ-12",
+            "qty": 2,
+            "lineTotal": 0
+          },
+          {
+            "name": "ศรไส้ไก่50ตัว",
+            "qty": 2,
+            "lineTotal": 100
+          },
+          {
+            "name": "TJ-10HD",
+            "qty": 1,
+            "lineTotal": 350
+          },
+          {
+            "name": "กาวปะ MR",
+            "qty": 1,
+            "lineTotal": 260
+          },
+          {
+            "name": "จุ๊บทองเหลือง9ซม",
+            "qty": 4,
+            "lineTotal": 200
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 910,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "TJ-12 x2 =0\nศรไส้ไก่50ตัว x2 =100\nTJ-10HD =350\nกาวปะ MR =260\nจุ๊บทองเหลือง9ซม x4 =200\n\nจัดส่งฟรี\nรวม 910 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
