@@ -691,42 +691,6 @@
         "dispatchDate": "",
         "rawText": "ครีมทาขอบยาง =150\n\nค่าจัดส่ง 50 บ\nรวม 200 บ\nเก็บเงินปลายทาง ที่อยู่จัดส่ง\nชื่อ อานันท์ ศรีดาจันทร\nโทร 081-417-7090\nที่อยู่ คาแคร์บ้านสันป่าไร่ 198 ม.5 ตำบลพระธาตุ อำเภอแม่ระมาด จังหวัดตาก 63140",
         "isLocalDraft": false
-      },
-      {
-        "id": "ord_1789121572395",
-        "timestamp": 1789121520000,
-        "time": "17:12",
-        "customer": "ร้านช่างเทพเกาะใหญ่",
-        "channel": "Facebook",
-        "items": [
-          {
-            "name": "กาวดำ",
-            "qty": 1,
-            "lineTotal": 220
-          },
-          {
-            "name": "ใยไหม",
-            "qty": 1,
-            "lineTotal": 170
-          },
-          {
-            "name": "US 58 มม",
-            "qty": 1,
-            "lineTotal": 320
-          },
-          {
-            "name": "US 32 มม",
-            "qty": 1,
-            "lineTotal": 320
-          }
-        ],
-        "discount": 0,
-        "shipping": 50,
-        "total": 440,
-        "isReserved": false,
-        "dispatchDate": "",
-        "rawText": "กาวดำ =220\nใยไหม =170\nUS 58 มม =320\nUS 32 มม =320\n\nค่าจัดส่ง 50 บ\nรวม 1080 บ\nเก็บเงินปลายทาง",
-        "isLocalDraft": false
       }
     ]
   }
