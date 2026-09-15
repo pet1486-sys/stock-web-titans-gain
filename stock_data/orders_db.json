@@ -457,6 +457,32 @@
         "dispatchDate": "",
         "rawText": "บริสโตน สายลมดำผิวริ้ว 3ชั้น(1/2) x20 =2000\n\nจัดส่งฟรี\nรวม 2000 บ\nเก็บเงินปลายทาง",
         "isLocalDraft": false
+      },
+      {
+        "id": "ord_1789438342276",
+        "timestamp": 1789438342276,
+        "time": "09:12",
+        "customer": "ทั่วไป / ไม่ระบุ",
+        "channel": "Facebook",
+        "items": [
+          {
+            "name": "เหล็กงัดยาง 38นิ้วเรเดียล แบบงอ",
+            "qty": 2,
+            "lineTotal": 900
+          },
+          {
+            "name": "เซทเหล็กงัดยางเรเดียล",
+            "qty": 1,
+            "lineTotal": 1600
+          }
+        ],
+        "discount": 0,
+        "shipping": 0,
+        "total": 2500,
+        "isReserved": false,
+        "dispatchDate": "",
+        "rawText": "เหล็กงัดยาง 38นิ้วเรเดียล แบบงอ x2 =900\nเซทเหล็กงัดยางเรเดียล =1600\n\nจัดส่งฟรี\nรวม 2500 บ\nเก็บเงินปลายทาง",
+        "isLocalDraft": false
       }
     ]
   }
